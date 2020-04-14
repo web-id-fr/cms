@@ -4,10 +4,13 @@ namespace App\Providers;
 
 use App\Nova\User;
 use DigitalCreative\CollapsibleResourceManager\CollapsibleResourceManager;
+use DigitalCreative\CollapsibleResourceManager\Resources\Group;
+use DigitalCreative\CollapsibleResourceManager\Resources\InternalLink;
 use DigitalCreative\CollapsibleResourceManager\Resources\TopLevelResource;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Webid\Cms\Src\App\Nova\Template;
 use Webid\LanguageTool\LanguageTool;
 use Joedixon\NovaTranslation\NovaTranslation;
 
@@ -80,6 +83,28 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         'label' => 'Users',
                         'badge' => null,
                         'linkTo' => User::class,
+                    ]),
+                    TopLevelResource::make([
+                        'label' => 'Templates',
+                        'badge' => null,
+                        'linkTo' => Template::class,
+                    ]),
+                    TopLevelResource::make([
+                        'resources' => [
+                            Group::make([
+                                'label' => 'Components',
+                                'expanded' => false,
+                                'resources' => [
+                                    InternalLink::make([
+                                        'label' => 'List of Components',
+                                        'badge' => null,
+                                        'icon' => null,
+                                        'target' => '_self',
+                                        'path' => '/component-tool',
+                                    ]),
+                                ]
+                            ]),
+                        ]
                     ]),
                 ]
             ]),
