@@ -22,7 +22,9 @@
         "digital-creative/collapsible-resource-manager": "^1.2",
         "digital-creative/conditional-container": "^1.1",
         "eminiarts/nova-tabs": "^1.2",
-        "epartment/nova-dependency-container": "^1.2"
+        "epartment/nova-dependency-container": "^1.2",
+        "webid/component-field": "*",
+        "webid/component-tool": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0",
@@ -63,6 +65,14 @@
         {
             "type": "path",
             "url": "./src/nova-components/TranslatableTool"
+        },
+        {
+            "type": "path",
+            "url": "./src/nova-components/ComponentTool"
+        },
+        {
+            "type": "path",
+            "url": "./src/nova-components/ComponentField"
         }
     ]
 }
