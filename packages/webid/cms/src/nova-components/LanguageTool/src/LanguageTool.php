@@ -15,7 +15,6 @@ class LanguageTool extends Tool
     public function boot()
     {
         Nova::script('language-tool', __DIR__.'/../dist/js/tool.js');
-        Nova::style('language-tool', __DIR__.'/../dist/css/tool.css');
     }
 
     /**

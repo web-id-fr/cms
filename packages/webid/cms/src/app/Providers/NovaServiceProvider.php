@@ -14,16 +14,6 @@ use Joedixon\NovaTranslation\NovaTranslation;
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
     /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        parent::boot();
-    }
-
-    /**
      * Register the Nova routes.
      *
      * @return void
