@@ -30,7 +30,8 @@ php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
 "webid/language-tool": "*",
 "webid/nova-translatable": "*",
 "webid/component-field": "*",
-"webid/component-tool": "*"
+"webid/component-tool": "*",
+"webid/galleryitemfield": "*"
 ```
 
 ```bash
@@ -50,6 +51,10 @@ php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
         {
             "type": "path",
             "url": "./src/nova-components/ComponentField"
+        },
+        {
+            "type": "path",
+            "url": "./src/nova-components/GalleryItemField"
         }
     ]
 ``
