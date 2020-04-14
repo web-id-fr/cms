@@ -1,0 +1,30 @@
+{
+    "name": "webid/nova-translatable",
+    "description": "A Laravel Nova field for spatie/laravel-translatable.",
+    "keywords": [
+        "laravel",
+        "nova",
+        "translatable"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Webid\\TranslatableTool\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webid\\TranslatableTool\\FieldServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
