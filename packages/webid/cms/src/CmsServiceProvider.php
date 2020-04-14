@@ -2,6 +2,7 @@
 
 namespace Webid\Cms;
 
+use Illuminate\Routing\Route;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
