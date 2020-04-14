@@ -22,4 +22,34 @@ Webid\Cms\CmsServiceProvider::class
 
 ```bash
 php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
+```
+
+## Add nova-components in composer 
+
+```bash
+"webid/language-tool": "*",
+"webid/nova-translatable": "*",
+"webid/component-field": "*",
+"webid/component-tool": "*"
+```
+
+```bash
+"repositories": [   
+        {
+            "type": "path",
+            "url": "./src/nova-components/LanguageTool"
+        },
+        {
+            "type": "path",
+            "url": "./src/nova-components/TranslatableTool"
+        },
+        {
+            "type": "path",
+            "url": "./src/nova-components/ComponentTool"
+        },
+        {
+            "type": "path",
+            "url": "./src/nova-components/ComponentField"
+        }
+    ]
 ``
