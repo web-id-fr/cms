@@ -20,6 +20,8 @@ return [
     \Webid\Cms\Src\App\Models\Modules\Galleries\Gallery::class => [
         'title' => 'Gallery component',
         'image' => '/images/components/gallery_component.png',
-        'resource' => Galler
+        'resource' => \Webid\Cms\Src\App\Http\Resources\Components\GalleryComponentResource::class,
+        'view' => 'components/galleries',
+        'nova' => '/nova/resources/gallery-components'
     ]
 ];
