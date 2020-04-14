@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\FieldItemField;
+namespace Webid\GalleryItemField;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;

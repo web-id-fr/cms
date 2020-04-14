@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\FieldItemField;
+namespace Webid\GalleryItemField;
 
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
