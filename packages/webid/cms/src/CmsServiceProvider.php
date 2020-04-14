@@ -10,6 +10,7 @@ use Laravel\Nova\Nova;
 use Webid\Cms\Src\App\Facades\LanguageFacade;
 use App\Models\Template as TemplateModel;
 use Webid\Cms\Src\App\Http\Controllers\Components\ComponentController;
+use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
 use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\Src\App\Observers\TemplateObserver;
 use Webid\Cms\Src\App\Http\Controllers\TemplateController;
@@ -38,7 +39,7 @@ class CmsServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadRoutesFrom(__DIR__ . '/routes/ajax.php');
-        $this->loadMigrationsFrom(__DIR__ . '/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
         $this->app->register(CmsServiceProvider::class);
 
@@ -51,6 +52,7 @@ class CmsServiceProvider extends ServiceProvider
             Nova::resources([
                 Template::class,
                 Gallery::class,
+                GalleryComponent::class
             ]);
         });
     }

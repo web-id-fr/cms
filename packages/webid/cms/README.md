@@ -38,23 +38,23 @@ php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
 "repositories": [   
         {
             "type": "path",
-            "url": "./src/nova-components/LanguageTool"
+            "url": "packages/webid/cms/src/nova-components/LanguageTool"
         },
         {
             "type": "path",
-            "url": "./src/nova-components/TranslatableTool"
+            "url": "packages/webid/cms/src/nova-components/TranslatableTool"
         },
         {
             "type": "path",
-            "url": "./src/nova-components/ComponentTool"
+            "url": "./nova-components/ComponentTool"
         },
         {
             "type": "path",
-            "url": "./src/nova-components/ComponentField"
+            "url": "./nova-components/ComponentField"
         },
         {
             "type": "path",
-            "url": "./src/nova-components/GalleryItemField"
+            "url": "packages/webid/cms/src/nova-components/GalleryItemField"
         }
     ]
 ``

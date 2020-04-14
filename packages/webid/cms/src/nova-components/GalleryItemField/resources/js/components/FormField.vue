@@ -4,26 +4,28 @@
             <div class="flex flex-col">
                 <div class="flex flex-col">
                     <multiselect
-                        v-model="selected"
-                        :options="field.items"
-                        title="Search an item field"
-                        label="name"
-                        track-by="name"
-                        :multiple="true"
-                        :close-on-select="false"
-                        :clear-on-select="false"
-                        :taggable="true"
+                            v-model="selected"
+                            :options="field.items"
+                            placeholder="Search an item"
+                            label="title"
+                            :custom-label="customLabel"
+                            track-by="id"
+                            :multiple="true"
+                            :close-on-select="false"
+                            :clear-on-select="false"
+                            :taggable="true"
                     ></multiselect>
                 </div>
 
                 <div class="flex flex-col mt-3">
-                    <draggable v-model="selected" ghost-class="ghost">
+                    <draggable v-model="selected"
+                               ghost-class="ghost">
                         <div
-                            class="shadow-md p-3 my-2"
-                            v-for="element in selected"
-                            :key="element.id"
+                                class="shadow-md p-3 my-2"
+                                v-for="element in selected"
+                                :key="element.id"
                         >
-                            {{ element.name }}
+                            {{ selectFirstTitle(element.title) }}
                         </div>
                     </draggable>
                 </div>
@@ -51,10 +53,18 @@
         data() {
             return {
                 selected: [],
+                currentLocale: null,
             }
         },
 
         computed: {},
+
+        mounted() {
+            this.currentLocale = document.querySelector('#select-language-translatable').value;
+            Nova.$on('change-language', (lang) => {
+                this.currentLocale = lang;
+            });
+        },
 
         methods: {
 
@@ -79,6 +89,24 @@
             handleChange(value) {
                 this.value = value;
             },
+
+            customLabel ({ title }) {
+                return this.selectFirstTitle(title);
+            },
+
+            selectFirstTitle(title) {
+                if(!title[this.currentLocale]) {
+                    if(title[this.currentLocale + 1]) {
+                        return title[this.currentLocale + 1];
+                    } else if(title[this.currentLocale - 1]) {
+                        return title[this.currentLocale -1];
+                    } else {
+                        return title[Object.keys(title)[0]];
+                    }
+                } else {
+                    return title[this.currentLocale];
+                }
+            }
         },
 
         watch: {

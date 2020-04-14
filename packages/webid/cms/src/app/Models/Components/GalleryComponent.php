@@ -48,8 +48,8 @@ class GalleryComponent extends Model
         $galleryItems = collect();
         $galleries = $this->galleries;
 
-        $galleries->each(function ($recipient) use (&$galleryItems) {
-            $galleryItems->push($recipient);
+        $galleries->each(function ($gallery) use (&$galleryItems) {
+            $galleryItems->push($gallery);
         });
 
         $this->gallery_items = $galleryItems;

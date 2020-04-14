@@ -4,11 +4,13 @@ namespace Webid\Cms\Src\App\Nova\Components;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use IDF\HtmlCard\HtmlCard;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Webid\Cms\Src\App\Models\Modules\Galleries\Gallery;
-use Webid\FieldItemField\GalleryItemField;
+use Webid\Cms\Src\App\Models\Components\GalleryComponent as GalleryComponentModel;
+use Webid\GalleryItemField\GalleryItemField;
 
 class GalleryComponent extends Resource
 {
@@ -17,7 +19,7 @@ class GalleryComponent extends Resource
      *
      * @var string
      */
-    public static $model = Gallery::class;
+    public static $model = GalleryComponentModel::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -67,6 +69,16 @@ class GalleryComponent extends Resource
 
             GalleryItemField::make('galleries')
                 ->onlyOnForms(),
+
+            Select::make('Status', 'status')
+                ->options(GalleryComponentModel::TYPE_TO_NAME)
+                ->displayUsingLabels()
+                ->rules('required', 'integer')
+                ->hideFromIndex(),
+
+            Boolean::make('Published', function () {
+                return $this->isPublished();
+            })->onlyOnIndex(),
         ];
     }
 
@@ -83,5 +95,17 @@ class GalleryComponent extends Resource
                 ->view('cards.component', ['model' => self::$model])
                 ->center(true),
         ];
+    }
+
+    /**
+     * Si le status est publié  : VERT
+     *
+     * Si ce n'est pas le cas ROUGE
+     *
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return $this->status == GalleryComponentModel::_STATUS_PUBLISHED;
     }
 }

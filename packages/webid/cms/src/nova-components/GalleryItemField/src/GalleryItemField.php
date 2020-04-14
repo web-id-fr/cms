@@ -72,7 +72,7 @@ class GalleryItemField extends Field
         $resource->chargeGalleryItems();
 
         $valueInArray = [];
-        $resource->field_items->each(function ($item) use (&$valueInArray) {
+        $resource->gallery_items->each(function ($item) use (&$valueInArray) {
             $valueInArray[] = $item;
         });
 

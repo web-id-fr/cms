@@ -18,6 +18,7 @@ class CreateGalleryGalleryComponentTable extends Migration
             $table->foreign('gallery_id')->references('id')->on('galleries');
             $table->unsignedBigInteger('gallery_component_id');
             $table->foreign('gallery_component_id')->references('id')->on('galleries_component');
+            $table->integer('order');
         });
     }
 

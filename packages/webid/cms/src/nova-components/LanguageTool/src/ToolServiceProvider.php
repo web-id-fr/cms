@@ -18,6 +18,7 @@ class ToolServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'language-tool');
+        $this->loadMigrationsFrom(__DIR__ . '/../migrations');
 
         $this->app->booted(function () {
             $this->routes();
