@@ -10,7 +10,7 @@
                             <h3>{{ component.title }}</h3>
                         </div>
                         <div class="h-64">
-                            <img :src="component.image" alt="">
+                            <img :src="component.image">
                         </div>
                     </div>
                 </a>

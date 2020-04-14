@@ -7,14 +7,6 @@ use Illuminate\Contracts\Validation\Rule;
 class TranslatableSlug implements Rule
 {
     /**
-     * TranslatableSlug constructor.
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Determine if the validation rule passes.
      *
      * @param  string  $attribute

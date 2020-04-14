@@ -75,7 +75,6 @@ class Template extends Resource
     protected function parameterFields($languages)
     {
         return [
-
             Boolean::make('Homepage'),
 
             ID::make()->sortable(),
