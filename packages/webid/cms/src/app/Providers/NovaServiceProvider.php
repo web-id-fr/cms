@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
+use Webid\Cms\Src\App\Nova\Components\NewsletterComponent;
 use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
+use Webid\Cms\Src\App\Nova\Newsletter\Newsletter;
 use Webid\Cms\Src\App\Nova\Template;
 use Webid\ComponentTool\ComponentTool;
 use Webid\LanguageTool\LanguageTool;
@@ -102,6 +104,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                                         'path' => '/component-tool',
                                     ]),
                                     GalleryComponent::class,
+                                    NewsletterComponent::class
                                 ]
                             ]),
                         ]
@@ -117,6 +120,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                                 ]
                             ]),
                         ]
+                    ]),
+                    TopLevelResource::make([
+                        'label' => 'Newsletter',
+                        'badge' => null,
+                        'linkTo' => Newsletter::class,
                     ]),
                     TopLevelResource::make([
                         'label' => 'Users',
