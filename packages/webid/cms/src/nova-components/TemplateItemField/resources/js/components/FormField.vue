@@ -2,18 +2,18 @@
     <default-field :field="field" :errors="errors">
         <template slot="field">
             <div class="flex flex-col">
-                    <multiselect
-                        v-model="selected"
-                        :options="field.items"
-                        title="Search a template"
-                        label="title"
-                        :custom-label="customLabel"
-                        track-by="id"
-                        :multiple="true"
-                        :close-on-select="false"
-                        :clear-on-select="false"
-                        :taggable="true"
-                    ></multiselect>
+                <multiselect
+                    v-model="selected"
+                    :options="field.items"
+                    title="Search a template"
+                    label="title"
+                    :custom-label="customLabel"
+                    track-by="id"
+                    :multiple="true"
+                    :close-on-select="false"
+                    :clear-on-select="false"
+                    :taggable="true"
+                ></multiselect>
             </div>
         </template>
     </default-field>
@@ -39,8 +39,6 @@
                 currentLocale: null,
             }
         },
-
-        computed: {},
 
         mounted() {
             this.currentLocale = document.querySelector('#select-language-translatable').value;
@@ -73,16 +71,16 @@
                 this.value = value;
             },
 
-            customLabel ({ title }) {
+            customLabel({title}) {
                 return this.selectFirstTitle(title);
             },
 
             selectFirstTitle(title) {
-                if(!title[this.currentLocale]) {
-                    if(title[this.currentLocale + 1]) {
+                if (!title[this.currentLocale]) {
+                    if (title[this.currentLocale + 1]) {
                         return title[this.currentLocale + 1];
-                    } else if(title[this.currentLocale - 1]) {
-                        return title[this.currentLocale -1];
+                    } else if (title[this.currentLocale - 1]) {
+                        return title[this.currentLocale - 1];
                     } else {
                         return title[Object.keys(title)[0]];
                     }
@@ -93,7 +91,7 @@
         },
 
         watch: {
-            selected: function(val) {
+            selected: function (val) {
                 let ids = map(val, (item) => {
                     return {
                         id: item.id,
