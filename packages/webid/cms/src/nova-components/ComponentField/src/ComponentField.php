@@ -75,7 +75,7 @@ class ComponentField extends Field
             if ($component['component_type'] == GalleryComponent::class) {
                 $galleryComponentIds[$component['id']] = ['order' => $key + 1];
             } elseif ($component['component_type'] == NewsletterComponent::class) {
-                $component2Ids[$component['id']] = ['order' => $key + 1];
+                $newsletterComponentIds[$component['id']] = ['order' => $key + 1];
             }
         });
 
