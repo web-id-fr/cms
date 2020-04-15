@@ -30,7 +30,10 @@
         "webid/component-tool": "*",
         "webid/galleryitemfield": "*",
         "maatwebsite/laravel-nova-excel": "^1.1",
-        "webid/templateitemfield": "*"
+        "webid/templateitemfield": "*",
+        "webid/fielditemfield": "*",
+        "webid/recipientitemfield": "*",
+        "webid/serviceitemfield": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0",
@@ -87,6 +90,18 @@
         {
             "type": "path",
             "url": "./src/nova-components/TemplateItemField"
+        },
+        {
+            "type": "path",
+            "url": "./src/nova-components/FieldItemField"
+        },
+        {
+            "type": "path",
+            "url": "./src/nova-components/RecipientItemField"
+        },
+        {
+            "type": "path",
+            "url": "./src/nova-components/ServiceItemField"
         }
     ]
 }
