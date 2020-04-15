@@ -56,5 +56,4 @@ class Template extends TemplateBase
 
         $this->components_item = $components;
     }
-
 }
