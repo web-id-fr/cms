@@ -14,6 +14,7 @@ use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
 use Webid\Cms\Src\App\Nova\Components\NewsletterComponent;
 use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\Src\App\Nova\Newsletter\Newsletter;
+use Webid\Cms\Src\App\Nova\Popin\Popin;
 use Webid\Cms\Src\App\Nova\Template;
 use Webid\ComponentTool\ComponentTool;
 use Webid\LanguageTool\LanguageTool;
@@ -125,6 +126,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         'label' => 'Newsletter',
                         'badge' => null,
                         'linkTo' => Newsletter::class,
+                    ]),
+                    TopLevelResource::make([
+                        'label' => 'Popins',
+                        'badge' => null,
+                        'linkTo' => Popin::class,
                     ]),
                     TopLevelResource::make([
                         'label' => 'Users',
