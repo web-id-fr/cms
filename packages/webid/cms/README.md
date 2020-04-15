@@ -57,4 +57,11 @@ php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
             "url": "packages/webid/cms/src/nova-components/GalleryItemField"
         }
     ]
-``
+```  
+
+## Add image for components
+
+```bash
+public/components/gallery_component.png
+public/components/newsletter_component.png
+```

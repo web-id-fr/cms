@@ -6,7 +6,9 @@ use App\Models\Template;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\Cms\Src\App\Models\Components\GalleryComponent;
+use Webid\Cms\Src\App\Models\Components\NewsletterComponent;
 use Webid\Cms\Src\App\Repositories\Components\GalleryComponentRepository;
+use Webid\Cms\Src\App\Repositories\Components\NewsletterComponentRepository;
 
 class ComponentField extends Field
 {
@@ -23,6 +25,7 @@ class ComponentField extends Field
     public function __construct(string $name, ?string $attribute = null, ?mixed $resolveCallback = null)
     {
         $galleryComponentRepository = app()->make(GalleryComponentRepository::class);
+        $newsletterComponentRepository = app()->make(NewsletterComponentRepository::class);
 
         $allComponent = $galleryComponentRepository->all();
         $allComponent->map(function ($gallery_component) {
@@ -30,6 +33,17 @@ class ComponentField extends Field
             $gallery_component->component_nova = config("components.$gallery_component->component_type.nova");
             $gallery_component->component_image = asset(config("components.$gallery_component->component_type.image"));
             return $gallery_component;
+        });
+        $allNewsletterComponent = $newsletterComponentRepository->all();
+        $allNewsletterComponent->map(function ($newsletter_component) {
+            $newsletter_component->component_type = 'App\Models\Components\Component2';
+            $newsletter_component->component_nova = config("components.$newsletter_component->component_type.nova");
+            $newsletter_component->component_image = asset(config("components.$newsletter_component->component_type.image"));
+            return $newsletter_component;
+        });
+
+        $allNewsletterComponent->each(function ($newsletter_component) use (&$allComponent) {
+            $allComponent->push($newsletter_component);
         });
 
         $this->withMeta(['items' => $allComponent]);
@@ -49,22 +63,28 @@ class ComponentField extends Field
         $components = collect(json_decode(json_encode($components), true));
 
         $galleryComponentIds = [];
+        $newsletterComponentIds = [];
 
         $components->each(function (
             $component,
             $key
         ) use (
-            &$galleryComponentIds
+            &$galleryComponentIds,
+            &$newsletterComponentIds
         ) {
             if ($component['component_type'] == GalleryComponent::class) {
                 $galleryComponentIds[$component['id']] = ['order' => $key + 1];
+            } elseif ($component['component_type'] == NewsletterComponent::class) {
+                $newsletterComponentIds[$component['id']] = ['order' => $key + 1];
             }
         });
 
         Template::saved(function ($model) use (
-            $galleryComponentIds
+            $galleryComponentIds,
+            $newsletterComponentIds
         ) {
             $model->galleryComponents()->sync($galleryComponentIds);
+            $model->newsletterComponents()->sync($newsletterComponentIds);
         });
     }
 

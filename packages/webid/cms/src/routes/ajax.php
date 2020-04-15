@@ -1,6 +1,8 @@
 <?php
 
 use Webid\Cms\Src\App\Http\Middleware\IsAjax;
+use Webid\Cms\Src\App\Http\Middleware\Language;
+
 /*
 |--------------------------------------------------------------------------
 | Ajax Routes
@@ -19,4 +21,19 @@ Route::group([
     'prefix' => 'ajax',
 ], function () {
     Route::get('component', 'ComponentController@index');
+});
+
+/* *********************************************************************************
+* NEWSLETTER AJAX ROUTE
+********************************************************************************* */
+Route::group([
+    'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter',
+    'middleware' => [IsAjax::class, Language::class]
+], function () {
+    /**
+     * Newsletter
+     */
+    Route::prefix('/newsletter')->name('newsletter.')->group(function () {
+        Route::post('/', 'NewsletterController@store')->name('store');
+    });
 });

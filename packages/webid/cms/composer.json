@@ -25,7 +25,8 @@
         "epartment/nova-dependency-container": "^1.2",
         "webid/component-field": "*",
         "webid/component-tool": "*",
-        "webid/galleryitemfield": "*"
+        "webid/galleryitemfield": "*",
+        "maatwebsite/laravel-nova-excel": "^1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0",
