@@ -31,6 +31,7 @@
         "@fortawesome/vue-fontawesome": "^0.1.9",
         "flag-icon-css": "^3.4.6",
         "vue-flag-icon": "^1.0.6",
-        "vue-toasted": "^1.1.27"
+        "vue-toasted": "^1.1.27",
+        "vue-multiselect": "^2.1.6"
     }
 }

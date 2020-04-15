@@ -5,6 +5,8 @@ namespace Webid\ComponentField;
 use App\Models\Template;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Webid\Cms\Src\App\Models\Components\GalleryComponent;
+use Webid\Cms\Src\App\Repositories\Components\GalleryComponentRepository;
 
 class ComponentField extends Field
 {
@@ -15,9 +17,23 @@ class ComponentField extends Field
      */
     public $component = 'ComponentField';
 
+    public $relationModel;
+
 
     public function __construct(string $name, ?string $attribute = null, ?mixed $resolveCallback = null)
     {
+        $galleryComponentRepository = app()->make(GalleryComponentRepository::class);
+
+        $allComponent = $galleryComponentRepository->all();
+        $allComponent->map(function ($gallery_component) {
+            $gallery_component->component_type = GalleryComponent::class;
+            $gallery_component->component_nova = config("components.$gallery_component->component_type.nova");
+            $gallery_component->component_image = asset(config("components.$gallery_component->component_type.image"));
+            return $gallery_component;
+        });
+
+        $this->withMeta(['items' => $allComponent]);
+
         parent::__construct($name, $attribute, $resolveCallback);
     }
 
@@ -29,8 +45,26 @@ class ComponentField extends Field
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
-        Template::saved(function ($model){
-            // a remplir avec les modules
+        $components = json_decode($request[$requestAttribute]);
+        $components = collect(json_decode(json_encode($components), true));
+
+        $galleryComponentIds = [];
+
+        $components->each(function (
+            $component,
+            $key
+        ) use (
+            &$galleryComponentIds
+        ) {
+            if ($component['component_type'] == GalleryComponent::class) {
+                $galleryComponentIds[$component['id']] = ['order' => $key + 1];
+            }
+        });
+
+        Template::saved(function ($model) use (
+            $galleryComponentIds
+        ) {
+            $model->galleryComponents()->sync($galleryComponentIds);
         });
     }
 

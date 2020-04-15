@@ -2,12 +2,16 @@
 
 namespace Webid\Cms;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Webid\Cms\Src\App\Facades\LanguageFacade;
 use App\Models\Template as TemplateModel;
+use Webid\Cms\Src\App\Http\Controllers\Components\ComponentController;
+use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
+use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\Src\App\Observers\TemplateObserver;
 use Webid\Cms\Src\App\Http\Controllers\TemplateController;
 use Webid\Cms\Src\App\Nova\Template;
@@ -34,7 +38,8 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishNovaComponents();
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
-        $this->loadMigrationsFrom(__DIR__ . '/migrations');
+        $this->loadRoutesFrom(__DIR__ . '/routes/ajax.php');
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
         $this->app->register(CmsServiceProvider::class);
 
@@ -46,6 +51,8 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             Nova::resources([
                 Template::class,
+                Gallery::class,
+                GalleryComponent::class
             ]);
         });
     }
@@ -58,6 +65,7 @@ class CmsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->make(TemplateController::class);
+        $this->app->make(ComponentController::class);
 
         Route::pattern('id', '[0-9]+');
         Route::pattern('lang', '(' . LanguageFacade::getAllLanguagesAsRegex() . ')');

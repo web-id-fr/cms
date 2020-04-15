@@ -24,7 +24,8 @@
         "eminiarts/nova-tabs": "^1.2",
         "epartment/nova-dependency-container": "^1.2",
         "webid/component-field": "*",
-        "webid/component-tool": "*"
+        "webid/component-tool": "*",
+        "webid/galleryitemfield": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0",
@@ -73,6 +74,10 @@
         {
             "type": "path",
             "url": "./src/nova-components/ComponentField"
+        },
+        {
+            "type": "path",
+            "url": "./src/nova-components/GalleryItemField"
         }
     ]
 }

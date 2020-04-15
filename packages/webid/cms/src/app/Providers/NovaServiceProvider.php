@@ -10,7 +10,10 @@ use DigitalCreative\CollapsibleResourceManager\Resources\TopLevelResource;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
+use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\Src\App\Nova\Template;
+use Webid\ComponentTool\ComponentTool;
 use Webid\LanguageTool\LanguageTool;
 use Joedixon\NovaTranslation\NovaTranslation;
 
@@ -77,13 +80,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         return [
             new \Infinety\Filemanager\FilemanagerTool(),
             new LanguageTool(),
+            new ComponentTool(),
             new CollapsibleResourceManager([
                 'navigation' => [
-                    TopLevelResource::make([
-                        'label' => 'Users',
-                        'badge' => null,
-                        'linkTo' => User::class,
-                    ]),
                     TopLevelResource::make([
                         'label' => 'Templates',
                         'badge' => null,
@@ -102,9 +101,27 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                                         'target' => '_self',
                                         'path' => '/component-tool',
                                     ]),
+                                    GalleryComponent::class,
                                 ]
                             ]),
                         ]
+                    ]),
+                    TopLevelResource::make([
+                        'label' => 'Modules',
+                        'resources' => [
+                            Group::make([
+                                'label' => 'Modules',
+                                'expanded' => false,
+                                'resources' => [
+                                    Gallery::class
+                                ]
+                            ]),
+                        ]
+                    ]),
+                    TopLevelResource::make([
+                        'label' => 'Users',
+                        'badge' => null,
+                        'linkTo' => User::class,
                     ]),
                 ]
             ]),
