@@ -26,7 +26,8 @@
         "webid/component-field": "*",
         "webid/component-tool": "*",
         "webid/galleryitemfield": "*",
-        "maatwebsite/laravel-nova-excel": "^1.1"
+        "maatwebsite/laravel-nova-excel": "^1.1",
+        "webid/templateitemfield": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0",
@@ -79,6 +80,10 @@
         {
             "type": "path",
             "url": "./src/nova-components/GalleryItemField"
+        },
+        {
+            "type": "path",
+            "url": "./src/nova-components/TemplateItemField"
         }
     ]
 }
