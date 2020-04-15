@@ -2,7 +2,7 @@
 
 namespace Webid\Cms\Src\App\Repositories;
 
-use Webid\Cms\Src\App\Models\Template;
+use App\Models\Template;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 

@@ -15,6 +15,7 @@ use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
 use Webid\Cms\Src\App\Nova\Components\NewsletterComponent;
 use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\Src\App\Nova\Newsletter\Newsletter;
+use Webid\Cms\Src\App\Nova\Popin\Popin;
 use Webid\Cms\Src\App\Observers\TemplateObserver;
 use Webid\Cms\Src\App\Http\Controllers\TemplateController;
 use Webid\Cms\Src\App\Nova\Template;
@@ -38,6 +39,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishViews();
         $this->publishPublicFiles();
         $this->publishPublicFiles();
+        $this->publishTemplateModel();
         $this->publishNovaComponents();
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
@@ -57,7 +59,8 @@ class CmsServiceProvider extends ServiceProvider
                 Gallery::class,
                 GalleryComponent::class,
                 Newsletter::class,
-                NewsletterComponent::class
+                NewsletterComponent::class,
+                Popin::class,
             ]);
         });
     }

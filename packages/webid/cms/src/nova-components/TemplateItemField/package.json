@@ -11,15 +11,12 @@
     },
     "devDependencies": {
         "cross-env": "^5.0.0",
-        "laravel-mix": "^5.0.1",
+        "laravel-mix": "^1.0",
         "laravel-nova": "^1.0"
     },
     "dependencies": {
         "vue": "^2.5.0",
         "vue-multiselect": "^2.1.4",
-        "vuedraggable": "^2.20.0",
-        "@fortawesome/fontawesome-svg-core": "^1.2.26",
-        "@fortawesome/free-solid-svg-icons": "^5.12.0",
-        "@fortawesome/vue-fontawesome": "^0.1.9"
+        "vuedraggable": "^2.20.0"
     }
 }

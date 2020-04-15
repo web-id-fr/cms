@@ -4,21 +4,31 @@ namespace Webid\Cms\Src\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Webid\Cms\Src\App\Facades\LanguageFacade;
+use Webid\Cms\Src\App\Http\Resources\Popin\PopinResource;
 use Webid\Cms\Src\App\Http\Resources\TemplateResource;
+use Webid\Cms\Src\App\Repositories\Popin\PopinRepository;
 use Webid\Cms\Src\App\Repositories\TemplateRepository;
 use Illuminate\Http\Request;
+use Webid\Cms\Src\App\Traits\CanRenderTemplates;
 
 class TemplateController extends Controller
 {
+    use CanRenderTemplates;
+
     /** @var $templateRepository */
     protected $templateRepository;
 
+    /** @var PopinRepository  */
+    protected $popinRepository;
+
     /**
      * @param TemplateRepository $templateRepository
+     * @param PopinRepository $popinRepository
      */
-    public function __construct(TemplateRepository $templateRepository)
+    public function __construct(TemplateRepository $templateRepository, PopinRepository $popinRepository)
     {
         $this->templateRepository = $templateRepository;
+        $this->popinRepository = $popinRepository;
     }
 
     /**
@@ -33,6 +43,8 @@ class TemplateController extends Controller
                 $slug->slug,
                 app()->getLocale()
             ))->resolve();
+
+            $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
             $meta = [
                 'title' => data_get($data, 'meta_title'),
@@ -50,7 +62,9 @@ class TemplateController extends Controller
             return view('template', [
                 'data' => $data,
                 'meta' => $meta,
+                'languages' => $this->getAvailableLanguages(),
                 'currentLang' => request()->lang ?? '',
+                'popins' => PopinResource::collection($popins)->resolve(),
             ]);
         } catch (\Exception $exception) {
             abort(404);
@@ -74,6 +88,8 @@ class TemplateController extends Controller
                 app()->getLocale()
             ))->resolve();
 
+            $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
+
             $meta = [
                 'title' => data_get($data, 'meta_title'),
                 'type' => 'realisations',
@@ -90,7 +106,9 @@ class TemplateController extends Controller
             return view('template', [
                 'data' => $data,
                 'meta' => $meta,
+                'languages' => $this->getAvailableLanguages(),
                 'currentLang' => request()->lang ?? '',
+                'popins' => PopinResource::collection($popins)->resolve(),
             ]);
         } catch (\Exception $exception) {
             abort(404);
