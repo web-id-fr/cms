@@ -9,9 +9,12 @@ use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Webid\Cms\Src\App\Facades\LanguageFacade;
 use App\Models\Template as TemplateModel;
+use Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter\NewsletterController;
 use Webid\Cms\Src\App\Http\Controllers\Components\ComponentController;
 use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
+use Webid\Cms\Src\App\Nova\Components\NewsletterComponent;
 use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
+use Webid\Cms\Src\App\Nova\Newsletter\Newsletter;
 use Webid\Cms\Src\App\Observers\TemplateObserver;
 use Webid\Cms\Src\App\Http\Controllers\TemplateController;
 use Webid\Cms\Src\App\Nova\Template;
@@ -52,7 +55,9 @@ class CmsServiceProvider extends ServiceProvider
             Nova::resources([
                 Template::class,
                 Gallery::class,
-                GalleryComponent::class
+                GalleryComponent::class,
+                Newsletter::class,
+                NewsletterComponent::class
             ]);
         });
     }
@@ -60,12 +65,13 @@ class CmsServiceProvider extends ServiceProvider
     /**
      * Register services.
      *
-     * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function register()
     {
         $this->app->make(TemplateController::class);
         $this->app->make(ComponentController::class);
+        $this->app->make(NewsletterController::class);
 
         Route::pattern('id', '[0-9]+');
         Route::pattern('lang', '(' . LanguageFacade::getAllLanguagesAsRegex() . ')');
@@ -102,6 +108,7 @@ class CmsServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/public/css' => base_path('/public/css'),
+            __DIR__ . '/public/js' => base_path('/public/js'),
         ], 'public');
     }
 
