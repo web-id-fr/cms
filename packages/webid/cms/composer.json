@@ -33,7 +33,8 @@
         "webid/templateitemfield": "*",
         "webid/fielditemfield": "*",
         "webid/recipientitemfield": "*",
-        "webid/serviceitemfield": "*"
+        "webid/serviceitemfield": "*",
+        "webid/ImageItemField": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0",
@@ -102,6 +103,10 @@
         {
             "type": "path",
             "url": "./src/nova-components/ServiceItemField"
+        },
+        {
+            "type": "path",
+            "url": "./src/nova-components/ImageItemField"
         }
     ]
 }

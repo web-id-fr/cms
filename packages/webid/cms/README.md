@@ -32,7 +32,8 @@ php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
 "webid/component-field": "*",
 "webid/component-tool": "*",
 "webid/galleryitemfield": "*",
-"webid/templateitemfield": "*"
+"webid/templateitemfield": "*",
+"webid/ImageItemField": "*"
 
 ```
 
@@ -61,6 +62,10 @@ php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
         {
             "type": "path",
             "url": "packages/webid/cms/src/nova-components/TemplateItemField"
+        },
+        {
+            "type": "path",
+            "url": "packages/webid/cms/src/nova-components/ImageItemField"
         }
     ]
 ```  
