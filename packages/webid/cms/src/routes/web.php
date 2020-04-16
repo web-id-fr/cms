@@ -30,3 +30,11 @@ Route::group([
         'slug' => '(?!' . trim(config('nova.path'), '/') . '|ajax|api)(.+)',
     ])->name('pageFromSlug');
 });
+
+Route::group([
+    'prefix' => 'form',
+    'namespace' => 'Modules\Ajax\Form',
+    'middleware' => ['web', 'antispam']
+], function () {
+    Route::post('/send', 'FormController@sendForm')->name('send.form');
+});

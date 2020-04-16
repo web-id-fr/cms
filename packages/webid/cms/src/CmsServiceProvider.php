@@ -13,12 +13,18 @@ use Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter\NewsletterController;
 use Webid\Cms\Src\App\Http\Controllers\Components\ComponentController;
 use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
 use Webid\Cms\Src\App\Nova\Components\NewsletterComponent;
+use Webid\Cms\Src\App\Nova\Modules\Form\Field;
+use Webid\Cms\Src\App\Nova\Modules\Form\Form;
+use Webid\Cms\Src\App\Nova\Modules\Form\Recipient;
+use Webid\Cms\Src\App\Nova\Modules\Form\Service;
+use Webid\Cms\Src\App\Nova\Modules\Form\TitleField;
 use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\Src\App\Nova\Newsletter\Newsletter;
 use Webid\Cms\Src\App\Nova\Popin\Popin;
 use Webid\Cms\Src\App\Observers\TemplateObserver;
 use Webid\Cms\Src\App\Http\Controllers\TemplateController;
 use Webid\Cms\Src\App\Nova\Template;
+use Illuminate\Support\Facades\View;
 
 class CmsServiceProvider extends ServiceProvider
 {
@@ -61,8 +67,16 @@ class CmsServiceProvider extends ServiceProvider
                 Newsletter::class,
                 NewsletterComponent::class,
                 Popin::class,
+                Form::class,
+                Field::class,
+                TitleField::class,
+                Recipient::class,
+                Service::class,
             ]);
         });
+
+        View::share('maxFiles', config('dropzone.max-files'));
+        View::share('maxTotalSize', config('dropzone.max-file-size'));
     }
 
     /**
@@ -90,6 +104,10 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/config/phpcs.xml' => base_path('phpcs.xml'),
             __DIR__ . '/config/psalm.xml' => base_path('psalm.xml'),
             __DIR__ . '/config/Makefile' => base_path('Makefile'),
+            __DIR__ . '/config/dropzone.php' => config_path('dropzone.php'),
+            __DIR__ . '/config/fields_type.php' => config_path('fields_type.php'),
+            __DIR__ . '/config/fields_type_validation.php' => config_path('fields_type_validation.php'),
+            __DIR__ . '/config/ziggy.php' => config_path('ziggy.php'),
         ], 'config');
     }
 
