@@ -28,7 +28,6 @@ class FormRepository extends BaseRepository
 
         $models->each(function ($model) {
             $model->chargeFieldItems();
-            ;
         });
 
         return $models;
