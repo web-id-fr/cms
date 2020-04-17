@@ -58,9 +58,9 @@ class Popin extends Resource
 
         return [
             new Tabs('Tabs', [
-                'Parameters', $this->parametersTab($languages),
-                'Content', $this->contentTab($languages),
-                'Settings', $this->settingsTab()
+                'Parameters' => $this->parametersTab($languages),
+                'Content' => $this->contentTab($languages),
+                'Settings' => $this->settingsTab()
             ])
         ];
     }
