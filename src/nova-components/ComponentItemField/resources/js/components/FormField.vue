@@ -72,15 +72,13 @@
             }
         },
 
-        computed: {},
-
         methods: {
 
             /**
              * Fill the given FormData object with the field's internal value.
              */
             fill(formData) {
-                formData.append(this.field.attribute, this.value || '')
+                formData.append(this.field.attribute, this.value || '');
             },
 
             /*

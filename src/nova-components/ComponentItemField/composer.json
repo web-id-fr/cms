@@ -1,5 +1,5 @@
 {
-    "name": "webid/component-field",
+    "name": "webid/ComponentItemField",
     "description": "A Laravel Nova field.",
     "keywords": [
         "laravel",
@@ -11,13 +11,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Webid\\ComponentField\\": "src/"
+            "Webid\\ComponentItemField\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Webid\\ComponentField\\FieldServiceProvider"
+                "Webid\\ComponentItemField\\FieldServiceProvider"
             ]
         }
     },

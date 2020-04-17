@@ -15,7 +15,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
-use Webid\ComponentField\ComponentField;
+use Webid\ComponentItemField\ComponentItemField;
 use Webid\TranslatableTool\Translatable;
 use App\Models\Template as TemplateModel;
 
@@ -114,7 +114,7 @@ class Template extends Resource
     protected function contentFields()
     {
         return [
-            ComponentField::make('Components')
+            ComponentItemField::make('Components')
                 ->hideFromIndex(),
         ];
     }
