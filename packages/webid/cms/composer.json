@@ -19,22 +19,12 @@
         "infinety-es/nova-filemanager": "^2.6",
         "joedixon/nova-translation": "^1.0",
         "idf/nova-html-card": "^1.2",
-        "webid/language-tool": "*",
-        "webid/nova-translatable": "*",
         "digital-creative/collapsible-resource-manager": "^1.2",
         "digital-creative/conditional-container": "^1.1",
         "tightenco/ziggy": "^0.9.0",
         "eminiarts/nova-tabs": "^1.2",
         "epartment/nova-dependency-container": "^1.2",
-        "webid/component-field": "*",
-        "webid/component-tool": "*",
-        "webid/galleryitemfield": "*",
         "maatwebsite/laravel-nova-excel": "^1.1",
-        "webid/templateitemfield": "*",
-        "webid/fielditemfield": "*",
-        "webid/recipientitemfield": "*",
-        "webid/serviceitemfield": "*",
-        "webid/ImageItemField": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0",
@@ -45,7 +35,17 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Webid\\Cms\\": "src/"
+            "Webid\\Cms\\": "src/",
+            "Webid\\ComponentField\\" : "src/nova-components/ComponentField/src/",
+            "Webid\\ComponentTool\\" : "src/nova-components/ComponentTool/src/",
+            "Webid\\FieldItemField\\" : "src/nova-components/FieldItemField/src/",
+            "Webid\\GalleryItemField\\" : "src/nova-components/GalleryItemField/src/",
+            "Webid\\ImageItemField\\" : "src/nova-components/ImageItemField/src/",
+            "Webid\\LanguageTool\\" : "src/nova-components/LanguageTool/src/",
+            "Webid\\RecipientItemField\\" : "src/nova-components/RecipientItemField/src/",
+            "Webid\\ServiceItemField\\" : "src/nova-components/ServiceItemField/src/",
+            "Webid\\TemplateItemField\\" : "src/nova-components/TemplateItemField/src/",
+            "Webid\\TranslatableTool\\" : "src/nova-components/TranslatableTool/src/"
         },
         "files": [
             "src/app/helpers.php"
@@ -59,7 +59,17 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Webid\\Cms\\CmsServiceProvider"
+                "Webid\\Cms\\CmsServiceProvider",
+                "Webid\\ComponentField\\FieldServiceProvider",
+                "Webid\\ComponentTool\\ToolServiceProvider",
+                "Webid\\FieldItemField\\FieldServiceProvider",
+                "Webid\\GalleryItemField\\FieldServiceProvider",
+                "Webid\\ImageItemField\\FieldServiceProvider",
+                "Webid\\LanguageTool\\ToolServiceProvider",
+                "Webid\\RecipientItemField\\FieldServiceProvider",
+                "Webid\\ServiceItemField\\FieldServiceProvider",
+                "Webid\\TemplateItemField\\FieldServiceProvider",
+                "Webid\\TranslatableTool\\FieldServiceProvider"
             ]
         }
     },
@@ -67,46 +77,6 @@
         {
             "type": "composer",
             "url": "https://nova.laravel.com"
-        },
-        {
-            "type": "path",
-            "url": "./src/nova-components/LanguageTool"
-        },
-        {
-            "type": "path",
-            "url": "./src/nova-components/TranslatableTool"
-        },
-        {
-            "type": "path",
-            "url": "./src/nova-components/ComponentTool"
-        },
-        {
-            "type": "path",
-            "url": "./src/nova-components/ComponentField"
-        },
-        {
-            "type": "path",
-            "url": "./src/nova-components/GalleryItemField"
-        },
-        {
-            "type": "path",
-            "url": "./src/nova-components/TemplateItemField"
-        },
-        {
-            "type": "path",
-            "url": "./src/nova-components/FieldItemField"
-        },
-        {
-            "type": "path",
-            "url": "./src/nova-components/RecipientItemField"
-        },
-        {
-            "type": "path",
-            "url": "./src/nova-components/ServiceItemField"
-        },
-        {
-            "type": "path",
-            "url": "./src/nova-components/ImageItemField"
         }
     ]
 }
