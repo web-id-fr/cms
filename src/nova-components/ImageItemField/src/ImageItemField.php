@@ -16,9 +16,6 @@ class ImageItemField extends Field
      */
     public $component = 'ImageItemField';
 
-    /** @var $relationModel */
-    public $relationModel;
-
     /**
      * @param string $name
      * @param string|null $attribute

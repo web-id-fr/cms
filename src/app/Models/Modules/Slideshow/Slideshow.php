@@ -68,6 +68,7 @@ class Slideshow extends Model
         $slides = $this->slides;
 
         $slides->each(function ($slide) use (&$slideItems) {
+            $slide->image = asset($slide->image);
             $slideItems->push($slide);
         });
 
