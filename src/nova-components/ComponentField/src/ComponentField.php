@@ -19,9 +19,6 @@ class ComponentField extends Field
      */
     public $component = 'ComponentField';
 
-    public $relationModel;
-
-
     public function __construct(string $name, ?string $attribute = null, ?mixed $resolveCallback = null)
     {
         $galleryComponentRepository = app()->make(GalleryComponentRepository::class);
