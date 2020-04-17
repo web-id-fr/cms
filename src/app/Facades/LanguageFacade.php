@@ -105,7 +105,7 @@ class LanguageFacade extends Facade
      */
     public static function getAllLanguagesAsRegex(): string
     {
-        return join('|', array_keys(config('translatable.locales')));
+        return join('|', array_keys(config('translatable.locales') ?? []));
     }
 
     /**
