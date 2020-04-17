@@ -22,14 +22,19 @@ This package can be installed as a [Composer](https://getcomposer.org/) dependen
 composer require webid/cms
 ```
 
-### Publish vendor
+## Publish vendor
 ####First install
 ```bash
-php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider --force"
+php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider" --force
 ```
 ####Second install
 ```bash
 php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
+```
+## Install migration
+
+```bash
+php artisan migrate
 ```
 
 ## Add nova-components in composer 
@@ -61,7 +66,7 @@ public/components/gallery_component.png
 public/components/newsletter_component.png
 ```
 
-## For create a new components
+# For create a new components
 ##### 1. create Models, migration, repositories, Nova, Resource for the new component (register all elements in a Components folder)
 ##### 2. update config\component.php with the information of the new component and add the image of the component in public/components/
 ##### 3. update App\Models\Template with the information of the new component
