@@ -140,7 +140,7 @@ class CmsServiceProvider extends ServiceProvider
     protected function publishNovaComponents()
     {
         $this->publishes([
-            __DIR__ . '/nova-components/ComponentField' => base_path('/nova-components/ComponentField'),
+            __DIR__ . '/nova-components/ComponentItemField' => base_path('/nova-components/ComponentItemField'),
             __DIR__ . '/nova-components/ComponentTool' => base_path('/nova-components/ComponentTool'),
         ], 'nova-components');
     }
