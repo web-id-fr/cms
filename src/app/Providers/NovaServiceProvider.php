@@ -115,11 +115,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                                     NewsletterComponent::class
                                 ]
                             ]),
-                        ]
-                    ]),
-                    TopLevelResource::make([
-                        'label' => 'Modules',
-                        'resources' => [
                             Group::make([
                                 'label' => 'Modules',
                                 'expanded' => false,
