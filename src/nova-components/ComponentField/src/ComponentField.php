@@ -36,7 +36,7 @@ class ComponentField extends Field
         });
         $allNewsletterComponent = $newsletterComponentRepository->all();
         $allNewsletterComponent->map(function ($newsletter_component) {
-            $newsletter_component->component_type = 'App\Models\Components\Component2';
+            $newsletter_component->component_type = NewsletterComponent::class;
             $newsletter_component->component_nova = config("components.$newsletter_component->component_type.nova");
             $newsletter_component->component_image = asset(config("components.$newsletter_component->component_type.image"));
             return $newsletter_component;
