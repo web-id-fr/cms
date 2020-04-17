@@ -16,6 +16,7 @@ use Webid\Cms\Src\App\Nova\Modules\Form\Field;
 use Webid\Cms\Src\App\Nova\Modules\Form\Form;
 use Webid\Cms\Src\App\Nova\Modules\Form\Recipient;
 use Webid\Cms\Src\App\Nova\Modules\Form\Service;
+use Webid\Cms\Src\App\Nova\Modules\Form\TitleField;
 use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\Src\App\Nova\Newsletter\Newsletter;
 use Webid\Cms\Src\App\Nova\Popin\Popin;
@@ -124,16 +125,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                                 'expanded' => false,
                                 'resources' => [
                                     Gallery::class,
-                                    Group::make([
-                                        'label' => 'Form',
-                                        'expanded' => false,
-                                        'resources' => [
-                                            Form::class,
-                                            Field::class,
-                                            Service::class,
-                                            Recipient::class
-                                        ]
-                                    ]),
+                                    Form::class,
+                                    Field::class,
+                                    TitleField::class,
+                                    Service::class,
+                                    Recipient::class,
                                     Slideshow::class,
                                     Slide::class
                                 ]
