@@ -12,7 +12,7 @@
     <meta property="og:type" content="{{ data_get($meta, 'type', 'website') }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:description" content="{{ strip_tags(data_get($meta, 'og_description', '')) }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}" />
     @yield('assets')
 </head>
 <body>

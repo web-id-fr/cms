@@ -14,7 +14,6 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('app.css', 'vendor/nova') }}">
     <link rel="stylesheet" href="{{ asset('css/language.css') }}">
-    <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
     <!-- Tool Styles -->
     @foreach(\Laravel\Nova\Nova::availableStyles(request()) as $name => $path)
