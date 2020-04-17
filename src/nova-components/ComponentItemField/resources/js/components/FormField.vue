@@ -3,7 +3,6 @@
         <template slot="field">
             <div class="flex flex-col">
                 <div class="flex flex-col">
-                    <label class="inline-block text-80 pt-2 leading-tight">Select items</label>
                     <multiselect
                         v-model="selected"
                         :options="field.items"
@@ -18,7 +17,6 @@
                 </div>
 
                 <div class="flex flex-col mt-3">
-                    <label class="inline-block text-80 pt-2 leading-tight">Component used</label>
                     <draggable v-model="selected"
                                ghost-class="ghost">
                         <div
