@@ -23,17 +23,35 @@ composer require webid/cms
 ```
 
 ### Publish vendor
-
+####First install
+```bash
+php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider --force"
+```
+####Second install
 ```bash
 php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
 ```
 
 ## Add nova-components in composer 
 
-
-
 ```bash
-
+"extra": {
+        "laravel": {
+            "dont-discover": [],
+            "providers": [
+                "Webid\\ComponentField\\FieldServiceProvider",
+                "Webid\\ComponentTool\\ToolServiceProvider"
+            ]
+        }
+    }
+```  
+```bash
+"autoload": {
+        "psr-4": {
+            "Webid\\ComponentField\\" : "nova-components/ComponentField/src/",
+            "Webid\\ComponentTool\\" : "nova-components/ComponentTool/src/"
+        },
+    },
 ```  
 
 ## Add image for components
@@ -42,3 +60,10 @@ php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
 public/components/gallery_component.png
 public/components/newsletter_component.png
 ```
+
+## For create a new components
+##### 1. create Models, migration, repositories, Nova, Resource for the new component (register all elements in a Components folder)
+##### 2. update config\component.php with the information of the new component and add the image of the component in public/components/
+##### 3. update App\Models\Template with the information of the new component
+##### 4. update nova-components\ComponentField with the information of the new component
+##### 5. update nova-components\ComponentTool with the information of the new component
