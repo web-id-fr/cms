@@ -21,6 +21,8 @@ use Webid\Cms\Src\App\Nova\Modules\Form\TitleField;
 use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\Src\App\Nova\Newsletter\Newsletter;
 use Webid\Cms\Src\App\Nova\Popin\Popin;
+use Webid\Cms\Src\App\Nova\Slideshow\Slide;
+use Webid\Cms\Src\App\Nova\Slideshow\Slideshow;
 use Webid\Cms\Src\App\Observers\TemplateObserver;
 use Webid\Cms\Src\App\Http\Controllers\TemplateController;
 use Webid\Cms\Src\App\Nova\Template;
@@ -72,6 +74,8 @@ class CmsServiceProvider extends ServiceProvider
                 TitleField::class,
                 Recipient::class,
                 Service::class,
+                Slideshow::class,
+                Slide::class
             ]);
         });
 
