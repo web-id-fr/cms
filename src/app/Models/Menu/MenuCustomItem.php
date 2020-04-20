@@ -40,4 +40,13 @@ class MenuCustomItem extends Model
         'url',
         'target',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function menus()
+    {
+        return $this->morphToMany(Menu::class, 'menuable')
+            ->withPivot('order', 'parent_id');
+    }
 }

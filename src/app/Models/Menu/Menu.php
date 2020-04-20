@@ -62,13 +62,32 @@ class Menu extends Model
     {
         $menuItems = collect();
         $templates = $this->templates;
-        $customItems = $this->menuCustomItems;
+        $customItems = $this->menu_custom_items;
+        $children = [];
 
-        $templates->each(function ($page) use (&$menuItems) {
-            $page->menuable_type = Template::class;
-            $menuItems->push($page);
+        foreach ($templates as $template) {
+            foreach ($template->menus as $menu) {
+                if (!empty($menu->pivot->parent_id)) {
+                    $children[$menu->pivot->menu_id][$menu->pivot->parent_id][] = $template;
+                }
+            }
+        }
+
+        $templates->map(function ($template) use ($children, &$menuItems) {
+            if (array_key_exists($template->id, $children[$template->getOriginal('pivot_menu_id')])) {
+                $template->children = $children[$template->getOriginal('pivot_menu_id')][$template->id];
+            } else {
+                $template->children = [];
+            }
+            $template->menuable_type = Template::class;
+            $menuItems->push($template);
         });
-        $customItems->each(function ($customItem) use (&$menuItems) {
+        $customItems->each(function ($customItem) use ($children, &$menuItems) {
+            if (array_key_exists($customItem->id, $children[$customItem->getOriginal('pivot_menu_id')])) {
+                $customItem->children = $children[$customItem->getOriginal('pivot_menu_id')][$customItem->id];
+            } else {
+                $customItem->children = [];
+            }
             $customItem->menuable_type = MenuCustomItem::class;
             $menuItems->push($customItem);
         });
@@ -77,7 +96,14 @@ class Menu extends Model
             return $item->pivot->order;
         });
 
-        $this->menu_items = $menuItems;
+        $filteredItems = $menuItems->reject(function ($value, $key) {
+            if (!empty($value->pivot->parent_id)) {
+                return true;
+            }
+            return false;
+        });
+
+        $this->menu_items = $filteredItems;
     }
 
     /**

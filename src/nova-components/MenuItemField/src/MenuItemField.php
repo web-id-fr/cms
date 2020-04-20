@@ -18,11 +18,6 @@ class MenuItemField extends Field
     public $component = 'MenuItemField';
 
     /**
-     * @var $relationModel
-     */
-    public $relationModel;
-
-    /**
      * @param string $name
      * @param string|null $attribute
      * @param mixed|null $resolveCallback
@@ -33,17 +28,41 @@ class MenuItemField extends Field
     {
         $menuCustomItemRepository = app()->make(MenuCustomItemRepository::class);
         $templateRepository = app()->make(TemplateRepository::class);
+        $children = [];
 
         $allItem = $menuCustomItemRepository->all();
-        $allItem->map(function ($customItem) {
-            $customItem->menuable_type = 'App\Models\Models\MenuCustomItem';
-            $customItem->children = [];
+        foreach ($allItem as $template) {
+            foreach ($template->menus as $menu) {
+                if(!empty($menu->pivot->parent_id)) {
+                    $children[$menu->pivot->menu_id][$menu->pivot->parent_id][] = $template;
+                }
+            }
+        }
+        $allItem->map(function ($customItem) use ($children) {
+            if(request()->route('resourceId') && array_key_exists($customItem->id, $children[request()->route('resourceId')])){
+                $customItem->children = $children[request()->route('resourceId')][$customItem->id];
+            } else {
+                $customItem->children = [];
+            }
+            $customItem->menuable_type = MenuCustomItem::class;
             return $customItem;
         });
+
         $allTemplate = $templateRepository->all();
-        $allTemplate->map(function ($template) {
-            $template->menuable_type = 'App\Models\Template';
-            $template->children = [];
+        foreach ($allTemplate as $template) {
+            foreach ($template->menus as $menu) {
+                if(!empty($menu->pivot->parent_id)) {
+                    $children[$menu->pivot->menu_id][$menu->pivot->parent_id][] = $template;
+                }
+            }
+        }
+        $allTemplate->map(function ($template) use ($children) {
+            if(request()->route('resourceId') && array_key_exists($template->id, $children[request()->route('resourceId')])){
+                $template->children = $children[request()->route('resourceId')][$template->id];
+            } else {
+                $template->children = [];
+            }
+            $template->menuable_type = Template::class;
             return $template;
         });
 
@@ -70,10 +89,26 @@ class MenuItemField extends Field
         $menuItemCustomIds = [];
 
         $menuItems->each(function ($menuItem, $key) use (&$menuItemTemplateIds, &$menuItemCustomIds) {
-            if ($menuItem['menuable_type'] == 'App\Models\Template') {
+            if ($menuItem['menuable_type'] == Template::class) {
                 $menuItemTemplateIds[$menuItem['id']] = ['order' => $key + 1];
             } else {
                 $menuItemCustomIds[$menuItem['id']] = ['order' => $key + 1];
+            }
+
+            $count = 1;
+            foreach ($menuItem['children'] as $children) {
+                if ($children['menuable_type'] == Template::class) {
+                    $menuItemTemplateIds[$children['id']] = [
+                        'parent_id' => $menuItem['id'],
+                        'order' => $count
+                    ];
+                } else {
+                    $menuItemCustomIds[$menuItem['id']] = [
+                        'parent_id' => $menuItem['id'],
+                        'order' => $count
+                    ];
+                }
+                $count++;
             }
         });
 
