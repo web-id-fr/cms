@@ -37,3 +37,20 @@ Route::group([
         Route::post('/', 'NewsletterController@store')->name('store');
     });
 });
+
+/* *********************************************************************************
+ * MENU AJAX ROUTE
+ ********************************************************************************* */
+Route::group([
+    'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Ajax\Menu',
+    'middleware' => ['nova', IsAjax::class],
+    'prefix' => 'ajax',
+], function () {
+    Route::get('menu', 'MenuController@index');
+
+    Route::get('menucustomitem', 'MenuCustomItemController@index');
+
+    Route::get('menuconfiguration', 'MenuConfigurationController@index');
+
+    Route::post('menu-zone', 'MenuConfigurationController@updateZone');
+});
