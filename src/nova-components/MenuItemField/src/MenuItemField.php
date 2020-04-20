@@ -66,9 +66,15 @@ class MenuItemField extends Field
 
         $menuItems->each(function ($menuItem, $key) use (&$menuItemTemplateIds, &$menuItemCustomIds) {
             if ($menuItem['menuable_type'] == Template::class) {
-                $menuItemTemplateIds[$menuItem['id']] = ['order' => $key + 1];
+                $menuItemTemplateIds[$menuItem['id']] = [
+                    'order' => $key + 1,
+                    'parent_id' => null
+                ];
             } else {
-                $menuItemCustomIds[$menuItem['id']] = ['order' => $key + 1];
+                $menuItemCustomIds[$menuItem['id']] = [
+                    'order' => $key + 1,
+                    'parent_id' => null
+                ];
             }
 
             $count = 1;
