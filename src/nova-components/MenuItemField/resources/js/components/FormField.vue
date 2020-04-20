@@ -9,7 +9,7 @@
                         placeholder="Search an item"
                         label="title"
                         :custom-label="customLabel"
-                        track-by="id"
+                        track-by="title"
                         :multiple="true"
                         :close-on-select="false"
                         :clear-on-select="false"
