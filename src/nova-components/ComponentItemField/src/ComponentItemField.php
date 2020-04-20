@@ -23,21 +23,23 @@ class ComponentItemField extends Field
     {
         $galleryComponentRepository = app()->make(GalleryComponentRepository::class);
         $newsletterComponentRepository = app()->make(NewsletterComponentRepository::class);
+        $allComponent = collect();
 
         // GALLERIES
-        $allComponent = $galleryComponentRepository->all();
-        $allComponent = $this->mapItems($allComponent, GalleryComponent::class);
+        $allGalleryComponents = $galleryComponentRepository->all();
+        $allGalleryComponents = $this->mapItems($allGalleryComponents, GalleryComponent::class);
+        $allGalleryComponents->each(function ($gallery_component) use (&$allComponent) {
+            $allComponent->push($gallery_component);
+        });
 
         // NEWSLETTERS
-        $allNewsletterComponent = $newsletterComponentRepository->all();
-        $allNewsletterComponent = $this->mapItems($allNewsletterComponent,NewsletterComponent::class);
-
-        $allNewsletterComponent->each(function ($newsletter_component) use (&$allComponent) {
+        $allNewsletterComponents = $newsletterComponentRepository->all();
+        $allNewsletterComponents = $this->mapItems($allNewsletterComponents,NewsletterComponent::class);
+        $allNewsletterComponents->each(function ($newsletter_component) use (&$allComponent) {
             $allComponent->push($newsletter_component);
         });
 
         $this->withMeta(['items' => $allComponent]);
-
         parent::__construct($name, $attribute, $resolveCallback);
     }
 
