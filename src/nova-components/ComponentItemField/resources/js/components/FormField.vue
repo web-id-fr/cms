@@ -25,7 +25,7 @@
                             :key="element.id"
                         >
                             <div class="w-2/5">
-                                <p class=".break-words">{{ element.name }}</p>
+                                <p class="break-words">{{ element.name }}</p>
                             </div>
                             <div>
                                 <img width="300px" :src="element.component_image">

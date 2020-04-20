@@ -9,7 +9,7 @@ use Webid\Cms\Src\App\Models\Template as TemplateBase;
 class Template extends TemplateBase
 {
     /** @var $components_item */
-    public $components_item;
+    public $component_items;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
@@ -54,6 +54,6 @@ class Template extends TemplateBase
             return $item->pivot->order;
         });
 
-        $this->components_item = $components;
+        $this->component_items = $components;
     }
 }

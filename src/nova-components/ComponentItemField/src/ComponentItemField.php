@@ -95,7 +95,7 @@ class ComponentItemField extends Field
         $resource->chargeComponents();
 
         $valueInArray = [];
-        $resource->components_item->each(function ($item) use (&$valueInArray) {
+        $resource->component_items->each(function ($item) use (&$valueInArray) {
             $valueInArray[] = $item;
         });
 
