@@ -124,7 +124,7 @@ class MenuItemField extends Field
         foreach ($items as $template) {
             foreach ($template->menus as $menu) {
                 if(!empty($menu->pivot->parent_id)) {
-                    $children[$menu->pivot->menu_id][$menu->pivot->parent_id][] = $template;
+                    $children[$menu->pivot->menu_id][$menu->pivot->parent_id . "-" . $menu->pivot->menuable_type][] = $template;
                 }
             }
         }
@@ -142,8 +142,8 @@ class MenuItemField extends Field
     protected function mapItems($items, $children, $model)
     {
         return $items->map(function ($item) use ($children, $model) {
-            if(request()->route('resourceId') && array_key_exists($item->id, $children[request()->route('resourceId')])){
-                $item->children = $children[request()->route('resourceId')][$item->id];
+            if(!empty($children) && request()->route('resourceId') && array_key_exists($item->id . "-" . $model, $children[request()->route('resourceId')])){
+                $item->children = $children[request()->route('resourceId')][$item->id . "-" . $model];
             } else {
                 $item->children = [];
             }

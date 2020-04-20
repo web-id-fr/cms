@@ -65,32 +65,11 @@ class Menu extends Model
         $customItems = $this->menu_custom_items;
         $children = [];
 
-        foreach ($templates as $template) {
-            foreach ($template->menus as $menu) {
-                if (!empty($menu->pivot->parent_id)) {
-                    $children[$menu->pivot->menu_id][$menu->pivot->parent_id][] = $template;
-                }
-            }
-        }
+        $children = $this->getChildren($templates, $children);
+        $children = $this->getChildren($customItems, $children);
 
-        $templates->map(function ($template) use ($children, &$menuItems) {
-            if (array_key_exists($template->id, $children[$template->getOriginal('pivot_menu_id')])) {
-                $template->children = $children[$template->getOriginal('pivot_menu_id')][$template->id];
-            } else {
-                $template->children = [];
-            }
-            $template->menuable_type = Template::class;
-            $menuItems->push($template);
-        });
-        $customItems->each(function ($customItem) use ($children, &$menuItems) {
-            if (array_key_exists($customItem->id, $children[$customItem->getOriginal('pivot_menu_id')])) {
-                $customItem->children = $children[$customItem->getOriginal('pivot_menu_id')][$customItem->id];
-            } else {
-                $customItem->children = [];
-            }
-            $customItem->menuable_type = MenuCustomItem::class;
-            $menuItems->push($customItem);
-        });
+        $this->mapItems($templates, $children, Template::class, $menuItems);
+        $this->mapItems($customItems, $children, MenuCustomItem::class, $menuItems);
 
         $menuItems = $menuItems->sortBy(function ($item) {
             return $item->pivot->order;
@@ -106,6 +85,47 @@ class Menu extends Model
         $this->menu_items = $filteredItems;
     }
 
+    /**
+     * @param $items
+     * @param $children
+     * @param $model
+     * @param $menuItems
+     *
+     * @return mixed
+     */
+    protected function mapItems($items, $children, $model, &$menuItems)
+    {
+        $items->each(function ($item) use ($children, &$menuItems, $model) {
+            if (!empty($children) && array_key_exists($item->id . "-" . $model, $children[$item->getOriginal('pivot_menu_id')])) {
+                $item->children = $children[$item->getOriginal('pivot_menu_id')][$item->id . "-" . $model];
+            } else {
+                $item->children = [];
+            }
+            $item->menuable_type = $model;
+            $menuItems->push($item);
+        });
+
+        return $menuItems;
+    }
+
+    /**
+     * @param $items
+     * @param $children
+     *
+     * @return mixed
+     */
+    protected function getChildren($items, $children)
+    {
+        foreach ($items as $item) {
+            foreach ($item->menus as $menu) {
+                if (!empty($menu->pivot->parent_id)) {
+                    $children[$menu->pivot->menu_id][$menu->pivot->parent_id . "-" . $menu->pivot->menuable_type][] = $item;
+                }
+            }
+        }
+
+        return $children;
+    }
     /**
      * Transforme l'attribut "zones" issu du scope en tableau s'il existe
      *
