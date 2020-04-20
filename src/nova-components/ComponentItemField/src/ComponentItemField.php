@@ -19,6 +19,13 @@ class ComponentItemField extends Field
      */
     public $component = 'ComponentItemField';
 
+    /**
+     * @param string $name
+     * @param string|null $attribute
+     * @param mixed|null $resolveCallback
+     * 
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function __construct(string $name, ?string $attribute = null, ?mixed $resolveCallback = null)
     {
         $galleryComponentRepository = app()->make(GalleryComponentRepository::class);
