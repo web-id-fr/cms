@@ -15,6 +15,5 @@ class MenuTool extends Tool
     public function boot()
     {
         Nova::script('menu-tool', __DIR__.'/../dist/js/field.js');
-        Nova::style('menu-tool', __DIR__.'/../dist/css/field.css');
     }
 }

@@ -48,9 +48,9 @@ Route::group([
 ], function () {
     Route::get('menu', 'MenuController@index');
 
-    Route::get('menucustomitem', 'MenuCustomItemController@index');
+    Route::get('menu-custom-item', 'MenuCustomItemController@index');
 
-    Route::get('menuconfiguration', 'MenuConfigurationController@index');
+    Route::get('menu-configuration', 'MenuConfigurationController@index');
 
     Route::post('menu-zone', 'MenuConfigurationController@updateZone');
 });

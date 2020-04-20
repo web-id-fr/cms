@@ -50,7 +50,7 @@
             },
 
             getMenusZones() {
-                Nova.request().get('/ajax/menuconfiguration').then((response) => {
+                Nova.request().get('/ajax/menu-configuration').then((response) => {
                     let zones = response.data;
 
                     _.forIn(zones, (item) => {
@@ -108,7 +108,3 @@
         },
     }
 </script>
-
-<style>
-    /* Scoped Styles */
-</style>
