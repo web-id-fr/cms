@@ -29,7 +29,23 @@
 
     {{-- Si on a un lien ET un titre, on affiche le lien --}}
     @if(!empty($link_url) && !empty(data_get($item, 'title')))
-        <a href="{{ $link_url }}" @if(current_url_is($link_url)) class="active" @endif>{{ data_get($item, 'title', '') }}</a>
+        <div>
+            <a href="{{ $link_url }}"
+               @if(current_url_is($link_url)) class="active" @endif>{{ data_get($item, 'title', '') }}</a>
+
+            @if (data_get($item, 'children'))
+                <div class="submenu">
+                    @foreach (data_get($item, 'children') as $children)
+                        @if(!empty($children['url']))
+                            @php $link_url = data_get($children, 'url', ''); @endphp
+                        @elseif(!empty($children['slug']))
+                            @php $link_url = route('pageFromSlug', [ 'slug' => data_get($children, 'slug', '') ]); @endphp
+                        @endif
+                        <div><a @if(current_url_is($link_url)) class="active" @endif href="{{ $link_url }}">{{ data_get($children, 'title', '') }}</a></div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
     @endif
 
     {{-- Si on a une balise parente, on la ferme ici --}}
