@@ -2,11 +2,13 @@
 
 namespace Webid\MenuItemField;
 
-use App\Models\Modules\Menu;
-use App\Repositories\Modules\MenuCustomItemRepository;
-use App\Repositories\TemplateRepository;
+use Webid\Cms\Src\App\Models\Menu\Menu;
+use Webid\Cms\Src\App\Repositories\Menu\MenuCustomItemRepository;
+use Webid\Cms\Src\App\Repositories\TemplateRepository;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Webid\Cms\Src\App\Models\Menu\MenuCustomItem;
+use Webid\Cms\Src\App\Models\Template;
 
 class MenuItemField extends Field
 {
