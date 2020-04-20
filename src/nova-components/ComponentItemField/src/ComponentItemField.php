@@ -24,20 +24,13 @@ class ComponentItemField extends Field
         $galleryComponentRepository = app()->make(GalleryComponentRepository::class);
         $newsletterComponentRepository = app()->make(NewsletterComponentRepository::class);
 
+        // GALLERIES
         $allComponent = $galleryComponentRepository->all();
-        $allComponent->map(function ($gallery_component) {
-            $gallery_component->component_type = GalleryComponent::class;
-            $gallery_component->component_nova = config("components.$gallery_component->component_type.nova");
-            $gallery_component->component_image = asset(config("components.$gallery_component->component_type.image"));
-            return $gallery_component;
-        });
+        $allComponent = $this->mapItems($allComponent, GalleryComponent::class);
+
+        // NEWSLETTERS
         $allNewsletterComponent = $newsletterComponentRepository->all();
-        $allNewsletterComponent->map(function ($newsletter_component) {
-            $newsletter_component->component_type = NewsletterComponent::class;
-            $newsletter_component->component_nova = config("components.$newsletter_component->component_type.nova");
-            $newsletter_component->component_image = asset(config("components.$newsletter_component->component_type.image"));
-            return $newsletter_component;
-        });
+        $allNewsletterComponent = $this->mapItems($allNewsletterComponent,NewsletterComponent::class);
 
         $allNewsletterComponent->each(function ($newsletter_component) use (&$allComponent) {
             $allComponent->push($newsletter_component);
@@ -46,6 +39,22 @@ class ComponentItemField extends Field
         $this->withMeta(['items' => $allComponent]);
 
         parent::__construct($name, $attribute, $resolveCallback);
+    }
+
+    /**
+     * @param $items
+     * @param $model
+     *
+     * @return mixed
+     */
+    protected function mapItems($items, $model)
+    {
+        return $items->each(function ($item) use ($model) {
+            $item->component_type = $model;
+            $item->component_nova = config("components.$model.nova");
+            $item->component_image = asset(config("components.$model.image"));
+            return $item;
+        });
     }
 
     /**
