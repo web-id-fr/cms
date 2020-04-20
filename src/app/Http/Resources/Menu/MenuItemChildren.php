@@ -6,7 +6,7 @@ use App\Models\Template;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webid\Cms\Src\App\Models\Menu\MenuCustomItem;
 
-class MenuItem extends JsonResource
+class MenuItemChildren extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -35,8 +35,6 @@ class MenuItem extends JsonResource
             'slug' => $this->when(Template::class == $this->menuable_type, function () {
                 return $this->slug;
             }),
-
-            'children' => MenuItemChildren::collection($this->children),
         ];
     }
 }
