@@ -30,20 +30,23 @@ class MenuItemField extends Field
     {
         $menuCustomItemRepository = app()->make(MenuCustomItemRepository::class);
         $templateRepository = app()->make(TemplateRepository::class);
+        $allItem = collect();
         $children = [];
 
         // MENU-CUSTOM-ITEM
         $allMenuCustomItem = $menuCustomItemRepository->all();
         $children = $this->getChildren($allMenuCustomItem, $children);
-        $allItem = $this->mapItems($allMenuCustomItem, $children, MenuCustomItem::class);
+        $allMenuCustomItem = $this->mapItems($allMenuCustomItem, $children, MenuCustomItem::class);
+        $allMenuCustomItem->each(function ($template) use (&$allItem) {
+            $allItem->push($template);
+        });
 
         // TEMPLATE
         $allTemplate = $templateRepository->all();
         $children = $this->getChildren($allTemplate, $children);
         $allTemplate = $this->mapItems($allTemplate, $children, Template::class);
-
-        $allTemplate->each(function ($template) use (&$allMenuCustomItem) {
-            $allMenuCustomItem->push($template);
+        $allTemplate->each(function ($template) use (&$allItem) {
+            $allItem->push($template);
         });
 
         $this->withMeta(['items' => $allItem]);
