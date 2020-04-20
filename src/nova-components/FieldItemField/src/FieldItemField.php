@@ -19,9 +19,6 @@ class FieldItemField extends Field
      */
     public $component = 'FieldItemField';
 
-    /** @var $relationModel */
-    public $relationModel;
-
     /**
      * @param string $name
      * @param string|null $attribute

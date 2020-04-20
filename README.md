@@ -12,8 +12,7 @@ This package can be installed as a [Composer](https://getcomposer.org/) dependen
 "repositories": [
         {
             "type": "vcs",
-            "url" : "git@bitbucket.org:web-id/test.git",
-            "branches-path": "master"
+            "url" : "git@bitbucket.org:web-id/test.git"
         }
     ]
 ```

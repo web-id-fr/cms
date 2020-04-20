@@ -1,10 +1,10 @@
 <?php
 
-namespace Webid\ComponentField;
+namespace Webid\ComponentItemField;
 
-use Laravel\Nova\Nova;
-use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Nova\Events\ServingNova;
+use Laravel\Nova\Nova;
 
 class FieldServiceProvider extends ServiceProvider
 {
@@ -16,7 +16,7 @@ class FieldServiceProvider extends ServiceProvider
     public function boot()
     {
         Nova::serving(function (ServingNova $event) {
-            Nova::script('ComponentField', __DIR__.'/../dist/js/field.js');
+            Nova::script('ComponentItemField', __DIR__.'/../dist/js/field.js');
         });
     }
 }

@@ -103,7 +103,7 @@ class Form extends Model
 
         $fields->each(function ($field) use (&$fieldItems) {
             $field->formable_type = Field::class;
-            $field->title = $field->placeholder;
+            $field->title = $field->field_name;
             $fieldItems->push($field);
         });
         $titleFields->each(function ($titleField) use (&$fieldItems) {

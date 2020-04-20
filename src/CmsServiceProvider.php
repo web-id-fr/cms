@@ -140,7 +140,7 @@ class CmsServiceProvider extends ServiceProvider
     protected function publishNovaComponents()
     {
         $this->publishes([
-            __DIR__ . '/nova-components/ComponentField' => base_path('/nova-components/ComponentField'),
+            __DIR__ . '/nova-components/ComponentItemField' => base_path('/nova-components/ComponentItemField'),
             __DIR__ . '/nova-components/ComponentTool' => base_path('/nova-components/ComponentTool'),
         ], 'nova-components');
     }
@@ -148,7 +148,7 @@ class CmsServiceProvider extends ServiceProvider
     protected function publishTemplateModel()
     {
         $this->publishes([
-            __DIR__ . '/app/Models/Template/Template.php' => base_path('/app/Models/Template.php'),
+            __DIR__ . '/app/Models/Publish/Template.php' => base_path('/app/Models/Template.php'),
         ], 'template-model');
     }
 }

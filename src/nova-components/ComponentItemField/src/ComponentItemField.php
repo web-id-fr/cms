@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\ComponentField;
+namespace Webid\ComponentItemField;
 
 use App\Models\Template;
 use Laravel\Nova\Fields\Field;
@@ -10,14 +10,14 @@ use Webid\Cms\Src\App\Models\Components\NewsletterComponent;
 use Webid\Cms\Src\App\Repositories\Components\GalleryComponentRepository;
 use Webid\Cms\Src\App\Repositories\Components\NewsletterComponentRepository;
 
-class ComponentField extends Field
+class ComponentItemField extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'ComponentField';
+    public $component = 'ComponentItemField';
 
     public function __construct(string $name, ?string $attribute = null, ?mixed $resolveCallback = null)
     {
@@ -95,7 +95,7 @@ class ComponentField extends Field
         $resource->chargeComponents();
 
         $valueInArray = [];
-        $resource->components_item->each(function ($item) use (&$valueInArray) {
+        $resource->component_items->each(function ($item) use (&$valueInArray) {
             $valueInArray[] = $item;
         });
 
