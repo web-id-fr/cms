@@ -12,6 +12,8 @@ use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
 use Webid\Cms\Src\App\Nova\Components\NewsletterComponent;
+use Webid\Cms\Src\App\Nova\Menu\Menu;
+use Webid\Cms\Src\App\Nova\Menu\MenuCustomItem;
 use Webid\Cms\Src\App\Nova\Modules\Form\Field;
 use Webid\Cms\Src\App\Nova\Modules\Form\Form;
 use Webid\Cms\Src\App\Nova\Modules\Form\Recipient;
@@ -93,6 +95,27 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new ComponentTool(),
             new CollapsibleResourceManager([
                 'navigation' => [
+                    TopLevelResource::make([
+                        'label' => 'Menu',
+                        'badge' => null,
+                        'linkTo' => Menu::class,
+                        'resources' => [
+                            Group::make([
+                                'label' => 'Menu',
+                                'expanded' => false,
+                                'resources' => [
+                                    MenuCustomItem::class,
+                                    InternalLink::make([
+                                        'label' => 'Configuration',
+                                        'badge' => null,
+                                        'icon' => null,
+                                        'target' => '_self',
+                                        'path' => '/menu-tool',
+                                    ])
+                                ]
+                            ]),
+                        ]
+                    ]),
                     TopLevelResource::make([
                         'label' => 'Templates',
                         'badge' => null,
