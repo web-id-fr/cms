@@ -44,7 +44,7 @@ class Menu extends Model
     public function templates()
     {
         return $this->morphedByMany(Template::class, 'menuable')
-            ->withPivot('order')
+            ->withPivot('order', 'parent_id')
             ->orderBy('order');
     }
 
@@ -54,7 +54,7 @@ class Menu extends Model
     public function menuCustomItems()
     {
         return $this->morphedByMany(MenuCustomItem::class, 'menuable')
-            ->withPivot('order')
+            ->withPivot('order', 'parent_id')
             ->orderBy('order');
     }
 
