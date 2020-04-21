@@ -19,8 +19,7 @@
                 <div class="flex flex-col mt-3">
                     <draggable v-model="selected"
                                ghost-class="ghost">
-                        <div
-                            class="shadow-md p-3 my-2 flex justify-between"
+                        <div class="shadow-md p-3 my-2 flex justify-between"
                             v-for="element in selected"
                             :key="element.id"
                         >
@@ -31,7 +30,9 @@
                                 <img width="300px" :src="element.component_image">
                             </div>
                             <div>
-                                <a target="_blank" :href="element.component_nova + '/' + element.id + '/edit'"><font-awesome-icon icon="pen"/></a>
+                                <a target="_blank" :href="element.component_nova + '/' + element.id + '/edit'">
+                                    <font-awesome-icon icon="pen"/>
+                                </a>
                             </div>
                         </div>
                     </draggable>
@@ -43,7 +44,7 @@
 
 <script>
     import {FormField, HandlesValidationErrors} from 'laravel-nova';
-    import Multiselect from 'vue-multiselect'
+    import Multiselect from 'vue-multiselect';
     import draggable from 'vuedraggable';
     import {map} from 'lodash';
 
