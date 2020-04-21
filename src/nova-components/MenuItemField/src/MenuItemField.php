@@ -71,12 +71,14 @@ class MenuItemField extends Field
             if ($menuItem['menuable_type'] == Template::class) {
                 $menuItemTemplateIds[$menuItem['id']] = [
                     'order' => $key + 1,
-                    'parent_id' => null
+                    'parent_id' => null,
+                    'parent_type' => null,
                 ];
             } else {
                 $menuItemCustomIds[$menuItem['id']] = [
                     'order' => $key + 1,
-                    'parent_id' => null
+                    'parent_id' => null,
+                    'parent_type' => null,
                 ];
             }
 
@@ -85,11 +87,13 @@ class MenuItemField extends Field
                 if ($children['menuable_type'] == Template::class) {
                     $menuItemTemplateIds[$children['id']] = [
                         'parent_id' => $menuItem['id'],
+                        'parent_type' => $menuItem['menuable_type'],
                         'order' => $count
                     ];
                 } else {
                     $menuItemCustomIds[$menuItem['id']] = [
                         'parent_id' => $menuItem['id'],
+                        'parent_type' => $menuItem['menuable_type'],
                         'order' => $count
                     ];
                 }
@@ -112,8 +116,8 @@ class MenuItemField extends Field
         parent::resolve($resource, $attribute);
         $resource->chargeMenuItems();
 
-        $valueInArray = array();
-        $resource->menu_items->each(function($item) use (&$valueInArray) {
+        $valueInArray = [];
+        $resource->menu_items->each(function ($item) use (&$valueInArray) {
             $valueInArray[] = $item;
         });
 
@@ -132,8 +136,8 @@ class MenuItemField extends Field
     {
         foreach ($items as $template) {
             foreach ($template->menus as $menu) {
-                if(!empty($menu->pivot->parent_id)) {
-                    $children[$menu->pivot->menu_id][$menu->pivot->parent_id . "-" . $menu->pivot->menuable_type][] = $template;
+                if (!empty($menu->pivot->parent_id)) {
+                    $children[$menu->pivot->menu_id][$menu->pivot->parent_id . "-" . $menu->pivot->parent_type][] = $template;
                 }
             }
         }
@@ -151,7 +155,7 @@ class MenuItemField extends Field
     protected function mapItems($items, $children, $model)
     {
         return $items->map(function ($item) use ($children, $model) {
-            if(!empty($children) && request()->route('resourceId') && array_key_exists($item->id . "-" . $model, $children[request()->route('resourceId')])){
+            if (!empty($children) && request()->route('resourceId') && array_key_exists($item->id . "-" . $model, $children[request()->route('resourceId')])){
                 $item->children = $children[request()->route('resourceId')][$item->id . "-" . $model];
             } else {
                 $item->children = [];

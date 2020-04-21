@@ -44,7 +44,7 @@ class Menu extends Model
     public function templates()
     {
         return $this->morphedByMany(Template::class, 'menuable')
-            ->withPivot('order', 'parent_id')
+            ->withPivot('order', 'parent_id', 'parent_type')
             ->orderBy('order');
     }
 
@@ -54,7 +54,7 @@ class Menu extends Model
     public function menuCustomItems()
     {
         return $this->morphedByMany(MenuCustomItem::class, 'menuable')
-            ->withPivot('order', 'parent_id')
+            ->withPivot('order', 'parent_id', 'parent_type')
             ->orderBy('order');
     }
 
@@ -119,7 +119,7 @@ class Menu extends Model
         foreach ($items as $item) {
             foreach ($item->menus as $menu) {
                 if (!empty($menu->pivot->parent_id)) {
-                    $children[$menu->pivot->menu_id][$menu->pivot->parent_id . "-" . $menu->pivot->menuable_type][] = $item;
+                    $children[$menu->pivot->menu_id][$menu->pivot->parent_id . "-" . $menu->pivot->parent_type][] = $item;
                 }
             }
         }
