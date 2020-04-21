@@ -23,13 +23,13 @@
                             v-for="element in selected"
                             :key="element.id"
                         >
-                            <div class="w-2/5">
+                            <div class="flex-auto self-center text-center py-2 m-2">
                                 <p class="break-words">{{ element.name }}</p>
                             </div>
-                            <div>
-                                <img width="300px" :src="element.component_image">
+                            <div class="flex-auto">
+                                <img class="m-auto block" width="200px" :src="element.component_image">
                             </div>
-                            <div>
+                            <div class="flex-auto self-center text-center py-2 m-2">
                                 <a target="_blank" :href="element.component_nova + '/' + element.id + '/edit'">
                                     <font-awesome-icon icon="pen"/>
                                 </a>
