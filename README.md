@@ -43,7 +43,6 @@ php artisan migrate
         "laravel": {
             "dont-discover": [],
             "providers": [
-                "Webid\\ComponentField\\FieldServiceProvider",
                 "Webid\\ComponentTool\\ToolServiceProvider"
             ]
         }
@@ -52,11 +51,22 @@ php artisan migrate
 ```bash
 "autoload": {
         "psr-4": {
-            "Webid\\ComponentField\\" : "nova-components/ComponentField/src/",
             "Webid\\ComponentTool\\" : "nova-components/ComponentTool/src/"
         },
     },
 ```  
+```bash
+    "require": {
+        "webid/ComponentItemField": "*"
+    },
+    
+    "repositories": [
+            {
+                "type": "path",
+                "url": "./nova-components/ComponentItemField"
+            }
+        ]
+```
 
 ## Add image for components
 

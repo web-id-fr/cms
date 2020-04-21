@@ -16,7 +16,7 @@ class CreateMenuCustomItemsTable extends Migration
         Schema::create('menu_custom_items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->json('title');
-            $table->json('url');
+            $table->json('url')->nullable();
             $table->string('target')->default('_self');
             $table->timestamps();
         });
