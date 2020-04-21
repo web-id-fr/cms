@@ -39,9 +39,13 @@ class TemplateRepository extends BaseRepository
      */
     public function getSlugForHomepage()
     {
-        return $this->model->select('slug')
+        $model = $this->model->select('slug')
             ->where('homepage', true)
             ->first();
+
+        $model->chargeComponents();
+
+        return $model;
     }
 
     /**
