@@ -1,4 +1,8 @@
 <?php
+use Webid\Cms\Src\App\Models\Components\GalleryComponent;
+use Webid\Cms\Src\App\Http\Resources\Components\GalleryComponentResource;
+use Webid\Cms\Src\App\Models\Components\NewsletterComponent;
+use Webid\Cms\Src\App\Http\Resources\Components\NewsletterComponentResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,17 +21,17 @@
 */
 
 return [
-    \Webid\Cms\Src\App\Models\Components\GalleryComponent::class => [
+    GalleryComponent::class => [
         'title' => 'Gallery component',
         'image' => '/images/components/gallery_component.png',
-        'resource' => \Webid\Cms\Src\App\Http\Resources\Components\GalleryComponentResource::class,
+        'resource' => GalleryComponentResource::class,
         'view' => 'components/galleries',
         'nova' => '/nova/resources/gallery-components'
     ],
-    \Webid\Cms\Src\App\Models\Components\NewsletterComponent::class => [
+    NewsletterComponent::class => [
         'title' => 'Newsletter component',
         'image' => '/images/components/newsletter_component.png',
-        'resource' => \Webid\Cms\Src\App\Http\Resources\Components\NewsletterComponentResource::class,
+        'resource' => NewsletterComponentResource::class,
         'view' => 'components/newsletters',
         'nova' => '/nova/resources/newsletter-components'
     ],
