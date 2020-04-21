@@ -28,6 +28,7 @@ use Webid\Cms\Src\App\Nova\Template;
 use Webid\ComponentTool\ComponentTool;
 use Webid\LanguageTool\LanguageTool;
 use Joedixon\NovaTranslation\NovaTranslation;
+use Webid\MenuTool\MenuTool;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -93,6 +94,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new \Infinety\Filemanager\FilemanagerTool(),
             new LanguageTool(),
             new ComponentTool(),
+            new MenuTool(),
             new CollapsibleResourceManager([
                 'navigation' => [
                     TopLevelResource::make([
