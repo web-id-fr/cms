@@ -4,6 +4,7 @@ namespace Webid\Cms\Src\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Webid\Cms\Src\App\Models\Menu\Menu;
 
 class Template extends Model
 {
@@ -65,4 +66,13 @@ class Template extends Model
     protected $casts = [
         'publish_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function menus()
+    {
+        return $this->morphToMany(Menu::class, 'menuable')
+            ->withPivot('order', 'parent_id');
+    }
 }

@@ -19,33 +19,51 @@ class ComponentItemField extends Field
      */
     public $component = 'ComponentItemField';
 
+    /**
+     * @param string $name
+     * @param string|null $attribute
+     * @param mixed|null $resolveCallback
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function __construct(string $name, ?string $attribute = null, ?mixed $resolveCallback = null)
     {
         $galleryComponentRepository = app()->make(GalleryComponentRepository::class);
         $newsletterComponentRepository = app()->make(NewsletterComponentRepository::class);
+        $allComponent = collect();
 
-        $allComponent = $galleryComponentRepository->all();
-        $allComponent->map(function ($gallery_component) {
-            $gallery_component->component_type = GalleryComponent::class;
-            $gallery_component->component_nova = config("components.$gallery_component->component_type.nova");
-            $gallery_component->component_image = asset(config("components.$gallery_component->component_type.image"));
-            return $gallery_component;
-        });
-        $allNewsletterComponent = $newsletterComponentRepository->all();
-        $allNewsletterComponent->map(function ($newsletter_component) {
-            $newsletter_component->component_type = NewsletterComponent::class;
-            $newsletter_component->component_nova = config("components.$newsletter_component->component_type.nova");
-            $newsletter_component->component_image = asset(config("components.$newsletter_component->component_type.image"));
-            return $newsletter_component;
+        // GALLERIES
+        $allGalleryComponents = $galleryComponentRepository->all();
+        $allGalleryComponents = $this->mapItems($allGalleryComponents, GalleryComponent::class);
+        $allGalleryComponents->each(function ($gallery_component) use (&$allComponent) {
+            $allComponent->push($gallery_component);
         });
 
-        $allNewsletterComponent->each(function ($newsletter_component) use (&$allComponent) {
+        // NEWSLETTERS
+        $allNewsletterComponents = $newsletterComponentRepository->all();
+        $allNewsletterComponents = $this->mapItems($allNewsletterComponents,NewsletterComponent::class);
+        $allNewsletterComponents->each(function ($newsletter_component) use (&$allComponent) {
             $allComponent->push($newsletter_component);
         });
 
         $this->withMeta(['items' => $allComponent]);
-
         parent::__construct($name, $attribute, $resolveCallback);
+    }
+
+    /**
+     * @param $items
+     * @param $model
+     *
+     * @return mixed
+     */
+    protected function mapItems($items, $model)
+    {
+        return $items->each(function ($item) use ($model) {
+            $item->component_type = $model;
+            $item->component_nova = config("components.$model.nova");
+            $item->component_image = asset(config("components.$model.image"));
+            return $item;
+        });
     }
 
     /**

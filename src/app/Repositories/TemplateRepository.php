@@ -23,8 +23,15 @@ class TemplateRepository extends BaseRepository
      */
     public function all()
     {
-        return $this->model->all()
-            ->where('status', Template::_STATUS_PUBLISHED);
+        $models = $this->model->all()
+            ->where('status', Template::_STATUS_PUBLISHED)
+            ->load('menus');
+
+        $models->each(function ($model) {
+            $model->chargeComponents();
+        });
+
+        return $models;
     }
 
     /**
