@@ -19,6 +19,7 @@ class CreateMenuablesTable extends Migration
             $table->string('menuable_type');
             $table->integer('order');
             $table->integer('parent_id');
+            $table->string('parent_type');
             $table->timestamps();
         });
     }
