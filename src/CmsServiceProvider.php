@@ -9,10 +9,16 @@ use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Webid\Cms\Src\App\Facades\LanguageFacade;
 use App\Models\Template as TemplateModel;
+use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuConfigurationController;
+use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuController;
+use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuCustomItemController;
+use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuItemController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter\NewsletterController;
 use Webid\Cms\Src\App\Http\Controllers\Components\ComponentController;
 use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
 use Webid\Cms\Src\App\Nova\Components\NewsletterComponent;
+use Webid\Cms\Src\App\Nova\Menu\Menu;
+use Webid\Cms\Src\App\Nova\Menu\MenuCustomItem;
 use Webid\Cms\Src\App\Nova\Modules\Form\Field;
 use Webid\Cms\Src\App\Nova\Modules\Form\Form;
 use Webid\Cms\Src\App\Nova\Modules\Form\Recipient;
@@ -75,7 +81,9 @@ class CmsServiceProvider extends ServiceProvider
                 Recipient::class,
                 Service::class,
                 Slideshow::class,
-                Slide::class
+                Slide::class,
+                Menu::class,
+                MenuCustomItem::class
             ]);
         });
 
@@ -93,6 +101,10 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->make(TemplateController::class);
         $this->app->make(ComponentController::class);
         $this->app->make(NewsletterController::class);
+        $this->app->make(MenuController::class);
+        $this->app->make(MenuConfigurationController::class);
+        $this->app->make(MenuCustomItemController::class);
+        $this->app->make(MenuItemController::class);
 
         Route::pattern('id', '[0-9]+');
         Route::pattern('lang', '(' . LanguageFacade::getAllLanguagesAsRegex() . ')');
