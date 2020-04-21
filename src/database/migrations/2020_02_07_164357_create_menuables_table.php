@@ -18,8 +18,8 @@ class CreateMenuablesTable extends Migration
             $table->integer('menuable_id');
             $table->string('menuable_type');
             $table->integer('order');
-            $table->integer('parent_id');
-            $table->string('parent_type');
+            $table->integer('parent_id')->nullable();
+            $table->string('parent_type')->nullable();
             $table->timestamps();
         });
     }
