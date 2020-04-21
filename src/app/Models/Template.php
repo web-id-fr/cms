@@ -73,6 +73,6 @@ class Template extends Model
     public function menus()
     {
         return $this->morphToMany(Menu::class, 'menuable')
-            ->withPivot('order', 'parent_id');
+            ->withPivot('order', 'parent_id', 'parent_type');
     }
 }

@@ -40,7 +40,7 @@ class MenuCustomItemRepository extends BaseRepository
         if ($in) {
             $query = $query->whereIn('id', $in);
         }
-        $query = $query->orderBy('updated_at', 'desc');
+        $query = $query->orderBy('updated_at', 'desc')->with('menus');
 
         return $paginate ? $query->paginate(env('MODULE_MENU_PAGINATE', 15)) : $query->get();
     }
