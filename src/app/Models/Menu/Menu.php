@@ -62,7 +62,7 @@ class Menu extends Model
     {
         $menuItems = collect();
         $templates = $this->templates;
-        $customItems = $this->menu_custom_items;
+        $customItems = $this->menuCustomItems;
         $children = [];
 
         $children = $this->getChildren($templates, $children);
