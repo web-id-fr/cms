@@ -29,7 +29,7 @@ class TemplateResource extends JsonResource
             'opengraph_picture' => $this->opengraph_picture,
             'indexation' => $this->indexation,
             'meta_keywords' => $this->meta_keywords,
-            'items' => ComponentResource::collection($this->components_item)->resolve(),
+            'items' => ComponentResource::collection($this->component_items)->resolve(),
         ];
     }
 
