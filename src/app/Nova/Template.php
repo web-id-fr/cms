@@ -160,6 +160,11 @@ class Template extends Resource
                 ->withMeta([
                     'value' => data_get($this, 'indexation', true),
                 ])->hideFromIndex(),
+
+            Boolean::make('Follow the page', 'follow')
+                ->withMeta([
+                    'value' => data_get($this, 'follow', true),
+                ])->hideFromIndex(),
         ];
     }
 

@@ -54,7 +54,6 @@ class TemplateController extends Controller
                 'og_title' => data_get($data, 'opengraph_title'),
                 'og_image' => data_get($data, 'opengraph_picture'),
                 'og_description' => data_get($data, 'opengraph_description'),
-                'follow' => data_get($data, 'follow'),
                 'indexation' => data_get($data, 'indexation'),
                 'keywords' => data_get($data, 'meta_keywords'),
             ];
@@ -98,7 +97,6 @@ class TemplateController extends Controller
                 'og_title' => data_get($data, 'opengraph_title'),
                 'og_image' => data_get($data, 'opengraph_picture'),
                 'og_description' => data_get($data, 'opengraph_description'),
-                'follow' => data_get($data, 'follow'),
                 'indexation' => data_get($data, 'indexation'),
                 'keywords' => data_get($data, 'meta_keywords'),
             ];
