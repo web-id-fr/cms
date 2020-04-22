@@ -97,7 +97,7 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(TemplateRepository::class, function () {
+        $this->app->bind(TemplateRepository::class, function () {
             $templateClass = config('cms.template_model');
 
             return new TemplateRepository(new $templateClass);
