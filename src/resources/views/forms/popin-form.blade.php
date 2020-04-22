@@ -38,5 +38,5 @@
 </div>
 
 @section('scripts')
-    <script type="text/javascript" src="{{ asset('js/send_form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('cms/js/send_form.js') }}"></script>
 @endsection

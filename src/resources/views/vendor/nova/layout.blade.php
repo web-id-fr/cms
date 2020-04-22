@@ -13,7 +13,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('app.css', 'vendor/nova') }}">
-    <link rel="stylesheet" href="{{ asset('css/language.css') }}">
+    <link rel="stylesheet" href="{{ asset('cms/css/language.css') }}">
 
     <!-- Tool Styles -->
     @foreach(\Laravel\Nova\Nova::availableStyles(request()) as $name => $path)
