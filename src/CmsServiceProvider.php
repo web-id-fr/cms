@@ -60,9 +60,8 @@ class CmsServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/routes/ajax.php');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
-        $templateClass = $this->app->config['cms.template_model'];
-
-        Nova::serving(function (ServingNova $event) use ($templateClass) {
+        Nova::serving(function (ServingNova $event) {
+            $templateClass = $this->app->config['cms.template_model'];
             // Model Observers
             $templateClass::observe(TemplateObserver::class);
         });
@@ -99,9 +98,9 @@ class CmsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(TemplateRepository::class, function () {
-            $mediaClass = config('cms.template_model');
+            $templateClass = config('cms.template_model');
 
-            return new TemplateRepository(new $mediaClass);
+            return new TemplateRepository(new $templateClass);
         });
 
         $this->app->make(TemplateController::class);
@@ -115,7 +114,6 @@ class CmsServiceProvider extends ServiceProvider
         Route::pattern('id', '[0-9]+');
         Route::pattern('lang', '(' . LanguageFacade::getAllLanguagesAsRegex() . ')');
     }
-
 
     protected function publishConfiguration()
     {
