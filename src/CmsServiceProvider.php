@@ -97,6 +97,8 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/config/cms.php', 'cms');
+        
         $this->app->bind(TemplateRepository::class, function () {
             $templateClass = config('cms.template_model');
 
