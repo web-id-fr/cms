@@ -144,8 +144,7 @@ class CmsServiceProvider extends ServiceProvider
     protected function publishPublicFiles()
     {
         $this->publishes([
-            __DIR__ . '/public/css' => base_path('/public/css'),
-            __DIR__ . '/public/js' => base_path('/public/js'),
+            __DIR__ . '/public/cms' => base_path('/public/cms'),
         ], 'public');
     }
 

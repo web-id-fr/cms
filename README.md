@@ -67,12 +67,14 @@ php artisan migrate
             }
         ]
 ```
+## Use cookies.js
+###### To use the cookies popin, just fill the ``resuorces/views/warning_cookies.blade.php`` view, include it in ``resources/views/templae.blade.php`` with the js ``public/cms/js/cookies.js``
 
 ## Add image for components
 
 ```bash
-public/components/gallery_component.png
-public/components/newsletter_component.png
+public/cms/components/gallery_component.png
+public/cms/components/newsletter_component.png
 ```
 
 # For create a new components
