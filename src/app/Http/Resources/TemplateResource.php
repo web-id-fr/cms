@@ -27,7 +27,7 @@ class TemplateResource extends JsonResource
             'opengraph_title' => $this->opengraph_title,
             'opengraph_description' => $this->opengraph_description,
             'opengraph_picture' => $this->opengraph_picture,
-            'indexation' => $this->indexation,
+            'indexation' => $this->getIndexationAndFollowValue($this->indexation, $this->follow),
             'meta_keywords' => $this->meta_keywords,
             'items' => ComponentResource::collection($this->component_items)->resolve(),
         ];
@@ -35,15 +35,24 @@ class TemplateResource extends JsonResource
 
     /**
      * @param Boolean $indexation
+     * @param Boolean $follow
      *
      * @return string
      */
-    public function indexation(Boolean $indexation)
+    public function getIndexationAndFollowValue(Boolean $indexation, Boolean $follow)
     {
         if ($indexation) {
-            return 'index';
+            $indexationValue = 'index';
         } else {
-            return 'noindex';
+            $indexationValue = 'noindex';
         }
+
+        if($follow){
+            $followValue = 'follow';
+        } else {
+            $followValue = 'nofollow';
+        }
+
+        return "$indexationValue,$followValue";
     }
 }

@@ -35,6 +35,7 @@ class Template extends Model
         'slug',
         'status',
         'indexation',
+        'follow',
         'metatitle',
         'metadescription',
         'opengraph_title',
