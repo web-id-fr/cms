@@ -35,6 +35,8 @@ php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
 ```bash
 php artisan migrate
 ```
+## Update `config/cms`
+###### Update `template_model` with `App/Models/Template::class` in `config/cms.php`
 
 ## Add nova-components in composer 
 
@@ -77,7 +79,6 @@ public/components/newsletter_component.png
 
 # For create a new components
 ##### 1. create Models, migration, repositories, Nova, Resource for the new component (register all elements in a Components folder)
-##### 2. update config\component.php with the information of the new component and add the image of the component in public/components/
-##### 3. update App\Models\Template with the information of the new component
-##### 4. update nova-components\ComponentField with the information of the new component
-##### 5. update nova-components\ComponentTool with the information of the new component
+##### 2. update `config\component.php` with the information of the new component and add the image of the component in `public/components/`
+##### 3. update `App\Models\Template` with the information of the new component
+##### 4. update `nova-components\ComponentField` with the information of the new component

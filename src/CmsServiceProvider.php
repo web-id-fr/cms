@@ -8,7 +8,6 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Webid\Cms\Src\App\Facades\LanguageFacade;
-use App\Models\Template as TemplateModel;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuConfigurationController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuCustomItemController;
@@ -33,6 +32,7 @@ use Webid\Cms\Src\App\Observers\TemplateObserver;
 use Webid\Cms\Src\App\Http\Controllers\TemplateController;
 use Webid\Cms\Src\App\Nova\Template;
 use Illuminate\Support\Facades\View;
+use Webid\Cms\Src\App\Repositories\TemplateRepository;
 
 class CmsServiceProvider extends ServiceProvider
 {
@@ -60,11 +60,10 @@ class CmsServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/routes/ajax.php');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
-        $this->app->register(CmsServiceProvider::class);
-
         Nova::serving(function (ServingNova $event) {
+            $templateClass = $this->app->config['cms.template_model'];
             // Model Observers
-            TemplateModel::observe(TemplateObserver::class);
+            $templateClass::observe(TemplateObserver::class);
         });
 
         $this->app->booted(function () {
@@ -98,6 +97,12 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(TemplateRepository::class, function () {
+            $templateClass = config('cms.template_model');
+
+            return new TemplateRepository(new $templateClass);
+        });
+
         $this->app->make(TemplateController::class);
         $this->app->make(ComponentController::class);
         $this->app->make(NewsletterController::class);
@@ -109,7 +114,6 @@ class CmsServiceProvider extends ServiceProvider
         Route::pattern('id', '[0-9]+');
         Route::pattern('lang', '(' . LanguageFacade::getAllLanguagesAsRegex() . ')');
     }
-
 
     protected function publishConfiguration()
     {
@@ -124,6 +128,7 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/config/fields_type.php' => config_path('fields_type.php'),
             __DIR__ . '/config/fields_type_validation.php' => config_path('fields_type_validation.php'),
             __DIR__ . '/config/ziggy.php' => config_path('ziggy.php'),
+            __DIR__ . '/config/cms.php' => config_path('cms.php'),
         ], 'config');
     }
 

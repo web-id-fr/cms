@@ -34,7 +34,6 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\Models\\": "src/app/Models/Publish",
             "Webid\\Cms\\": "src/",
             "Webid\\FieldItemField\\" : "src/nova-components/FieldItemField/src/",
             "Webid\\GalleryItemField\\" : "src/nova-components/GalleryItemField/src/",
