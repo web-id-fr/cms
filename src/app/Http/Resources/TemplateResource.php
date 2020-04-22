@@ -34,12 +34,12 @@ class TemplateResource extends JsonResource
     }
 
     /**
-     * @param Boolean $indexation
-     * @param Boolean $follow
+     * @param $indexation
+     * @param $follow
      *
      * @return string
      */
-    public function getIndexationAndFollowValue(Boolean $indexation, Boolean $follow)
+    public function getIndexationAndFollowValue($indexation, $follow)
     {
         if ($indexation) {
             $indexationValue = 'index';
