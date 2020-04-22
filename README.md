@@ -75,8 +75,8 @@ php artisan migrate
 ## Add image for components
 
 ```bash
-public/cms/components/gallery_component.png
-public/cms/components/newsletter_component.png
+public/cms/images/components/gallery_component.png
+public/cms/images/components/newsletter_component.png
 ```
 
 # For create a new components

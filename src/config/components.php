@@ -23,14 +23,14 @@ use Webid\Cms\Src\App\Http\Resources\Components\NewsletterComponentResource;
 return [
     GalleryComponent::class => [
         'title' => 'Gallery component',
-        'image' => '/images/cms/components/gallery_component.png',
+        'image' => '/cms/images/components/gallery_component.png',
         'resource' => GalleryComponentResource::class,
         'view' => 'components/galleries',
         'nova' => '/nova/resources/gallery-components'
     ],
     NewsletterComponent::class => [
         'title' => 'Newsletter component',
-        'image' => '/images/cms/components/newsletter_component.png',
+        'image' => '/cms/images/components/newsletter_component.png',
         'resource' => NewsletterComponentResource::class,
         'view' => 'components/newsletters',
         'nova' => '/nova/resources/newsletter-components'
