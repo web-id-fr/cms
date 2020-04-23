@@ -72,6 +72,19 @@ php artisan migrate
 ## Use cookies.js
 ###### To use the cookies popin, just fill the ``resuorces/views/warning_cookies.blade.php`` view, include it in ``resources/views/templae.blade.php`` with the js ``public/cms/js/cookies.js``
 
+## Use form & popin form
+###js
+do not modify the files `send_form.js` and `send_form_popin.js` !
+Edit the`helper.js` file with the form front information to display errors and the success message.
+Added to `package.json` :
+```bash
+"dropzone": "^5.7.0",
+"lang.js": "^1.1.14"
+```
+And add in the `webpack.mix` file the `send_form_js` and `send_form_popin_js` files. The files are already linked in the front.
+###front-end
+You can change the form frontend but DO NOT TOUCH the `submit_form` class for sending forms.
+
 ## Add image for components
 
 ```bash

@@ -55,6 +55,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishPublicFiles();
         $this->publishTemplateModel();
         $this->publishNovaComponents();
+        $this->publishSendFormJs();
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadRoutesFrom(__DIR__ . '/routes/ajax.php');
@@ -168,5 +169,13 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/app/Models/Publish/Template.php' => base_path('/app/Models/Template.php'),
         ], 'template-model');
+    }
+
+    protected function publishSendFormJs()
+    {
+        $this->publishes([
+            __DIR__ . '/resources/js/send_form.js' => base_path('/resources/js/send_form.js'),
+            __DIR__ . '/resources/js/send_form_popin.js' => base_path('/resources/js/send_form_popin.js'),
+        ], 'send-form');
     }
 }

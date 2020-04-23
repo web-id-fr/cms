@@ -27,8 +27,7 @@
                         <input type="hidden" name="form_id" value="{{ data_get($form, 'id') }}">
                     </div>
                     <div class="pad_popin">
-                        <button type="submit" class="button button_bg_black fullwidth submit_desktop submit_form">gr
-                        </button>
+                        <button type="submit" class="button button_bg_black fullwidth submit_desktop submit_form">Envoyer</button>
                     </div>
                 </div>
             </div>
@@ -38,5 +37,5 @@
 </div>
 
 @section('scripts')
-    <script type="text/javascript" src="{{ asset('cms/js/send_form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/send_form_popin.js') }}"></script>
 @endsection
