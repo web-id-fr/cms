@@ -20,7 +20,7 @@ class SlideshowResource extends JsonResource
             'js_controls' => $this->js_controls,
             'js_animate_auto' => $this->js_animate_auto,
             'js_speed' => $this->js_speed,
-            'slides' => SlideResource::collection($this->slides),
+            'slides' => SlideResource::collection($this->slides)->resolve(),
         ];
     }
 }
