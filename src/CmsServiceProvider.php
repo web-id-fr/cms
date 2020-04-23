@@ -55,6 +55,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishPublicFiles();
         $this->publishTemplateModel();
         $this->publishNovaComponents();
+        $this->publishTranslations();
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadRoutesFrom(__DIR__ . '/routes/ajax.php');
@@ -168,5 +169,12 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/app/Models/Publish/Template.php' => base_path('/app/Models/Template.php'),
         ], 'template-model');
+    }
+
+    protected function publishTranslations()
+    {
+        $this->publishes([
+            __DIR__ . '/resources/lang' => base_path('/resources/lang'),
+        ], 'translations');
     }
 }
