@@ -1,5 +1,5 @@
 import {zipObject} from 'lodash';
-import {axiosPost, formError, formSuccess } from "./helpers";
+import {axiosPost, formErrorPopin, formSuccessPopin} from "./helpers";
 import Lang from 'lang.js/dist/lang.min';
 import messages from '../lang/dropzone-traduction';
 import Dropzone from 'dropzone/dist/min/dropzone.min';
@@ -75,7 +75,7 @@ $(() => {
         maxFiles: $dropzone.data("maxFiles"),
         error: function (file, errorMessage, xhr) {
             // Calls the function form_error
-            formError(errorMessage, $dropzone.closest("form"));
+            formErrorPopin(errorMessage, $dropzone.closest("form"));
             // Allow file to be reuploaded !
             file.status = Dropzone.QUEUED;
         },
@@ -100,10 +100,10 @@ $(() => {
                     // If dropzone has no files store item without images
                     axiosPost(route('send.form', currentLang), data).then(() => {
                         $("form").trigger('reset');
-                        formSuccess(form);
+                        formSuccessPopin(form);
                     }).catch((data) => {
                         // Calls the function form_error
-                        formError(data.response.data, form);
+                        formErrorPopin(data.response.data, form);
                     });
                 }
             });
@@ -151,10 +151,10 @@ $(() => {
 
             axiosPost(route('send.form', lang), data).then(() => {
                 $("form").trigger('reset');
-                formSuccess(form);
+                formSuccessPopin(form);
             }).catch((data) => {
                 // Calls the function form_error
-                formError(data.response.data, form);
+                formErrorPopin(data.response.data, form);
             });
         }
     });

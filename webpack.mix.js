@@ -12,8 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.sass('src/resources/sass/language.scss', 'src/public/cms/css')
-    .js('src/resources/js/newsletter.js', 'src/public/cms/js')
-    .js('src/resources/js/send_form.js', 'src/public/cms/js');
+    .js('src/resources/js/newsletter.js', 'src/public/cms/js');
 
 if (mix.inProduction()) {
     mix.options({ uglify: { uglifyOptions: { compress: { drop_console: true, } } } });

@@ -31,3 +31,75 @@ export function axiosGet(url, data) {
         params: data
     });
 }
+
+/**
+ * @param error
+ * @param form
+ */
+export function formError(error, form) {
+    form.closest("form").find(".alert-success").hide();
+    form.closest("form").find('.field-error span').remove();
+    form.closest("form").find('.field-error br').remove();
+
+    if (error.errors && error.errors.length === 0) {
+        let $field_message = form.closest('form').find('.field-error').last();
+        $field_message.append("<span>" + error.message + "</span><br>");
+        $field_message.show();
+    }
+
+    $.each(error.errors, function (key) {
+        let $field_error = form.closest("form").find('[name=' + key + ']');
+        let $field_message = $field_error.closest('.line_form').find('.field-error');
+        $field_message.append("<span>" + error.errors[key] + "</span><br>");
+        $field_message.show();
+    });
+
+    //scroll to the first error
+    $("form").animate({
+        scrollTop: $('.field-error:visible').first().offset().top
+    }, 300);
+}
+
+/**
+ * @param form
+ */
+export function formSuccess(form) {
+    form.closest(".popin").find('.field-error span').remove();
+    form.closest(".popin").find('.field-error br').remove();
+}
+
+/**
+ * @param error
+ * @param form
+ */
+export function formErrorPopin(error, form) {
+    form.closest(".popin").find(".alert-success").hide();
+    form.closest(".popin").find('.field-error span').remove();
+    form.closest(".popin").find('.field-error br').remove();
+
+    if (error.errors && error.errors.length === 0) {
+        let $field_message = form.closest('.popin').find('.field-error').last();
+        $field_message.append("<span>" + error.message + "</span><br>");
+        $field_message.show();
+    }
+
+    $.each(error.errors, function (key) {
+        let $field_error = form.closest(".popin").find('[name=' + key + ']');
+        let $field_message = $field_error.closest('.line_form').find('.field-error');
+        $field_message.append("<span>" + error.errors[key] + "</span><br>");
+        $field_message.show();
+    });
+
+    //scroll to the first error
+    $(".popin").animate({
+        scrollTop: $('.field-error:visible').first().offset().top
+    }, 300);
+}
+
+/**
+ * @param form
+ */
+export function formSuccessPopin(form) {
+    form.closest(".popin").find('.field-error span').remove();
+    form.closest(".popin").find('.field-error br').remove();
+}
