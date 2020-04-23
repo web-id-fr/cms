@@ -36,7 +36,7 @@ export function axiosGet(url, data) {
  * @param error
  * @param form
  */
-export function form_error(error, form) {
+export function formError(error, form) {
     form.closest("form").find(".alert-success").hide();
     form.closest("form").find('.field-error span').remove();
     form.closest("form").find('.field-error br').remove();
@@ -63,7 +63,7 @@ export function form_error(error, form) {
 /**
  * @param form
  */
-export function form_success(form) {
+export function formSuccess(form) {
     form.closest(".popin").find('.field-error span').remove();
     form.closest(".popin").find('.field-error br').remove();
 }
@@ -72,7 +72,7 @@ export function form_success(form) {
  * @param error
  * @param form
  */
-export function form_error_popin(error, form) {
+export function formErrorPopin(error, form) {
     form.closest(".popin").find(".alert-success").hide();
     form.closest(".popin").find('.field-error span').remove();
     form.closest(".popin").find('.field-error br').remove();
@@ -99,7 +99,7 @@ export function form_error_popin(error, form) {
 /**
  * @param form
  */
-export function form_success_popin(form) {
+export function formSuccessPopin(form) {
     form.closest(".popin").find('.field-error span').remove();
     form.closest(".popin").find('.field-error br').remove();
 }
