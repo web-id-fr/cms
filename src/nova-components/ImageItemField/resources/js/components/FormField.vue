@@ -18,7 +18,7 @@
                         <template slot="option" slot-scope="props">
                             <div class="flex bg-gray-200">
                                 <div>
-                                    <img width="100px" class="option__image" :src="props.option.image">
+                                    <img width="100px" class="option__image" :src="props.option.imageAsset">
                                 </div>
                                 <div class="self-center text-gray-700 text-center px-4 py-2 m-2">
                                     <div class="option__desc">
@@ -41,7 +41,7 @@
                         >
                             <div class="flex bg-gray-200">
                                 <div>
-                                    <img width="200px" :src="element.image">
+                                    <img width="200px" :src="element.imageAsset">
                                 </div>
                                 <div class="self-center text-gray-700 text-center px-4 py-2 m-2">
                                     <div class="option__desc">
@@ -137,7 +137,7 @@
                 let ids = map(val, (item) => {
                     return {
                         id: item.id,
-                        image: item.image
+                        imageAsset: item.imageAsset
                     };
                 });
                 this.handleChange(JSON.stringify(ids));

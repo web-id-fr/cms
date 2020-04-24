@@ -29,7 +29,7 @@ class ImageItemField extends Field
 
         $allSlide = $slideRepository->all();
         $allSlide->map(function ($slide) {
-            $slide->image = asset($slide->image);
+            $slide->imageAsset = asset($slide->image);
             return $slide;
         });
 
