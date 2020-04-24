@@ -59,9 +59,11 @@ class TemplateItemField extends Field
             $fieldItemIds[] = $fieldItem['id'];
         });
 
-        Popin::saved(function ($model) use ($fieldItemIds) {
-            $model->templates()->sync($fieldItemIds);
-        });
+        if(get_class($model) == Popin::class) {
+            Popin::saved(function ($model) use ($fieldItemIds) {
+                $model->templates()->sync($fieldItemIds);
+            });
+        }
     }
 
     /**

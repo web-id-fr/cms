@@ -41,7 +41,6 @@
             "Webid\\LanguageTool\\" : "src/nova-components/LanguageTool/src/",
             "Webid\\RecipientItemField\\" : "src/nova-components/RecipientItemField/src/",
             "Webid\\ServiceItemField\\" : "src/nova-components/ServiceItemField/src/",
-            "Webid\\TemplateItemField\\" : "src/nova-components/TemplateItemField/src/",
             "Webid\\TranslatableTool\\" : "src/nova-components/TranslatableTool/src/",
             "Webid\\MenuTool\\" : "src/nova-components/MenuTool/src/",
             "Webid\\MenuItemField\\" : "src/nova-components/MenuItemField/src/"
@@ -65,7 +64,6 @@
                 "Webid\\LanguageTool\\ToolServiceProvider",
                 "Webid\\RecipientItemField\\FieldServiceProvider",
                 "Webid\\ServiceItemField\\FieldServiceProvider",
-                "Webid\\TemplateItemField\\FieldServiceProvider",
                 "Webid\\TranslatableTool\\FieldServiceProvider",
                 "Webid\\MenuTool\\ToolServiceProvider",
                 "Webid\\MenuItemField\\FieldServiceProvider"
