@@ -162,6 +162,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/nova-components/ComponentItemField' => base_path('/nova-components/ComponentItemField'),
             __DIR__ . '/nova-components/ComponentTool' => base_path('/nova-components/ComponentTool'),
+            __DIR__ . '/nova-components/TemplateItemField' => base_path('/nova-components/TemplateItemField'),
         ], 'nova-components');
     }
 
