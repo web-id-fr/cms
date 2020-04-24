@@ -59,16 +59,24 @@ php artisan migrate
 ```  
 ```bash
     "require": {
-        "webid/ComponentItemField": "*"
+        "webid/ComponentItemField": "*",
+        "webid/TemplateItemField": "*"
     },
     
     "repositories": [
             {
                 "type": "path",
                 "url": "./nova-components/ComponentItemField"
+            },
+            {
+                "type": "path",
+                "url": "./nova-components/TemplateItemField"
             }
         ]
 ```
+##![#f03c15](https://placehold.it/15/f03c15/000000?text=+) :warning: :warning: Do not delete existing code in nova-components !!!  :warning: :warning: ![#f03c15](https://placehold.it/15/f03c15/000000?text=+)
+
+   
 ## Use cookies.js
 ###### To use the cookies popin, just fill the ``resuorces/views/warning_cookies.blade.php`` view, include it in ``resources/views/templae.blade.php`` with the js ``public/cms/js/cookies.js``
 
