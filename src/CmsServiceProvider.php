@@ -57,6 +57,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishNovaComponents();
         $this->publishTranslations();
         $this->publishSendFormJs();
+        $this->publishServices();
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadRoutesFrom(__DIR__ . '/routes/ajax.php');
@@ -187,5 +188,12 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/resources/js/send_form_popin.js' => base_path('/resources/js/send_form_popin.js'),
             __DIR__ . '/resources/js/helpers.js' => base_path('/resources/js/helpers.js'),
         ], 'send-form');
+    }
+
+    protected function publishServices()
+    {
+        $this->publishes([
+            __DIR__ . '/app/Services/ExtraElementForPageService.php' => base_path('/app/Services/ExtraElementForPageService.php'),
+        ], 'services');
     }
 }
