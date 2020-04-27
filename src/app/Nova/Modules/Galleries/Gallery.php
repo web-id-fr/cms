@@ -59,6 +59,7 @@ class Gallery extends Resource
 
             Select::make('Folder')
                 ->options($this->getFoldersGalleriesName())
+                ->rules('required')
                 ->hideFromIndex(),
 
             Translatable::make('CTA name show more', 'cta_name')
