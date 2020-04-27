@@ -65,7 +65,7 @@ class Field extends Resource
             Text::make('Field name'),
 
             ConditionalContainer::make([
-                Flexible::make('Field items')
+                Flexible::make('Field items', 'field_options')
                     ->addLayout('Item section', 'option', [
                         Translatable::make('Item')
                             ->singleLine()
