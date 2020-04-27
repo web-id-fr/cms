@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class ExtraElementForPageService
+class ExtraElementsForPageService
 {
     /**
      * @param $id_page
