@@ -3,6 +3,7 @@
 namespace Webid\Cms\Src\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Services\ExtraElementsForPageService;
 use Webid\Cms\Src\App\Facades\LanguageFacade;
 use Webid\Cms\Src\App\Http\Resources\Popin\PopinResource;
 use Webid\Cms\Src\App\Http\Resources\TemplateResource;
@@ -21,6 +22,9 @@ class TemplateController extends Controller
     /** @var PopinRepository  */
     protected $popinRepository;
 
+    /** @var $extraElementForPages */
+    protected $extraElementsForPage;
+
     /**
      * @param TemplateRepository $templateRepository
      * @param PopinRepository $popinRepository
@@ -29,6 +33,7 @@ class TemplateController extends Controller
     {
         $this->templateRepository = $templateRepository;
         $this->popinRepository = $popinRepository;
+        $this->extraElementsForPage = [];
     }
 
     /**
@@ -45,6 +50,12 @@ class TemplateController extends Controller
             ))->resolve();
 
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
+
+            try {
+                $this->extraElementsForPage = app(ExtraElementsForPageService::class)->getExtraElementForPage(data_get($data, 'id'));
+            } catch (\Exception $e) {
+                info($e);
+            }
 
             $meta = [
                 'title' => data_get($data, 'meta_title'),
@@ -64,6 +75,7 @@ class TemplateController extends Controller
                 'languages' => $this->getAvailableLanguages(),
                 'currentLang' => request()->lang ?? '',
                 'popins' => PopinResource::collection($popins)->resolve(),
+                'extras' => $this->extraElementsForPage,
             ]);
         } catch (\Exception $exception) {
             abort(404);
@@ -89,6 +101,12 @@ class TemplateController extends Controller
 
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
+            try {
+                $this->extraElementsForPage = app(ExtraElementsForPageService::class)->getExtraElementForPage(data_get($data, 'id'));
+            } catch (\Exception $e) {
+                info($e);
+            }
+
             $meta = [
                 'title' => data_get($data, 'meta_title'),
                 'type' => 'realisations',
@@ -107,6 +125,7 @@ class TemplateController extends Controller
                 'languages' => $this->getAvailableLanguages(),
                 'currentLang' => request()->lang ?? '',
                 'popins' => PopinResource::collection($popins)->resolve(),
+                'extras' => $this->extraElementsForPage,
             ]);
         } catch (\Exception $exception) {
             abort(404);

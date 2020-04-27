@@ -103,7 +103,7 @@ class MenuItemField extends Field
 
         Menu::saved(function ($model) use ($menuItemTemplateIds, $menuItemCustomIds) {
             $model->templates()->sync($menuItemTemplateIds);
-            $model->menu_custom_items()->sync($menuItemCustomIds);
+            $model->menuCustomItems()->sync($menuItemCustomIds);
         });
     }
 
