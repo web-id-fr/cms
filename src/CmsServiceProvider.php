@@ -193,7 +193,7 @@ class CmsServiceProvider extends ServiceProvider
     protected function publishServices()
     {
         $this->publishes([
-            __DIR__ . '/app/Services/ExtraElementForPageService.php' => base_path('/app/Services/ExtraElementForPageService.php'),
+            __DIR__ . '/app/Services/Publish/ExtraElementsForPageService.php' => base_path('/app/Services/ExtraElementsForPageService.php'),
         ], 'services');
     }
 }
