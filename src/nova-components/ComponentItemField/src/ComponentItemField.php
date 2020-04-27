@@ -97,7 +97,7 @@ class ComponentItemField extends Field
         $galleryComponentIds = [];
         $newsletterComponentIds = [];
 
-        foreach ($components as $component => $key) {
+        foreach ($components as $key => $component) {
             switch ($component['component_type']) {
                 case GalleryComponent::class:
                     $galleryComponentIds[$component['id']] = ['order' => $key + 1];
