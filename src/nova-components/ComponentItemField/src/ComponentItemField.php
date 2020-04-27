@@ -33,14 +33,14 @@ class ComponentItemField extends Field
         $allComponent = collect();
 
         // GALLERIES
-        $allGalleryComponents = $galleryComponentRepository->all();
+        $allGalleryComponents = $galleryComponentRepository->getPublishedComponents();
         $allGalleryComponents = $this->mapItems($allGalleryComponents, GalleryComponent::class);
         $allGalleryComponents->each(function ($gallery_component) use (&$allComponent) {
             $allComponent->push($gallery_component);
         });
 
         // NEWSLETTERS
-        $allNewsletterComponents = $newsletterComponentRepository->all();
+        $allNewsletterComponents = $newsletterComponentRepository->getPublishedComponents();
         $allNewsletterComponents = $this->mapItems($allNewsletterComponents,NewsletterComponent::class);
         $allNewsletterComponents->each(function ($newsletter_component) use (&$allComponent) {
             $allComponent->push($newsletter_component);
