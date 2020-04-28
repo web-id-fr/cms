@@ -11,7 +11,7 @@ class GalleryService
      */
     public function getGalleries(): array
     {
-        $galleriesPath = storage_path('app/public/galleries/');
+        $galleriesPath = config('cms.gallery_path');
 
         if (!File::exists($galleriesPath)) {
             return [];
