@@ -43,6 +43,8 @@ class Form extends Model
         'description',
         'recipient_type',
         'title_service',
+        'cta_name',
+        'rgpd_mention',
     ];
 
     /**
@@ -54,6 +56,8 @@ class Form extends Model
         'title',
         'description',
         'title_service',
+        'cta_name',
+        'rgpd_mention',
     ];
 
     /**
