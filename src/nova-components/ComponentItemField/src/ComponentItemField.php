@@ -12,7 +12,9 @@ use Webid\Cms\Src\App\Repositories\Components\NewsletterComponentRepository;
 
 class ComponentItemField extends Field
 {
+    /** @var $galleryComponentRepository  */
     protected $galleryComponentRepository;
+    /** @var $newsletterComponentRepository  */
     protected $newsletterComponentRepository;
 
     /**
@@ -25,11 +27,9 @@ class ComponentItemField extends Field
     /**
      * @param string $name
      * @param string|null $attribute
-     * @param mixed|null $resolveCallback
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @param callable|null $resolveCallback
      */
-    public function __construct(string $name, ?string $attribute = null, ?mixed $resolveCallback = null)
+    public function __construct(string $name, ?string $attribute = null, callable $resolveCallback = null)
     {
         $this->galleryComponentRepository = app(GalleryComponentRepository::class);
         $this->newsletterComponentRepository = app(NewsletterComponentRepository::class);
