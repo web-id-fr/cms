@@ -16,7 +16,7 @@ class GalleryResource extends JsonResource
      */
     public function toArray($request)
     {
-        $filepath = storage_path('app/public/galleries/' . $this->folder);
+        $filepath = config('cms.gallery_path') . "/" . $this->folder;
 
         if (File::exists($filepath)) {
             $galleries = scandir($filepath);
