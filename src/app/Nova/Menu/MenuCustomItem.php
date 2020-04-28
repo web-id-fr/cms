@@ -59,7 +59,7 @@ class MenuCustomItem extends Resource
             Select::make('Target')
                 ->options(MenuCustomItemModel::STATUS_TYPE)
                 ->displayUsingLabels()
-                ->rules('nullable', 'integer')
+                ->rules('nullable')
                 ->hideFromIndex(),
         ];
     }
