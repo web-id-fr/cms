@@ -27,11 +27,14 @@
                         <input type="hidden" name="form_id" value="{{ data_get($form, 'id') }}">
                     </div>
                     <div class="pad_popin">
-                        <button type="submit" class="button button_bg_black fullwidth submit_desktop submit_form">Envoyer</button>
+                        <button type="submit"
+                                class="button button_bg_black fullwidth submit_desktop submit_form">{{ data_get($form, 'cta_name') }}</button>
+                    </div>
+                    <div class="mentions pad_popin">
+                        {!! data_get($form, 'rgpd_mention') !!}
                     </div>
                 </div>
             </div>
-            <button type="submit" class="button button_bg_black fullwidth submit_mobile animation_btn" value="Envoyer"></button>
         </form>
     </div>
 </div>
