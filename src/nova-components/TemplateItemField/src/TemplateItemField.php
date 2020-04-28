@@ -32,7 +32,7 @@ class TemplateItemField extends Field
     {
         $templateRepository = app()->make(TemplateRepository::class);
 
-        $allField = $templateRepository->all();
+        $allField = $templateRepository->getPublishedTemplates();
         $allField->map(function ($template) {
             return $template;
         });

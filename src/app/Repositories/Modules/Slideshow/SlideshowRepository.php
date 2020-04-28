@@ -27,7 +27,6 @@ class SlideshowRepository extends BaseRepository
 
         $models->each(function ($model) {
             $model->chargeSlideItems();
-            ;
         });
 
         return $models;

@@ -23,7 +23,7 @@ class MenuCustomItemRepository extends BaseRepository
      *
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
      */
-    public function all(Bool $paginate = false, Array $options = [])
+    public function getPaginateAndFilter(Bool $paginate = false, Array $options = [])
     {
         //OPTIONS
         $search = isset($options['search']) ? $options['search'] : null;

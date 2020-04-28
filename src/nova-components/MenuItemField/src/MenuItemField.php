@@ -34,7 +34,7 @@ class MenuItemField extends Field
         $children = [];
 
         // MENU-CUSTOM-ITEM
-        $allMenuCustomItem = $menuCustomItemRepository->all();
+        $allMenuCustomItem = $menuCustomItemRepository->getPaginateAndFilter();
         $children = $this->getChildren($allMenuCustomItem, $children);
         $allMenuCustomItem = $this->mapItems($allMenuCustomItem, $children, MenuCustomItem::class);
         $allMenuCustomItem->each(function ($template) use (&$allItem) {
@@ -42,7 +42,7 @@ class MenuItemField extends Field
         });
 
         // TEMPLATE
-        $allTemplate = $templateRepository->all();
+        $allTemplate = $templateRepository->getPublishedTemplates();
         $children = $this->getChildren($allTemplate, $children);
         $allTemplate = $this->mapItems($allTemplate, $children, Template::class);
         $allTemplate->each(function ($template) use (&$allItem) {

@@ -19,7 +19,7 @@ class GalleryRepository extends BaseRepository
     /**
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
      */
-    public function all()
+    public function getPublishedGalleries()
     {
         return $this->model->all()
             ->where('status', Gallery::_STATUS_PUBLISHED);
