@@ -13,6 +13,7 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:description" content="{{ strip_tags(data_get($meta, 'og_description', '')) }}">
     <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('cms/css/override_nova.css') }}" />
     @yield('assets')
 </head>
 <body>
