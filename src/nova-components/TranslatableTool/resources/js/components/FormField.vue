@@ -4,6 +4,7 @@
             <slot>
                 <form-label :for="field.name">
                     {{ field.name }}
+                    <span v-if="field.required" class="text-danger text-sm">*</span>
                 </form-label>
             </slot>
         </div>
