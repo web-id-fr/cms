@@ -58,6 +58,7 @@ class Form extends Resource
 
             Translatable::make('Title')
                 ->singleLine()
+                ->rules('required')
                 ->locales($languages),
 
             Translatable::make('Description')
@@ -67,14 +68,21 @@ class Form extends Resource
                 ->locales($languages)
                 ->asHtml(),
 
-            Select::make('Status', 'status')
-                ->options(FormModel::TYPE_TO_NAME)
-                ->displayUsingLabels()
-                ->rules('integer', 'required')
-                ->hideFromIndex(),
-
             FieldItemField::make('Fields')
                 ->onlyOnForms(),
+
+            Translatable::make('CTA name')
+                ->singleLine()
+                ->rules('array', 'required')
+                ->hideFromIndex()
+                ->locales($languages),
+
+            Translatable::make('RGPD mention')
+                ->trix()
+                ->rules('array')
+                ->hideFromIndex()
+                ->locales($languages)
+                ->asHtml(),
 
             Select::make('Recipient type')
                 ->options(FormModel::TYPE_TO_SERVICE)
@@ -94,6 +102,12 @@ class Form extends Resource
                 ServiceItemField::make('Services')
                     ->onlyOnForms(),
             ])->dependsOn('recipient_type', FormModel::_SERVICES),
+
+            Select::make('Status', 'status')
+                ->options(FormModel::TYPE_TO_NAME)
+                ->displayUsingLabels()
+                ->rules('integer', 'required')
+                ->hideFromIndex(),
 
             Boolean::make('Published', function () {
                 return $this->isPublished();

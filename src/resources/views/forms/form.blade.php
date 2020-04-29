@@ -23,9 +23,9 @@
                 @endforeach
                 <input type="hidden" name="form_id" value="{{ data_get($form, 'id') }}">
             </div>
-            <div class="pad_popin">
-                <button type="submit" class="button button_bg_black fullwidth submit_desktop submit_form">Envoyer</button>
-            </div>
+            <button type="submit"
+                    class="button button_bg_black fullwidth submit_desktop submit_form">{{ data_get($form, 'cta_name') }}</button>
+            <p class="mentions">{!! data_get($form, 'rgpd_mention') !!}</p>
         </div>
     </div>
 </form>
