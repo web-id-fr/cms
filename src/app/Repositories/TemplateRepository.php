@@ -21,7 +21,7 @@ class TemplateRepository extends BaseRepository
     /**
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
      */
-    public function all()
+    public function getPublishedTemplates()
     {
         $models = $this->model->all()
             ->where('status', Template::_STATUS_PUBLISHED)

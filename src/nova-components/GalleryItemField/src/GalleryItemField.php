@@ -30,7 +30,7 @@ class GalleryItemField extends Field
     {
         $galleryRepository = app()->make(GalleryRepository::class);
 
-        $allGalleries = $galleryRepository->all();
+        $allGalleries = $galleryRepository->getPublishedGalleries();
         $allGalleries->map(function ($gallery) {
             return $gallery;
         });

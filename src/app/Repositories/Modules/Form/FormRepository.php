@@ -20,7 +20,7 @@ class FormRepository extends BaseRepository
     /**
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
      */
-    public function all()
+    public function getPublishedForms()
     {
         $models = $this->model
             ->where('status', Form::_STATUS_PUBLISHED)

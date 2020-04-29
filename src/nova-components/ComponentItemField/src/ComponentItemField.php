@@ -12,6 +12,11 @@ use Webid\Cms\Src\App\Repositories\Components\NewsletterComponentRepository;
 
 class ComponentItemField extends Field
 {
+    /** @var $galleryComponentRepository  */
+    protected $galleryComponentRepository;
+    /** @var $newsletterComponentRepository  */
+    protected $newsletterComponentRepository;
+
     /**
      * The field's component.
      *
@@ -22,31 +27,26 @@ class ComponentItemField extends Field
     /**
      * @param string $name
      * @param string|null $attribute
-     * @param mixed|null $resolveCallback
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @param callable|null $resolveCallback
      */
-    public function __construct(string $name, ?string $attribute = null, ?mixed $resolveCallback = null)
+    public function __construct(string $name, ?string $attribute = null, callable $resolveCallback = null)
     {
-        $galleryComponentRepository = app()->make(GalleryComponentRepository::class);
-        $newsletterComponentRepository = app()->make(NewsletterComponentRepository::class);
-        $allComponent = collect();
+        $this->galleryComponentRepository = app(GalleryComponentRepository::class);
+        $this->newsletterComponentRepository = app(NewsletterComponentRepository::class);
+        $allComponents = collect();
 
-        // GALLERIES
-        $allGalleryComponents = $galleryComponentRepository->all();
-        $allGalleryComponents = $this->mapItems($allGalleryComponents, GalleryComponent::class);
-        $allGalleryComponents->each(function ($gallery_component) use (&$allComponent) {
-            $allComponent->push($gallery_component);
-        });
+        $this->loadComponents(
+            $this->galleryComponentRepository->getPublishedComponents(),
+            GalleryComponent::class,
+            $allComponents
+        );
+        $this->loadComponents(
+            $this->newsletterComponentRepository->getPublishedComponents(),
+            NewsletterComponent::class,
+            $allComponents
+        );
 
-        // NEWSLETTERS
-        $allNewsletterComponents = $newsletterComponentRepository->all();
-        $allNewsletterComponents = $this->mapItems($allNewsletterComponents,NewsletterComponent::class);
-        $allNewsletterComponents->each(function ($newsletter_component) use (&$allComponent) {
-            $allComponent->push($newsletter_component);
-        });
-
-        $this->withMeta(['items' => $allComponent]);
+        $this->withMeta(['items' => $allComponents]);
         parent::__construct($name, $attribute, $resolveCallback);
     }
 
@@ -67,6 +67,23 @@ class ComponentItemField extends Field
     }
 
     /**
+     * @param $publishComponent
+     * @param $model
+     * @param $allComponents
+     *
+     * @return mixed
+     */
+    protected function loadComponents($publishComponent, $model, $allComponents)
+    {
+        $allPublishComponents = $this->mapItems($publishComponent, $model);
+        $allPublishComponents->each(function ($component) use (&$allComponents) {
+            $allComponents->push($component);
+        });
+
+        return $allComponents;
+    }
+
+    /**
      * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @param $requestAttribute
      * @param $model
@@ -80,19 +97,16 @@ class ComponentItemField extends Field
         $galleryComponentIds = [];
         $newsletterComponentIds = [];
 
-        $components->each(function (
-            $component,
-            $key
-        ) use (
-            &$galleryComponentIds,
-            &$newsletterComponentIds
-        ) {
-            if ($component['component_type'] == GalleryComponent::class) {
-                $galleryComponentIds[$component['id']] = ['order' => $key + 1];
-            } elseif ($component['component_type'] == NewsletterComponent::class) {
-                $newsletterComponentIds[$component['id']] = ['order' => $key + 1];
+        foreach ($components as $key => $component) {
+            switch ($component['component_type']) {
+                case GalleryComponent::class:
+                    $galleryComponentIds[$component['id']] = ['order' => $key + 1];
+                    break;
+                case NewsletterComponent::class:
+                    $newsletterComponentIds[$component['id']] = ['order' => $key + 1];
+                    break;
             }
-        });
+        }
 
         Template::saved(function ($model) use (
             $galleryComponentIds,

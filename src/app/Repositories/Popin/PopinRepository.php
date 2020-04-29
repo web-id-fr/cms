@@ -20,7 +20,7 @@ class PopinRepository extends BaseRepository
     /**
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
      */
-    public function all()
+    public function getPublishedPopins()
     {
         return $this->model->all()
             ->where('status', Popin::_STATUS_PUBLISHED);

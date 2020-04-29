@@ -20,7 +20,7 @@ class GalleryComponentRepository extends BaseRepository
     /**
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
      */
-    public function all()
+    public function getPublishedComponents()
     {
         return $this->model->all()
             ->where('status', GalleryComponent::_STATUS_PUBLISHED);

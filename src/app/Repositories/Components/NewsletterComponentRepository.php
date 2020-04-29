@@ -20,7 +20,7 @@ class NewsletterComponentRepository extends BaseRepository
     /**
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
      */
-    public function all()
+    public function getPublishedComponents()
     {
         return $this->model->all()
             ->where('status', NewsletterComponent::_STATUS_PUBLISHED);
