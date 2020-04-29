@@ -120,7 +120,7 @@ class CmsServiceProvider extends ServiceProvider
         Route::pattern('lang', '(' . LanguageFacade::getAllLanguagesAsRegex() . ')');
     }
 
-    protected function mergeConfigFrom()
+    protected function publishConfiguration()
     {
         $this->publishes([
             __DIR__ . '/config/translatable.php' => config_path('translatable.php'),
