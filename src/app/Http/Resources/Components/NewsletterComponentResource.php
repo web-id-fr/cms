@@ -19,6 +19,7 @@ class NewsletterComponentResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'title' => $this->title,
+            'placeholder' => $this->placeholder,
             'cta_name' => $this->cta_name,
             'view' => config("components.$this->component_type.view"),
         ];

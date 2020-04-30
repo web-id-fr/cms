@@ -73,20 +73,23 @@ class NewsletterComponent extends Resource
 
             Translatable::make('Title', 'title')
                 ->singleLine()
-                ->rules('required')
+                ->sortable()
+                ->locales($languages),
+
+            Translatable::make('Placeholder')
+                ->singleLine()
                 ->sortable()
                 ->locales($languages),
 
             Translatable::make('CTA Name')
                 ->singleLine()
-                ->rules('required')
                 ->sortable()
                 ->locales($languages),
 
             Select::make('Status', 'status')
                 ->options(NewsletterComponentModel::TYPE_TO_NAME)
                 ->displayUsingLabels()
-                ->rules('required', 'integer')
+                ->rules('integer')
                 ->hideFromIndex(),
 
             Boolean::make('Published', function () {

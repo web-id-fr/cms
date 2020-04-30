@@ -34,6 +34,7 @@ class NewsletterComponent extends Model
         'status',
         'title',
         'cta_name',
+        'placeholder',
     ];
 
     /**
@@ -44,5 +45,6 @@ class NewsletterComponent extends Model
     public $translatable = [
         'title',
         'cta_name',
+        'placeholder',
     ];
 }
