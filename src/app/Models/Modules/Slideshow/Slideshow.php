@@ -68,7 +68,7 @@ class Slideshow extends Model
         $slides = $this->slides;
 
         $slides->each(function ($slide) use (&$slideItems) {
-            $slide->imageAsset = asset($slide->image);
+            $slide->imageAsset = config('cms.image_path') . $slide->image;
             $slideItems->push($slide);
         });
 
