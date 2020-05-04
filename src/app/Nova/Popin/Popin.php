@@ -118,15 +118,17 @@ class Popin extends Resource
             Boolean::make('Display a call-to-action', 'display_call_to_action')
                 ->hideFromIndex(),
 
-            Translatable::make('CTA title', 'button_1_title')
-                ->singleLine()
-                ->locales($languages)
-                ->hideFromIndex(),
+            NovaDependencyContainer::make([
+                Translatable::make('CTA title', 'button_1_title')
+                    ->singleLine()
+                    ->locales($languages)
+                    ->hideFromIndex(),
 
-            Translatable::make('CTA link', 'button_1_url')
-                ->singleLine()
-                ->locales($languages)
-                ->hideFromIndex(),
+                Translatable::make('CTA link', 'button_1_url')
+                    ->singleLine()
+                    ->locales($languages)
+                    ->hideFromIndex(),
+            ])->dependsOn('display_call_to_action', true),
 
             Boolean::make('Display a second call-to-action', 'display_second_button')
                 ->hideFromIndex(),
