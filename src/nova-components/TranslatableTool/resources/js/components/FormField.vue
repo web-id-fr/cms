@@ -84,7 +84,11 @@
              * Set the initial, internal value for the field.
              */
             setInitialValue() {
-                this.value = this.field.value || {}
+                if (typeof this.field.value === 'object') {
+                    this.value = this.field.value || {}
+                } else {
+                    this.value = JSON.parse(this.field.value) || {}
+                }
             },
 
             /**
