@@ -8,7 +8,6 @@ use Webid\Cms\Src\App\Repositories\TemplateRepository;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\Cms\Src\App\Models\Menu\MenuCustomItem;
-use Webid\Cms\Src\App\Models\Template;
 
 class MenuItemField extends Field
 {
@@ -44,7 +43,7 @@ class MenuItemField extends Field
         // TEMPLATE
         $allTemplate = $templateRepository->getPublishedTemplates();
         $children = $this->getChildren($allTemplate, $children);
-        $allTemplate = $this->mapItems($allTemplate, $children, Template::class);
+        $allTemplate = $this->mapItems($allTemplate, $children, config('cms.template_model'));
         $allTemplate->each(function ($template) use (&$allItem) {
             $allItem->push($template);
         });
@@ -68,7 +67,7 @@ class MenuItemField extends Field
         $menuItemCustomIds = [];
 
         $menuItems->each(function ($menuItem, $key) use (&$menuItemTemplateIds, &$menuItemCustomIds) {
-            if ($menuItem['menuable_type'] == Template::class) {
+            if ($menuItem['menuable_type'] == config('cms.template_model')) {
                 $menuItemTemplateIds[$menuItem['id']] = [
                     'order' => $key + 1,
                     'parent_id' => null,
@@ -84,7 +83,7 @@ class MenuItemField extends Field
 
             $count = 1;
             foreach ($menuItem['children'] as $children) {
-                if ($children['menuable_type'] == Template::class) {
+                if ($children['menuable_type'] == config('cms.template_model')) {
                     $menuItemTemplateIds[$children['id']] = [
                         'parent_id' => $menuItem['id'],
                         'parent_type' => $menuItem['menuable_type'],

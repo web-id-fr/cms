@@ -2,7 +2,6 @@
 
 namespace Webid\Cms\Src\App\Http\Resources\Menu;
 
-use App\Models\Template;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webid\Cms\Src\App\Models\Menu\MenuCustomItem;
 
@@ -32,7 +31,7 @@ class MenuItemChildren extends JsonResource
             }),
 
             // Champs exclusifs aux Pages
-            'slug' => $this->when(Template::class == $this->menuable_type, function () {
+            'slug' => $this->when(config('cms.template_model') == $this->menuable_type, function () {
                 return $this->slug;
             }),
         ];

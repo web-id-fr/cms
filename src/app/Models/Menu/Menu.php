@@ -2,7 +2,6 @@
 
 namespace Webid\Cms\Src\App\Models\Menu;
 
-use Webid\Cms\Src\App\Models\Template;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Spatie\Translatable\HasTranslations;
@@ -43,7 +42,7 @@ class Menu extends Model
      */
     public function templates()
     {
-        return $this->morphedByMany(Template::class, 'menuable')
+        return $this->morphedByMany(config('cms.template_model'), 'menuable')
             ->withPivot('order', 'parent_id', 'parent_type')
             ->orderBy('order');
     }
@@ -68,7 +67,7 @@ class Menu extends Model
         $children = $this->getChildren($templates, $children);
         $children = $this->getChildren($customItems, $children);
 
-        $this->mapItems($templates, $children, Template::class, $menuItems);
+        $this->mapItems($templates, $children, config('cms.template_model'), $menuItems);
         $this->mapItems($customItems, $children, MenuCustomItem::class, $menuItems);
 
         $menuItems = $menuItems->sortBy(function ($item) {
