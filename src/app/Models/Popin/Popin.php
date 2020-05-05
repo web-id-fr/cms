@@ -2,7 +2,6 @@
 
 namespace Webid\Cms\Src\App\Models\Popin;
 
-use App\Models\Template;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
@@ -64,7 +63,7 @@ class Popin extends Model
      */
     public function templates()
     {
-        return $this->belongsToMany(Template::class, 'popin_template');
+        return $this->belongsToMany(config('cms.template_model'), 'popin_template');
     }
 
     /** @var $template_items */
