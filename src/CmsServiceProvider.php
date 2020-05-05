@@ -2,6 +2,7 @@
 
 namespace Webid\Cms;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
@@ -33,6 +34,7 @@ use Webid\Cms\Src\App\Http\Controllers\TemplateController;
 use Webid\Cms\Src\App\Nova\Template;
 use Illuminate\Support\Facades\View;
 use Webid\Cms\Src\App\Repositories\TemplateRepository;
+use Webid\Cms\Src\App\Services\MenuService;
 
 class CmsServiceProvider extends ServiceProvider
 {
@@ -47,6 +49,8 @@ class CmsServiceProvider extends ServiceProvider
         if (!app()->isLocal()) {
             $generator->forceScheme('https');
         }
+
+        $this->registerMenuDirective();
 
         $this->publishConfiguration();
         $this->publishProvider();
@@ -118,6 +122,14 @@ class CmsServiceProvider extends ServiceProvider
 
         Route::pattern('id', '[0-9]+');
         Route::pattern('lang', '(' . LanguageFacade::getAllLanguagesAsRegex() . ')');
+    }
+
+    protected function registerMenuDirective()
+    {
+        Blade::directive('menu', function ($expression) {
+            $expression = str_replace("'", "\'", $expression);
+            return "<?php echo app('" . MenuService::class . "')->showMenu('{$expression}'); ?>";
+        });
     }
 
     protected function publishConfiguration()
