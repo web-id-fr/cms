@@ -154,7 +154,7 @@ class MenuItemField extends Field
     protected function mapItems($items, $children, $model)
     {
         return $items->map(function ($item) use ($children, $model) {
-            if (!empty($children) && request()->route('resourceId') && array_key_exists($item->id . "-" . $model, $children[request()->route('resourceId')])){
+            if (!empty($children) && request()->route('resourceId') && array_key_exists(request()->route('resourceId'), $children)  && array_key_exists($item->id . "-" . $model, $children[request()->route('resourceId')])){
                 $item->children = $children[request()->route('resourceId')][$item->id . "-" . $model];
             } else {
                 $item->children = [];
