@@ -3,7 +3,6 @@
 namespace Webid\Cms\Src\App\Nova\Slideshow;
 
 use Laravel\Nova\Fields\ID;
-use Webid\Cms\Src\App\Facades\LanguageFacade;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Number;
@@ -47,15 +46,12 @@ class Slideshow extends Resource
      */
     public function fields(Request $request)
     {
-        $languages = LanguageFacade::getUsedLanguage();
-
         return [
             ID::make()->sortable(),
 
             Translatable::make('Title')
                 ->singleLine()
-                ->rules('required')
-                ->locales($languages),
+                ->rules('required'),
 
             Boolean::make('Arrows display', 'js_controls'),
 

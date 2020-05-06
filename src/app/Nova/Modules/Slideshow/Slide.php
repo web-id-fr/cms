@@ -3,7 +3,6 @@
 namespace Webid\Cms\Src\App\Nova\Slideshow;
 
 use Laravel\Nova\Fields\ID;
-use Webid\Cms\Src\App\Facades\LanguageFacade;
 use Illuminate\Http\Request;
 use Infinety\Filemanager\FilemanagerField;
 use Webid\TranslatableTool\Translatable;
@@ -44,38 +43,31 @@ class Slide extends Resource
      */
     public function fields(Request $request)
     {
-        $languages = LanguageFacade::getUsedLanguage();
-
         return [
             ID::make()->sortable(),
 
             Translatable::make('Title')
                 ->singleLine()
-                ->rules('required')
-                ->locales($languages),
+                ->rules('required'),
 
             Translatable::make('Description')
                 ->trix()
                 ->asHtml()
-                ->locales($languages)
                 ->hideFromIndex(),
 
             Translatable::make('CTA name', 'cta_name')
                 ->singleLine()
                 ->rules('array')
-                ->locales($languages)
                 ->hideFromIndex(),
 
             Translatable::make('CTA link', 'cta_url')
                 ->singleLine()
                 ->rules('array')
-                ->locales($languages)
                 ->hideFromIndex(),
 
             Translatable::make('Url')
                 ->singleLine()
                 ->rules('array')
-                ->locales($languages)
                 ->hideFromIndex(),
 
             FilemanagerField::make('Image')

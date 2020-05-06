@@ -8,7 +8,6 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
-use Webid\Cms\Src\App\Facades\LanguageFacade;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuConfigurationController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuCustomItemController;
@@ -34,6 +33,7 @@ use Webid\Cms\Src\App\Http\Controllers\TemplateController;
 use Webid\Cms\Src\App\Nova\Template;
 use Illuminate\Support\Facades\View;
 use Webid\Cms\Src\App\Repositories\TemplateRepository;
+use Webid\Cms\Src\App\Services\LanguageService;
 use Webid\Cms\Src\App\Services\MenuService;
 
 class CmsServiceProvider extends ServiceProvider
@@ -121,7 +121,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->make(MenuItemController::class);
 
         Route::pattern('id', '[0-9]+');
-        Route::pattern('lang', '(' . LanguageFacade::getAllLanguagesAsRegex() . ')');
+        Route::pattern('lang', '(' . app(LanguageService::class)->getAllLanguagesAsRegex() . ')');
     }
 
     protected function registerMenuDirective()

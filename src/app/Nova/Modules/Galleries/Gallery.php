@@ -2,7 +2,6 @@
 
 namespace Webid\Cms\Src\App\Nova\Modules\Galleries;
 
-use Webid\Cms\Src\App\Facades\LanguageFacade;
 use Webid\Cms\Src\App\Services\GalleryService;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
@@ -46,16 +45,13 @@ class Gallery extends Resource
      */
     public function fields(Request $request)
     {
-        $languages = LanguageFacade::getUsedLanguage();
-
         return [
             ID::make()->sortable(),
 
             Translatable::make('Title')
                 ->singleLine()
                 ->rules('required', 'array')
-                ->sortable()
-                ->locales($languages),
+                ->sortable(),
 
             Select::make('Folder')
                 ->options($this->getFoldersGalleriesName())
@@ -65,8 +61,7 @@ class Gallery extends Resource
             Translatable::make('CTA name show more', 'cta_name')
                 ->singleLine()
                 ->rules('required', 'array')
-                ->sortable()
-                ->locales($languages),
+                ->sortable(),
 
             Select::make('Status', 'status')
                 ->options(GalleryModel::TYPE_TO_NAME)

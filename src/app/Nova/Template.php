@@ -3,7 +3,6 @@
 namespace Webid\Cms\Src\App\Nova;
 
 use Carbon\Carbon;
-use Webid\Cms\Src\App\Facades\LanguageFacade;
 use App\Nova\Resource;
 use Webid\Cms\Src\App\Rules\TranslatableMax;
 use Webid\Cms\Src\App\Rules\TranslatableSlug;
@@ -54,13 +53,11 @@ class Template extends Resource
      */
     public function fields(Request $request)
     {
-        $languages = LanguageFacade::getUsedLanguage();
-
         return [
             new Tabs('Tabs', [
-                'Parameters' => $this->parameterFields($languages),
+                'Parameters' => $this->parameterFields(),
                 'Content' => $this->contentFields(),
-                'SEO' => $this->seoFields($languages),
+                'SEO' => $this->seoFields(),
             ]),
         ];
     }
@@ -68,11 +65,9 @@ class Template extends Resource
     /**
      * Affiche les champs pour le paramétrage de l'article
      *
-     * @param $languages
-     *
      * @return array
      */
-    protected function parameterFields($languages)
+    protected function parameterFields()
     {
         return [
             Boolean::make('Homepage'),
@@ -82,14 +77,12 @@ class Template extends Resource
             Translatable::make('Title', 'title')
                 ->singleLine()
                 ->rules('required')
-                ->sortable()
-                ->locales($languages),
+                ->sortable(),
 
             Translatable::make('Slug', 'slug')
                 ->help('Please use only this type of slug "name-of-the-template"')
                 ->singleLine()
-                ->rules('array', new TranslatableMax(100), new TranslatableSlug())
-                ->locales($languages),
+                ->rules('array', new TranslatableMax(100), new TranslatableSlug()),
 
             Select::make('Status', 'status')
                 ->options(TemplateModel::TYPE_TO_NAME)
@@ -123,34 +116,28 @@ class Template extends Resource
     /**
      * Affiche les champs pour les balises meta de la page
      *
-     * @param $languages
-     *
      * @return array
      */
-    protected function seoFields($languages)
+    protected function seoFields()
     {
         return [
             Translatable::make('Metatitle', 'metatitle')
                 ->singleLine()
-                ->hideFromIndex()
-                ->locales($languages),
+                ->hideFromIndex(),
 
             Translatable::make('Metadescription', 'metadescription')
                 ->trix()
                 ->rules('array')
-                ->hideFromIndex()
-                ->locales($languages),
+                ->hideFromIndex(),
 
             Translatable::make('Opengraph Title', 'opengraph_title')
                 ->singleLine()
-                ->hideFromIndex()
-                ->locales($languages),
+                ->hideFromIndex(),
 
             Translatable::make('Opengraph Description', 'opengraph_description')
                 ->trix()
                 ->rules('array')
-                ->hideFromIndex()
-                ->locales($languages),
+                ->hideFromIndex(),
 
             FilemanagerField::make('Opengraph Picture', 'opengraph_picture')
                 ->hideFromIndex()

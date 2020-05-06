@@ -4,35 +4,43 @@ namespace Webid\Cms\Src\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Services\ExtraElementsForPageService;
-use Webid\Cms\Src\App\Facades\LanguageFacade;
 use Webid\Cms\Src\App\Http\Resources\Popin\PopinResource;
 use Webid\Cms\Src\App\Http\Resources\TemplateResource;
 use Webid\Cms\Src\App\Repositories\Popin\PopinRepository;
 use Webid\Cms\Src\App\Repositories\TemplateRepository;
 use Illuminate\Http\Request;
+use Webid\Cms\Src\App\Services\LanguageService;
 use Webid\Cms\Src\App\Traits\CanRenderTemplates;
 
 class TemplateController extends Controller
 {
     use CanRenderTemplates;
 
-    /** @var $templateRepository */
+    /** @var TemplateRepository */
     protected $templateRepository;
 
     /** @var PopinRepository  */
     protected $popinRepository;
 
-    /** @var $extraElementForPages */
+    /** @var ExtraElementsForPageService */
     protected $extraElementsForPage;
+
+    /** @var LanguageService  */
+    protected $languageService;
 
     /**
      * @param TemplateRepository $templateRepository
      * @param PopinRepository $popinRepository
+     * @param LanguageService $languageService
      */
-    public function __construct(TemplateRepository $templateRepository, PopinRepository $popinRepository)
-    {
+    public function __construct(
+        TemplateRepository $templateRepository,
+        PopinRepository $popinRepository,
+        LanguageService $languageService
+    ) {
         $this->templateRepository = $templateRepository;
         $this->popinRepository = $popinRepository;
+        $this->languageService = $languageService;
         $this->extraElementsForPage = [];
     }
 
@@ -139,6 +147,6 @@ class TemplateController extends Controller
      */
     public function rootPage()
     {
-        return redirect(LanguageFacade::getFromBrowser());
+        return redirect($this->languageService->getFromBrowser());
     }
 }
