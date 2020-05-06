@@ -22,7 +22,7 @@ class TemplateController extends Controller
     /** @var PopinRepository  */
     protected $popinRepository;
 
-    /** @var ExtraElementsForPageService */
+    /** @var array */
     protected $extraElementsForPage;
 
     /** @var LanguageService  */
