@@ -2,7 +2,6 @@
 
 namespace  Webid\Cms\Src\App\Nova\Popin;
 
-use Webid\Cms\Src\App\Facades\LanguageFacade;
 use Webid\Cms\Src\App\Models\Popin\Popin as PopinModel;
 use \Eminiarts\Tabs\Tabs;
 use \Eminiarts\Tabs\TabsOnEdit;
@@ -54,12 +53,10 @@ class Popin extends Resource
      */
     public function fields(Request $request)
     {
-        $languages = LanguageFacade::getUsedLanguage();
-
         return [
             new Tabs('Tabs', [
-                'Parameters' => $this->parametersTab($languages),
-                'Content' => $this->contentTab($languages),
+                'Parameters' => $this->parametersTab(),
+                'Content' => $this->contentTab(),
                 'Settings' => $this->settingsTab()
             ])
         ];
@@ -68,18 +65,15 @@ class Popin extends Resource
     /**
      * Retourne les champs affichés dans l'onglet Parameters
      *
-     * @param $languages
-     *
      * @return array
      */
-    protected function parametersTab($languages)
+    protected function parametersTab()
     {
         return [
             Translatable::make('Title', 'title')
                 ->singleLine()
                 ->sortable()
-                ->rules('nullable', 'max:255')
-                ->locales($languages),
+                ->rules('nullable', 'max:255'),
 
             TemplateItemField::make('Templates')
                 ->hideFromIndex(),
@@ -100,11 +94,9 @@ class Popin extends Resource
     /**
      * Retourne les champs affichés dans l'onglet Content
      *
-     * @param $languages
-     *
      * @return array
      */
-    protected function contentTab($languages)
+    protected function contentTab()
     {
         return [
             FilemanagerField::make('Image'),
@@ -112,7 +104,6 @@ class Popin extends Resource
             Translatable::make('Description', 'description')
                 ->trix()
                 ->asHtml()
-                ->locales($languages)
                 ->hideFromIndex(),
 
             Boolean::make('Display a call-to-action', 'display_call_to_action')
@@ -121,12 +112,10 @@ class Popin extends Resource
             NovaDependencyContainer::make([
                 Translatable::make('CTA title', 'button_1_title')
                     ->singleLine()
-                    ->locales($languages)
                     ->hideFromIndex(),
 
                 Translatable::make('CTA link', 'button_1_url')
                     ->singleLine()
-                    ->locales($languages)
                     ->hideFromIndex(),
             ])->dependsOn('display_call_to_action', true),
 
@@ -136,12 +125,10 @@ class Popin extends Resource
             NovaDependencyContainer::make([
                 Translatable::make('CTA title 2', 'button_2_title')
                     ->singleLine()
-                    ->locales($languages)
                     ->hideFromIndex(),
 
                 Translatable::make('CTA link 2', 'button_2_url')
                     ->singleLine()
-                    ->locales($languages)
                     ->hideFromIndex(),
 
             ])->dependsOn('display_second_button', true),

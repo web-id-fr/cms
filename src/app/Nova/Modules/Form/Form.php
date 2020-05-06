@@ -2,7 +2,6 @@
 
 namespace Webid\Cms\Src\App\Nova\Modules\Form;
 
-use Webid\Cms\Src\App\Facades\LanguageFacade;
 use App\Nova\Resource;
 use Epartment\NovaDependencyContainer\HasDependencies;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -51,21 +50,17 @@ class Form extends Resource
      */
     public function fields(Request $request)
     {
-        $languages = LanguageFacade::getUsedLanguage();
-
         return [
             ID::make()->sortable(),
 
             Translatable::make('Title')
                 ->singleLine()
-                ->rules('required')
-                ->locales($languages),
+                ->rules('required'),
 
             Translatable::make('Description')
                 ->trix()
                 ->rules('array')
                 ->hideFromIndex()
-                ->locales($languages)
                 ->asHtml(),
 
             FieldItemField::make('Fields')
@@ -74,14 +69,12 @@ class Form extends Resource
             Translatable::make('CTA name')
                 ->singleLine()
                 ->rules('array', 'required')
-                ->hideFromIndex()
-                ->locales($languages),
+                ->hideFromIndex(),
 
             Translatable::make('RGPD mention')
                 ->trix()
                 ->rules('array')
                 ->hideFromIndex()
-                ->locales($languages)
                 ->asHtml(),
 
             Select::make('Recipient type')
@@ -96,8 +89,7 @@ class Form extends Resource
 
             NovaDependencyContainer::make([
                 Translatable::make('Title service')
-                    ->singleLine()
-                    ->locales($languages),
+                    ->singleLine(),
 
                 ServiceItemField::make('Services')
                     ->onlyOnForms(),
