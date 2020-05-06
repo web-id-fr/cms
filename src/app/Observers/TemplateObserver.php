@@ -2,10 +2,10 @@
 
 namespace Webid\Cms\Src\App\Observers;
 
-use Webid\Cms\Src\App\Facades\LanguageFacade;
 use App\Models\Template;
 use Webid\Cms\Src\App\Repositories\TemplateRepository;
 use Illuminate\Support\Str;
+use Webid\Cms\Src\App\Services\LanguageService;
 
 class TemplateObserver
 {
@@ -93,7 +93,7 @@ class TemplateObserver
      */
     protected function getUsedCodeLanguage()
     {
-        $languages = LanguageFacade::getUsedLanguage();
+        $languages = app(LanguageService::class)->getUsedLanguage();
         return array_keys($languages);
     }
 }
