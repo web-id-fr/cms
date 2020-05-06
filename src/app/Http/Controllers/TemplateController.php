@@ -16,13 +16,13 @@ class TemplateController extends Controller
 {
     use CanRenderTemplates;
 
-    /** @var $templateRepository */
+    /** @var TemplateRepository */
     protected $templateRepository;
 
     /** @var PopinRepository  */
     protected $popinRepository;
 
-    /** @var $extraElementForPages */
+    /** @var ExtraElementsForPageService */
     protected $extraElementsForPage;
 
     /** @var LanguageService  */
