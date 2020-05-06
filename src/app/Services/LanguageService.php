@@ -4,9 +4,8 @@ namespace Webid\Cms\Src\App\Services;
 
 use Webid\LanguageTool\Models\Language;
 use Webid\LanguageTool\Repositories\LanguageRepository;
-use Illuminate\Support\Facades\Facade;
 
-class LanguageService extends Facade
+class LanguageService
 {
     /**
      * Retourne les langues utilisées par le site et dans un format utilisable par le champ Translatable
