@@ -90,7 +90,7 @@ class MenuItemField extends Field
                         'order' => $count
                     ];
                 } else {
-                    $menuItemCustomIds[$menuItem['id']] = [
+                    $menuItemCustomIds[$children['id']] = [
                         'parent_id' => $menuItem['id'],
                         'parent_type' => $menuItem['menuable_type'],
                         'order' => $count
