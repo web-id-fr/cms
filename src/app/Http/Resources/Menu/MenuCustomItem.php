@@ -24,11 +24,11 @@ class MenuCustomItem extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
 
-            $this->mergeWhen(MenuCustomItemModel::_LINK_URL == $this->link_type, [
+            $this->mergeWhen(MenuCustomItemModel::_LINK_URL == $this->type_link, [
                 'url' => $this->url,
             ]),
 
-            $this->mergeWhen(MenuCustomItemModel::_LINK_FORM == $this->link_type, [
+            $this->mergeWhen(MenuCustomItemModel::_LINK_FORM == $this->type_link, [
                 'form' => Form::make($formRepository->find($this->form->id))->resolve(),
                 'is_popin' => true,
             ]),

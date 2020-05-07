@@ -16,6 +16,7 @@ class AddFormFieldsForMenuCustomItemsTable extends Migration
         Schema::table('menu_custom_items', function(Blueprint $table) {
             $table->integer('type_link')->nullable();
             $table->integer('form_id')->nullable();
+            $table->string('target')->default('_self')->nullable()->change();
         });
     }
 
@@ -29,6 +30,7 @@ class AddFormFieldsForMenuCustomItemsTable extends Migration
         Schema::table('menu_custom_items', function(Blueprint $table) {
             $table->dropColumn('type_link');
             $table->dropColumn('form_id');
+            $table->string('target')->default('_self')->nullable(false)->change();
         });
     }
 }

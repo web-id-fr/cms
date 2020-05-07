@@ -52,7 +52,7 @@ class MenuCustomItem extends Resource
                 ->singleLine()
                 ->rules('array'),
 
-            Select::make('Link type', 'link_type')
+            Select::make('Type link', 'type_link')
                 ->options(MenuCustomItemModel::TYPE_TO_LINK)
                 ->displayUsingLabels()
                 ->hideFromIndex(),
@@ -60,21 +60,20 @@ class MenuCustomItem extends Resource
             NovaDependencyContainer::make([
                 Translatable::make('Url')
                     ->singleLine()
-                    ->rules('array')
                     ->hideFromIndex(),
-            ])->dependsOn('link_type', MenuCustomItemModel::_LINK_URL),
+
+                Select::make('Target')
+                    ->options(MenuCustomItemModel::STATUS_TYPE)
+                    ->displayUsingLabels()
+                    ->rules('nullable')
+                    ->hideFromIndex(),
+            ])->dependsOn('type_link', MenuCustomItemModel::_LINK_URL),
 
             NovaDependencyContainer::make([
                 BelongsTo::make('Form', 'form', Form::class)
                     ->nullable()
                     ->onlyOnForms(),
-            ])->dependsOn('link_type', MenuCustomItemModel::_LINK_FORM),
-
-            Select::make('Target')
-                ->options(MenuCustomItemModel::STATUS_TYPE)
-                ->displayUsingLabels()
-                ->rules('nullable')
-                ->hideFromIndex(),
+            ])->dependsOn('type_link', MenuCustomItemModel::_LINK_FORM),
         ];
     }
 }
