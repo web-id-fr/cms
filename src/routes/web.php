@@ -33,9 +33,9 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'form',
+    'prefix' => '{lang}/form',
     'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Modules\Ajax\Form',
-    'middleware' => ['web', ProtectAgainstSpam::class]
+    'middleware' => ['web', ProtectAgainstSpam::class, Language::class, CheckLanguageExist::class]
 ], function () {
     Route::post('/send', 'FormController@handle')->name('send.form');
 });
