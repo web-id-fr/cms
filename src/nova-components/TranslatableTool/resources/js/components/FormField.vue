@@ -3,6 +3,7 @@
         <div class="w-1/5 px-8 py-6">
             <slot>
                 <form-label :for="field.name">
+                    <font-awesome-icon icon="flag"/>
                     {{ field.name }}
                     <span v-if="field.required" class="text-danger text-sm">*</span>
                 </form-label>
@@ -58,12 +59,21 @@
 
     import {FormField, HandlesValidationErrors} from 'laravel-nova'
 
+    import {library} from '@fortawesome/fontawesome-svg-core';
+    import {faFlag} from '@fortawesome/free-solid-svg-icons';
+    import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
+
+    library.add(faFlag);
+
     export default {
         mixins: [FormField, HandlesValidationErrors],
 
         props: ['resourceName', 'resourceId', 'field'],
 
-        components: {Trix},
+        components: {
+            Trix,
+            'font-awesome-icon': FontAwesomeIcon,
+        },
 
         data() {
             return {
