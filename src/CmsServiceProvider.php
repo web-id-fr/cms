@@ -218,8 +218,8 @@ class CmsServiceProvider extends ServiceProvider
      */
     protected function registerAliasMiddleware(Router $router)
     {
-        $router->aliasMiddleware('antiSpam', ProtectAgainstSpam::class);
+        $router->aliasMiddleware('anti-spam', ProtectAgainstSpam::class);
         $router->aliasMiddleware('language', Language::class);
-        $router->aliasMiddleware('checkLanguageExist', CheckLanguageExist::class);
+        $router->aliasMiddleware('check-language-exist', CheckLanguageExist::class);
     }
 }
