@@ -1,9 +1,4 @@
 <?php
-
-use Webid\Cms\Src\App\Http\Middleware\CheckLanguageExist;
-use Webid\Cms\Src\App\Http\Middleware\Language;
-use Spatie\Honeypot\ProtectAgainstSpam;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +16,7 @@ Route::get('/', 'Webid\Cms\Src\App\Http\Controllers\TemplateController@rootPage'
 Route::group([
     'namespace' => 'Webid\Cms\Src\App\Http\Controllers',
     'prefix' => '{lang}',
-    'middleware' => ['web', Language::class, CheckLanguageExist::class],
+    'middleware' => ['web', 'language', 'check-language-exist'],
 ], function () {
     // Homepage
     Route::get('/', 'TemplateController@index')->name('home');
@@ -33,9 +28,9 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'form',
+    'prefix' => '{lang}/form',
     'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Modules\Ajax\Form',
-    'middleware' => ['web', ProtectAgainstSpam::class]
+    'middleware' => ['web', 'anti-spam', 'language', 'check-language-exist']
 ], function () {
     Route::post('/send', 'FormController@handle')->name('send.form');
 });

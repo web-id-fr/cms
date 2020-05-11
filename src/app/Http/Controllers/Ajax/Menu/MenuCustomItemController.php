@@ -27,10 +27,6 @@ class MenuCustomItemController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json(MenuCustomItemResource::collection($this->menuCustomItemRepository->getPaginateAndFilter(!!$request->page, [
-            'search' => $request->search,
-            'notIn' => $request->notIn,
-            'in' => $request->in
-        ])));
+        return response()->json(MenuCustomItemResource::collection($this->menuCustomItemRepository->all()));
     }
 }

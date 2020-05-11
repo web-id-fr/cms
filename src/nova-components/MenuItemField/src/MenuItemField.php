@@ -33,7 +33,7 @@ class MenuItemField extends Field
         $children = [];
 
         // MENU-CUSTOM-ITEM
-        $allMenuCustomItem = $menuCustomItemRepository->getPaginateAndFilter();
+        $allMenuCustomItem = $menuCustomItemRepository->all();
         $children = $this->getChildren($allMenuCustomItem, $children);
         $allMenuCustomItem = $this->mapItems($allMenuCustomItem, $children, MenuCustomItem::class);
         $allMenuCustomItem->each(function ($template) use (&$allItem) {
@@ -90,7 +90,7 @@ class MenuItemField extends Field
                         'order' => $count
                     ];
                 } else {
-                    $menuItemCustomIds[$menuItem['id']] = [
+                    $menuItemCustomIds[$children['id']] = [
                         'parent_id' => $menuItem['id'],
                         'parent_type' => $menuItem['menuable_type'],
                         'order' => $count

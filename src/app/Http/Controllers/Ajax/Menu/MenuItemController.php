@@ -35,7 +35,7 @@ class MenuItemController extends Controller
      */
     public function index(Request $request)
     {
-        $allCustomItem = $this->menuCustomItemRepository->getPaginateAndFilter();
+        $allCustomItem = $this->menuCustomItemRepository->all();
         $allPage = $this->templateRepository->getPublishedTemplates();
         $allItem = $allCustomItem->merge($allPage);
 

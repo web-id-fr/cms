@@ -15,6 +15,8 @@ class Form extends JsonResource
      */
     public function toArray($request)
     {
+        $this->chargeFieldItems();
+
         return [
             'id' => $this->id,
             'title' => $this->title,

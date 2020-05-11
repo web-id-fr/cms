@@ -81,7 +81,6 @@ class TemplateController extends Controller
                 'data' => $data,
                 'meta' => $meta,
                 'languages' => $this->getAvailableLanguages(),
-                'currentLang' => request()->lang ?? '',
                 'popins' => PopinResource::collection($popins)->resolve(),
                 'extras' => $this->extraElementsForPage,
             ]);
@@ -131,7 +130,6 @@ class TemplateController extends Controller
                 'data' => $data,
                 'meta' => $meta,
                 'languages' => $this->getAvailableLanguages(),
-                'currentLang' => request()->lang ?? '',
                 'popins' => PopinResource::collection($popins)->resolve(),
                 'extras' => $this->extraElementsForPage,
             ]);
