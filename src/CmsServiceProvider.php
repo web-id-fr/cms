@@ -213,6 +213,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'services');
     }
 
+    /**
+     * @param Router $router
+     */
     protected function registerAliasMiddleware(Router $router)
     {
         $router->aliasMiddleware('antiSpam', ProtectAgainstSpam::class);
