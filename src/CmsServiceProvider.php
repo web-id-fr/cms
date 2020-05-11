@@ -2,18 +2,22 @@
 
 namespace Webid\Cms;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
+use Spatie\Honeypot\ProtectAgainstSpam;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuConfigurationController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuCustomItemController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuItemController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter\NewsletterController;
 use Webid\Cms\Src\App\Http\Controllers\Components\ComponentController;
+use Webid\Cms\Src\App\Http\Middleware\CheckLanguageExist;
+use Webid\Cms\Src\App\Http\Middleware\Language;
 use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
 use Webid\Cms\Src\App\Nova\Components\NewsletterComponent;
 use Webid\Cms\Src\App\Nova\Menu\Menu;
@@ -39,11 +43,10 @@ use Webid\Cms\Src\App\Services\MenuService;
 class CmsServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap services.
-     *
-     * @return void
+     * @param UrlGenerator $generator
+     * @param Router $router
      */
-    public function boot(UrlGenerator $generator)
+    public function boot(UrlGenerator $generator, Router $router)
     {
         // Force https même si l'app est chargée en http
         if (!app()->isLocal()) {
@@ -62,6 +65,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishTranslations();
         $this->publishSendFormJs();
         $this->publishServices();
+        $this->registerAliasMiddleware($router);
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadRoutesFrom(__DIR__ . '/routes/ajax.php');
@@ -207,5 +211,12 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/app/Services/Publish/ExtraElementsForPageService.php' => base_path('/app/Services/ExtraElementsForPageService.php'),
         ], 'services');
+    }
+
+    protected function registerAliasMiddleware(Router $router)
+    {
+        $router->aliasMiddleware('antiSpam', ProtectAgainstSpam::class);
+        $router->aliasMiddleware('language', Language::class);
+        $router->aliasMiddleware('checkLanguageExist', CheckLanguageExist::class);
     }
 }
