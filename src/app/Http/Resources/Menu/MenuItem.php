@@ -5,7 +5,6 @@ namespace Webid\Cms\Src\App\Http\Resources\Menu;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webid\Cms\Src\App\Http\Resources\Modules\Form\Form;
 use Webid\Cms\Src\App\Models\Menu\MenuCustomItem;
-use Webid\Cms\Src\App\Repositories\Modules\Form\FormRepository;
 
 class MenuItem extends JsonResource
 {
@@ -18,12 +17,10 @@ class MenuItem extends JsonResource
      */
     public function toArray($request)
     {
-        $formRepository = app(FormRepository::class);
-
-        if(!empty($this->form_id)){
-            $form = Form::make($formRepository->find($this->form_id))->resolve();
+        if ($this->form()->exists()) {
+            $form = Form::make($this->form)->resolve();
         } else {
-            $form = '';
+            $form = null;
         }
 
         return [

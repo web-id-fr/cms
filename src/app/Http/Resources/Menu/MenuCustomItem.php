@@ -5,7 +5,6 @@ namespace Webid\Cms\Src\App\Http\Resources\Menu;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webid\Cms\Src\App\Http\Resources\Modules\Form\Form;
 use Webid\Cms\Src\App\Models\Menu\MenuCustomItem as MenuCustomItemModel;
-use Webid\Cms\Src\App\Repositories\Modules\Form\FormRepository;
 
 class MenuCustomItem extends JsonResource
 {
@@ -18,7 +17,11 @@ class MenuCustomItem extends JsonResource
      */
     public function toArray($request)
     {
-        $formRepository = app(FormRepository::class);
+        if ($this->form()->exists()) {
+            $form = Form::make($this->form)->resolve();
+        } else {
+            $form = null;
+        }
 
         return [
             'id' => $this->id,
@@ -29,7 +32,7 @@ class MenuCustomItem extends JsonResource
             ]),
 
             $this->mergeWhen(MenuCustomItemModel::_LINK_FORM == $this->type_link, [
-                'form' => Form::make($formRepository->find($this->form->id))->resolve(),
+                'form' => $form,
                 'is_popin' => true,
             ]),
         ];
