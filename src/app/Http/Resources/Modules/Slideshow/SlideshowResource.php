@@ -15,6 +15,8 @@ class SlideshowResource extends JsonResource
      */
     public function toArray($request)
     {
+        $this->chargeSlideItems();
+
         return [
             'title' => $this->title,
             'js_controls' => $this->js_controls,
