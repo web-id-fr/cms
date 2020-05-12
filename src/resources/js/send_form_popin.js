@@ -149,7 +149,7 @@ $(() => {
         if (!form.closest('.form-group').find('.dropzone').length) {
             let data = extractDataFromForm(form.closest("form"));
 
-            axiosPost(route('send.form', lang), data).then(() => {
+            axiosPost(route('send.form', currentLang), data).then(() => {
                 $("form").trigger('reset');
                 formSuccessPopin(form);
             }).catch((data) => {
