@@ -4,7 +4,7 @@ namespace Webid\Cms\Src\App\Http\Resources\Modules\Form;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Service extends JsonResource
+class ServiceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,7 +19,7 @@ class Service extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'recipients' => Recipient::collection($this->recipients)->resolve(),
+            'recipients' => RecipientResource::collection($this->recipients)->resolve(),
         ];
     }
 }

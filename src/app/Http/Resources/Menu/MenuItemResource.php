@@ -3,10 +3,10 @@
 namespace Webid\Cms\Src\App\Http\Resources\Menu;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Webid\Cms\Src\App\Http\Resources\Modules\Form\Form;
+use Webid\Cms\Src\App\Http\Resources\Modules\Form\FormResource;
 use Webid\Cms\Src\App\Models\Menu\MenuCustomItem;
 
-class MenuItemChildren extends JsonResource
+class MenuItemResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,7 +18,7 @@ class MenuItemChildren extends JsonResource
     public function toArray($request)
     {
         if ($this->form()->exists()) {
-            $form = Form::make($this->form)->resolve();
+            $form = FormResource::make($this->form)->resolve();
         } else {
             $form = null;
         }
@@ -44,6 +44,8 @@ class MenuItemChildren extends JsonResource
             $this->mergeWhen(config('cms.template_model') == $this->menuable_type, [
                 'slug' => $this->slug,
             ]),
+
+            'children' => MenuItemChildrenResource::collection($this->children)->resolve(),
         ];
     }
 }
