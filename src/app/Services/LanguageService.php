@@ -1,29 +1,18 @@
 <?php
 
-namespace Webid\Cms\Src\App\Facades;
+namespace Webid\Cms\Src\App\Services;
 
 use Webid\LanguageTool\Models\Language;
 use Webid\LanguageTool\Repositories\LanguageRepository;
-use Illuminate\Support\Facades\Facade;
 
-class LanguageFacade extends Facade
+class LanguageService
 {
-    /**
-     * Get the registered name of the component.
-     *
-     * @return string
-     */
-    protected static function getFacadeAccessor()
-    {
-        return 'language';
-    }
-
     /**
      * Retourne les langues utilisées par le site et dans un format utilisable par le champ Translatable
      *
      * @return array
      */
-    public static function getUsedLanguage()
+    public function getUsedLanguage()
     {
         $languageRepository = new LanguageRepository(new Language());
         $languages = $languageRepository->all();
@@ -41,7 +30,7 @@ class LanguageFacade extends Facade
      *
      * @return string
      */
-    public static function getBrowserDefault()
+    public function getBrowserDefault()
     {
         $browserLanguage = request()->server('HTTP_ACCEPT_LANGUAGE');
 
@@ -53,7 +42,7 @@ class LanguageFacade extends Facade
      *
      * @return bool|\Illuminate\Config\Repository|mixed|string
      */
-    public static function getFromBrowser()
+    public function getFromBrowser()
     {
         $browserLanguage = self::getBrowserDefault();
 
@@ -71,7 +60,7 @@ class LanguageFacade extends Facade
      *
      * @return bool
      */
-    public static function exists(string $lang)
+    public function exists(string $lang)
     {
         return in_array($lang, static::getUsedLanguagesSlugs());
     }
@@ -81,7 +70,7 @@ class LanguageFacade extends Facade
      *
      * @return array
      */
-    public static function getUsedLanguagesSlugs(): array
+    public function getUsedLanguagesSlugs(): array
     {
         return array_keys(static::getUsedLanguage());
     }
@@ -92,7 +81,7 @@ class LanguageFacade extends Facade
      *
      * @return string
      */
-    public static function getUsedLanguagesAsRegex(): string
+    public function getUsedLanguagesAsRegex(): string
     {
         return join('|', static::getUsedLanguagesSlugs());
     }
@@ -103,7 +92,7 @@ class LanguageFacade extends Facade
      *
      * @return string
      */
-    public static function getAllLanguagesAsRegex(): string
+    public function getAllLanguagesAsRegex(): string
     {
         return join('|', array_keys(config('translatable.locales') ?? []));
     }
@@ -115,7 +104,7 @@ class LanguageFacade extends Facade
      *
      * @return bool
      */
-    public static function isRTL($lang = null)
+    public function isRTL($lang = null)
     {
         if (empty($lang)) {
             $lang = app()->getLocale();

@@ -2,7 +2,6 @@
 
 namespace Webid\Cms\Src\App\Nova\Modules\Form;
 
-use Webid\Cms\Src\App\Facades\LanguageFacade;
 use App\Nova\Resource;
 use DigitalCreative\ConditionalContainer\ConditionalContainer;
 use DigitalCreative\ConditionalContainer\HasConditionalContainer;
@@ -53,8 +52,6 @@ class Field extends Resource
      */
     public function fields(Request $request)
     {
-        $languages = LanguageFacade::getUsedLanguage();
-
         return [
             ID::make()->sortable(),
 
@@ -68,15 +65,13 @@ class Field extends Resource
                 Flexible::make('Field items', 'field_options')
                     ->addLayout('Item section', 'option', [
                         Translatable::make('Item')
-                            ->singleLine()
-                            ->locales($languages),
+                            ->singleLine(),
                     ])->button('Add item')
             ])->if('field_type = ' . array_search('select', config('fields_type'))),
 
             ConditionalContainer::make([
                 Translatable::make('Placeholder')
-                    ->singleLine()
-                    ->locales($languages),
+                    ->singleLine(),
             ])->if('field_type != ' . array_search('select', config('fields_type')) . ' AND field_type != ' . array_search('file', config('fields_type'))),
 
             Boolean::make('Required')

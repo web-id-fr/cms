@@ -4,7 +4,7 @@ namespace Webid\Cms\Src\App\Http\Resources\Menu;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MenuCustomItem extends JsonResource
+class MenuZoneResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,8 @@ class MenuCustomItem extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'url' => $this->url,
+            'menuID' => $this->menuID,
+            'label' => $this->label,
         ];
     }
 }

@@ -9,7 +9,6 @@ use Laravel\Nova\Fields\ID;
 use IDF\HtmlCard\HtmlCard;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Webid\Cms\Src\App\Facades\LanguageFacade;
 use Webid\Cms\Src\App\Models\Components\NewsletterComponent as NewsletterComponentModel;
 use Webid\TranslatableTool\Translatable;
 
@@ -63,8 +62,6 @@ class NewsletterComponent extends Resource
      */
     public function fields(Request $request)
     {
-        $languages = LanguageFacade::getUsedLanguage();
-
         return [
             ID::make()->sortable(),
 
@@ -73,18 +70,15 @@ class NewsletterComponent extends Resource
 
             Translatable::make('Title', 'title')
                 ->singleLine()
-                ->sortable()
-                ->locales($languages),
+                ->sortable(),
 
             Translatable::make('Placeholder')
                 ->singleLine()
-                ->sortable()
-                ->locales($languages),
+                ->sortable(),
 
             Translatable::make('CTA Name')
                 ->singleLine()
-                ->sortable()
-                ->locales($languages),
+                ->sortable(),
 
             Select::make('Status', 'status')
                 ->options(NewsletterComponentModel::TYPE_TO_NAME)

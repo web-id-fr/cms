@@ -33,7 +33,7 @@ class MenuItemField extends Field
         $children = [];
 
         // MENU-CUSTOM-ITEM
-        $allMenuCustomItem = $menuCustomItemRepository->getPaginateAndFilter();
+        $allMenuCustomItem = $menuCustomItemRepository->all();
         $children = $this->getChildren($allMenuCustomItem, $children);
         $allMenuCustomItem = $this->mapItems($allMenuCustomItem, $children, MenuCustomItem::class);
         $allMenuCustomItem->each(function ($template) use (&$allItem) {
@@ -90,7 +90,7 @@ class MenuItemField extends Field
                         'order' => $count
                     ];
                 } else {
-                    $menuItemCustomIds[$menuItem['id']] = [
+                    $menuItemCustomIds[$children['id']] = [
                         'parent_id' => $menuItem['id'],
                         'parent_type' => $menuItem['menuable_type'],
                         'order' => $count
@@ -154,7 +154,7 @@ class MenuItemField extends Field
     protected function mapItems($items, $children, $model)
     {
         return $items->map(function ($item) use ($children, $model) {
-            if (!empty($children) && request()->route('resourceId') && array_key_exists($item->id . "-" . $model, $children[request()->route('resourceId')])){
+            if (!empty($children) && request()->route('resourceId') && array_key_exists(request()->route('resourceId'), $children)  && array_key_exists($item->id . "-" . $model, $children[request()->route('resourceId')])){
                 $item->children = $children[request()->route('resourceId')][$item->id . "-" . $model];
             } else {
                 $item->children = [];

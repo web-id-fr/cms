@@ -2,7 +2,6 @@
 
 namespace Webid\Cms\Src\App\Nova\Modules\Form;
 
-use Webid\Cms\Src\App\Facades\LanguageFacade;
 use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
@@ -45,14 +44,11 @@ class TitleField extends Resource
      */
     public function fields(Request $request)
     {
-        $languages = LanguageFacade::getUsedLanguage();
-
         return [
             ID::make()->sortable(),
 
             Translatable::make('Title')
-                ->singleLine()
-                ->locales($languages),
+                ->singleLine(),
         ];
     }
 }

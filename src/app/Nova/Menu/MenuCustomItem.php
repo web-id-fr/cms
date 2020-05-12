@@ -2,15 +2,20 @@
 
 namespace Webid\Cms\Src\App\Nova\Menu;
 
+use Epartment\NovaDependencyContainer\HasDependencies;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Select;
-use Webid\Cms\Src\App\Facades\LanguageFacade;
+use Webid\Cms\Src\App\Nova\Modules\Form\Form;
 use Webid\TranslatableTool\Translatable;
 use Laravel\Nova\Resource;
 use Webid\Cms\Src\App\Models\Menu\MenuCustomItem as MenuCustomItemModel;
 
 class MenuCustomItem extends Resource
 {
+    use HasDependencies;
+
     /**
      * The model the resource corresponds to.
      *
@@ -42,25 +47,33 @@ class MenuCustomItem extends Resource
      */
     public function fields(Request $request)
     {
-        $languages = LanguageFacade::getUsedLanguage();
-
         return [
             Translatable::make('Title')
                 ->singleLine()
-                ->rules('array')
-                ->locales($languages),
+                ->rules('array'),
 
-            Translatable::make('Url')
-                ->singleLine()
-                ->rules('array')
-                ->locales($languages)
-                ->hideFromIndex(),
-
-            Select::make('Target')
-                ->options(MenuCustomItemModel::STATUS_TYPE)
+            Select::make('Type link', 'type_link')
+                ->options(MenuCustomItemModel::TYPE_TO_LINK)
                 ->displayUsingLabels()
-                ->rules('nullable')
                 ->hideFromIndex(),
+
+            NovaDependencyContainer::make([
+                Translatable::make('Url')
+                    ->singleLine()
+                    ->hideFromIndex(),
+
+                Select::make('Target')
+                    ->options(MenuCustomItemModel::STATUS_TYPE)
+                    ->displayUsingLabels()
+                    ->rules('nullable')
+                    ->hideFromIndex(),
+            ])->dependsOn('type_link', MenuCustomItemModel::_LINK_URL),
+
+            NovaDependencyContainer::make([
+                BelongsTo::make('Form', 'form', Form::class)
+                    ->nullable()
+                    ->onlyOnForms(),
+            ])->dependsOn('type_link', MenuCustomItemModel::_LINK_FORM),
         ];
     }
 }

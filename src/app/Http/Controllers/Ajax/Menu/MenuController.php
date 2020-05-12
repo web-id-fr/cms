@@ -3,7 +3,7 @@
 namespace Webid\Cms\Src\App\Http\Controllers\Ajax\Menu;
 
 use App\Http\Controllers\Controller;
-use Webid\Cms\Src\App\Http\Resources\Menu\Menu as MenuResource;
+use Webid\Cms\Src\App\Http\Resources\Menu\MenuResource;
 use Webid\Cms\Src\App\Repositories\Menu\MenuRepository;
 
 class MenuController extends Controller

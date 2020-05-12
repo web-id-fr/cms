@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Webid\Cms\Src\App\Repositories\Menu\MenuCustomItemRepository;
 use Webid\Cms\Src\App\Repositories\TemplateRepository;
 use Illuminate\Http\Request;
-use Webid\Cms\Src\App\Http\Resources\Menu\MenuItem as MenuItemResource;
+use Webid\Cms\Src\App\Http\Resources\Menu\MenuItemResource;
 
 class MenuItemController extends Controller
 {
@@ -35,7 +35,7 @@ class MenuItemController extends Controller
      */
     public function index(Request $request)
     {
-        $allCustomItem = $this->menuCustomItemRepository->getPaginateAndFilter();
+        $allCustomItem = $this->menuCustomItemRepository->all();
         $allPage = $this->templateRepository->getPublishedTemplates();
         $allItem = $allCustomItem->merge($allPage);
 
