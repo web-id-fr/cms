@@ -68,7 +68,6 @@ class TemplateController extends Controller
             $meta = [
                 'title' => data_get($data, 'meta_title'),
                 'type' => 'realisations',
-                'author' => data_get($data, 'meta_author'),
                 'description' => data_get($data, 'meta_description'),
                 'og_title' => data_get($data, 'opengraph_title'),
                 'og_image' => data_get($data, 'opengraph_picture'),
@@ -117,7 +116,6 @@ class TemplateController extends Controller
             $meta = [
                 'title' => data_get($data, 'meta_title'),
                 'type' => 'realisations',
-                'author' => data_get($data, 'meta_author'),
                 'description' => data_get($data, 'meta_description'),
                 'og_title' => data_get($data, 'opengraph_title'),
                 'og_image' => data_get($data, 'opengraph_picture'),
