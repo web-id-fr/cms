@@ -6,7 +6,7 @@ use Webid\Cms\Src\App\Models\Modules\Form\TitleField;
 use Webid\Cms\Src\App\Models\Modules\Form\Field as FieldModel;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Field extends JsonResource
+class FieldResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

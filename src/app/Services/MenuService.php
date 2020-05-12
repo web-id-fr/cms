@@ -10,7 +10,7 @@ use Webid\Cms\Src\App\Services\MenuBladeDirective\Menu;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Webid\Cms\Src\App\Http\Resources\Menu\Menu as MenuResource;
+use Webid\Cms\Src\App\Http\Resources\Menu\MenuResource as MenuResource;
 
 class MenuService
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Resources\Menu;
+namespace Webid\Cms\Src\App\Http\Resources\Modules\Form;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Menu extends JsonResource
+class RecipientResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,8 @@ class Menu extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'zones' => $this->zones,
-            'items' => MenuItem::collection($this->menu_items)->resolve(),
+            'name' => $this->name,
+            'email' => $this->email,
         ];
     }
 }

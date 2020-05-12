@@ -7,7 +7,7 @@ use Webid\Cms\Src\App\Repositories\Menu\MenuRepository;
 use Webid\Cms\Src\App\Services\MenuService;
 use Illuminate\Http\Request;
 use Throwable;
-use Webid\Cms\Src\App\Http\Resources\Menu\MenuZone as MenuZoneResource;
+use Webid\Cms\Src\App\Http\Resources\Menu\MenuZoneResource;
 
 class MenuConfigurationController extends Controller
 {

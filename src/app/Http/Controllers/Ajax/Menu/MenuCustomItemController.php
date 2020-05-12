@@ -5,7 +5,7 @@ namespace Webid\Cms\Src\App\Http\Controllers\Ajax\Menu;
 use App\Http\Controllers\Controller;
 use Webid\Cms\Src\App\Repositories\Menu\MenuCustomItemRepository;
 use Illuminate\Http\Request;
-use Webid\Cms\Src\App\Http\Resources\Menu\MenuCustomItem as MenuCustomItemResource;
+use Webid\Cms\Src\App\Http\Resources\Menu\MenuCustomItemResource;
 
 class MenuCustomItemController extends Controller
 {
