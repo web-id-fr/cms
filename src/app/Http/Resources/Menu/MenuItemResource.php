@@ -17,8 +17,8 @@ class MenuItemResource extends JsonResource
      */
     public function toArray($request)
     {
-        if ($this->form()->exists()) {
-            $form = FormResource::make($this->form)->resolve();
+        if (!empty($this->form_id)) {
+            $form = FormResource::make($this->form_id)->resolve();
         } else {
             $form = null;
         }
