@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Webid\Cms\Src\App\Http\Resources\Modules\Form\FormResource;
 use Webid\Cms\Src\App\Models\Menu\MenuCustomItem;
 
-class MenuItemChildren extends JsonResource
+class MenuItemChildrenResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

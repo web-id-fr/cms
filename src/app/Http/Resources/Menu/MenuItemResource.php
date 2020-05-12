@@ -45,7 +45,7 @@ class MenuItemResource extends JsonResource
                 'slug' => $this->slug,
             ]),
 
-            'children' => MenuItemChildren::collection($this->children)->resolve(),
+            'children' => MenuItemChildrenResource::collection($this->children)->resolve(),
         ];
     }
 }
