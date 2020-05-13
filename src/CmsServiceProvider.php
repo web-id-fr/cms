@@ -37,6 +37,9 @@ use Webid\Cms\Src\App\Http\Controllers\TemplateController;
 use Webid\Cms\Src\App\Nova\Template;
 use Illuminate\Support\Facades\View;
 use Webid\Cms\Src\App\Repositories\TemplateRepository;
+use Webid\Cms\Src\App\Services\Contracts\GalleryServiceContract;
+use Webid\Cms\Src\App\Services\Galleries\GalleryLocalStorageService;
+use Webid\Cms\Src\App\Services\Galleries\GalleryS3Service;
 use Webid\Cms\Src\App\Services\LanguageService;
 use Webid\Cms\Src\App\Services\MenuService;
 
@@ -109,12 +112,8 @@ class CmsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/config/cms.php', 'cms');
-        
-        $this->app->bind(TemplateRepository::class, function () {
-            $templateClass = config('cms.template_model');
-
-            return new TemplateRepository(new $templateClass);
-        });
+        $this->bindTemplateRepository();
+        $this->bindGalleryServiceContract();
 
         $this->app->make(TemplateController::class);
         $this->app->make(ComponentController::class);
@@ -221,5 +220,28 @@ class CmsServiceProvider extends ServiceProvider
         $router->aliasMiddleware('anti-spam', ProtectAgainstSpam::class);
         $router->aliasMiddleware('language', Language::class);
         $router->aliasMiddleware('check-language-exist', CheckLanguageExist::class);
+    }
+
+    protected function bindTemplateRepository()
+    {
+        $this->app->bind(TemplateRepository::class, function () {
+            $templateClass = config('cms.template_model');
+
+            return new TemplateRepository(new $templateClass);
+        });
+    }
+
+    protected function bindGalleryServiceContract()
+    {
+        if ('s3' == config('cms.filesystem_driver')) {
+            $galleryService = GalleryS3Service::class;
+        } else {
+            $galleryService = GalleryLocalStorageService::class;
+        }
+
+        $this->app->bind(
+            GalleryServiceContract::class,
+            $galleryService
+        );
     }
 }
