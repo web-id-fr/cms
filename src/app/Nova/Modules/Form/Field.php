@@ -70,9 +70,36 @@ class Field extends Resource
             ])->if('field_type = ' . array_search('select', config('fields_type'))),
 
             ConditionalContainer::make([
+                Translatable::make('Date field title')
+                    ->singleLine(),
+
+                Translatable::make('Date field placeholder')
+                    ->singleLine(),
+
+                Text::make('Field name time'),
+
+                Translatable::make('Time field title')
+                    ->singleLine(),
+
+                Translatable::make('Time field placeholder')
+                    ->singleLine(),
+
+                Text::make('Field name duration'),
+
+                Translatable::make('Duration field title')
+                    ->singleLine(),
+
+                Flexible::make('Duration items', 'field_options')
+                    ->addLayout('Item section', 'option', [
+                        Translatable::make('Item')
+                            ->singleLine(),
+                    ])->button('Add item')
+            ])->if('field_type = ' . array_search('date-time', config('fields_type'))),
+
+            ConditionalContainer::make([
                 Translatable::make('Placeholder')
                     ->singleLine(),
-            ])->if('field_type != ' . array_search('select', config('fields_type')) . ' AND field_type != ' . array_search('file', config('fields_type'))),
+            ])->if('field_type != ' . array_search('select', config('fields_type')) . ' AND field_type != ' . array_search('file', config('fields_type')) . ' AND field_type != ' . array_search('date-time', config('fields_type'))),
 
             Boolean::make('Required')
                 ->withMeta([
