@@ -2,7 +2,7 @@
 
 namespace Webid\Cms\Src\App\Nova\Modules\Galleries;
 
-use Webid\Cms\Src\App\Services\GalleryService;
+use Webid\Cms\Src\App\Services\Galleries\Contracts\GalleryServiceContract;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
@@ -80,7 +80,7 @@ class Gallery extends Resource
      */
     public function getFoldersGalleriesName()
     {
-        $galleriesFolder = app(GalleryService::class)->getGalleries();
+        $galleriesFolder = app(GalleryServiceContract::class)->getGalleries();
         $galleries = [];
 
         if(empty($galleriesFolder)) {

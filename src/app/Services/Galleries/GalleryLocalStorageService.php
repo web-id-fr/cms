@@ -1,10 +1,11 @@
 <?php
 
-namespace Webid\Cms\Src\App\Services;
+namespace Webid\Cms\Src\App\Services\Galleries;
 
 use Illuminate\Support\Facades\File;
+use Webid\Cms\Src\App\Services\Galleries\Contracts\GalleryServiceContract;
 
-class GalleryService
+class GalleryLocalStorageService implements GalleryServiceContract
 {
     /**
      * @return array
@@ -12,8 +13,9 @@ class GalleryService
     public function getGalleries(): array
     {
         $galleriesPath = config('cms.gallery_path');
+        $filesExist = File::exists($galleriesPath);
 
-        if (!File::exists($galleriesPath)) {
+        if (!$filesExist) {
             return [];
         }
 
