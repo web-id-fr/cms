@@ -3,7 +3,7 @@
 namespace Webid\Cms\Src\App\Services\Galleries;
 
 use Illuminate\Support\Facades\Storage;
-use Webid\Cms\Src\App\Services\Contracts\GalleryServiceContract;
+use Webid\Cms\Src\App\Services\Galleries\Contracts\GalleryServiceContract;
 
 class GalleryS3Service implements GalleryServiceContract
 {

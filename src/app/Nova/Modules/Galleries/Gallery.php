@@ -2,7 +2,7 @@
 
 namespace Webid\Cms\Src\App\Nova\Modules\Galleries;
 
-use Webid\Cms\Src\App\Services\Contracts\GalleryServiceContract;
+use Webid\Cms\Src\App\Services\Galleries\Contracts\GalleryServiceContract;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;

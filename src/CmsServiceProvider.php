@@ -37,7 +37,7 @@ use Webid\Cms\Src\App\Http\Controllers\TemplateController;
 use Webid\Cms\Src\App\Nova\Template;
 use Illuminate\Support\Facades\View;
 use Webid\Cms\Src\App\Repositories\TemplateRepository;
-use Webid\Cms\Src\App\Services\Contracts\GalleryServiceContract;
+use Webid\Cms\Src\App\Services\Galleries\Contracts\GalleryServiceContract;
 use Webid\Cms\Src\App\Services\Galleries\GalleryLocalStorageService;
 use Webid\Cms\Src\App\Services\Galleries\GalleryS3Service;
 use Webid\Cms\Src\App\Services\LanguageService;
