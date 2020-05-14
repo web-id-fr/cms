@@ -3,7 +3,7 @@
 namespace Webid\Cms\Src\App\Http\Resources\Modules\Galleries;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\File;
+use Webid\Cms\Src\App\Services\Galleries\Contracts\GalleryServiceContract;
 
 class GalleryResource extends JsonResource
 {
@@ -16,18 +16,13 @@ class GalleryResource extends JsonResource
      */
     public function toArray($request)
     {
-        $filepath = config('cms.gallery_path') . "/" . $this->folder;
-
-        if (File::exists($filepath)) {
-            $galleries = scandir($filepath);
-            $galleries = array_diff($galleries, ['.', '..']);
-        } else{
-            $galleries = [];
-        }
+        $galleries = app(GalleryServiceContract::class)->getGalleries($this->folder);
 
         return [
+            'id' => $this->id,
             'title' => $this->title,
-            'folder' => $galleries,
+            'folder' => $this->folder . '/',
+            'galleries' => $galleries,
             'cta_name' => $this->cta_name,
         ];
     }
