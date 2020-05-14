@@ -9,7 +9,7 @@
                         title="Search an item field"
                         label="name"
                         :custom-label="customLabel"
-                        track-by="title"
+                        track-by="id"
                         :multiple="true"
                         :close-on-select="false"
                         :clear-on-select="false"
