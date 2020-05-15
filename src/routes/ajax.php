@@ -28,7 +28,8 @@ Route::group([
 ********************************************************************************* */
 Route::group([
     'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter',
-    'middleware' => [IsAjax::class, Language::class]
+    'middleware' => [IsAjax::class, Language::class],
+    'prefix' => '{lang}/ajax'
 ], function () {
     /**
      * Newsletter
