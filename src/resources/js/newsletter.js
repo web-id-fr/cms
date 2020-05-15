@@ -11,7 +11,7 @@ $(document).ready(function () {
             'email': email
         }).then(function (response) {
             let message = response.data;
-            $(this).trigger('reset');
+            $("form").trigger('reset');
             feedback_newsletter.removeClass('error');
             feedback_newsletter.addClass('success');
             feedback_newsletter.text(message.message);
