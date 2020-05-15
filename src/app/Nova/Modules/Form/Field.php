@@ -99,7 +99,10 @@ class Field extends Resource
             ConditionalContainer::make([
                 Translatable::make('Placeholder')
                     ->singleLine(),
-            ])->if('field_type != ' . array_search('select', config('fields_type')) . ' AND field_type != ' . array_search('file', config('fields_type')) . ' AND field_type != ' . array_search('date-time', config('fields_type'))),
+            ])->useAndOperator()
+                ->if('field_type != ' . array_search('select', config('fields_type')))
+                ->if('field_type != ' . array_search('file', config('fields_type')))
+                ->if('field_type != ' . array_search('date-time', config('fields_type'))),
 
             Boolean::make('Required')
                 ->withMeta([
