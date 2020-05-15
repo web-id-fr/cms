@@ -7,9 +7,9 @@ interface GalleryServiceContract
     /**
      * Retourne la liste des dossiers des galeries
      *
-     * @param null $folder
+     * @param string $folder    Permet de récupèrer les galleries d'un dossier spécifique
      *
      * @return array
      */
-    public function getGalleries($folder = null): array;
+    public function getGalleries(string $folder = ''): array;
 }

@@ -8,11 +8,11 @@ use Webid\Cms\Src\App\Services\Galleries\Contracts\GalleryServiceContract;
 class GalleryS3Service implements GalleryServiceContract
 {
     /**
-     * @param null $folder
+     * @param string $folder
      *
      * @return array
      */
-    public function getGalleries($folder = null): array
+    public function getGalleries(string $folder = ''): array
     {
         if (!empty($folder)) {
             $galleriesPath = config('cms.gallery_path') . '/' . $folder;
