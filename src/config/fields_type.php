@@ -8,5 +8,6 @@ return [
     5 => 'url',
     6 => 'select',
     7 => 'textarea',
-    8 => 'file'
+    8 => 'file',
+    9 => 'date-time',
 ];

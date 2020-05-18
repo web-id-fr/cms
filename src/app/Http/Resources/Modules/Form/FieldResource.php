@@ -26,6 +26,13 @@ class FieldResource extends JsonResource
                 'field_type' => $field_type,
                 'placeholder' => $this->placeholder,
                 'required' => $this->required,
+                'date_field_title' => $this->date_field_title,
+                'date_field_placeholder' => $this->date_field_placeholder,
+                'time_field_title' => $this->time_field_title,
+                'time_field_placeholder' => $this->time_field_placeholder,
+                'duration_field_title' => $this->duration_field_title,
+                'field_name_time' => $this->field_name_time,
+                'field_name_duration' => $this->field_name_duration,
             ]),
             $this->mergeWhen(TitleField::class == $this->formable_type, [
                 'title' => $this->title,
