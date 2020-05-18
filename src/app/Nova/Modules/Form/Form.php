@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
 use Webid\FieldItemField\FieldItemField;
 use Webid\RecipientItemField\RecipientItemField;
 use Webid\ServiceItemField\ServiceItemField;
@@ -31,7 +32,7 @@ class Form extends Resource
      *
      * @var string
      */
-    public static $title = 'title';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -39,7 +40,7 @@ class Form extends Resource
      * @var array
      */
     public static $search = [
-        'title',
+        'name',
     ];
 
     /**
@@ -52,6 +53,9 @@ class Form extends Resource
     {
         return [
             ID::make()->sortable(),
+
+            Text::make('Name')
+                ->rules('required'),
 
             Translatable::make('Title')
                 ->singleLine()
