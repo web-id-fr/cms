@@ -15,7 +15,7 @@ class GalleryS3Service implements GalleryServiceContract
     public function getGalleries(string $folder = ''): array
     {
         if (!empty($folder)) {
-            return $this->getGalleriesFolder($folder);
+            return $this->getGalleriesInFolder($folder);
         }
 
         $galleriesPath = config('cms.gallery_path');
@@ -36,7 +36,7 @@ class GalleryS3Service implements GalleryServiceContract
      *
      * @return array|\Illuminate\Contracts\Filesystem\Filesystem
      */
-    protected function getGalleriesFolder(string $folder)
+    protected function getGalleriesInFolder(string $folder)
     {
         $galleriesPath = $folder;
 
