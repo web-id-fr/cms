@@ -103,7 +103,7 @@ class TemplateController extends Controller
     public function show(Request $request)
     {
         try {
-            if ($this->templateRepository->getSlugForHomepage() == $request->slug) {
+            if ($this->templateService->getHomepageSlug() == $request->slug) {
                 return redirect(route('home'), 301);
             }
 

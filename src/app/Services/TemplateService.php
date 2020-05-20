@@ -29,7 +29,7 @@ class TemplateService
      *
      * @return array
      */
-    public function getUrlsForPage(string $slug)
+    public function getUrlsForPage(string $slug): array
     {
         try {
             $template = $this->templateRepository->getBySlug($slug, app()->getLocale());
@@ -54,6 +54,24 @@ class TemplateService
             }
         } catch (ModelNotFoundException $exception) {
             return [];
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getHomepageSlug(): string
+    {
+        try {
+            $template = $this->templateRepository->getSlugForHomepage();
+
+            if (empty($template)) {
+                return '';
+            }
+
+            return $template->slug;
+        } catch (ModelNotFoundException $exception) {
+            return '';
         }
     }
 }
