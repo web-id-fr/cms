@@ -8,10 +8,10 @@ use Webid\Cms\Src\App\Repositories\TemplateRepository;
 
 class TemplateService
 {
-    /** @var TemplateRepository  */
+    /** @var TemplateRepository */
     protected $templateRepository;
 
-    /** @var LanguageService  */
+    /** @var LanguageService */
     protected $languageService;
 
     /**
@@ -33,25 +33,19 @@ class TemplateService
     {
         try {
             $template = $this->templateRepository->getBySlug($slug, app()->getLocale());
+            $allowed_locales = $this->languageService->getUsedLanguage();
+            $data = $template->getTranslations('slug');
+            $data = array_intersect_key($data, $allowed_locales);
 
-            if (!empty($template)) {
-                $allowed_locales = $this->languageService->getUsedLanguage();
-                $data = $template->getTranslations('slug');
-
-                $data = array_intersect_key($data, $allowed_locales);
-
-                foreach ($allowed_locales as $locale => $locale_name) {
-                    if (!Arr::has($data, $locale)) {
-                        Arr::set($data, $locale, '');
-                    }
+            foreach ($allowed_locales as $locale => $locale_name) {
+                if (!Arr::has($data, $locale)) {
+                    Arr::set($data, $locale, '');
                 }
-
-                ksort($data);
-
-                return $data;
-            } else {
-                throw new ModelNotFoundException();
             }
+
+            ksort($data);
+
+            return $data;
         } catch (ModelNotFoundException $exception) {
             return [];
         }
