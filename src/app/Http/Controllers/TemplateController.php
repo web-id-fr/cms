@@ -10,6 +10,7 @@ use Webid\Cms\Src\App\Repositories\Popin\PopinRepository;
 use Webid\Cms\Src\App\Repositories\TemplateRepository;
 use Illuminate\Http\Request;
 use Webid\Cms\Src\App\Services\LanguageService;
+use Webid\Cms\Src\App\Services\TemplateService;
 use Webid\Cms\Src\App\Traits\CanRenderTemplates;
 
 class TemplateController extends Controller
@@ -28,19 +29,25 @@ class TemplateController extends Controller
     /** @var LanguageService  */
     protected $languageService;
 
+    /** @var TemplateService */
+    protected $templateService;
+
     /**
      * @param TemplateRepository $templateRepository
      * @param PopinRepository $popinRepository
      * @param LanguageService $languageService
+     * @param TemplateService $templateService
      */
     public function __construct(
         TemplateRepository $templateRepository,
         PopinRepository $popinRepository,
-        LanguageService $languageService
+        LanguageService $languageService,
+        TemplateService $templateService
     ) {
         $this->templateRepository = $templateRepository;
         $this->popinRepository = $popinRepository;
         $this->languageService = $languageService;
+        $this->templateService = $templateService;
         $this->extraElementsForPage = [];
     }
 
@@ -96,7 +103,7 @@ class TemplateController extends Controller
     public function show(Request $request)
     {
         try {
-            if ($this->templateRepository->getSlugForHomepage() == $request->slug) {
+            if ($this->templateService->getHomepageSlug() == $request->slug) {
                 return redirect(route('home'), 301);
             }
 
@@ -128,6 +135,7 @@ class TemplateController extends Controller
                 'data' => $data,
                 'meta' => $meta,
                 'languages' => $this->getAvailableLanguages(),
+                'languages_urls' => $this->templateService->getUrlsForPage($request->slug),
                 'popins' => PopinResource::collection($popins)->resolve(),
                 'extras' => $this->extraElementsForPage,
             ]);
