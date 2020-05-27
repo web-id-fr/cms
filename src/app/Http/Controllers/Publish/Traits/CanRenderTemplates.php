@@ -1,8 +1,9 @@
 <?php
 
-namespace Webid\Cms\Src\App\Traits;
+namespace App\Http\Controllers\Traits;
 
 use Webid\Cms\Src\App\Services\LanguageService;
+use Webid\Cms\Src\App\Services\TemplateService;
 
 trait CanRenderTemplates
 {
@@ -14,7 +15,16 @@ trait CanRenderTemplates
         return collect(app(LanguageService::class)->getUsedLanguage())
             ->map(function ($value, $key) {
                 return app()->getLocale() == $key;
-            })
-            ->toArray();
+            })->toArray();
+    }
+
+    /**
+     * @param string $slug
+     *
+     * @return array
+     */
+    protected function getUrlsForPage(string $slug): array
+    {
+        return app(TemplateService::class)->getUrlsForPage($slug);
     }
 }

@@ -11,7 +11,7 @@ use Webid\Cms\Src\App\Repositories\TemplateRepository;
 use Illuminate\Http\Request;
 use Webid\Cms\Src\App\Services\LanguageService;
 use Webid\Cms\Src\App\Services\TemplateService;
-use Webid\Cms\Src\App\Traits\CanRenderTemplates;
+use App\Http\Controllers\Traits\CanRenderTemplates;
 
 class TemplateController extends Controller
 {
@@ -135,7 +135,7 @@ class TemplateController extends Controller
                 'data' => $data,
                 'meta' => $meta,
                 'languages' => $this->getAvailableLanguages(),
-                'languages_urls' => $this->templateService->getUrlsForPage($request->slug),
+                'languages_urls' => $this->getUrlsForPage($request->slug),
                 'popins' => PopinResource::collection($popins)->resolve(),
                 'extras' => $this->extraElementsForPage,
             ]);

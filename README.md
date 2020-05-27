@@ -93,6 +93,14 @@ And add in the `webpack.mix` file the `send_form_js` and `send_form_popin_js` fi
 ###front-end
 You can change the form frontend but DO NOT TOUCH the `submit_form` class for sending forms.
 
+## Controllers traits
+### CanRenderTemplate
+do not delete the existing code.
+#### `getAvailableLanguages()`
+The first method allows to retrieve a table of languages used on the site in `"fr"` format with a boolean to know if it is the current page. You can modify the `map` to retrieve the languages in another format.
+### `getUrlsForPage()`
+The second method allows you to retrieve an array with the language in `"fr" format and its slug. You add a `mapWithKeys` to change the language format.
+
 ## Add image for components
 
 ```bash
