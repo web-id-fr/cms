@@ -57,9 +57,9 @@ class TemplateObserver
         foreach ($CheckSlugs as $language => $slug) {
             if ($slug) {
                 try {
-                    $repository->getBySlug($language, $slug);
+                    $repository->getBySlug($slug, $language);
 
-                    $slugExisting = $repository->getLastCorrespondingSlugWithNumber($language, $slug);
+                    $slugExisting = $repository->getLastCorrespondingSlugWithNumber($slug, $language);
                     if ($slugExisting) {
                         foreach (json_decode($slugExisting->attributes['slug'], true) as $temp_language => $temp_slug) {
                             if ($language == $temp_language) {

@@ -70,4 +70,19 @@ class TemplateRepository extends BaseRepository
 
         return $model;
     }
+
+    /**
+     * @param string $slug
+     * @param string $language
+     *
+     * @return mixed
+     */
+    public function getLastCorrespondingSlugWithNumber(string $slug, string $language)
+    {
+        $slug = strtolower($slug);
+        return $this->model
+            ->where('slug', 'regexp', "\"$language\"[ ]*:[ ]*\"$slug(-[1-9])\"")
+            ->orderBy('id', 'desc')
+            ->first();
+    }
 }
