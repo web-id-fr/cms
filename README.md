@@ -94,7 +94,8 @@ And add in the `webpack.mix` file the `send_form_js` and `send_form_popin_js` fi
 You can change the form frontend but DO NOT TOUCH the `submit_form` class for sending forms.
 
 ## Language for front
-Don't forget to create a service to display the languages as you need them. And to send to the front via a ViewServiceProvider the languages as well as the urls for the languages.
+Don't forget to create a service to display the languages as you need them.
+Use this service into a ViewServiceProvider to share both languages and translated slugs to views.
 
 ## Add image for components
 
