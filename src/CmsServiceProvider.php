@@ -69,7 +69,6 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishSendFormJs();
         $this->publishServices();
         $this->registerAliasMiddleware($router);
-        $this->publishControllersTraits();
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadRoutesFrom(__DIR__ . '/routes/ajax.php');
@@ -211,13 +210,6 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/app/Services/Publish/ExtraElementsForPageService.php' => base_path('/app/Services/ExtraElementsForPageService.php'),
         ], 'services');
-    }
-
-    protected function publishControllersTraits()
-    {
-        $this->publishes([
-            __DIR__ . '/app/Http/Controllers/Publish/Traits/CanRenderTemplates.php' => base_path('/app/Http/Controllers/Traits/CanRenderTemplates.php'),
-        ], 'controllers-traits');
     }
 
     /**
