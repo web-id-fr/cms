@@ -11,7 +11,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.1.0",
-        "laravel/framework": "6.*",
+        "laravel/framework": "^7.0",
         "laravel/nova": "~2.0|~3.0",
         "spatie/laravel-honeypot": "^1.4",
         "whitecube/nova-flexible-content": "^0.1.15",
@@ -27,8 +27,8 @@
         "maatwebsite/laravel-nova-excel": "^1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.0",
-        "sensiolabs/security-checker": "^5.0",
+        "phpunit/phpunit": "^8.5",
+        "sensiolabs/security-checker": "^6.0@dev",
         "squizlabs/php_codesniffer": "*",
         "vimeo/psalm": "^3.9"
     },
