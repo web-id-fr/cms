@@ -97,6 +97,9 @@ You can change the form frontend but DO NOT TOUCH the `submit_form` class for se
 Don't forget to create a service to display the languages as you need them.
 Use this service into a ViewServiceProvider to share both languages and translated slugs to views.
 
+## Template email in `resources/views/mail/form.blade.php`
+You can change the design of the mail template but do not delete or modify the existing code! The present code allows you to display the fields of the form sent in the email.
+
 ## Add image for components
 
 ```bash
