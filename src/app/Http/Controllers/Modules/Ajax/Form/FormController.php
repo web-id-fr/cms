@@ -45,7 +45,9 @@ class FormController extends Controller
             $to = $form->recipients->pluck("email");
         }
 
-        Mail::to($to ?? config('mail.from.address'))->send(new SendForm($request->all()));
+        $fields = $request->except(['valid_from', 'form_id']);
+
+        Mail::to($to ?? config('mail.from.address'))->send(new SendForm($fields));
 
         return response()->json([
             'errors' => false,
