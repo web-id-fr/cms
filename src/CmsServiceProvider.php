@@ -68,6 +68,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishTranslations();
         $this->publishSendFormJs();
         $this->publishServices();
+        $this->publishEmailTemplate();
         $this->registerAliasMiddleware($router);
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
@@ -210,6 +211,13 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/app/Services/Publish/ExtraElementsForPageService.php' => base_path('/app/Services/ExtraElementsForPageService.php'),
         ], 'services');
+    }
+
+    protected function publishEmailTemplate()
+    {
+        $this->publishes([
+            __DIR__ . '/resources/views/mail/form.blade.php' => base_path('/resources/views/mail/form.blade.php'),
+        ], 'email-template');
     }
 
     /**
