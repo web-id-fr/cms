@@ -46,6 +46,22 @@ class Template extends Resource
     ];
 
     /**
+     * @return string
+     */
+    public static function label()
+    {
+        return 'Templates';
+    }
+
+    /**
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return 'Template';
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request

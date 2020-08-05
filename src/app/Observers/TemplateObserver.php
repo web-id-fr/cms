@@ -22,7 +22,7 @@ class TemplateObserver
         $titles = $template->getTranslations('title');
         $slugArray = [];
         $slugCreationArray = [];
-        $originalSlug = json_decode($template->getOriginal('slug'), true) ?? [];
+        $originalSlug = $template->getOriginal('slug') ?? [];
         $value = $template->getTranslations('slug') ?? [];
         $slugUpdating = array_diff_assoc($value, $originalSlug);
         $count = 1;
