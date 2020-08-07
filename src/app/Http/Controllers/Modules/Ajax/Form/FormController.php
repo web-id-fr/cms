@@ -45,9 +45,11 @@ class FormController extends Controller
             $to = $form->recipients->pluck("email");
         }
 
-        $fields = $request->except(['valid_from', 'form_id']);
+        $files = !empty($request->file) ? $request->file : null;
 
-        Mail::to($to ?? config('mail.from.address'))->send(new SendForm($fields));
+        $fields = $request->except(['valid_from', 'form_id', 'file']);
+
+        Mail::to($to ?? config('mail.from.address'))->send(new SendForm($fields, $files));
 
         return response()->json([
             'errors' => false,
