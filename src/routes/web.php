@@ -29,7 +29,7 @@ Route::group(['middleware' => 'cacheable'], function() {
     });
 });
 
-Route::get('/csrf', 'CsrfController');
+Route::get('/csrf', 'Webid\Cms\Src\App\Http\Controllers\CsrfController');
 
 Route::group([
     'prefix' => '{lang}/form',
