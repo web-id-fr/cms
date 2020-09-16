@@ -10,6 +10,7 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Spatie\Honeypot\ProtectAgainstSpam;
+use Spatie\Varnish\Middleware\CacheWithVarnish;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuConfigurationController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuCustomItemController;
@@ -228,6 +229,7 @@ class CmsServiceProvider extends ServiceProvider
         $router->aliasMiddleware('anti-spam', ProtectAgainstSpam::class);
         $router->aliasMiddleware('language', Language::class);
         $router->aliasMiddleware('check-language-exist', CheckLanguageExist::class);
+        $router->aliasMiddleware('cacheable', CacheWithVarnish::class);
     }
 
     protected function bindTemplateRepository()
