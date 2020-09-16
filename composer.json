@@ -17,7 +17,6 @@
         "whitecube/nova-flexible-content": "^0.1.15",
         "spatie/laravel-translatable": "^4.2",
         "infinety-es/nova-filemanager": "^2.6",
-        "joedixon/nova-translation": "^1.0",
         "idf/nova-html-card": "^1.2",
         "digital-creative/collapsible-resource-manager": "^1.2",
         "digital-creative/conditional-container": "1.1.5",
