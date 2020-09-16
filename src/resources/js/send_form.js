@@ -1,5 +1,6 @@
 import {zipObject} from 'lodash';
 import {axiosPost, formError, formSuccess } from "./helpers";
+import axios from "axios";
 import Lang from 'lang.js/dist/lang.min';
 import messages from '../lang/dropzone-traduction';
 import Dropzone from 'dropzone/dist/min/dropzone.min';
@@ -98,6 +99,7 @@ $(() => {
                     myDropzone.processQueue();
                 } else {
                     // If dropzone has no files store item without images
+                    axios.defaults.headers.common['Cache-Control'] = 'no-cache';
                     axiosPost(route('send.form', currentLang), data).then(() => {
                         $("form").trigger('reset');
                         formSuccess(form);
@@ -149,6 +151,7 @@ $(() => {
         if (!form.closest('.form-group').find('.dropzone').length) {
             let data = extractDataFromForm(form.closest("form"));
 
+            axios.defaults.headers.common['Cache-Control'] = 'no-cache';
             axiosPost(route('send.form', currentLang), data).then(() => {
                 $("form").trigger('reset');
                 formSuccess(form);
