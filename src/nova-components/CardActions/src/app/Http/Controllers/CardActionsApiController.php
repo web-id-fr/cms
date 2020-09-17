@@ -27,12 +27,4 @@ class CardActionsApiController extends Controller
             'message' => 'Varnish flush for : ' . $host,
         ], 200);
     }
-
-    // Function to check string starting
-    // with given substring
-    protected function startsWith($string, $startString)
-    {
-        $len = strlen($startString);
-        return (substr($string, 0, $len) === $startString);
-    }
 }
