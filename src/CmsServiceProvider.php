@@ -151,6 +151,7 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/config/fields_type_validation.php' => config_path('fields_type_validation.php'),
             __DIR__ . '/config/ziggy.php' => config_path('ziggy.php'),
             __DIR__ . '/config/cms.php' => config_path('cms.php'),
+            __DIR__ . '/config/varnish.php' => config_path('varnish.php'),
         ], 'config');
     }
 
