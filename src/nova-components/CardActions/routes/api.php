@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'vendor/card-actions',
     'namespace' => 'Webid\CardActions\App\Http\Controllers',
-    'middleware' => 'nova.ajax'
+    'middleware' => 'nova'
 ], function () {
      Route::get('flush/varnish', 'CardActionsApiController@flushVarnish');
 });

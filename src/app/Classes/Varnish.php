@@ -4,12 +4,16 @@ namespace Webid\Cms\Src\App\Classes;
 
 use Spatie\Varnish\Varnish;
 
-Class VarnishCustom extends Varnish {
+Class VarnishCustom extends Varnish
+{
     /**
      * @param array $hosts
+     * @param string|null $url
+     *
      * @return string
+     *
      */
-    public function generateBanCommand(array $hosts): string
+    public function generateBanCommand(array $hosts, string $url = null): string
     {
         $hostsString = collect($hosts)
             ->map(function (string $host) {
