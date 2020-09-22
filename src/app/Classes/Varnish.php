@@ -40,12 +40,13 @@ Class VarnishCustom
 
     /**
      * @param array $hosts
-     * @param string $url
-     * @return string
+     * @param string|null $url
+     *
+     * @return array
      */
     public function generateBanCommand(array $hosts, string $url = null): array
     {
-        $hostsRegex = collect($hosts)
+        $hostsString = collect($hosts)
             ->map(function (string $host) {
                 return "(^{$host}$)";
             })
@@ -53,12 +54,7 @@ Class VarnishCustom
 
         $config = config('varnish');
 
-        $urlRegex = '';
-        if (! empty($url)) {
-            $urlRegex = " && req.url ~ {$url}";
-        }
-
-        return ["sudo varnishadm -S {$config['administrative_secret']} -T 127.0.0.1:{$config['administrative_port']} 'ban req.http.host ~ {$hostsRegex}{$urlRegex}'"];
+        return ['sudo', 'varnishadm', '-S', $config['administrative_secret'], '-T', '127.0.0.1:' . $config['administrative_port'], 'ban "req.http.host ~ $hostsString"'];
     }
 
     /**
