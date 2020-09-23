@@ -56,7 +56,7 @@ class FormRequest extends BaseRequest
                     if ($field->required) {
                         $rules = config("fields_type_validation.$field_type") . '|required';
                     } else {
-                        $rules = config("fields_type_validation.$field_type");
+                        $rules = 'nullable|' . config("fields_type_validation.$field_type");
                     }
                     $fields_rules[$field->field_name] = $rules;
                 }
