@@ -78,10 +78,10 @@ class RecipientItemField extends Field
     public function resolve($resource, $attribute = null)
     {
         parent::resolve($resource, $attribute);
-        $resource->chargeRecipientItems();
+        $resource->recipients();
 
         $valueInArray = [];
-        $resource->recipient_items->each(function ($item) use (&$valueInArray) {
+        $resource->recipients->each(function ($item) use (&$valueInArray) {
             $valueInArray[] = $item;
         });
 
