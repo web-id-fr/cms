@@ -73,10 +73,10 @@ class TemplateItemField extends Field
     public function resolve($resource, $attribute = null)
     {
         parent::resolve($resource, $attribute);
-        $resource->chargeTemplateItems();
+        $resource->templates();
 
         $valueInArray = [];
-        $resource->template_items->each(function ($item) use (&$valueInArray) {
+        $resource->templates->each(function ($item) use (&$valueInArray) {
             $valueInArray[] = $item;
         });
 

@@ -41,19 +41,4 @@ class Service extends Model
     {
         return $this->belongsToMany(Recipient::class);
     }
-
-    /** @var $recipient_items */
-    public $recipient_items;
-
-    public function chargeRecipientItems()
-    {
-        $recipientItems = collect();
-        $recipients = $this->recipients;
-
-        $recipients->each(function ($recipient) use (&$recipientItems) {
-            $recipientItems->push($recipient);
-        });
-
-        $this->recipient_items = $recipientItems;
-    }
 }

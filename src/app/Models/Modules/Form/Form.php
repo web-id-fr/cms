@@ -122,34 +122,4 @@ class Form extends Model
 
         $this->field_items = $fieldItems;
     }
-
-    /** @var $recipient_items */
-    public $recipient_items;
-
-    public function chargeRecipientItems()
-    {
-        $recipientItems = collect();
-        $recipients = $this->recipients;
-
-        $recipients->each(function ($recipient) use (&$recipientItems) {
-            $recipientItems->push($recipient);
-        });
-
-        $this->recipient_items = $recipientItems;
-    }
-
-    /** @var $service_items */
-    public $service_items;
-
-    public function chargeServiceItems()
-    {
-        $serviceItems = collect();
-        $services = $this->services;
-
-        $services->each(function ($service) use (&$serviceItems) {
-            $serviceItems->push($service);
-        });
-
-        $this->service_items = $serviceItems;
-    }
 }

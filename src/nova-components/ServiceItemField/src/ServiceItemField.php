@@ -69,10 +69,10 @@ class ServiceItemField extends Field
     public function resolve($resource, $attribute = null)
     {
         parent::resolve($resource, $attribute);
-        $resource->chargeServiceItems();
+        $resource->services();
 
         $valueInArray = [];
-        $resource->service_items->each(function ($item) use (&$valueInArray) {
+        $resource->services->each(function ($item) use (&$valueInArray) {
             $valueInArray[] = $item;
         });
 
