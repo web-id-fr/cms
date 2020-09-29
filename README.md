@@ -60,17 +60,12 @@ php artisan migrate
 ```bash
     "require": {
         "webid/ComponentItemField": "*",
-        "webid/TemplateItemField": "*"
     },
     
     "repositories": [
             {
                 "type": "path",
                 "url": "./nova-components/ComponentItemField"
-            },
-            {
-                "type": "path",
-                "url": "./nova-components/TemplateItemField"
             }
         ]
 ```

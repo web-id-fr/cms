@@ -24,7 +24,8 @@
         "epartment/nova-dependency-container": "^1.2",
         "maatwebsite/laravel-nova-excel": "^1.1",
         "tightenco/ziggy": "^0.9.3",
-        "spatie/laravel-varnish": "^2.8"
+        "spatie/laravel-varnish": "^2.8",
+        "optimistdigital/nova-multiselect-field": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5",
