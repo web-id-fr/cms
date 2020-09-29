@@ -2,6 +2,7 @@
 
 namespace  Webid\Cms\Src\App\Nova\Popin;
 
+use OptimistDigital\MultiselectField\Multiselect;
 use Webid\Cms\Src\App\Models\Popin\Popin as PopinModel;
 use \Eminiarts\Tabs\Tabs;
 use \Eminiarts\Tabs\TabsOnEdit;
