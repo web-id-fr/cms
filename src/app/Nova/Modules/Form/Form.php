@@ -68,7 +68,7 @@ class Form extends Resource
                 ->asHtml(),
 
             FieldItemField::make('Fields')
-                ->onlyOnForms(),
+                ->hideFromIndex(),
 
             Translatable::make('CTA name')
                 ->singleLine()
@@ -84,11 +84,11 @@ class Form extends Resource
             Select::make('Recipient type')
                 ->options(FormModel::TYPE_TO_SERVICE)
                 ->rules('required')
-                ->hideFromIndex(),
+                ->onlyOnForms(),
 
             NovaDependencyContainer::make([
                 RecipientItemField::make('Recipients')
-                    ->onlyOnForms(),
+                    ->hideFromIndex(),
             ])->dependsOn('recipient_type', formModel::_RECIPIENTS),
 
             NovaDependencyContainer::make([
@@ -96,7 +96,7 @@ class Form extends Resource
                     ->singleLine(),
 
                 ServiceItemField::make('Services')
-                    ->onlyOnForms(),
+                    ->hideFromIndex(),
             ])->dependsOn('recipient_type', FormModel::_SERVICES),
 
             Select::make('Status', 'status')
