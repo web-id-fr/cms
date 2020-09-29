@@ -94,7 +94,9 @@ class Form extends Model
      */
     public function services()
     {
-        return $this->belongsToMany(Service::class);
+        return $this->belongsToMany(Service::class)
+            ->withPivot('order')
+            ->orderBy('order');
     }
 
     /** @var $field_items */
