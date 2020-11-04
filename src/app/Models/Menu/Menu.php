@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\Src\App\Models\Menu;
 
+use App\Models\Menuable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Spatie\Translatable\HasTranslations;
@@ -44,7 +45,8 @@ class Menu extends Model
     {
         return $this->morphedByMany(config('cms.template_model'), 'menuable')
             ->withPivot('order', 'parent_id', 'parent_type')
-            ->orderBy('order');
+            ->orderBy('order')
+            ->with( 'menus');
     }
 
     /**

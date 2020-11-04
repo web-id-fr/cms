@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Webid\Cms\Src\App\Models\Component;
 use Webid\Cms\Src\App\Models\Components\GalleryComponent;
 use Webid\Cms\Src\App\Models\Components\NewsletterComponent;
 use Webid\Cms\Src\App\Models\Template as TemplateBase;
@@ -10,6 +11,15 @@ class Template extends TemplateBase
 {
     /** @var $components_item */
     public $component_items;
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function related()
+    {
+        return $this->hasMany(Component::class)
+            ->orderBy('order');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany

@@ -59,4 +59,13 @@ class Field extends Model
     {
         return $this->flexible('field_options');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function forms()
+    {
+        return $this->morphToMany(Form::class, 'formable')
+            ->withPivot('order');
+    }
 }

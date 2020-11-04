@@ -29,6 +29,16 @@ class MenuCustomItem extends Model
     protected $table = 'menu_custom_items';
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = [
+        'form',
+        'menus',
+    ];
+
+    /**
      * The attributes that ar translatable.
      *
      * @var array

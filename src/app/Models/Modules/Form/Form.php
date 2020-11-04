@@ -33,6 +33,18 @@ class Form extends Model
     protected $table = 'forms';
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = [
+        'related.formables',
+        'services',
+        'services.recipients',
+        'recipients'
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -60,6 +72,15 @@ class Form extends Model
         'cta_name',
         'rgpd_mention',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function related()
+    {
+        return $this->hasMany(Formable::class)
+            ->orderBy('order');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

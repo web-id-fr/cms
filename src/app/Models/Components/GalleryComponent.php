@@ -39,19 +39,4 @@ class GalleryComponent extends Model
     {
         return $this->belongsToMany(Gallery::class);
     }
-
-    /** @var $recipient_items */
-    public $gallery_items;
-
-    public function chargeGalleryItems()
-    {
-        $galleryItems = collect();
-        $galleries = $this->galleries;
-
-        $galleries->each(function ($gallery) use (&$galleryItems) {
-            $galleryItems->push($gallery);
-        });
-
-        $this->gallery_items = $galleryItems;
-    }
 }

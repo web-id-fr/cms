@@ -13,6 +13,15 @@ class Slideshow extends Model
     protected $table = 'slideshows';
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = [
+        'slides',
+    ];
+
+    /**
      * The attributes that ar translatable.
      *
      * @var array
