@@ -58,7 +58,8 @@ class TemplateController extends Controller
 
             $data = TemplateResource::make($this->templateRepository->getBySlug(
                 $slug->slug,
-                app()->getLocale()
+                app()->getLocale(),
+                true
             ))->resolve();
 
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
@@ -105,7 +106,8 @@ class TemplateController extends Controller
 
             $data = TemplateResource::make($this->templateRepository->getBySlug(
                 $request->slug,
-                app()->getLocale()
+                app()->getLocale(),
+                true
             ))->resolve();
 
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
