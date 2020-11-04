@@ -2,9 +2,6 @@
 
 if (!function_exists('current_url_is')) {
     /**
-     * Compare la chaine passée en paramètre avec l'url actuelle,
-     * pour déterminer si la chaine correspond à la page actuelle
-     *
      * @param string $urlToCompare
      *
      * @return bool
@@ -21,8 +18,6 @@ if (!function_exists('current_url_is')) {
 
 if (!function_exists('str_unslug')) {
     /**
-     * Transforme un slug en une chaine de caractères "classique" avec espaces et majuscules
-     *
      * @param string $string
      *
      * @return string
@@ -41,11 +36,11 @@ if (!function_exists('str_unslug')) {
 
 if (!function_exists('has_zone_menu')) {
     /**
-     * Vérifie si l'id de menu donné existe en bdd
-     *
      * @param $zone
      *
      * @return bool
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function has_zone_menu($zone): bool
     {
@@ -57,8 +52,6 @@ if (!function_exists('has_zone_menu')) {
 
 if (!function_exists('is_video')) {
     /**
-     * Détermine si le fichier dont le nom est passé en paramètre est une vidéo
-     *
      * @param $filename
      *
      * @return bool
@@ -71,8 +64,6 @@ if (!function_exists('is_video')) {
 
 if (!function_exists('is_image')) {
     /**
-     * Détermine si le fichier dont le nom est passé en paramètre est une image
-     *
      * @param $filename
      *
      * @return bool
@@ -83,38 +74,22 @@ if (!function_exists('is_image')) {
     }
 }
 
-if (!function_exists('bladeCompile')) {
+if (!function_exists('menu_builder')) {
     /**
-     * Prend une chaine contenant un fragment de template Blade en paramètre, et retourne le résultat
-     * construit avec les valeurs contenues dans $args
+     * @param $zoneId
+     * @param $label
      *
-     * @param       $value
-     * @param array $args
-     *
-     * @return false|string
-     * @throws Exception
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    function bladeCompile($value, array $args = [])
+    function menu_builder($zoneId, $label)
     {
-        $generated = \Illuminate\Support\Facades\Blade::compileString($value);
+        $menuRepository = app(\Webid\Cms\Src\App\Repositories\Menu\MenuRepository::class);
+        $menu = $menuRepository->getMenuByMenuZone($zoneId);
 
-        ob_start() and extract($args, EXTR_SKIP);
+        if (!empty($menu)) {
+            $data = \Webid\Cms\Src\App\Http\Resources\Menu\MenuResource::make($menu)->resolve();
 
-        try {
-            // We'll include the view contents for parsing within a catcher
-            // so we can avoid any WSOD errors. If an exception occurs we
-            // will throw it out to the exception handler.
-            eval('?>' . $generated);
-        } catch (Exception $e) {
-            // If we caught an exception, we'll silently flush the output
-            // buffer so that no partially rendered views get thrown out
-            // to the client and confuse the user with junk.
-            ob_get_clean();
-            throw $e;
+            return view('components.menu')->with($data);
         }
-
-        $content = ob_get_clean();
-
-        return $content;
     }
 }
