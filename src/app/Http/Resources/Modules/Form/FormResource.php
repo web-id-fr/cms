@@ -15,18 +15,17 @@ class FormResource extends JsonResource
      */
     public function toArray($request)
     {
-        $this->chargeFieldItems();
-
         return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'title_service' => $this->title_service,
-            'cta_name' => $this->cta_name,
-            'rgpd_mention' => $this->rgpd_mention,
-            'fields' => FieldResource::collection($this->field_items)->resolve(),
-            'recipients' => RecipientResource::collection($this->recipients)->resolve(),
-            'services' => ServiceResource::collection($this->services)->resolve(),
+            'id' => $this->resource->id,
+            'name' => $this->resource->name,
+            'title' => $this->resource->title,
+            'description' => $this->resource->description,
+            'title_service' => $this->resource->title_service,
+            'cta_name' => $this->resource->cta_name,
+            'rgpd_mention' => $this->resource->rgpd_mention,
+            'fields' => FieldResource::collection($this->whenLoaded('related'))->resolve(),
+            'recipients' => RecipientResource::collection($this->whenLoaded('recipients'))->resolve(),
+            'services' => ServiceResource::collection($this->whenLoaded('services'))->resolve(),
         ];
     }
 }

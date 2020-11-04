@@ -16,8 +16,8 @@ class RecipientResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name' => $this->name,
-            'email' => $this->email,
+            'name' => $this->resource->name,
+            'email' => $this->resource->email,
         ];
     }
 }

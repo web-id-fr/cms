@@ -16,10 +16,10 @@ class ServiceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'recipients' => RecipientResource::collection($this->recipients)->resolve(),
+            'id' => $this->resource->id,
+            'name' => $this->resource->name,
+            'email' => $this->resource->email,
+            'recipients' => RecipientResource::collection($this->whenLoaded('recipients'))->resolve(),
         ];
     }
 }

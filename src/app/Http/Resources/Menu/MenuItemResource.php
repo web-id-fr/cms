@@ -17,12 +17,6 @@ class MenuItemResource extends JsonResource
      */
     public function toArray($request)
     {
-        if (!empty($this->form)) {
-            $form = FormResource::make($this->form)->resolve();
-        } else {
-            $form = null;
-        }
-
         return [
             // Champs communs à tous les types
             'id' => $this->id,
@@ -31,7 +25,7 @@ class MenuItemResource extends JsonResource
             // Champs exclusifs aux Custom items
             $this->mergeWhen(MenuCustomItem::class == $this->menuable_type, [
                 $this->mergeWhen(MenuCustomItem::_LINK_FORM == $this->type_link, [
-                    'form' => $form,
+                    'form' => !empty($this->form) ? FormResource::make($this->whenLoaded('form'))->resolve() : [],
                     'is_popin' => true,
                 ]),
                 $this->mergeWhen(MenuCustomItem::_LINK_URL == $this->type_link, [

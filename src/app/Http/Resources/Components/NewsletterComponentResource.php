@@ -3,6 +3,7 @@
 namespace Webid\Cms\Src\App\Http\Resources\Components;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Webid\Cms\Src\App\Models\Components\NewsletterComponent;
 
 class NewsletterComponentResource extends JsonResource
 {
@@ -21,7 +22,7 @@ class NewsletterComponentResource extends JsonResource
             'title' => $this->title,
             'placeholder' => $this->placeholder,
             'cta_name' => $this->cta_name,
-            'view' => config("components.$this->component_type.view"),
+            'view' =>  config("components." . NewsletterComponent::class  .".view"),
         ];
     }
 }

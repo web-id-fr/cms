@@ -15,8 +15,8 @@ class NewsletterResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'email' => $this->email,
-            'lang' => $this->lang,
+            'email' => $this->resource->email,
+            'lang' => $this->resource->lang,
         ];
     }
 }
