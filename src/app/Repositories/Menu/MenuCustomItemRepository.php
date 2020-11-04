@@ -22,7 +22,7 @@ class MenuCustomItemRepository extends BaseRepository
      */
     public function all()
     {
-        return $this->model->all()
-            ->load('menus');
+        return $this->model
+            ->with(['menus', 'form'])->get();
     }
 }

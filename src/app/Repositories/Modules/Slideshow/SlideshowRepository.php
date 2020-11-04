@@ -23,13 +23,9 @@ class SlideshowRepository extends BaseRepository
      */
     public function all(): Collection
     {
-        $models = $this->model->all();
-
-        $models->each(function ($model) {
-            $model->chargeSlideItems();
-        });
-
-        return $models;
+        return $this->model
+            ->with('slides')
+            ->get();
     }
 
     /**
@@ -39,9 +35,9 @@ class SlideshowRepository extends BaseRepository
      */
     public function find(int $id)
     {
-        $model = $this->model->find($id);
-        $model->chargeSlideItems();
-
-        return $model;
+        return $this->model
+            ->find($id)
+            ->with('slides')
+            ->first();
     }
 }

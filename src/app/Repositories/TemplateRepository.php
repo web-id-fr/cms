@@ -2,6 +2,9 @@
 
 namespace Webid\Cms\Src\App\Repositories;
 
+use App\Models\Components\IntroductionComponent;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Facades\DB;
 use Webid\Cms\Src\App\Models\Template;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -23,15 +26,10 @@ class TemplateRepository extends BaseRepository
      */
     public function getPublishedTemplates()
     {
-        $models = $this->model->all()
+        return $this->model
             ->where('status', Template::_STATUS_PUBLISHED)
-            ->load('menus');
-
-        $models->each(function ($model) {
-            $model->chargeComponents();
-        });
-
-        return $models;
+            ->with('related.components')
+            ->get();
     }
 
     /**
@@ -39,36 +37,35 @@ class TemplateRepository extends BaseRepository
      */
     public function getSlugForHomepage()
     {
-        $model = $this->model->select('slug')
+        return $this->model->select('slug')
             ->where('homepage', true)
+            ->with('related.components')
             ->first();
-
-        $model->chargeComponents();
-
-        return $model;
     }
 
     /**
      * @param string $slug
      * @param string $language
+     * @param bool $withRelation
      *
-     * @return Template
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
      */
-    public function getBySlug(string $slug, string $language): Template
+    public function getBySlug(string $slug, string $language, bool $withRelation = false)
     {
         $slug = strtolower($slug);
 
-        $model = $this->model
+        $query = $this->model
             ->where('slug', 'regexp', "\"$language\"[ ]*:[ ]*\"$slug\"")
             ->where('status', Template::_STATUS_PUBLISHED)
             ->where(function ($query) {
                 $query->whereNull('publish_at')->orWhere('publish_at', '<=', Carbon::now());
-            })
-            ->firstOrFail();
+            });
 
-        $model->chargeComponents();
+        if ($withRelation) {
+            $query->with('related.components');
+        }
 
-        return $model;
+        return $query->firstOrFail();
     }
 
     /**
@@ -80,6 +77,7 @@ class TemplateRepository extends BaseRepository
     public function getLastCorrespondingSlugWithNumber(string $slug, string $language)
     {
         $slug = strtolower($slug);
+
         return $this->model
             ->where('slug', 'regexp', "\"$language\"[ ]*:[ ]*\"$slug(-[1-9])\"")
             ->orderBy('id', 'desc')

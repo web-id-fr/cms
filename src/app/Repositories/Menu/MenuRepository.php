@@ -107,4 +107,22 @@ class MenuRepository extends BaseRepository
             ->where('zone_id', $zoneID)
             ->exists();
     }
+
+    /**
+     * @param string $zoneId
+     *
+     * @return mixed
+     */
+    public function getMenuByMenuZone(string $zoneId)
+    {
+        if (!$this->menuZoneExist($zoneId)) {
+            return [];
+        }
+
+        $menuZone = DB::table('menus_zones')
+            ->where('zone_id', $zoneId)
+            ->first();
+
+        return $this->find($menuZone->menu_id);
+    }
 }

@@ -22,22 +22,27 @@ class FormRepository extends BaseRepository
      */
     public function getPublishedForms()
     {
-        $models = $this->model
+        return $this->model
             ->where('status', Form::_STATUS_PUBLISHED)
-            ->get();
-
-        $models->each(function ($model) {
-            $model->chargeFieldItems();
-        });
-
-        return $models;
+            ->with([
+                'fields',
+                'titleFields',
+                'recipients',
+                'services',
+                'related.formables'
+            ])->get();
     }
 
     public function find(int $id)
     {
-        $model = $this->model->find($id);
-        $model->chargeFieldItems();
-
-        return $model;
+        return $this->model
+            ->find($id)
+            ->with([
+                'fields',
+                'titleFields',
+                'recipients',
+                'services',
+                'related.formables'
+            ])->first();
     }
 }
