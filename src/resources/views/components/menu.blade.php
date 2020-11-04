@@ -4,52 +4,72 @@
  |--------------------------------------------------------------------------
  |
  | Les variables disponibles sont :
- |  • menu_items        un array, la liste des items du menu actuel
+ |  • items        un array, la liste des items du menu actuel
  |  • title             une string, le titre du menu (traduisible)
- |  • wrap              optionnel, une string, le nom de la balise qui contient le lien
- |  • title_wrap        optionnel, une string, contient la balise dans laquelle on affiche le titre,
- |                          une valeur vide signifie qu'on affiche pas le titre
  |
 --}}
-{{-- Si besoin, on affiche le titre du menu --}}
-@if(!empty($title_wrap) && is_string($title_wrap))
-    {!! "<{$title_wrap}>" !!}{{ "$title" }}{!! "</{$title_wrap}>" !!}
-@endif
-
-@foreach($menu_items as $item)
-    {{-- On définit la variable $link_url selon le type d'item --}}
+@foreach($items as $item)
+    {{-- On définit la variable $link_url selon le type item --}}
     @if(!empty($item['url']))
         @php $link_url = data_get($item, 'url', ''); @endphp
     @elseif(!empty($item['slug']))
         @php $link_url = route('pageFromSlug', [ 'slug' => data_get($item, 'slug', '') ]); @endphp
     @endif
 
-    {{-- Si on a une balise parente, on l'ouvre ici --}}
-    @if(!empty($wrap)) {!! "<{$wrap}>" !!} @endif
-
     {{-- Si on a un lien ET un titre, on affiche le lien --}}
-    @if(!empty($link_url) && !empty(data_get($item, 'title')))
+    @if(!empty($link_url) || data_get($item, 'is_popin') && !empty(data_get($item, 'title')))
         <div>
-            <a href="{{ $link_url }}"
-               @if(current_url_is($link_url)) class="active" @endif>{{ data_get($item, 'title', '') }}</a>
-
+            @if(data_get($item, 'is_popin'))
+                <span class="showPopin"
+                      data-popin="{{ str_slug(data_get($item, 'title', '')) . '-' . data_get($item, 'id') . '-' . $loop->iteration }}">{{ data_get($item, 'title', '') }}</span>
+                @push('popins')
+                    @parent
+                    @include('forms.popin-form', [
+                        'form' => data_get($item, 'form'),
+                        'data_popin' => str_slug(data_get($item, 'title', '')) . '-' . data_get($item, 'id') . '-' . $loop->iteration,
+                    ])
+                @endpush
+            @else
+                <a @if(!empty(data_get($item, 'target'))) target="{{ data_get($item, 'target') }}"
+                   @endif href="{{ $link_url }}"
+                   @if(current_url_is($link_url) && empty(data_get($item, 'target'))) class="active" @endif>{{ data_get($item, 'title', '') }}</a>
+            @endif
             @if (data_get($item, 'children'))
                 <div class="submenu">
                     @foreach (data_get($item, 'children') as $children)
-                        @if(!empty($children['url']))
-                            @php $link_url = data_get($children, 'url', ''); @endphp
-                        @elseif(!empty($children['slug']))
-                            @php $link_url = route('pageFromSlug', [ 'slug' => data_get($children, 'slug', '') ]); @endphp
+                        @if(data_get($children, 'is_popin'))
+                            <div>
+                                <span class="showPopin"
+                                      data-popin="{{ str_slug(data_get($children, 'title', '')) . '-' . data_get($children, 'id') . '-' . $loop->iteration}}">
+                                    {{ data_get($children, 'title', '') }}
+                                </span>
+                            </div>
+                            @push('popins')
+                                @parent
+                                @include('forms.popin-form', [
+                                    'form' => data_get($children, 'form'),
+                                    'data_popin' => str_slug(data_get($children, 'title', '')) . '-' . data_get($children, 'id') . '-' . $loop->iteration,
+                                ])
+                            @endpush
+                        @else
+                            @if(!empty($children['url']))
+                                @php $link_url = data_get($children, 'url', ''); @endphp
+                            @elseif(!empty($children['slug']))
+                                @php $link_url = route('pageFromSlug', [ 'slug' => data_get($children, 'slug', '') ]); @endphp
+                            @endif
+                            <div>
+                                <a @if(current_url_is($link_url) && empty(data_get($children, 'target'))) class="active"
+                                   @endif href="{{ $link_url }}"
+                                   @if(!empty(data_get($children, 'target'))) target="{{ data_get($children, 'target') }}" @endif>
+                                    {{ data_get($children, 'title', '') }}
+                                </a>
+                            </div>
                         @endif
-                        <div><a @if(current_url_is($link_url)) class="active" @endif href="{{ $link_url }}">{{ data_get($children, 'title', '') }}</a></div>
                     @endforeach
                 </div>
             @endif
         </div>
     @endif
-
-    {{-- Si on a une balise parente, on la ferme ici --}}
-    @if(!empty($wrap)) {!! "</{$wrap}>" !!} @endif
 
     {{-- On reset la variable $link_url --}}
     @php $link_url = ''; @endphp

@@ -14,7 +14,7 @@ class LanguageService
      */
     public function getUsedLanguage()
     {
-        $languageRepository = new LanguageRepository(new Language());
+        $languageRepository = app(LanguageRepository::class);
         $languages = $languageRepository->all();
         $allPossible = [];
 

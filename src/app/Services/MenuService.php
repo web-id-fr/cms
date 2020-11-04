@@ -48,32 +48,6 @@ class MenuService
         return app(static::class);
     }
 
-    /**
-     * @return array
-     */
-    public function getMenus()
-    {
-        try {
-            $menus = MenuResource::collection($this->menuRepository->all())->resolve();
-        } catch (\Exception $exception) {
-            $menus = [];
-        }
-
-        $result = [];
-
-        foreach ($menus as $menu) {
-            $zones = data_get($menu, 'zones', []);
-
-            if (!empty($zones)) {
-                foreach ($zones as $zone) {
-                    $result[$zone]['title'] = data_get($menu, 'title', []);
-                    $result[$zone]['zones'] = data_get($menu, 'items', []);
-                }
-            }
-        }
-
-        return $result;
-    }
 
     /**
      * Récupère la liste des zones de menus dans les templates, dédoublonnée
@@ -120,7 +94,7 @@ class MenuService
         $menus = [];
         $matches = [];
 
-        preg_match_all("/\@menu\(([^@<]*)\)/", $content, $matches);
+        preg_match_all("/\menu_builder\(([^@<]*)\)/", $content, $matches);
 
         if (!empty($matches[1])) {
             foreach ($matches[1] as $expressionDeMenu) {
@@ -130,31 +104,6 @@ class MenuService
         }
 
         return $menus;
-    }
-
-    /**
-     * Affiche le contenu d'une zone de menu, en injectant les liens issus du BO dans le template associé
-     *
-     * @param string $expression L'expression utilisée dans la directive, contenant ID, label et options
-     *
-     * @return string
-     */
-    public function showMenu($expression): string
-    {
-        try {
-            $menu = new Menu($expression);
-            $menusData = data_get($this->getMenus(), $menu->menuID, []);
-
-            $options = $menu->options;
-            $data = [
-                'menu_items' => data_get($menusData, 'zones', []),
-                'title' => data_get($menusData, 'title', ''),
-            ];
-        } catch (MissingParameterException $exception) {
-            $options = $data = [];
-        }
-
-        return $this->getHtmlForZone('components/menu', $data, $options);
     }
 
     /**
@@ -211,27 +160,5 @@ class MenuService
         }
 
         return $foundTemplates;
-    }
-
-    /**
-     * Traite les données à afficher pour une zone de contenu donnée, et retourne le résultat à afficher en HTML
-     *
-     * @param string $contentType
-     * @param array  $data
-     * @param array  $options
-     *
-     * @return mixed|string
-     */
-    public function getHtmlForZone(string $contentType, array $data, array $options = [])
-    {
-        try {
-            return view(strtolower($contentType))
-                ->with($data)
-                ->with($options)
-                ->render();
-        } catch (\Throwable $exception) {
-            info($exception->getMessage());
-            return '';
-        }
     }
 }

@@ -19,6 +19,7 @@ class SendForm extends Mailable
      * Create a new message instance
      *
      * @param array $mailData
+     * @param $files
      */
     public function __construct(array $mailData, $files)
     {
