@@ -69,10 +69,10 @@ class GalleryItemField extends Field
     public function resolve($resource, $attribute = null)
     {
         parent::resolve($resource, $attribute);
-        $resource->chargeGalleryItems();
+        $resource->galleries();
 
         $valueInArray = [];
-        $resource->gallery_items->each(function ($item) use (&$valueInArray) {
+        $resource->galleries->each(function ($item) use (&$valueInArray) {
             $valueInArray[] = $item;
         });
 

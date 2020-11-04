@@ -15,7 +15,6 @@
                         :taggable="true"
                     ></multiselect>
                 </div>
-
                 <div class="flex flex-col mt-3">
                     <draggable v-model="selected"
                                ghost-class="ghost">
@@ -56,30 +55,24 @@
 
     export default {
         mixins: [FormField, HandlesValidationErrors],
-
         props: ['resourceName', 'resourceId', 'field'],
-
         components: {
             Multiselect,
             draggable,
             'font-awesome-icon': FontAwesomeIcon,
         },
-
         data() {
             return {
                 selected: []
             }
         },
-
         methods: {
-
             /**
              * Fill the given FormData object with the field's internal value.
              */
             fill(formData) {
                 formData.append(this.field.attribute, this.value || '');
             },
-
             /*
             * Set the initial, internal value for the field.
             */
@@ -87,7 +80,6 @@
                 this.value = this.field.value || '';
                 this.selected = this.value || [];
             },
-
             /**
              * Update the field's internal value.
              */
@@ -95,7 +87,6 @@
                 this.value = value;
             },
         },
-
         watch: {
             selected: function(val) {
                 let ids = map(val, (item) => {
