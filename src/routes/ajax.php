@@ -1,8 +1,4 @@
 <?php
-
-use Webid\Cms\Src\App\Http\Middleware\IsAjax;
-use Webid\Cms\Src\App\Http\Middleware\Language;
-
 /*
 |--------------------------------------------------------------------------
 | Ajax Routes
@@ -17,7 +13,7 @@ use Webid\Cms\Src\App\Http\Middleware\Language;
  ********************************************************************************* */
 Route::group([
     'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Components',
-    'middleware' => ['nova', IsAjax::class],
+    'middleware' => ['nova', 'is-ajax'],
     'prefix' => 'ajax',
 ], function () {
     Route::get('component', 'ComponentController@index');
@@ -28,7 +24,7 @@ Route::group([
 ********************************************************************************* */
 Route::group([
     'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter',
-    'middleware' => [IsAjax::class, Language::class],
+    'middleware' => ['is-ajax', 'language'],
     'prefix' => '{lang}/ajax'
 ], function () {
     /**
@@ -44,7 +40,7 @@ Route::group([
  ********************************************************************************* */
 Route::group([
     'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Ajax\Menu',
-    'middleware' => ['nova', IsAjax::class],
+    'middleware' => ['nova', 'is-ajax'],
     'prefix' => 'ajax',
 ], function () {
     Route::get('menu', 'MenuController@index');

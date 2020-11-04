@@ -18,6 +18,7 @@ use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuItemController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter\NewsletterController;
 use Webid\Cms\Src\App\Http\Controllers\Components\ComponentController;
 use Webid\Cms\Src\App\Http\Middleware\CheckLanguageExist;
+use Webid\Cms\Src\App\Http\Middleware\IsAjax;
 use Webid\Cms\Src\App\Http\Middleware\Language;
 use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
 use Webid\Cms\Src\App\Nova\Components\NewsletterComponent;
@@ -56,8 +57,6 @@ class CmsServiceProvider extends ServiceProvider
         if (!app()->isLocal()) {
             $generator->forceScheme('https');
         }
-
-        $this->registerMenuDirective();
 
         $this->publishConfiguration();
         $this->publishProvider();
@@ -127,14 +126,6 @@ class CmsServiceProvider extends ServiceProvider
 
         Route::pattern('id', '[0-9]+');
         Route::pattern('lang', '(' . app(LanguageService::class)->getAllLanguagesAsRegex() . ')');
-    }
-
-    protected function registerMenuDirective()
-    {
-        Blade::directive('menu', function ($expression) {
-            $expression = str_replace("'", "\'", $expression);
-            return "<?php echo app('" . MenuService::class . "')->showMenu('{$expression}'); ?>";
-        });
     }
 
     protected function publishConfiguration()
@@ -230,6 +221,7 @@ class CmsServiceProvider extends ServiceProvider
         $router->aliasMiddleware('language', Language::class);
         $router->aliasMiddleware('check-language-exist', CheckLanguageExist::class);
         $router->aliasMiddleware('cacheable', CacheWithVarnish::class);
+        $router->aliasMiddleware('is-ajax', IsAjax::class);
     }
 
     protected function bindTemplateRepository()
