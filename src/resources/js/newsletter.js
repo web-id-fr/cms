@@ -7,7 +7,9 @@ $(document).ready(function () {
         let email = $(this).find('input[type="email"]').val();
         let feedback_newsletter = $(this).find('.feedback_newsletter');
         let lang = $('html').attr('lang');
-        axiosPost(lang + '/ajax/newsletter', {
+        let protocol = window.location.protocol;
+        let hostname = window.location.hostname;
+        axiosPost( protocol + '//' + hostname + '/' + lang + '/ajax/newsletter', {
             'email': email
         }).then(function (response) {
             let message = response.data;
