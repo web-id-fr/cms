@@ -53,8 +53,9 @@ Class VarnishCustom
             ->implode('|');
 
         $config = config('varnish');
+        $requestHost = "req.http.host ~ $hostsString";
 
-        return ['sudo', 'varnishadm', '-S', $config['administrative_secret'], '-T', '127.0.0.1:' . $config['administrative_port'], 'ban "req.http.host ~ $hostsString"'];
+        return ['sudo', 'varnishadm', '-S', $config['administrative_secret'], '-T', '127.0.0.1:' . $config['administrative_port'], 'ban', $requestHost];
     }
 
     /**
