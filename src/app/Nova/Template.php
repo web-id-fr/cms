@@ -4,6 +4,7 @@ namespace Webid\Cms\Src\App\Nova;
 
 use Carbon\Carbon;
 use App\Nova\Resource;
+use Laravel\Nova\Fields\Heading;
 use Webid\Cms\Src\App\Rules\TranslatableMax;
 use Webid\Cms\Src\App\Rules\TranslatableSlug;
 use \Eminiarts\Tabs\Tabs;
@@ -46,22 +47,6 @@ class Template extends Resource
     ];
 
     /**
-     * @return string
-     */
-    public static function label()
-    {
-        return 'Templates';
-    }
-
-    /**
-     * @return string
-     */
-    public static function singularLabel()
-    {
-        return 'Template';
-    }
-
-    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -71,9 +56,9 @@ class Template extends Resource
     {
         return [
             new Tabs('Tabs', [
-                'Parameters' => $this->parameterFields(),
-                'Content' => $this->contentFields(),
-                'SEO' => $this->seoFields(),
+                __('Parameters') => $this->parameterFields(),
+                __('Content') => $this->contentFields(),
+                __('SEO') => $this->seoFields(),
             ]),
         ];
     }
@@ -86,30 +71,30 @@ class Template extends Resource
     protected function parameterFields()
     {
         return [
-            Boolean::make('Homepage'),
-
             ID::make()->sortable(),
 
-            Translatable::make('Title', 'title')
+            Boolean::make(__('Homepage')),
+
+            Translatable::make(__('Title'), 'title')
                 ->singleLine()
                 ->rules('required')
                 ->sortable(),
 
-            Translatable::make('Slug', 'slug')
-                ->help('Please use only this type of slug "name-of-the-template"')
+            Translatable::make(__('Slug'), 'slug')
+                ->help(__('Please use only this type of slug "name-of-the-template"'))
                 ->singleLine()
                 ->rules('array', new TranslatableMax(100), new TranslatableSlug()),
 
-            Select::make('Status', 'status')
+            Select::make(__('Status'), 'status')
                 ->options(TemplateModel::TYPE_TO_NAME)
                 ->displayUsingLabels()
                 ->rules('integer', 'required')
                 ->hideFromIndex(),
 
-            DateTime::make('Publish at', 'publish_at')
+            DateTime::make(__('Publish at'), 'publish_at')
                 ->hideFromIndex(),
 
-            Boolean::make('Published', function () {
+            Boolean::make(__('Published'), function () {
                 return $this->isPublished();
             })->onlyOnIndex(),
         ];
@@ -137,34 +122,40 @@ class Template extends Resource
     protected function seoFields()
     {
         return [
-            Translatable::make('Metatitle', 'metatitle')
+            Heading::make('Meta'),
+
+            Translatable::make(__('Title'), 'metatitle')
                 ->singleLine()
                 ->hideFromIndex(),
 
-            Translatable::make('Metadescription', 'metadescription')
+            Translatable::make(__('Description'), 'metadescription')
                 ->trix()
                 ->rules('array')
                 ->hideFromIndex(),
 
-            Translatable::make('Opengraph Title', 'opengraph_title')
+            Heading::make('Open graph'),
+
+            Translatable::make(__('Title'), 'opengraph_title')
                 ->singleLine()
                 ->hideFromIndex(),
 
-            Translatable::make('Opengraph Description', 'opengraph_description')
+            Translatable::make(__('Description'), 'opengraph_description')
                 ->trix()
                 ->rules('array')
                 ->hideFromIndex(),
 
-            FilemanagerField::make('Opengraph Picture', 'opengraph_picture')
+            FilemanagerField::make(__('Picture'), 'opengraph_picture')
                 ->hideFromIndex()
                 ->displayAsImage(),
 
-            Boolean::make('Index the page', 'indexation')
+            Heading::make(__('Indexation')),
+
+            Boolean::make(__('Index the page'), 'indexation')
                 ->withMeta([
                     'value' => data_get($this, 'indexation', true),
                 ])->hideFromIndex(),
 
-            Boolean::make('Follow the page', 'follow')
+            Boolean::make(__('Follow the page'), 'follow')
                 ->withMeta([
                     'value' => data_get($this, 'follow', true),
                 ])->hideFromIndex(),
