@@ -55,56 +55,56 @@ class Field extends Resource
         return [
             ID::make()->sortable(),
 
-            Select::make('Field type')
+            Select::make(__('Field type'))
                 ->options(config('fields_type'))
                 ->hideFromIndex(),
 
-            Text::make('Field name'),
+            Text::make(__('Field name')),
 
             ConditionalContainer::make([
-                Flexible::make('Field items', 'field_options')
-                    ->addLayout('Item section', 'option', [
+                Flexible::make(__('Field items'), 'field_options')
+                    ->addLayout(__('Item section'), 'option', [
                         Translatable::make('Item')
                             ->singleLine(),
-                    ])->button('Add item')
+                    ])->button(__('Add option'))
             ])->if('field_type = ' . array_search('select', config('fields_type'))),
 
             ConditionalContainer::make([
-                Translatable::make('Date field title')
+                Translatable::make(__('Date field title'))
                     ->singleLine(),
 
-                Translatable::make('Date field placeholder')
+                Translatable::make(__('Date field placeholder'))
                     ->singleLine(),
 
-                Text::make('Field name time'),
+                Text::make(__('Field name time')),
 
-                Translatable::make('Time field title')
+                Translatable::make(__('Time field title'))
                     ->singleLine(),
 
-                Translatable::make('Time field placeholder')
+                Translatable::make(__('Time field placeholder'))
                     ->singleLine(),
 
-                Text::make('Field name duration'),
+                Text::make(__('Field name duration')),
 
-                Translatable::make('Duration field title')
+                Translatable::make(__('Duration field title'))
                     ->singleLine(),
 
-                Flexible::make('Duration items', 'field_options')
-                    ->addLayout('Item section', 'option', [
+                Flexible::make(__('Duration items'), 'field_options')
+                    ->addLayout(__('Item section'), 'option', [
                         Translatable::make('Item')
                             ->singleLine(),
-                    ])->button('Add item')
+                    ])->button(__('Add item'))
             ])->if('field_type = ' . array_search('date-time', config('fields_type'))),
 
             ConditionalContainer::make([
-                Translatable::make('Placeholder')
+                Translatable::make(__('Placeholder'))
                     ->singleLine(),
             ])->useAndOperator()
                 ->if('field_type != ' . array_search('select', config('fields_type')))
                 ->if('field_type != ' . array_search('file', config('fields_type')))
                 ->if('field_type != ' . array_search('date-time', config('fields_type'))),
 
-            Boolean::make('Required')
+            Boolean::make(__('Required'))
                 ->withMeta([
                     'value' => data_get($this, 'required', false),
                 ]),
