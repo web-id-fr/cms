@@ -108,7 +108,7 @@ class Template extends Resource
     protected function contentFields()
     {
         return [
-            ComponentItemField::make('Components')
+            ComponentItemField::make(__('Components'))
                 ->hideFromIndex(),
         ];
     }

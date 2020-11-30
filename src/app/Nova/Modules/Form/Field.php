@@ -64,7 +64,7 @@ class Field extends Resource
             ConditionalContainer::make([
                 Flexible::make(__('Field items'), 'field_options')
                     ->addLayout(__('Item section'), 'option', [
-                        Translatable::make('Item')
+                        Translatable::make(__('Item'))
                             ->singleLine(),
                     ])->button(__('Add option'))
             ])->if('field_type = ' . array_search('select', config('fields_type'))),

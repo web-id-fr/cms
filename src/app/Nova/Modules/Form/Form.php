@@ -95,7 +95,7 @@ class Form extends Resource
                 Translatable::make(__('Title service'))
                     ->singleLine(),
 
-                ServiceItemField::make('Services')
+                ServiceItemField::make(__('Services'))
                     ->hideFromIndex(),
             ])->dependsOn('recipient_type', FormModel::_SERVICES),
 
