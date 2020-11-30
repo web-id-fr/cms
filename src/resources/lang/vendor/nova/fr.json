@@ -542,5 +542,10 @@
     "Image": "Image",
     "Slides": "Slides",
     "Templates": "Pages",
-    "Components": "Composants"
+    "Components": "Composants",
+    "Configuration": "Configuration",
+    "List of Components": "Liste des composants",
+    "Modules": "Modules",
+    "Newsletter": "Newsletter",
+    "Popins": "Popins"
 }

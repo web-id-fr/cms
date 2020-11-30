@@ -96,17 +96,17 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new CollapsibleResourceManager([
                 'navigation' => [
                     TopLevelResource::make([
-                        'label' => 'Menu',
+                        'label' => __('Menu'),
                         'badge' => null,
                         'linkTo' => Menu::class,
                         'resources' => [
                             Group::make([
-                                'label' => 'Menu',
+                                'label' => __('Menu'),
                                 'expanded' => false,
                                 'resources' => [
                                     MenuCustomItem::class,
                                     InternalLink::make([
-                                        'label' => 'Configuration',
+                                        'label' => __('Configuration'),
                                         'badge' => null,
                                         'icon' => null,
                                         'target' => '_self',
@@ -117,18 +117,18 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         ]
                     ]),
                     TopLevelResource::make([
-                        'label' => 'Templates',
+                        'label' => __('Templates'),
                         'badge' => null,
                         'linkTo' => Template::class,
                     ]),
                     TopLevelResource::make([
                         'resources' => [
                             Group::make([
-                                'label' => 'Components',
+                                'label' => __('Components'),
                                 'expanded' => false,
                                 'resources' => [
                                     InternalLink::make([
-                                        'label' => 'List of Components',
+                                        'label' => __('List of Components'),
                                         'badge' => null,
                                         'icon' => null,
                                         'target' => '_self',
@@ -139,7 +139,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                                 ]
                             ]),
                             Group::make([
-                                'label' => 'Modules',
+                                'label' => __('Modules'),
                                 'expanded' => false,
                                 'resources' => [
                                     Gallery::class,
@@ -155,17 +155,17 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         ]
                     ]),
                     TopLevelResource::make([
-                        'label' => 'Newsletter',
+                        'label' => __('Newsletter'),
                         'badge' => null,
                         'linkTo' => Newsletter::class,
                     ]),
                     TopLevelResource::make([
-                        'label' => 'Popins',
+                        'label' => __('Popins'),
                         'badge' => null,
                         'linkTo' => Popin::class,
                     ]),
                     TopLevelResource::make([
-                        'label' => 'Users',
+                        'label' => __('Users'),
                         'badge' => null,
                         'linkTo' => User::class,
                     ]),
