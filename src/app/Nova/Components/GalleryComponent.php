@@ -38,22 +38,6 @@ class GalleryComponent extends Resource
     ];
 
     /**
-     * @return string
-     */
-    public static function label()
-    {
-        return 'Galleries Components';
-    }
-
-    /**
-     * @return string
-     */
-    public static function singularLabel()
-    {
-        return 'Gallery Component';
-    }
-
-    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -64,19 +48,19 @@ class GalleryComponent extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')
+            Text::make(__('Name'))
                 ->rules('required'),
 
-            GalleryItemField::make('galleries')
+            GalleryItemField::make(__('galleries'))
                 ->onlyOnForms(),
 
-            Select::make('Status', 'status')
+            Select::make(__('Status'), 'status')
                 ->options(GalleryComponentModel::TYPE_TO_NAME)
                 ->displayUsingLabels()
                 ->rules('required', 'integer')
                 ->hideFromIndex(),
 
-            Boolean::make('Published', function () {
+            Boolean::make(__('Published'), function () {
                 return $this->isPublished();
             })->onlyOnIndex(),
         ];
