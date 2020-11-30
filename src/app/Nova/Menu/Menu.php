@@ -46,10 +46,10 @@ class Menu extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('title')
+            Text::make(__('Title'))
                 ->rules('required'),
 
-            MenuItemField::make('Menu', 'menu_item')
+            MenuItemField::make(__('Menu'), 'menu_item')
                 ->onlyOnForms(),
         ];
     }
