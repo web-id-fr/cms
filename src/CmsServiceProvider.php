@@ -108,8 +108,6 @@ class CmsServiceProvider extends ServiceProvider
 
     /**
      * Register services.
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function register()
     {
@@ -218,6 +216,7 @@ class CmsServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/resources/views/mail/form.blade.php' => base_path('/resources/views/mail/form.blade.php'),
+            __DIR__ . '/resources/views/mail/confirmation_contact.blade.php' => base_path('/resources/views/mail/confirmation_contact.blade.php'),
         ], 'email-template');
     }
 

@@ -5,6 +5,7 @@ namespace Webid\Cms\Src\App\Http\Controllers\Modules\Ajax\Form;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Webid\Cms\Src\App\Http\Requests\FormRequest;
+use Webid\Cms\Src\App\Mail\SendConfirmationContact;
 use Webid\Cms\Src\App\Mail\SendForm;
 use Webid\Cms\Src\App\Repositories\Modules\Form\FormRepository;
 use Webid\Cms\Src\App\Repositories\Modules\Form\ServiceRepository;
@@ -50,6 +51,10 @@ class FormController extends Controller
         $fields = $request->except(['valid_from', 'form_id', 'file']);
 
         Mail::to($to ?? config('mail.from.address'))->send(new SendForm($fields, $files));
+
+        if (config('cms.send_email_confirmation') && !empty($request->email)) {
+            Mail::to($request->email)->send(new SendConfirmationContact());
+        }
 
         return response()->json([
             'errors' => false,

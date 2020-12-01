@@ -11,4 +11,6 @@ return [
         ? 'https://' . env('AWS_BUCKET') . '.s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/'
         : "/",
     'filesystem_driver' => env('FILESYSTEM_DRIVER'),
+
+    'send_email_confirmation' => env('SEND_EMAIL_CONFIRMATION', false)
 ];
