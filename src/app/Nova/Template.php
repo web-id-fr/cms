@@ -105,7 +105,9 @@ class Template extends Resource
             PageUrlItemField::make('Slug')
                 ->projectUrl(config('app.url'))
                 ->showOnIndex()
-                ->showOnDetail(),
+                ->showOnDetail()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
 
             Select::make('Status', 'status')
                 ->options(TemplateModel::TYPE_TO_NAME)
