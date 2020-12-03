@@ -3,7 +3,7 @@
         <template slot="value">
             <div class="mt-4">
                 <span v-if="value !== '—'" class="whitespace-no-wrap">
-                    <a :href="url" target="_blank">{{ url }}</a>
+                    <a class="no-underline dim text-primary font-bold" :href="url" target="_blank">{{ url }}</a>
                 </span>
                 <span v-else class="whitespace-no-wrap">—</span>
             </div>
