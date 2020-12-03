@@ -28,18 +28,3 @@ Route::group(['middleware' => 'cacheable'], function() {
         ])->name('pageFromSlug');
     });
 });
-
-Route::group([
-    'namespace' => 'Webid\Cms\Src\App\Http\Controllers',
-    'middleware' => ['web']
-], function () {
-    Route::get('/csrf', 'CsrfController');
-});
-
-Route::group([
-    'prefix' => '{lang}/form',
-    'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Modules\Ajax\Form',
-    'middleware' => ['web', 'anti-spam', 'language', 'check-language-exist']
-], function () {
-    Route::post('/send', 'FormController@handle')->name('send.form');
-});
