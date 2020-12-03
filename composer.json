@@ -47,7 +47,7 @@
             "Webid\\MenuTool\\" : "src/nova-components/MenuTool/src/",
             "Webid\\MenuItemField\\" : "src/nova-components/MenuItemField/src/",
             "Webid\\CardActions\\" : "src/nova-components/CardActions/src/",
-            "Modules\\": "Modules/"
+            "Modules\\": "src/Modules/"
         },
         "files": [
             "src/app/helpers.php"
