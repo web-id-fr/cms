@@ -135,13 +135,25 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                                 'expanded' => false,
                                 'resources' => [
                                     Gallery::class,
-                                    Form::class,
-                                    Field::class,
-                                    TitleField::class,
-                                    Service::class,
-                                    Recipient::class,
-                                    Slideshow::class,
-                                    Slide::class
+                                    Group::make([
+                                        'label' => __('Form'),
+                                        'expanded' => false,
+                                        'resources' => [
+                                            Form::class,
+                                            Field::class,
+                                            TitleField::class,
+                                            Service::class,
+                                            Recipient::class,
+                                        ]
+                                    ]),
+                                    Group::make([
+                                        'label' => __('Slideshow'),
+                                        'expanded' => false,
+                                        'resources' => [
+                                            Slideshow::class,
+                                            Slide::class
+                                        ]
+                                    ]),
                                 ]
                             ]),
                         ]
