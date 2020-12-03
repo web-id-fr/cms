@@ -102,7 +102,7 @@ class Template extends Resource
                 ->rules('array', new TranslatableMax(100), new TranslatableSlug())
                 ->onlyOnForms(),
 
-            PageUrlItemField::make('Slug')
+            PageUrlItemField::make('Url', 'slug')
                 ->projectUrl(config('app.url'))
                 ->showOnIndex()
                 ->showOnDetail()
