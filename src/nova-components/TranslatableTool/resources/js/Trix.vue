@@ -15,8 +15,8 @@
                     entity_encoding : "raw",
                     encoding: "UTF-8",
                     menubar: false,
-                    plugins: "textcolor preview link",
-                    toolbar: "undo redo | formatselect | bold italic strikethrough underline forecolor backcolor | link | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | link",
+                    plugins: "code textcolor preview link",
+                    toolbar: "code | undo redo | formatselect | bold italic strikethrough underline forecolor backcolor | link | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | link",
                     forced_root_block: "div"
                 }
             }
