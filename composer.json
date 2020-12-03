@@ -10,8 +10,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.1.0",
-        "laravel/framework": "^7.0",
+        "php": "^7.3|^8.0",
+        "laravel/framework": "^8.12",
         "laravel/nova": "~2.0|~3.0",
         "spatie/laravel-honeypot": "^1.4",
         "whitecube/nova-flexible-content": "^0.1.15",
