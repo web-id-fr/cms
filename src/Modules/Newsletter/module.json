@@ -5,7 +5,7 @@
   "keywords": [],
   "order": 0,
   "providers": [
-    "Webid\\Cms\\Src\\Modules\\Providers\\NewsletterServiceProvider"
+    "Webid\\Cms\\Src\\Modules\\Newsletter\\Providers\\NewsletterServiceProvider"
   ],
   "aliases": {},
   "files": [],
