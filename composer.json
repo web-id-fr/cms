@@ -25,7 +25,8 @@
         "maatwebsite/laravel-nova-excel": "^1.1",
         "tightenco/ziggy": "^0.9.3",
         "spatie/laravel-varnish": "^2.8",
-        "optimistdigital/nova-multiselect-field": "dev-master"
+        "optimistdigital/nova-multiselect-field": "dev-master",
+        "nwidart/laravel-modules": "^8.0@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5",
@@ -45,7 +46,8 @@
             "Webid\\TranslatableTool\\" : "src/nova-components/TranslatableTool/src/",
             "Webid\\MenuTool\\" : "src/nova-components/MenuTool/src/",
             "Webid\\MenuItemField\\" : "src/nova-components/MenuItemField/src/",
-            "Webid\\CardActions\\" : "src/nova-components/CardActions/src/"
+            "Webid\\CardActions\\" : "src/nova-components/CardActions/src/",
+            "Modules\\": "Modules/"
         },
         "files": [
             "src/app/helpers.php"

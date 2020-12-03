@@ -24,22 +24,6 @@ Route::group([
 });
 
 /* *********************************************************************************
-* NEWSLETTER AJAX ROUTE
-********************************************************************************* */
-Route::group([
-    'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter',
-    'middleware' => [IsAjax::class, Language::class],
-    'prefix' => '{lang}/ajax'
-], function () {
-    /**
-     * Newsletter
-     */
-    Route::prefix('/newsletter')->name('newsletter.')->group(function () {
-        Route::post('/', 'NewsletterController@store')->name('store');
-    });
-});
-
-/* *********************************************************************************
  * MENU AJAX ROUTE
  ********************************************************************************* */
 Route::group([

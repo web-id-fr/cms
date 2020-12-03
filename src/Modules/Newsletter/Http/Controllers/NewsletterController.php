@@ -1,21 +1,21 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter;
+namespace Webid\Cms\Src\App\Modules\Newsletter\Http\Controllers\Ajax\Newsletter;
 
 use App\Http\Controllers\Controller;
-use Webid\Cms\Src\App\Http\Requests\StoreNewsletter;
-use Webid\Cms\Src\App\Repositories\Newsletter\NewsletterRepository;
+use Webid\Cms\Src\App\Modules\Newsletter\Http\Requests\StoreNewsletter;
+use Webid\Cms\Src\App\Modules\Newsletter\Repositories\NewsletterRepository;
 use Illuminate\Support\Facades\App;
 
 class NewsletterController extends Controller
 {
-    /** @var \App\Repositories\Newsletter\NewsletterRepository */
+    /** @var \Webid\Cms\Src\App\Modules\Newsletter\Repositories\  */
     protected $newsletterRepository;
 
     /**
      * NewsletterController constructor.
      *
-     * @param \App\Repositories\Newsletter\NewsletterRepository $newsletterRepository
+     * @param \Webid\Cms\Src\App\Modules\Newsletter\Repositories\NewsletterRepository  $newsletterRepository
      */
     public function __construct(NewsletterRepository $newsletterRepository)
     {
@@ -23,7 +23,7 @@ class NewsletterController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\StoreNewsletter $request
+     * @param \Webid\Cms\Src\App\Modules\Newsletter\Http\Requests\StoreNewsletter $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreNewsletter $request) {
