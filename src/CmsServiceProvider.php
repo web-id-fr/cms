@@ -22,11 +22,6 @@ use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
 use Webid\Cms\Src\App\Nova\Components\NewsletterComponent;
 use Webid\Cms\Src\App\Nova\Menu\Menu;
 use Webid\Cms\Src\App\Nova\Menu\MenuCustomItem;
-use Webid\Cms\Src\App\Nova\Modules\Form\Field;
-use Webid\Cms\Src\App\Nova\Modules\Form\Form;
-use Webid\Cms\Src\App\Nova\Modules\Form\Recipient;
-use Webid\Cms\Src\App\Nova\Modules\Form\Service;
-use Webid\Cms\Src\App\Nova\Modules\Form\TitleField;
 use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\Src\App\Nova\Popin\Popin;
 use Webid\Cms\Src\App\Nova\Slideshow\Slide;
@@ -34,7 +29,6 @@ use Webid\Cms\Src\App\Nova\Slideshow\Slideshow;
 use Webid\Cms\Src\App\Observers\TemplateObserver;
 use Webid\Cms\Src\App\Http\Controllers\TemplateController;
 use Webid\Cms\Src\App\Nova\Template;
-use Illuminate\Support\Facades\View;
 use Webid\Cms\Src\App\Repositories\TemplateRepository;
 use Webid\Cms\Src\App\Services\Galleries\Contracts\GalleryServiceContract;
 use Webid\Cms\Src\App\Services\Galleries\GalleryLocalStorageService;
@@ -65,9 +59,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishTemplateModel();
         $this->publishNovaComponents();
         $this->publishTranslations();
-        $this->publishSendFormJs();
         $this->publishServices();
-        $this->publishEmailTemplate();
         $this->registerAliasMiddleware($router);
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
@@ -87,20 +79,12 @@ class CmsServiceProvider extends ServiceProvider
                 GalleryComponent::class,
                 NewsletterComponent::class,
                 Popin::class,
-                Form::class,
-                Field::class,
-                TitleField::class,
-                Recipient::class,
-                Service::class,
                 Slideshow::class,
                 Slide::class,
                 Menu::class,
                 MenuCustomItem::class
             ]);
         });
-
-        View::share('maxFiles', config('dropzone.max-files'));
-        View::share('maxTotalSize', config('dropzone.max-file-size'));
     }
 
     /**
@@ -142,10 +126,6 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/config/phpcs.xml' => base_path('phpcs.xml'),
             __DIR__ . '/config/psalm.xml' => base_path('psalm.xml'),
             __DIR__ . '/config/Makefile' => base_path('Makefile'),
-            __DIR__ . '/config/dropzone.php' => config_path('dropzone.php'),
-            __DIR__ . '/config/fields_type.php' => config_path('fields_type.php'),
-            __DIR__ . '/config/fields_type_validation.php' => config_path('fields_type_validation.php'),
-            __DIR__ . '/config/ziggy.php' => config_path('ziggy.php'),
             __DIR__ . '/config/cms.php' => config_path('cms.php'),
             __DIR__ . '/config/varnish.php' => config_path('varnish.php'),
         ], 'config');
@@ -194,27 +174,11 @@ class CmsServiceProvider extends ServiceProvider
         ], 'translations');
     }
 
-    protected function publishSendFormJs()
-    {
-        $this->publishes([
-            __DIR__ . '/resources/js/send_form.js' => base_path('/resources/js/send_form.js'),
-            __DIR__ . '/resources/js/send_form_popin.js' => base_path('/resources/js/send_form_popin.js'),
-            __DIR__ . '/resources/js/helpers.js' => base_path('/resources/js/helpers.js'),
-        ], 'send-form');
-    }
-
     protected function publishServices()
     {
         $this->publishes([
             __DIR__ . '/app/Services/Publish/ExtraElementsForPageService.php' => base_path('/app/Services/ExtraElementsForPageService.php'),
         ], 'services');
-    }
-
-    protected function publishEmailTemplate()
-    {
-        $this->publishes([
-            __DIR__ . '/resources/views/mail/form.blade.php' => base_path('/resources/views/mail/form.blade.php'),
-        ], 'email-template');
     }
 
     /**

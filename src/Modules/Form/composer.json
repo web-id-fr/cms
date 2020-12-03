@@ -1,0 +1,25 @@
+{
+  "name": "webid/form",
+  "description": "",
+  "authors": [
+    {
+      "name": "Elise",
+      "email": "elise@web-id.fr"
+    }
+  ],
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Webid\\Cms\\Src\\Modules\\Form\\Providers\\FormServiceProvider"
+      ],
+      "aliases": {
+
+      }
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Webid\\Cms\\Src\\Modules\\Form\\": ""
+    }
+  }
+}
