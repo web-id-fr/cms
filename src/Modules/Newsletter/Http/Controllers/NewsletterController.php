@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Modules\Newsletter\Http\Controllers\Ajax\Newsletter;
+namespace Webid\Cms\Src\App\Modules\Newsletter\Http\Controllers\Newsletter;
 
 use App\Http\Controllers\Controller;
 use Webid\Cms\Src\App\Modules\Newsletter\Http\Requests\StoreNewsletter;

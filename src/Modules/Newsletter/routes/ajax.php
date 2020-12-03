@@ -1,8 +1,5 @@
 <?php
 
-use Webid\Cms\Src\App\Http\Middleware\IsAjax;
-use Webid\Cms\Src\App\Http\Middleware\Language;
-
 /*
 |--------------------------------------------------------------------------
 | Ajax Routes
@@ -17,7 +14,7 @@ use Webid\Cms\Src\App\Http\Middleware\Language;
 ********************************************************************************* */
 Route::group([
     'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter',
-    'middleware' => [IsAjax::class, Language::class],
+    'middleware' => ['is-ajax', 'language'],
     'prefix' => '{lang}/ajax'
 ], function () {
     /**
