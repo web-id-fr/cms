@@ -123,20 +123,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     ]),
                     TopLevelResource::make([
                         'resources' => [
-                            Group::make([
-                                'label' => 'Components',
-                                'expanded' => false,
-                                'resources' => [
-                                    InternalLink::make([
-                                        'label' => 'List of Components',
-                                        'badge' => null,
-                                        'icon' => null,
-                                        'target' => '_self',
-                                        'path' => '/component-tool',
-                                    ]),
-                                    GalleryComponent::class,
-                                    NewsletterComponent::class
-                                ]
+                            InternalLink::make([
+                                'label' => 'List of Components',
+                                'badge' => null,
+                                'icon' => null,
+                                'target' => '_self',
+                                'path' => '/component-tool',
                             ]),
                             Group::make([
                                 'label' => 'Modules',
