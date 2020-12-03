@@ -62,8 +62,6 @@
 
             <div data-testid="content" class="px-view py-view mx-auto">
                 @yield('content')
-
-                @include('nova::partials.footer')
             </div>
         </div>
     </div>
