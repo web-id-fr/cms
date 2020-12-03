@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Modules\Newsletter\Http\Resources\Newsletter;
+namespace Webid\Cms\Src\Modules\Newsletter\Http\Resources\Newsletter;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Modules\Newsletter\Models;
+namespace Webid\Cms\Src\Modules\Newsletter\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

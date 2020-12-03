@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Modules\Newsletter\Http\Requests;
+namespace Webid\Cms\Src\Modules\Newsletter\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

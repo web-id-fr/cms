@@ -1,10 +1,10 @@
 <?php
 
-namespace Webid\Cms\Src\App\Modules\Newsletter\Http\Controllers\Newsletter;
+namespace Webid\Cms\Src\Modules\Newsletter\Http\Controllers\Newsletter;
 
 use App\Http\Controllers\Controller;
-use Webid\Cms\Src\App\Modules\Newsletter\Http\Requests\StoreNewsletter;
-use Webid\Cms\Src\App\Modules\Newsletter\Repositories\NewsletterRepository;
+use Webid\Cms\Src\Modules\Newsletter\Http\Requests\StoreNewsletter;
+use Webid\Cms\Src\Modules\Newsletter\Repositories\NewsletterRepository;
 use Illuminate\Support\Facades\App;
 
 class NewsletterController extends Controller
