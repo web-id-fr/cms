@@ -15,7 +15,6 @@ use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuConfigurationController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuCustomItemController;
 use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuItemController;
-use Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter\NewsletterController;
 use Webid\Cms\Src\App\Http\Controllers\Components\ComponentController;
 use Webid\Cms\Src\App\Http\Middleware\CheckLanguageExist;
 use Webid\Cms\Src\App\Http\Middleware\Language;
@@ -29,7 +28,6 @@ use Webid\Cms\Src\App\Nova\Modules\Form\Recipient;
 use Webid\Cms\Src\App\Nova\Modules\Form\Service;
 use Webid\Cms\Src\App\Nova\Modules\Form\TitleField;
 use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
-use Webid\Cms\Src\App\Nova\Newsletter\Newsletter;
 use Webid\Cms\Src\App\Nova\Popin\Popin;
 use Webid\Cms\Src\App\Nova\Slideshow\Slide;
 use Webid\Cms\Src\App\Nova\Slideshow\Slideshow;
@@ -87,7 +85,6 @@ class CmsServiceProvider extends ServiceProvider
                 Template::class,
                 Gallery::class,
                 GalleryComponent::class,
-                Newsletter::class,
                 NewsletterComponent::class,
                 Popin::class,
                 Form::class,
@@ -119,7 +116,6 @@ class CmsServiceProvider extends ServiceProvider
 
         $this->app->make(TemplateController::class);
         $this->app->make(ComponentController::class);
-        $this->app->make(NewsletterController::class);
         $this->app->make(MenuController::class);
         $this->app->make(MenuConfigurationController::class);
         $this->app->make(MenuCustomItemController::class);
