@@ -13,7 +13,6 @@
         "php": "^7.3|^8.0",
         "laravel/framework": "^8.12",
         "laravel/nova": "~2.0|~3.0",
-        "spatie/laravel-honeypot": "^1.4",
         "whitecube/nova-flexible-content": "^0.1.15",
         "spatie/laravel-translatable": "^4.2",
         "infinety-es/nova-filemanager": "^2.6",
@@ -25,7 +24,8 @@
         "maatwebsite/laravel-nova-excel": "^1.1",
         "tightenco/ziggy": "^0.9.3",
         "spatie/laravel-varnish": "^2.8",
-        "optimistdigital/nova-multiselect-field": "dev-master"
+        "optimistdigital/nova-multiselect-field": "dev-master",
+        "spatie/laravel-honeypot": "^2.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5",
