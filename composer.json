@@ -45,7 +45,8 @@
             "Webid\\TranslatableTool\\" : "src/nova-components/TranslatableTool/src/",
             "Webid\\MenuTool\\" : "src/nova-components/MenuTool/src/",
             "Webid\\MenuItemField\\" : "src/nova-components/MenuItemField/src/",
-            "Webid\\CardActions\\" : "src/nova-components/CardActions/src/"
+            "Webid\\CardActions\\" : "src/nova-components/CardActions/src/",
+            "Webid\\PageUrlItemField\\" : "src/nova-components/PageUrlItemField/src/"
         },
         "files": [
             "src/app/helpers.php"
@@ -69,7 +70,8 @@
                 "Webid\\TranslatableTool\\FieldServiceProvider",
                 "Webid\\MenuTool\\ToolServiceProvider",
                 "Webid\\MenuItemField\\FieldServiceProvider",
-                "Webid\\CardActions\\CardServiceProvider"
+                "Webid\\CardActions\\CardServiceProvider",
+                "Webid\\PageUrlItemField\\FieldServiceProvider"
             ]
         }
     },
