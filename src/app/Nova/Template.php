@@ -16,6 +16,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Webid\ComponentItemField\ComponentItemField;
+use Webid\PageUrlItemField\PageUrlItemField;
 use Webid\TranslatableTool\Translatable;
 use App\Models\Template as TemplateModel;
 
@@ -83,7 +84,15 @@ class Template extends Resource
             Translatable::make(__('Slug'), 'slug')
                 ->help(__('Please use only this type of slug "name-of-the-template"'))
                 ->singleLine()
-                ->rules('array', new TranslatableMax(100), new TranslatableSlug()),
+                ->rules('array', new TranslatableMax(100), new TranslatableSlug())
+                ->onlyOnForms(),
+
+            PageUrlItemField::make('Url', 'slug')
+                ->projectUrl(config('app.url'))
+                ->showOnIndex()
+                ->showOnDetail()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
 
             Select::make(__('Status'), 'status')
                 ->options(TemplateModel::TYPE_TO_NAME)
