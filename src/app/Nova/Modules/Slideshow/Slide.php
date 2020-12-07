@@ -35,6 +35,16 @@ class Slide extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Slides');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request $request
@@ -46,11 +56,11 @@ class Slide extends Resource
         return [
             ID::make()->sortable(),
 
-            Translatable::make(__('Title'))
+            Translatable::make(__('Title'), 'title')
                 ->singleLine()
                 ->rules('required'),
 
-            Translatable::make(__('Description'))
+            Translatable::make(__('Description'), 'description')
                 ->trix()
                 ->asHtml()
                 ->hideFromIndex(),
@@ -65,12 +75,12 @@ class Slide extends Resource
                 ->rules('array')
                 ->hideFromIndex(),
 
-            Translatable::make(__('Url'))
+            Translatable::make(__('Url'), 'url')
                 ->singleLine()
                 ->rules('array')
                 ->hideFromIndex(),
 
-            FilemanagerField::make(__('Image'))
+            FilemanagerField::make(__('Image'), 'image')
                 ->displayAsImage(),
         ];
     }

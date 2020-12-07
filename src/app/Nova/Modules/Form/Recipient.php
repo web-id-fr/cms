@@ -34,6 +34,16 @@ class Recipient extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Recipients');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -44,10 +54,10 @@ class Recipient extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make(__('Name'))
+            Text::make(__('Name'), 'name')
                 ->rules('required'),
 
-            Text::make(__('Email'))
+            Text::make(__('Email'), 'email')
                 ->rules('required', 'email')
         ];
     }

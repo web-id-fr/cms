@@ -48,6 +48,16 @@ class Template extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Templates');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -74,7 +84,7 @@ class Template extends Resource
         return [
             ID::make()->sortable(),
 
-            Boolean::make(__('Homepage')),
+            Boolean::make(__('Homepage'), 'homepage'),
 
             Translatable::make(__('Title'), 'title')
                 ->singleLine()
@@ -117,7 +127,7 @@ class Template extends Resource
     protected function contentFields()
     {
         return [
-            ComponentItemField::make(__('Components'))
+            ComponentItemField::make(__('Components'), 'components')
                 ->hideFromIndex(),
         ];
     }

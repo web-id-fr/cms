@@ -38,6 +38,16 @@ class Slideshow extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Slideshows');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request $request
@@ -49,7 +59,7 @@ class Slideshow extends Resource
         return [
             ID::make()->sortable(),
 
-            Translatable::make(__('Title'))
+            Translatable::make(__('Title'), 'title')
                 ->singleLine()
                 ->rules('required'),
 
@@ -70,7 +80,7 @@ class Slideshow extends Resource
                     return $js_speed / 1000;
                 }),
 
-            ImageItemField::make(__('Slides'))
+            ImageItemField::make(__('Slides'), 'slides')
                 ->onlyOnForms(),
         ];
     }

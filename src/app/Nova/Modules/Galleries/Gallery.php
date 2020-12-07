@@ -37,6 +37,16 @@ class Gallery extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Galleries');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param \Illuminate\Http\Request $request
@@ -48,12 +58,12 @@ class Gallery extends Resource
         return [
             ID::make()->sortable(),
 
-            Translatable::make(__('Title'))
+            Translatable::make(__('Title'), 'title')
                 ->singleLine()
                 ->rules('required', 'array')
                 ->sortable(),
 
-            Select::make(__('Folder'))
+            Select::make(__('Folder'), 'folder')
                 ->options($this->getFoldersGalleriesName())
                 ->rules('required')
                 ->hideFromIndex(),

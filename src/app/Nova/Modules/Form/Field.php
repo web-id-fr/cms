@@ -42,6 +42,16 @@ class Field extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Fields');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param Request $request
@@ -55,7 +65,7 @@ class Field extends Resource
         return [
             ID::make()->sortable(),
 
-            Select::make(__('Field type'))
+            Select::make(__('Field type'), 'field_type')
                 ->options(config('fields_type'))
                 ->hideFromIndex(),
 
@@ -70,23 +80,23 @@ class Field extends Resource
             ])->if('field_type = ' . array_search('select', config('fields_type'))),
 
             ConditionalContainer::make([
-                Translatable::make(__('Date field title'))
+                Translatable::make(__('Date field title'), 'date_field_title')
                     ->singleLine(),
 
-                Translatable::make(__('Date field placeholder'))
+                Translatable::make(__('Date field placeholder'), 'date_field_placeholder')
                     ->singleLine(),
 
-                Text::make(__('Field name time')),
+                Text::make(__('Field name time'), 'field_name_time'),
 
-                Translatable::make(__('Time field title'))
+                Translatable::make(__('Time field title'), 'time_field_title')
                     ->singleLine(),
 
-                Translatable::make(__('Time field placeholder'))
+                Translatable::make(__('Time field placeholder'), 'time_field_placeholder')
                     ->singleLine(),
 
-                Text::make(__('Field name duration')),
+                Text::make(__('Field name duration'), 'field_name_duration'),
 
-                Translatable::make(__('Duration field title'))
+                Translatable::make(__('Duration field title'), 'duration_field_title')
                     ->singleLine(),
 
                 Flexible::make(__('Duration items'), 'field_options')
@@ -97,14 +107,14 @@ class Field extends Resource
             ])->if('field_type = ' . array_search('date-time', config('fields_type'))),
 
             ConditionalContainer::make([
-                Translatable::make(__('Placeholder'))
+                Translatable::make(__('Placeholder'), 'placeholder')
                     ->singleLine(),
             ])->useAndOperator()
                 ->if('field_type != ' . array_search('select', config('fields_type')))
                 ->if('field_type != ' . array_search('file', config('fields_type')))
                 ->if('field_type != ' . array_search('date-time', config('fields_type'))),
 
-            Boolean::make(__('Required'))
+            Boolean::make(__('Required'), 'required')
                 ->withMeta([
                     'value' => data_get($this, 'required', false),
                 ]),

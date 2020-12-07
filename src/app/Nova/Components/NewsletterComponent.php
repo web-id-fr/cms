@@ -39,6 +39,16 @@ class NewsletterComponent extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Newsletters');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -49,18 +59,18 @@ class NewsletterComponent extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make(__('Name'))
+            Text::make(__('Name'), 'name')
                 ->rules('required'),
 
             Translatable::make(__('Title'), 'title')
                 ->singleLine()
                 ->sortable(),
 
-            Translatable::make(__('Placeholder'))
+            Translatable::make(__('Placeholder'), 'placeholder')
                 ->singleLine()
                 ->sortable(),
 
-            Translatable::make(__('CTA Name'))
+            Translatable::make(__('CTA Name'), 'cta_name')
                 ->singleLine()
                 ->sortable(),
 

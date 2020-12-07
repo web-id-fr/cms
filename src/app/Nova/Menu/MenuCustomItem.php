@@ -40,6 +40,16 @@ class MenuCustomItem extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Menu custom items');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -48,7 +58,7 @@ class MenuCustomItem extends Resource
     public function fields(Request $request)
     {
         return [
-            Translatable::make(__('Title'))
+            Translatable::make(__('Title'), 'title')
                 ->singleLine()
                 ->rules('array'),
 
@@ -58,11 +68,11 @@ class MenuCustomItem extends Resource
                 ->hideFromIndex(),
 
             NovaDependencyContainer::make([
-                Translatable::make(__('Url'))
+                Translatable::make(__('Url'), 'url')
                     ->singleLine()
                     ->hideFromIndex(),
 
-                Select::make(__('Target'))
+                Select::make(__('Target'), 'target')
                     ->options(MenuCustomItemModel::STATUS_TYPE)
                     ->displayUsingLabels()
                     ->rules('nullable')
