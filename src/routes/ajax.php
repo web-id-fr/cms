@@ -1,4 +1,9 @@
 <?php
+use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuConfigurationController;
+use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuCustomItemController;
+use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuController;
+use Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter\NewsletterController;
+use Webid\Cms\Src\App\Http\Controllers\Components\ComponentController;
 /*
 |--------------------------------------------------------------------------
 | Ajax Routes
@@ -12,18 +17,16 @@
  * COMPONENTS AJAX ROUTE
  ********************************************************************************* */
 Route::group([
-    'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Components',
     'middleware' => ['nova', 'is-ajax'],
     'prefix' => 'ajax',
 ], function () {
-    Route::get('component', 'ComponentController@index');
+    Route::get('component', [ComponentController::class, 'index']);
 });
 
 /* *********************************************************************************
 * NEWSLETTER AJAX ROUTE
 ********************************************************************************* */
 Route::group([
-    'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter',
     'middleware' => ['is-ajax', 'language'],
     'prefix' => '{lang}/ajax'
 ], function () {
@@ -31,7 +34,7 @@ Route::group([
      * Newsletter
      */
     Route::prefix('/newsletter')->name('newsletter.')->group(function () {
-        Route::post('/', 'NewsletterController@store')->name('store');
+        Route::post('/', [NewsletterController::class, 'store'])->name('store');
     });
 });
 
@@ -39,15 +42,11 @@ Route::group([
  * MENU AJAX ROUTE
  ********************************************************************************* */
 Route::group([
-    'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Ajax\Menu',
     'middleware' => ['nova', 'is-ajax'],
     'prefix' => 'ajax',
 ], function () {
-    Route::get('menu', 'MenuController@index');
-
-    Route::get('menu-custom-item', 'MenuCustomItemController@index');
-
-    Route::get('menu-configuration', 'MenuConfigurationController@index');
-
-    Route::post('menu-zone', 'MenuConfigurationController@updateZone');
+    Route::get('menu', [MenuController::class, 'index']);
+    Route::get('menu-custom-item', [MenuCustomItemController::class, 'index']);
+    Route::get('menu-configuration', [MenuConfigurationController::class, 'index']);
+    Route::get('menu-zone', [MenuConfigurationController::class, 'updateZone']);
 });
