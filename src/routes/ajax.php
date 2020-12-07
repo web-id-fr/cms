@@ -38,7 +38,7 @@ Route::group([
      * Newsletter
      */
     Route::prefix('/newsletter')->name('newsletter.')->group(function () {
-        Route::get('/', [NewsletterController::class, 'store'])->name('store');
+        Route::post('/', [NewsletterController::class, 'store'])->name('store');
     });
 });
 
