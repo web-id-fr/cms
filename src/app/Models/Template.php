@@ -2,13 +2,15 @@
 
 namespace Webid\Cms\App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Menu\Menu;
 
 class Template extends Model
 {
-    use HasTranslations;
+    use HasTranslations,
+        HasFactory;
 
     const _STATUS_PUBLISHED = 0;
     const _STATUS_DRAFT = 1;

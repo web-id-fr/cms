@@ -2,9 +2,7 @@
 
 namespace Webid\Cms\App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-
-class CsrfController extends Controller
+class CsrfController extends BaseController
 {
     /**
      * @return string

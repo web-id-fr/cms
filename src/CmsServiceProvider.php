@@ -3,20 +3,15 @@
 namespace Webid\Cms;
 
 use Illuminate\Routing\Router;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Spatie\Honeypot\ProtectAgainstSpam;
 use Spatie\Varnish\Middleware\CacheWithVarnish;
-use Webid\Cms\App\Http\Controllers\Ajax\Menu\MenuConfigurationController;
-use Webid\Cms\App\Http\Controllers\Ajax\Menu\MenuController;
-use Webid\Cms\App\Http\Controllers\Ajax\Menu\MenuCustomItemController;
-use Webid\Cms\App\Http\Controllers\Ajax\Menu\MenuItemController;
-use Webid\Cms\App\Http\Controllers\Ajax\Newsletter\NewsletterController;
-use Webid\Cms\App\Http\Controllers\Components\ComponentController;
 use Webid\Cms\App\Http\Middleware\CheckLanguageExist;
 use Webid\Cms\App\Http\Middleware\Language;
 use Webid\Cms\App\Nova\Components\GalleryComponent;
@@ -33,10 +28,8 @@ use Webid\Cms\App\Nova\Newsletter\Newsletter;
 use Webid\Cms\App\Nova\Popin\Popin;
 use Webid\Cms\App\Nova\Slideshow\Slide;
 use Webid\Cms\App\Nova\Slideshow\Slideshow;
-use Webid\Cms\App\Observers\TemplateObserver;
-use Webid\Cms\App\Http\Controllers\TemplateController;
 use Webid\Cms\App\Nova\Template;
-use Illuminate\Support\Facades\View;
+use Webid\Cms\App\Observers\TemplateObserver;
 use Webid\Cms\App\Repositories\TemplateRepository;
 use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
 use Webid\Cms\App\Services\Galleries\GalleryLocalStorageService;
@@ -98,7 +91,7 @@ class CmsServiceProvider extends ServiceProvider
                 Slideshow::class,
                 Slide::class,
                 Menu::class,
-                MenuCustomItem::class
+                MenuCustomItem::class,
             ]);
         });
 
@@ -113,17 +106,9 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/config/cms.php', 'cms');
+        $this->mergeConfigFrom(__DIR__ . '/config/cms.php', 'cms');
         $this->bindTemplateRepository();
         $this->bindGalleryServiceContract();
-
-        $this->app->make(TemplateController::class);
-        $this->app->make(ComponentController::class);
-        $this->app->make(NewsletterController::class);
-        $this->app->make(MenuController::class);
-        $this->app->make(MenuConfigurationController::class);
-        $this->app->make(MenuCustomItemController::class);
-        $this->app->make(MenuItemController::class);
 
         Route::pattern('id', '[0-9]+');
         Route::pattern('lang', '(' . app(LanguageService::class)->getAllLanguagesAsRegex() . ')');

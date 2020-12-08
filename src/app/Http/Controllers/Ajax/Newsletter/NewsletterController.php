@@ -2,12 +2,12 @@
 
 namespace Webid\Cms\App\Http\Controllers\Ajax\Newsletter;
 
-use App\Http\Controllers\Controller;
+use Webid\Cms\App\Http\Controllers\BaseController;
 use Webid\Cms\App\Http\Requests\StoreNewsletter;
 use Webid\Cms\App\Repositories\Newsletter\NewsletterRepository;
 use Illuminate\Support\Facades\App;
 
-class NewsletterController extends Controller
+class NewsletterController extends BaseController
 {
     /** @var \App\Repositories\Newsletter\NewsletterRepository */
     protected $newsletterRepository;
