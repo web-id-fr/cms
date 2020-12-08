@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Modules\Form;
+namespace Webid\Cms\App\Nova\Modules\Form;
 
 use App\Nova\Resource;
 use Epartment\NovaDependencyContainer\HasDependencies;
@@ -14,7 +14,7 @@ use Webid\FieldItemField\FieldItemField;
 use Webid\RecipientItemField\RecipientItemField;
 use Webid\ServiceItemField\ServiceItemField;
 use Webid\TranslatableTool\Translatable;
-use Webid\Cms\Src\App\Models\Modules\Form\Form as FormModel;
+use Webid\Cms\App\Models\Modules\Form\Form as FormModel;
 
 class Form extends Resource
 {

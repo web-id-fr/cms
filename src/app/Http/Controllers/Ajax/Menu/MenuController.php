@@ -1,10 +1,10 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Controllers\Ajax\Menu;
+namespace Webid\Cms\App\Http\Controllers\Ajax\Menu;
 
 use App\Http\Controllers\Controller;
-use Webid\Cms\Src\App\Http\Resources\Menu\MenuResource;
-use Webid\Cms\Src\App\Repositories\Menu\MenuRepository;
+use Webid\Cms\App\Http\Resources\Menu\MenuResource;
+use Webid\Cms\App\Repositories\Menu\MenuRepository;
 
 class MenuController extends Controller
 {

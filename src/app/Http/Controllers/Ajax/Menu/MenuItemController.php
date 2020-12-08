@@ -1,12 +1,12 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Controllers\Ajax\Menu;
+namespace Webid\Cms\App\Http\Controllers\Ajax\Menu;
 
 use App\Http\Controllers\Controller;
-use Webid\Cms\Src\App\Repositories\Menu\MenuCustomItemRepository;
-use Webid\Cms\Src\App\Repositories\TemplateRepository;
+use Webid\Cms\App\Repositories\Menu\MenuCustomItemRepository;
+use Webid\Cms\App\Repositories\TemplateRepository;
 use Illuminate\Http\Request;
-use Webid\Cms\Src\App\Http\Resources\Menu\MenuItemResource;
+use Webid\Cms\App\Http\Resources\Menu\MenuItemResource;
 
 class MenuItemController extends Controller
 {

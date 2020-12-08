@@ -4,7 +4,7 @@ namespace Webid\CardActions\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Webid\Cms\Src\App\Classes\VarnishCustom;
+use Webid\Cms\App\Classes\VarnishCustom;
 
 /**
  * Class CardActionsApiController

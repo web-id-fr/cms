@@ -1,8 +1,8 @@
 <?php
 
-namespace Webid\Cms\Src\App\Repositories;
+namespace Webid\Cms\App\Repositories;
 
-use Webid\Cms\Src\App\Models\Template;
+use Webid\Cms\App\Models\Template;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 

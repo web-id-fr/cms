@@ -1,9 +1,9 @@
 <?php
 
-namespace Webid\Cms\Src\App\Repositories\Menu;
+namespace Webid\Cms\App\Repositories\Menu;
 
-use Webid\Cms\Src\App\Models\Menu\MenuCustomItem;
-use Webid\Cms\Src\App\Repositories\BaseRepository;
+use Webid\Cms\App\Models\Menu\MenuCustomItem;
+use Webid\Cms\App\Repositories\BaseRepository;
 
 class MenuCustomItemRepository extends BaseRepository
 {
