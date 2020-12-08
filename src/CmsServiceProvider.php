@@ -49,6 +49,8 @@ class CmsServiceProvider extends ServiceProvider
     /**
      * @param UrlGenerator $generator
      * @param Router $router
+     *
+     * @return void
      */
     public function boot(UrlGenerator $generator, Router $router)
     {
@@ -98,7 +100,7 @@ class CmsServiceProvider extends ServiceProvider
     /**
      * Register services.
      *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @return void
      */
     public function register()
     {
@@ -106,17 +108,13 @@ class CmsServiceProvider extends ServiceProvider
         $this->bindTemplateRepository();
         $this->bindGalleryServiceContract();
 
-        $this->app->make(TemplateController::class);
-        $this->app->make(ComponentController::class);
-        $this->app->make(MenuController::class);
-        $this->app->make(MenuConfigurationController::class);
-        $this->app->make(MenuCustomItemController::class);
-        $this->app->make(MenuItemController::class);
-
         Route::pattern('id', '[0-9]+');
         Route::pattern('lang', '(' . app(LanguageService::class)->getAllLanguagesAsRegex() . ')');
     }
 
+    /**
+     * @return void
+     */
     protected function registerMenuDirective()
     {
         Blade::directive('menu', function ($expression) {
@@ -125,6 +123,9 @@ class CmsServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * @return void
+     */
     protected function publishConfiguration()
     {
         $this->publishes([
@@ -139,6 +140,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'config');
     }
 
+    /**
+     * @return void
+     */
     protected function publishViews()
     {
         $this->publishes([
@@ -146,6 +150,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'views');
     }
 
+    /**
+     * @return void
+     */
     protected function publishProvider()
     {
         $this->publishes([
@@ -153,6 +160,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'providers');
     }
 
+    /**
+     * @return void
+     */
     protected function publishPublicFiles()
     {
         $this->publishes([
@@ -160,6 +170,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'public');
     }
 
+    /**
+     * @return void
+     */
     protected function publishNovaComponents()
     {
         $this->publishes([
@@ -168,6 +181,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'nova-components');
     }
 
+    /**
+     * @return void
+     */
     protected function publishTemplateModel()
     {
         $this->publishes([
@@ -175,6 +191,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'template-model');
     }
 
+    /**
+     * @return void
+     */
     protected function publishTranslations()
     {
         $this->publishes([
@@ -182,6 +201,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'translations');
     }
 
+    /**
+     * @return void
+     */
     protected function publishServices()
     {
         $this->publishes([
@@ -191,6 +213,8 @@ class CmsServiceProvider extends ServiceProvider
 
     /**
      * @param Router $router
+     *
+     * @return void
      */
     protected function registerAliasMiddleware(Router $router)
     {
@@ -200,6 +224,9 @@ class CmsServiceProvider extends ServiceProvider
         $router->aliasMiddleware('cacheable', CacheWithVarnish::class);
     }
 
+    /**
+     * @return void
+     */
     protected function bindTemplateRepository()
     {
         $this->app->bind(TemplateRepository::class, function () {
@@ -209,6 +236,9 @@ class CmsServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * @return void
+     */
     protected function bindGalleryServiceContract()
     {
         if ('s3' == config('cms.filesystem_driver')) {

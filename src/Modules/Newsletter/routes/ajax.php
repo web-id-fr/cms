@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Webid\Cms\Modules\Newsletter\Http\Controllers\NewsletterController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Ajax Routes
@@ -9,18 +13,11 @@
 | accessible when you are connected to Laravel Nova.
 */
 
-/* *********************************************************************************
-* NEWSLETTER AJAX ROUTE
-********************************************************************************* */
 Route::group([
-    'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter',
     'middleware' => ['is-ajax', 'language'],
     'prefix' => '{lang}/ajax'
 ], function () {
-    /**
-     * Newsletter
-     */
     Route::prefix('/newsletter')->name('newsletter.')->group(function () {
-        Route::post('/', 'NewsletterController@store')->name('store');
+        Route::post('/', [NewsletterController::class, 'store'])->name('store');
     });
 });

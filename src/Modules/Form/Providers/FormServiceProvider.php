@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\Modules\Form\Providers;
+namespace Webid\Cms\Modules\Form\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Config;
@@ -9,16 +9,14 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Laravel\Nova\Nova;
 use Spatie\Honeypot\ProtectAgainstSpam;
-use Webid\Cms\Src\App\Http\Middleware\CheckLanguageExist;
-use Webid\Cms\Src\App\Http\Middleware\Language;
-use Webid\Cms\Src\App\Services\LanguageService;
-use Webid\Cms\Src\Modules\Form\Http\Controllers\CsrfController;
-use Webid\Cms\Src\Modules\Form\Http\Controllers\FormController;
-use Webid\Cms\Src\Modules\Form\Nova\Field;
-use Webid\Cms\Src\Modules\Form\Nova\Form;
-use Webid\Cms\Src\Modules\Form\Nova\Recipient;
-use Webid\Cms\Src\Modules\Form\Nova\Service;
-use Webid\Cms\Src\Modules\Form\Nova\TitleField;
+use Webid\Cms\App\Http\Middleware\CheckLanguageExist;
+use Webid\Cms\App\Http\Middleware\Language;
+use Webid\Cms\App\Services\LanguageService;
+use Webid\Cms\Modules\Form\Nova\Field;
+use Webid\Cms\Modules\Form\Nova\Form;
+use Webid\Cms\Modules\Form\Nova\Recipient;
+use Webid\Cms\Modules\Form\Nova\Service;
+use Webid\Cms\Modules\Form\Nova\TitleField;
 
 class FormServiceProvider extends ServiceProvider
 {
@@ -29,7 +27,8 @@ class FormServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        $this->publishConfiguration();
+        $this->registerConfig();
+        $this->registerViews();
         $this->registerAliasMiddleware($router);
         $this->publishSendFormJs();
 
@@ -55,8 +54,6 @@ class FormServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
-        $this->app->make(FormController::class);
-        $this->app->make(CsrfController::class);
 
         Route::pattern('lang', '(' . app(LanguageService::class)->getAllLanguagesAsRegex() . ')');
     }
@@ -64,7 +61,7 @@ class FormServiceProvider extends ServiceProvider
     /*
      * @return void
      */
-    protected function publishConfiguration()
+    protected function registerConfig()
     {
         $this->publishes([
             module_path('Form', 'config/dropzone.php') => config_path('dropzone.php'),
@@ -101,7 +98,7 @@ class FormServiceProvider extends ServiceProvider
     /*
      * @return void
      */
-    protected function publishViews()
+    protected function registerViews()
     {
         $viewPath = resource_path('views/modules/form');
 

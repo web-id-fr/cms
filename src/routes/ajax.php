@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Webid\Cms\App\Http\Middleware\IsAjax;
-use Webid\Cms\App\Http\Middleware\Language;
 use Webid\Cms\App\Http\Controllers\Components\ComponentController;
-use Webid\Cms\App\Http\Controllers\Ajax\Newsletter\NewsletterController;
 use Webid\Cms\App\Http\Controllers\Ajax\Menu\MenuController;
 use Webid\Cms\App\Http\Controllers\Ajax\Menu\MenuCustomItemController;
 use Webid\Cms\App\Http\Controllers\Ajax\Menu\MenuConfigurationController;

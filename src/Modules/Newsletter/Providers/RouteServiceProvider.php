@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\Modules\Newsletter\Providers;
+namespace Webid\Cms\Modules\Newsletter\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -12,7 +12,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $moduleNamespace = 'Webid\Cms\Src\Modules\Newsletter\Http\Controllers';
+    protected $moduleNamespace = 'Webid\Cms\Modules\Newsletter\Http\Controllers';
 
     /**
      * Called before routes are registered.

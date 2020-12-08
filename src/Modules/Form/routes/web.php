@@ -1,4 +1,9 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+use Webid\Cms\Modules\Form\Http\Controllers\FormController;
+use Webid\Cms\Modules\Form\Http\Controllers\CsrfController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,17 +15,14 @@
 |
 */
 
-Route::group([
-    'namespace' => 'Webid\Cms\Src\App\Http\Controllers',
-    'middleware' => ['web']
+Route::group(['middleware' => ['web']
 ], function () {
-    Route::get('/csrf', 'CsrfController');
+    Route::get('/csrf', [CsrfController::class]);
 });
 
 Route::group([
     'prefix' => '{lang}/form',
-    'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Modules\Ajax\Form',
     'middleware' => ['web', 'anti-spam', 'language', 'check-language-exist']
 ], function () {
-    Route::post('/send', 'FormController@handle')->name('send.form');
+    Route::post('/send', [FormController::class, 'handle'])->name('send.form');
 });

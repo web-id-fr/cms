@@ -1,14 +1,13 @@
 <?php
 
-namespace Webid\Cms\Src\Modules\Newsletter\Providers;
+namespace Webid\Cms\Modules\Newsletter\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
-use Webid\Cms\Src\App\Http\Middleware\IsAjax;
-use Webid\Cms\Src\App\Http\Middleware\Language;
-use Webid\Cms\Src\Modules\Newsletter\Http\Controllers\Newsletter\NewsletterController;
-use Webid\Cms\Src\Modules\Newsletter\Nova\Newsletter;
+use Webid\Cms\App\Http\Middleware\IsAjax;
+use Webid\Cms\App\Http\Middleware\Language;
+use Webid\Cms\Modules\Newsletter\Nova\Newsletter;
 
 class NewsletterServiceProvider extends ServiceProvider
 {
@@ -29,21 +28,10 @@ class NewsletterServiceProvider extends ServiceProvider
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @return void
      */
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
-        $this->app->make(NewsletterController::class);
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return [];
     }
 }

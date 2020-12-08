@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\Modules\Form\Providers;
+namespace Webid\Cms\Modules\Form\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -12,7 +12,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $moduleNamespace = 'Webid\Cms\Src\Modules\Form\Http\Controllers';
+    protected $moduleNamespace = 'Webid\Cms\Modules\Form\Http\Controllers';
 
     /**
      * Called before routes are registered.
