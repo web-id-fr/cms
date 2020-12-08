@@ -1,13 +1,13 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Controllers\Modules\Ajax\Form;
+namespace Webid\Cms\App\Http\Controllers\Modules\Ajax\Form;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
-use Webid\Cms\Src\App\Http\Requests\FormRequest;
-use Webid\Cms\Src\App\Mail\SendForm;
-use Webid\Cms\Src\App\Repositories\Modules\Form\FormRepository;
-use Webid\Cms\Src\App\Repositories\Modules\Form\ServiceRepository;
+use Webid\Cms\App\Http\Requests\FormRequest;
+use Webid\Cms\App\Mail\SendForm;
+use Webid\Cms\App\Repositories\Modules\Form\FormRepository;
+use Webid\Cms\App\Repositories\Modules\Form\ServiceRepository;
 
 class FormController extends Controller
 {

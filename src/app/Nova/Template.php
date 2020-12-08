@@ -1,11 +1,11 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova;
+namespace Webid\Cms\App\Nova;
 
 use Carbon\Carbon;
 use App\Nova\Resource;
-use Webid\Cms\Src\App\Rules\TranslatableMax;
-use Webid\Cms\Src\App\Rules\TranslatableSlug;
+use Webid\Cms\App\Rules\TranslatableMax;
+use Webid\Cms\App\Rules\TranslatableSlug;
 use \Eminiarts\Tabs\Tabs;
 use \Eminiarts\Tabs\TabsOnEdit;
 use Illuminate\Http\Request;

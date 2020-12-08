@@ -1,13 +1,13 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Menu;
+namespace Webid\Cms\App\Nova\Menu;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource;
 use Webid\MenuItemField\MenuItemField;
-use Webid\Cms\Src\App\Models\Menu\Menu as MenuModel;
+use Webid\Cms\App\Models\Menu\Menu as MenuModel;
 
 class Menu extends Resource
 {

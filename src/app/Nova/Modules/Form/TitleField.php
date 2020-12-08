@@ -1,12 +1,12 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Modules\Form;
+namespace Webid\Cms\App\Nova\Modules\Form;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Webid\TranslatableTool\Translatable;
-use Webid\Cms\Src\App\Models\Modules\Form\TitleField as TitleFieldModel;
+use Webid\Cms\App\Models\Modules\Form\TitleField as TitleFieldModel;
 
 class TitleField extends Resource
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Models\Components;
+namespace Webid\Cms\App\Models\Components;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;

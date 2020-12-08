@@ -5,10 +5,10 @@ namespace Webid\ComponentItemField;
 use App\Models\Template;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Webid\Cms\Src\App\Models\Components\GalleryComponent;
-use Webid\Cms\Src\App\Models\Components\NewsletterComponent;
-use Webid\Cms\Src\App\Repositories\Components\GalleryComponentRepository;
-use Webid\Cms\Src\App\Repositories\Components\NewsletterComponentRepository;
+use Webid\Cms\App\Models\Components\GalleryComponent;
+use Webid\Cms\App\Models\Components\NewsletterComponent;
+use Webid\Cms\App\Repositories\Components\GalleryComponentRepository;
+use Webid\Cms\App\Repositories\Components\NewsletterComponentRepository;
 
 class ComponentItemField extends Field
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Newsletter;
+namespace Webid\Cms\App\Nova\Newsletter;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\DateTime;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
-use Webid\Cms\Src\App\Models\Newsletter\Newsletter as NewletterModel;
+use Webid\Cms\App\Models\Newsletter\Newsletter as NewletterModel;
 
 class Newsletter extends Resource
 {

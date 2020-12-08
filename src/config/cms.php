@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'template_model' => \Webid\Cms\Src\App\Models\Template::class,
+    'template_model' => \Webid\Cms\App\Models\Template::class,
     // FOR MODULES GALLERIES
     'gallery_path' => 's3' == env('FILESYSTEM_DRIVER')
         ? '/Galeries'

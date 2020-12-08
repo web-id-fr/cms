@@ -1,9 +1,9 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Resources\Modules\Galleries;
+namespace Webid\Cms\App\Http\Resources\Modules\Galleries;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Webid\Cms\Src\App\Services\Galleries\Contracts\GalleryServiceContract;
+use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
 
 class GalleryResource extends JsonResource
 {

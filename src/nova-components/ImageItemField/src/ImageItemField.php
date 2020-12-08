@@ -4,8 +4,8 @@ namespace Webid\ImageItemField;
 
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Webid\Cms\Src\App\Models\Modules\Slideshow\Slideshow;
-use Webid\Cms\Src\App\Repositories\Modules\Slideshow\SlideRepository;
+use Webid\Cms\App\Models\Modules\Slideshow\Slideshow;
+use Webid\Cms\App\Repositories\Modules\Slideshow\SlideRepository;
 
 class ImageItemField extends Field
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Webid\Cms\Src\App\Repositories\Newsletter;
+namespace Webid\Cms\App\Repositories\Newsletter;
 
-use Webid\Cms\Src\App\Models\Newsletter\Newsletter;
-use Webid\Cms\Src\App\Repositories\BaseRepository;
+use Webid\Cms\App\Models\Newsletter\Newsletter;
+use Webid\Cms\App\Repositories\BaseRepository;
 
 class NewsletterRepository extends BaseRepository
 {

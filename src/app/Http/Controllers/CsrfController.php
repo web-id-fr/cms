@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Controllers;
+namespace Webid\Cms\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 

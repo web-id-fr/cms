@@ -1,10 +1,10 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter;
+namespace Webid\Cms\App\Http\Controllers\Ajax\Newsletter;
 
 use App\Http\Controllers\Controller;
-use Webid\Cms\Src\App\Http\Requests\StoreNewsletter;
-use Webid\Cms\Src\App\Repositories\Newsletter\NewsletterRepository;
+use Webid\Cms\App\Http\Requests\StoreNewsletter;
+use Webid\Cms\App\Repositories\Newsletter\NewsletterRepository;
 use Illuminate\Support\Facades\App;
 
 class NewsletterController extends Controller

@@ -1,16 +1,16 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Controllers;
+namespace Webid\Cms\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Services\ExtraElementsForPageService;
-use Webid\Cms\Src\App\Http\Resources\Popin\PopinResource;
-use Webid\Cms\Src\App\Http\Resources\TemplateResource;
-use Webid\Cms\Src\App\Repositories\Popin\PopinRepository;
-use Webid\Cms\Src\App\Repositories\TemplateRepository;
+use Webid\Cms\App\Http\Resources\Popin\PopinResource;
+use Webid\Cms\App\Http\Resources\TemplateResource;
+use Webid\Cms\App\Repositories\Popin\PopinRepository;
+use Webid\Cms\App\Repositories\TemplateRepository;
 use Illuminate\Http\Request;
-use Webid\Cms\Src\App\Services\LanguageService;
-use Webid\Cms\Src\App\Services\TemplateService;
+use Webid\Cms\App\Services\LanguageService;
+use Webid\Cms\App\Services\TemplateService;
 
 class TemplateController extends Controller
 {
