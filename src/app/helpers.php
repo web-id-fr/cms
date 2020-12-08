@@ -49,7 +49,7 @@ if (!function_exists('has_zone_menu')) {
      */
     function has_zone_menu($zone): bool
     {
-        $menus =  app()->make(\Webid\Cms\Src\App\Repositories\Menu\MenuRepository::class);
+        $menus =  app()->make(\Webid\Cms\App\Repositories\Menu\MenuRepository::class);
 
         return $menus->menuZoneExist($zone);
     }

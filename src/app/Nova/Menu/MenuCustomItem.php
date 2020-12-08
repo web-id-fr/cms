@@ -1,16 +1,16 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Menu;
+namespace Webid\Cms\App\Nova\Menu;
 
 use Epartment\NovaDependencyContainer\HasDependencies;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Select;
-use Webid\Cms\Src\App\Nova\Modules\Form\Form;
+use Webid\Cms\App\Nova\Modules\Form\Form;
 use Webid\TranslatableTool\Translatable;
 use Laravel\Nova\Resource;
-use Webid\Cms\Src\App\Models\Menu\MenuCustomItem as MenuCustomItemModel;
+use Webid\Cms\App\Models\Menu\MenuCustomItem as MenuCustomItemModel;
 
 class MenuCustomItem extends Resource
 {

@@ -2,9 +2,9 @@
 
 namespace Webid\RecipientItemField;
 
-use Webid\Cms\Src\App\Models\Modules\Form\Form;
-use Webid\Cms\Src\App\Models\Modules\Form\Service;
-use Webid\Cms\Src\App\Repositories\Modules\Form\RecipientRepository;
+use Webid\Cms\App\Models\Modules\Form\Form;
+use Webid\Cms\App\Models\Modules\Form\Service;
+use Webid\Cms\App\Repositories\Modules\Form\RecipientRepository;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 

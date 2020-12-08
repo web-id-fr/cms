@@ -1,15 +1,15 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Modules\Galleries;
+namespace Webid\Cms\App\Nova\Modules\Galleries;
 
-use Webid\Cms\Src\App\Services\Galleries\Contracts\GalleryServiceContract;
+use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Resource;
 use Webid\TranslatableTool\Translatable;
-use Webid\Cms\Src\App\Models\Modules\Galleries\Gallery as GalleryModel;
+use Webid\Cms\App\Models\Modules\Galleries\Gallery as GalleryModel;
 
 class Gallery extends Resource
 {

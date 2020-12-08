@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Slideshow;
+namespace Webid\Cms\App\Nova\Slideshow;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -9,7 +9,7 @@ use Laravel\Nova\Fields\Number;
 use Webid\ImageItemField\ImageItemField;
 use Webid\SlideItemField\SlideItemField;
 use Webid\TranslatableTool\Translatable;
-use Webid\Cms\Src\App\Models\Modules\Slideshow\Slideshow as SlideshowModel;
+use Webid\Cms\App\Models\Modules\Slideshow\Slideshow as SlideshowModel;
 use Laravel\Nova\Resource;
 
 class Slideshow extends Resource

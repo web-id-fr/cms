@@ -1,8 +1,8 @@
 <?php
 
-namespace Webid\Cms\Src\App\Repositories;
+namespace Webid\Cms\App\Repositories;
 
-use Webid\Cms\Src\App\Models\Modules\Galleries\Gallery;
+use Webid\Cms\App\Models\Modules\Galleries\Gallery;
 
 class GalleryRepository extends BaseRepository
 {

@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -9,9 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use Webid\Cms\Src\App\Http\Controllers\TemplateController;
-use Webid\Cms\Src\App\Http\Controllers\CsrfController;
-use Webid\Cms\Src\App\Http\Controllers\Modules\Ajax\Form\FormController;
+
+use Illuminate\Support\Facades\Route;
+use Webid\Cms\App\Http\Controllers\TemplateController;
+use Webid\Cms\App\Http\Controllers\CsrfController;
+use Webid\Cms\App\Http\Controllers\Modules\Ajax\Form\FormController;
 
 Route::group(['middleware' => 'cacheable'], function() {
     // Redirect homepage without lang

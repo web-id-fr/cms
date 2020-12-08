@@ -1,9 +1,9 @@
 <?php
 
-namespace  Webid\Cms\Src\App\Nova\Popin;
+namespace  Webid\Cms\App\Nova\Popin;
 
 use OptimistDigital\MultiselectField\Multiselect;
-use Webid\Cms\Src\App\Models\Popin\Popin as PopinModel;
+use Webid\Cms\App\Models\Popin\Popin as PopinModel;
 use \Eminiarts\Tabs\Tabs;
 use \Eminiarts\Tabs\TabsOnEdit;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
@@ -12,7 +12,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Webid\Cms\Src\App\Nova\Template;
+use Webid\Cms\App\Nova\Template;
 use Webid\TranslatableTool\Translatable;
 use App\Nova\Resource;
 use Infinety\Filemanager\FilemanagerField;

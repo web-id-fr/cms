@@ -1,10 +1,10 @@
 <?php
 
-namespace Webid\Cms\Src\App\Services;
+namespace Webid\Cms\App\Services;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Arr;
-use Webid\Cms\Src\App\Repositories\TemplateRepository;
+use Webid\Cms\App\Repositories\TemplateRepository;
 
 class TemplateService
 {

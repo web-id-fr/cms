@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Components;
+namespace Webid\Cms\App\Nova\Components;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
@@ -9,7 +9,7 @@ use Laravel\Nova\Fields\ID;
 use IDF\HtmlCard\HtmlCard;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Webid\Cms\Src\App\Models\Components\NewsletterComponent as NewsletterComponentModel;
+use Webid\Cms\App\Models\Components\NewsletterComponent as NewsletterComponentModel;
 use Webid\TranslatableTool\Translatable;
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Resources\Popin;
+namespace Webid\Cms\App\Http\Resources\Popin;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
