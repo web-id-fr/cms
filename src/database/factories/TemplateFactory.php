@@ -2,7 +2,7 @@
 
 namespace Webid\Cms\Database\Factories;
 
-use Webid\Cms\App\Models\Template;
+use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TemplateFactory extends Factory
@@ -23,8 +23,8 @@ class TemplateFactory extends Factory
     {
         return [
             'title' => [
-                'fr' => $this->faker->title,
-                'en' => $this->faker->title,
+                'fr' => $this->faker->words(3, true),
+                'en' => $this->faker->words(3, true),
             ],
             'slug' => [
                 'fr' => $this->faker->unique()->slug,
@@ -33,9 +33,9 @@ class TemplateFactory extends Factory
             'status' => Template::_STATUS_PUBLISHED,
             'indexation' => rand(0, 1),
             'follow' => rand(0, 1),
-            'publish_at' => $this->faker->date('Y-m-d H:i:s'),
-            'created_at' => $this->faker->date('Y-m-d H:i:s'),
-            'updated_at' => $this->faker->date('Y-m-d H:i:s'),
+            'publish_at' => date('Y-m-d H:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ];
     }
 }

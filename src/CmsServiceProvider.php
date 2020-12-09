@@ -172,7 +172,7 @@ class CmsServiceProvider extends ServiceProvider
     protected function publishTemplateModel()
     {
         $this->publishes([
-            __DIR__ . '/app/Models/Publish/Template.php' => base_path('/app/Models/Template.php'),
+            __DIR__ . '/app/Models/Template.php' => base_path('/app/Models/Template.php'),
         ], 'template-model');
     }
 
