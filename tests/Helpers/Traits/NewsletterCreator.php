@@ -4,7 +4,7 @@ namespace Webid\Cms\Tests\Helpers\Traits;
 
 use Webid\Cms\App\Models\Newsletter\Newsletter;
 
-trait NewsletterCreatorTrait
+trait NewsletterCreator
 {
     private function createNewsletter(array $params = []): Newsletter
     {

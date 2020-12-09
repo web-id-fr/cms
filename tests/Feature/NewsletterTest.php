@@ -2,12 +2,12 @@
 
 namespace Webid\Cms\Tests\Feature;
 
-use Webid\Cms\Tests\Helpers\Traits\NewsletterCreatorTrait;
+use Webid\Cms\Tests\Helpers\Traits\NewsletterCreator;
 use Webid\Cms\Tests\TestCase;
 
 class NewsletterTest extends TestCase
 {
-    use NewsletterCreatorTrait;
+    use NewsletterCreator;
 
     const _NEWSLETTER_ROUTE = 'newsletter.store';
 
