@@ -1,0 +1,34 @@
+image: vincentcau/laravel-docker:serverless
+
+definitions:
+  services:
+    mysql:
+      image: mysql:5.7
+      environment:
+        MYSQL_DATABASE: 'cms_test'
+        MYSQL_USER: 'homestead'
+        MYSQL_PASSWORD: 'secret'
+        MYSQL_ROOT_PASSWORD: 'root'
+
+  steps:
+    - step: &build_dev
+        name: Build dependencies
+        script:
+          - 'printf "{\"http-basic\": {\"nova.laravel.com\": {\"username\":\"$NOVA_USERNAME\", \"password\":\"$NOVA_PASSWORD\"}}}" > auth.json'
+          - composer install --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader
+          - find vendor -name ".git" | xargs rm -rf
+        artifacts:
+          - vendor/**
+          - auth.json
+
+    - step: &tests
+        name: Testing
+        script:
+          - ./vendor/bin/phpunit --no-coverage
+        services:
+          - mysql
+
+pipelines:
+  default:
+    - step: *build_dev
+    - step: *tests
