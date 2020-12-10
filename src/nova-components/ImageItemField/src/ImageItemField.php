@@ -44,7 +44,7 @@ class ImageItemField extends Field
      * @param object $model
      * @param string $attribute
      *
-     * @return mixed|void
+     * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {

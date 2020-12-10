@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\App;
 
 class NewsletterController extends BaseController
 {
-    /** @var \App\Repositories\Newsletter\NewsletterRepository */
+    /** @var NewsletterRepository */
     protected $newsletterRepository;
 
     /**
      * NewsletterController constructor.
      *
-     * @param \App\Repositories\Newsletter\NewsletterRepository $newsletterRepository
+     * @param NewsletterRepository $newsletterRepository
      */
     public function __construct(NewsletterRepository $newsletterRepository)
     {
@@ -23,7 +23,8 @@ class NewsletterController extends BaseController
     }
 
     /**
-     * @param \App\Http\Requests\StoreNewsletter $request
+     * @param StoreNewsletter $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreNewsletter $request)

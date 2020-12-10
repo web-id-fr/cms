@@ -62,7 +62,7 @@ class Slideshow extends Model
     /** @var $recipient_items */
     public $slide_items;
 
-    public function chargeSlideItems()
+    public function chargeSlideItems(): void
     {
         $slideItems = collect();
         $slides = $this->slides;

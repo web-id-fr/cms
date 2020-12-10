@@ -48,6 +48,8 @@ class RecipientItemField extends Field
      * @param $requestAttribute
      * @param $model
      * @param $attribute
+     *
+     * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {

@@ -2,14 +2,14 @@
 
 namespace Webid\Cms\App\Http\Controllers\Ajax\Menu;
 
-use App\Http\Controllers\Controller;
+use Webid\Cms\App\Http\Controllers\BaseController;
 use Webid\Cms\App\Repositories\Menu\MenuRepository;
 use Webid\Cms\App\Services\MenuService;
 use Illuminate\Http\Request;
 use Throwable;
 use Webid\Cms\App\Http\Resources\Menu\MenuZoneResource;
 
-class MenuConfigurationController extends Controller
+class MenuConfigurationController extends BaseController
 {
     /** @var MenuRepository  */
     protected $menuRepository;

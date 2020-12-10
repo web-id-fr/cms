@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Collection;
 use Webid\Cms\App\Models\BaseTemplate;
 use Webid\Cms\App\Models\Components\GalleryComponent;
 use Webid\Cms\App\Models\Components\NewsletterComponent;
@@ -31,7 +32,7 @@ class Template extends BaseTemplate
             ->orderBy('order');
     }
 
-    public function chargeComponents()
+    public function chargeComponents(): void
     {
         $components = collect();
         $gallery_components = $this->galleryComponents;
@@ -54,7 +55,7 @@ class Template extends BaseTemplate
      *
      * @return mixed
      */
-    protected function mapItems($items, $model, &$components)
+    protected function mapItems($items, string $model, Collection &$components)
     {
         $items->each(function ($item) use (&$components, $model) {
             $item->component_type = $model;

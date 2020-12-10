@@ -35,8 +35,6 @@ php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
 ```bash
 php artisan migrate
 ```
-## Update `config/cms`
-###### Update `template_model` with `App/Models/Template::class` in `config/cms.php`
 
 ## Add nova-components in composer 
 
