@@ -24,6 +24,8 @@ definitions:
     - step: &tests
         name: Testing
         script:
+          - ./vendor/bin/security-checker security:check
+          - ./vendor/bin/phpcs --report=full
           - ./vendor/bin/phpunit --no-coverage
         services:
           - mysql
