@@ -25,9 +25,6 @@ class TemplateController extends BaseController
     /** @var TemplateService */
     protected $templateService;
 
-    /** @var ExtraElementsForPageService */
-    protected $extraElementsService;
-
     /** @var array */
     protected $extraElementsForPage;
 
@@ -36,20 +33,17 @@ class TemplateController extends BaseController
      * @param PopinRepository $popinRepository
      * @param LanguageService $languageService
      * @param TemplateService $templateService
-     * @param ExtraElementsForPageService $extraElementsService
      */
     public function __construct(
         TemplateRepository $templateRepository,
         PopinRepository $popinRepository,
         LanguageService $languageService,
-        TemplateService $templateService,
-        ExtraElementsForPageService $extraElementsService
+        TemplateService $templateService
     ) {
         $this->templateRepository = $templateRepository;
         $this->popinRepository = $popinRepository;
         $this->languageService = $languageService;
         $this->templateService = $templateService;
-        $this->extraElementsService = $extraElementsService;
         $this->extraElementsForPage = [];
     }
 
@@ -68,7 +62,12 @@ class TemplateController extends BaseController
 
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
-            $this->extraElementsForPage = $this->extraElementsService->getExtraElementForPage(data_get($data, 'id'));
+            try {
+                $extraElementsService = app(ExtraElementsForPageService::class);
+                $this->extraElementsForPage = $extraElementsService->getExtraElementForPage(data_get($data, 'id'));
+            } catch (\Exception $e) {
+                info($e);
+            }
 
             $meta = [
                 'title' => data_get($data, 'meta_title'),
@@ -111,7 +110,12 @@ class TemplateController extends BaseController
 
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
-            $this->extraElementsForPage = $this->extraElementsService->getExtraElementForPage(data_get($data, 'id'));
+            try {
+                $extraElementsService = app(ExtraElementsForPageService::class);
+                $this->extraElementsForPage = $extraElementsService->getExtraElementForPage(data_get($data, 'id'));
+            } catch (\Exception $e) {
+                info($e);
+            }
 
             $meta = [
                 'title' => data_get($data, 'meta_title'),
