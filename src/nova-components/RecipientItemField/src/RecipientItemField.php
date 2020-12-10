@@ -60,7 +60,7 @@ class RecipientItemField extends Field
             $recipientItemIds[] = $recipientItem['id'];
         });
 
-        if(get_class($model) == Form::class) {
+        if (get_class($model) == Form::class) {
             Form::saved(function ($model) use ($recipientItemIds) {
                 $model->recipients()->sync($recipientItemIds);
             });

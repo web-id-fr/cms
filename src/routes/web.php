@@ -16,7 +16,7 @@ use Webid\Cms\App\Http\Controllers\TemplateController;
 use Webid\Cms\App\Http\Controllers\CsrfController;
 use Webid\Cms\App\Http\Controllers\Modules\Ajax\Form\FormController;
 
-Route::group(['middleware' => 'cacheable'], function() {
+Route::group(['middleware' => 'cacheable'], function () {
     // Redirect homepage without lang
     Route::get('/', [TemplateController::class, 'rootPage']);
 

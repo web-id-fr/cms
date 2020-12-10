@@ -47,7 +47,7 @@ class TemplateResource extends JsonResource
             $indexationValue = 'noindex';
         }
 
-        if($follow){
+        if ($follow) {
             $followValue = 'follow';
         } else {
             $followValue = 'nofollow';

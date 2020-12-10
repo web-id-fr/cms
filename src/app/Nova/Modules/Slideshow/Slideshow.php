@@ -62,7 +62,7 @@ class Slideshow extends Resource
                 ->step(1)
                 ->help('By default 5 seconds')
                 ->resolveUsing(function ($js_speed) {
-                    if(empty($js_speed)) {
+                    if (empty($js_speed)) {
                         return '';
                     }
                     return $js_speed / 1000;

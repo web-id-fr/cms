@@ -19,31 +19,37 @@ class TemplateController extends BaseController
     /** @var PopinRepository  */
     protected $popinRepository;
 
-    /** @var ExtraElementsForPageService */
-    protected $extraElementsForPage;
-
     /** @var LanguageService  */
     protected $languageService;
 
     /** @var TemplateService */
     protected $templateService;
 
+    /** @var ExtraElementsForPageService */
+    protected $extraElementsService;
+
+    /** @var array */
+    protected $extraElementsForPage;
+
     /**
      * @param TemplateRepository $templateRepository
      * @param PopinRepository $popinRepository
      * @param LanguageService $languageService
      * @param TemplateService $templateService
+     * @param ExtraElementsForPageService $extraElementsService
      */
     public function __construct(
         TemplateRepository $templateRepository,
         PopinRepository $popinRepository,
         LanguageService $languageService,
-        TemplateService $templateService
+        TemplateService $templateService,
+        ExtraElementsForPageService $extraElementsService
     ) {
         $this->templateRepository = $templateRepository;
         $this->popinRepository = $popinRepository;
         $this->languageService = $languageService;
         $this->templateService = $templateService;
+        $this->extraElementsService = $extraElementsService;
         $this->extraElementsForPage = [];
     }
 
@@ -62,11 +68,7 @@ class TemplateController extends BaseController
 
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
-            try {
-                $this->extraElementsForPage = app(ExtraElementsForPageService::class)->getExtraElementForPage(data_get($data, 'id'));
-            } catch (\Exception $e) {
-                info($e);
-            }
+            $this->extraElementsForPage = $this->extraElementsService->getExtraElementForPage(data_get($data, 'id'));
 
             $meta = [
                 'title' => data_get($data, 'meta_title'),
@@ -109,11 +111,7 @@ class TemplateController extends BaseController
 
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
-            try {
-                $this->extraElementsForPage = app(ExtraElementsForPageService::class)->getExtraElementForPage(data_get($data, 'id'));
-            } catch (\Exception $e) {
-                info($e);
-            }
+            $this->extraElementsForPage = $this->extraElementsService->getExtraElementForPage(data_get($data, 'id'));
 
             $meta = [
                 'title' => data_get($data, 'meta_title'),

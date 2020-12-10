@@ -26,7 +26,8 @@ class NewsletterController extends BaseController
      * @param \App\Http\Requests\StoreNewsletter $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreNewsletter $request) {
+    public function store(StoreNewsletter $request)
+    {
         $data = $request->validated();
         $data['lang'] = App::getLocale();
         $this->newsletterRepository->create($data);
