@@ -35,6 +35,16 @@ class Menu extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Menus');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param \Illuminate\Http\Request $request
@@ -46,10 +56,10 @@ class Menu extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('title')
+            Text::make(__('Title'), 'title')
                 ->rules('required'),
 
-            MenuItemField::make('Menu', 'menu_item')
+            MenuItemField::make(__('Menu'), 'menu_item')
                 ->onlyOnForms(),
         ];
     }
