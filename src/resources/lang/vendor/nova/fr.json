@@ -547,5 +547,9 @@
     "List of Components": "Liste des composants",
     "Modules": "Modules",
     "Newsletter": "Newsletter",
-    "Popins": "Popins"
+    "Popins": "Popins",
+    "Menu Custom Item": "Menu personnalisé",
+    "Languages": "Langues",
+    "Varnish Flush": "Vider le cache de Varnish",
+    "Show site": "Voir le site"
 }
