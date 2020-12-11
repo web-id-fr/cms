@@ -1,11 +1,11 @@
 <?php
 
-namespace Webid\Cms\Src\App\Observers;
+namespace Webid\Cms\App\Observers;
 
 use App\Models\Template;
-use Webid\Cms\Src\App\Repositories\TemplateRepository;
+use Webid\Cms\App\Repositories\TemplateRepository;
 use Illuminate\Support\Str;
-use Webid\Cms\Src\App\Services\LanguageService;
+use Webid\Cms\App\Services\LanguageService;
 
 class TemplateObserver
 {

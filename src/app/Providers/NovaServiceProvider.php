@@ -11,19 +11,19 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Webid\CardActions\CardActions;
-use Webid\Cms\Src\App\Nova\Menu\Menu;
-use Webid\Cms\Src\App\Nova\Menu\MenuCustomItem;
-use Webid\Cms\Src\App\Nova\Modules\Form\Field;
-use Webid\Cms\Src\App\Nova\Modules\Form\Form;
-use Webid\Cms\Src\App\Nova\Modules\Form\Recipient;
-use Webid\Cms\Src\App\Nova\Modules\Form\Service;
-use Webid\Cms\Src\App\Nova\Modules\Form\TitleField;
-use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
-use Webid\Cms\Src\App\Nova\Newsletter\Newsletter;
-use Webid\Cms\Src\App\Nova\Popin\Popin;
-use Webid\Cms\Src\App\Nova\Slideshow\Slide;
-use Webid\Cms\Src\App\Nova\Slideshow\Slideshow;
-use Webid\Cms\Src\App\Nova\Template;
+use Webid\Cms\App\Nova\Menu\Menu;
+use Webid\Cms\App\Nova\Menu\MenuCustomItem;
+use Webid\Cms\App\Nova\Modules\Form\Field;
+use Webid\Cms\App\Nova\Modules\Form\Form;
+use Webid\Cms\App\Nova\Modules\Form\Recipient;
+use Webid\Cms\App\Nova\Modules\Form\Service;
+use Webid\Cms\App\Nova\Modules\Form\TitleField;
+use Webid\Cms\App\Nova\Modules\Galleries\Gallery;
+use Webid\Cms\App\Nova\Newsletter\Newsletter;
+use Webid\Cms\App\Nova\Popin\Popin;
+use Webid\Cms\App\Nova\Slideshow\Slide;
+use Webid\Cms\App\Nova\Slideshow\Slideshow;
+use Webid\Cms\App\Nova\Template;
 use Webid\ComponentTool\ComponentTool;
 use Webid\LanguageTool\LanguageTool;
 use Webid\MenuTool\MenuTool;
@@ -94,17 +94,17 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new CollapsibleResourceManager([
                 'navigation' => [
                     TopLevelResource::make([
-                        'label' => 'Menu',
+                        'label' => __('Menu'),
                         'badge' => null,
                         'linkTo' => Menu::class,
                         'resources' => [
                             Group::make([
-                                'label' => 'Menu',
+                                'label' => __('Menu'),
                                 'expanded' => false,
                                 'resources' => [
                                     MenuCustomItem::class,
                                     InternalLink::make([
-                                        'label' => 'Configuration',
+                                        'label' => __('Configuration'),
                                         'badge' => null,
                                         'icon' => null,
                                         'target' => '_self',
@@ -115,7 +115,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         ]
                     ]),
                     TopLevelResource::make([
-                        'label' => 'Templates',
+                        'label' => __('Templates'),
                         'badge' => null,
                         'linkTo' => Template::class,
                     ]),
@@ -129,7 +129,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                                 'path' => '/component-tool',
                             ]),
                             Group::make([
-                                'label' => 'Modules',
+                                'label' => __('Modules'),
                                 'expanded' => false,
                                 'resources' => [
                                     Gallery::class,
@@ -157,17 +157,17 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         ]
                     ]),
                     TopLevelResource::make([
-                        'label' => 'Newsletter',
+                        'label' => __('Newsletter'),
                         'badge' => null,
                         'linkTo' => Newsletter::class,
                     ]),
                     TopLevelResource::make([
-                        'label' => 'Popins',
+                        'label' => __('Popins'),
                         'badge' => null,
                         'linkTo' => Popin::class,
                     ]),
                     TopLevelResource::make([
-                        'label' => 'Users',
+                        'label' => __('Users'),
                         'badge' => null,
                         'linkTo' => User::class,
                     ]),

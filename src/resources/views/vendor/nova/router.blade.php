@@ -9,7 +9,7 @@
                     onchange="Nova.$emit('change-language', this.value);"
             >
                 @php
-                    $langs = \Illuminate\Support\Arr::wrap(app(\Webid\Cms\Src\App\Services\LanguageService::class)->getUsedLanguage());
+                    $langs = \Illuminate\Support\Arr::wrap(app(\Webid\Cms\App\Services\LanguageService::class)->getUsedLanguage());
                 @endphp
                 @foreach($langs as $langCode => $langName)
                     <option value="{{ $langCode }}">{{ $langName }}</option>

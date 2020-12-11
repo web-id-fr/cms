@@ -1,12 +1,12 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Modules\Form;
+namespace Webid\Cms\App\Nova\Modules\Form;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Webid\Cms\Src\App\Models\Modules\Form\Recipient as RecipientModel;
+use Webid\Cms\App\Models\Modules\Form\Recipient as RecipientModel;
 
 class Recipient extends Resource
 {
@@ -34,6 +34,16 @@ class Recipient extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Recipients');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -44,10 +54,10 @@ class Recipient extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')
+            Text::make(__('Name'), 'name')
                 ->rules('required'),
 
-            Text::make('Email')
+            Text::make(__('Email'), 'email')
                 ->rules('required', 'email')
         ];
     }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Requests;
+namespace Webid\Cms\App\Http\Requests;
 
-use Webid\Cms\Src\App\Models\Modules\Form\Field;
-use Webid\Cms\Src\App\Repositories\Modules\Form\FormRepository;
+use Webid\Cms\App\Models\Modules\Form\Field;
+use Webid\Cms\App\Repositories\Modules\Form\FormRepository;
 use Illuminate\Foundation\Http\FormRequest as BaseRequest;
 
 class FormRequest extends BaseRequest

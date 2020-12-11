@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Webid\Cms\Src\App\Models\Components\GalleryComponent;
-use Webid\Cms\Src\App\Models\Components\NewsletterComponent;
-use Webid\Cms\Src\App\Models\Template as TemplateBase;
+use Webid\Cms\App\Models\Components\GalleryComponent;
+use Webid\Cms\App\Models\Components\NewsletterComponent;
+use Webid\Cms\App\Models\Template as TemplateBase;
 
 class Template extends TemplateBase
 {

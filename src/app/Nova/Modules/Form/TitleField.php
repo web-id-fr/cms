@@ -1,12 +1,12 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Modules\Form;
+namespace Webid\Cms\App\Nova\Modules\Form;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Webid\TranslatableTool\Translatable;
-use Webid\Cms\Src\App\Models\Modules\Form\TitleField as TitleFieldModel;
+use Webid\Cms\App\Models\Modules\Form\TitleField as TitleFieldModel;
 
 class TitleField extends Resource
 {
@@ -34,6 +34,16 @@ class TitleField extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Titles field');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param Request $request
@@ -47,7 +57,7 @@ class TitleField extends Resource
         return [
             ID::make()->sortable(),
 
-            Translatable::make('Title')
+            Translatable::make(__('Title'), 'title')
                 ->singleLine(),
         ];
     }

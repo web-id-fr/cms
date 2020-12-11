@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Resources\Modules\Form;
+namespace Webid\Cms\App\Http\Resources\Modules\Form;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 

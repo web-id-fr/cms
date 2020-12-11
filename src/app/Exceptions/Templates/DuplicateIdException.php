@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Exceptions\Templates;
+namespace Webid\Cms\App\Exceptions\Templates;
 
 use Exception;
 use Throwable;

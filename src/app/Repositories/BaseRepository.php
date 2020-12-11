@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Repositories;
+namespace Webid\Cms\App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 

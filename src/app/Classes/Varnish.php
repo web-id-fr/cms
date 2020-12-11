@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Classes;
+namespace Webid\Cms\App\Classes;
 
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;

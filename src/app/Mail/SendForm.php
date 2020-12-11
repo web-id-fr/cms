@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Mail;
+namespace Webid\Cms\App\Mail;
 
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;

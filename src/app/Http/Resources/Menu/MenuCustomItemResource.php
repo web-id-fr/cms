@@ -1,10 +1,10 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Resources\Menu;
+namespace Webid\Cms\App\Http\Resources\Menu;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Webid\Cms\Src\App\Http\Resources\Modules\Form\FormResource;
-use Webid\Cms\Src\App\Models\Menu\MenuCustomItem as MenuCustomItemModel;
+use Webid\Cms\App\Http\Resources\Modules\Form\FormResource;
+use Webid\Cms\App\Models\Menu\MenuCustomItem as MenuCustomItemModel;
 
 class MenuCustomItemResource extends JsonResource
 {

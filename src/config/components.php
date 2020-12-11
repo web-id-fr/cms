@@ -1,8 +1,8 @@
 <?php
-use Webid\Cms\Src\App\Models\Components\GalleryComponent;
-use Webid\Cms\Src\App\Http\Resources\Components\GalleryComponentResource;
-use Webid\Cms\Src\App\Models\Components\NewsletterComponent;
-use Webid\Cms\Src\App\Http\Resources\Components\NewsletterComponentResource;
+use Webid\Cms\App\Models\Components\GalleryComponent;
+use Webid\Cms\App\Http\Resources\Components\GalleryComponentResource;
+use Webid\Cms\App\Models\Components\NewsletterComponent;
+use Webid\Cms\App\Http\Resources\Components\NewsletterComponentResource;
 
 /*
 |--------------------------------------------------------------------------

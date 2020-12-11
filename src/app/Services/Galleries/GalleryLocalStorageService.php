@@ -1,9 +1,9 @@
 <?php
 
-namespace Webid\Cms\Src\App\Services\Galleries;
+namespace Webid\Cms\App\Services\Galleries;
 
 use Illuminate\Support\Facades\File;
-use Webid\Cms\Src\App\Services\Galleries\Contracts\GalleryServiceContract;
+use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
 
 class GalleryLocalStorageService implements GalleryServiceContract
 {

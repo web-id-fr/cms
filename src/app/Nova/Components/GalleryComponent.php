@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Components;
+namespace Webid\Cms\App\Nova\Components;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
@@ -9,7 +9,7 @@ use Laravel\Nova\Fields\ID;
 use IDF\HtmlCard\HtmlCard;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Webid\Cms\Src\App\Models\Components\GalleryComponent as GalleryComponentModel;
+use Webid\Cms\App\Models\Components\GalleryComponent as GalleryComponentModel;
 use Webid\GalleryItemField\GalleryItemField;
 
 class GalleryComponent extends Resource
@@ -38,19 +38,13 @@ class GalleryComponent extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
      * @return string
      */
     public static function label()
     {
-        return 'Galleries Components';
-    }
-
-    /**
-     * @return string
-     */
-    public static function singularLabel()
-    {
-        return 'Gallery Component';
+        return __('Galleries');
     }
 
     /**
@@ -64,19 +58,19 @@ class GalleryComponent extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')
+            Text::make(__('Name'), 'name')
                 ->rules('required'),
 
-            GalleryItemField::make('galleries')
+            GalleryItemField::make(__('galleries'), 'galleries')
                 ->onlyOnForms(),
 
-            Select::make('Status', 'status')
+            Select::make(__('Status'), 'status')
                 ->options(GalleryComponentModel::TYPE_TO_NAME)
                 ->displayUsingLabels()
                 ->rules('required', 'integer')
                 ->hideFromIndex(),
 
-            Boolean::make('Published', function () {
+            Boolean::make(__('Published'), function () {
                 return $this->isPublished();
             })->onlyOnIndex(),
         ];
