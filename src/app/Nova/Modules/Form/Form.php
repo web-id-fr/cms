@@ -44,6 +44,16 @@ class Form extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Forms');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -54,48 +64,48 @@ class Form extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make(__('Name'))
+            Text::make(__('Name'), 'name')
                 ->rules('required'),
 
-            Translatable::make(__('Title'))
+            Translatable::make(__('Title'), 'title')
                 ->singleLine()
                 ->rules('required'),
 
-            Translatable::make(__('Description'))
+            Translatable::make(__('Description'), 'description')
                 ->trix()
                 ->rules('array')
                 ->hideFromIndex()
                 ->asHtml(),
 
-            FieldItemField::make(__('Fields'))
+            FieldItemField::make(__('Fields'), 'fields')
                 ->hideFromIndex(),
 
-            Translatable::make(__('CTA name'))
+            Translatable::make(__('CTA name'), 'cta_name')
                 ->singleLine()
                 ->rules('array', 'required')
                 ->hideFromIndex(),
 
-            Translatable::make(__('RGPD mention'))
+            Translatable::make(__('RGPD mention'), 'rgpd_mention')
                 ->trix()
                 ->rules('array')
                 ->hideFromIndex()
                 ->asHtml(),
 
-            Select::make(__('Recipient type'))
+            Select::make(__('Recipient type'), 'recipient_type')
                 ->options(FormModel::TYPE_TO_SERVICE)
                 ->rules('required')
                 ->onlyOnForms(),
 
             NovaDependencyContainer::make([
-                RecipientItemField::make(__('Recipients'))
+                RecipientItemField::make(__('Recipients'), 'recipients')
                     ->hideFromIndex(),
             ])->dependsOn('recipient_type', formModel::_RECIPIENTS),
 
             NovaDependencyContainer::make([
-                Translatable::make(__('Title service'))
+                Translatable::make(__('Title service'), 'title_service')
                     ->singleLine(),
 
-                ServiceItemField::make(__('Services'))
+                ServiceItemField::make(__('Services'), 'services')
                     ->hideFromIndex(),
             ])->dependsOn('recipient_type', FormModel::_SERVICES),
 

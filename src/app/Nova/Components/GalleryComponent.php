@@ -38,6 +38,16 @@ class GalleryComponent extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Galleries');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -48,10 +58,10 @@ class GalleryComponent extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make(__('Name'))
+            Text::make(__('Name'), 'name')
                 ->rules('required'),
 
-            GalleryItemField::make(__('galleries'))
+            GalleryItemField::make(__('galleries'), 'galleries')
                 ->onlyOnForms(),
 
             Select::make(__('Status'), 'status')

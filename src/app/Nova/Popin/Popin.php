@@ -46,6 +46,16 @@ class Popin extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Popins');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request $request
@@ -79,7 +89,7 @@ class Popin extends Resource
             Multiselect::make(__('Templates'), 'templates')
                 ->belongsToMany(Template::class),
 
-            Select::make(__('Status'))
+            Select::make(__('Status'), 'status')
                 ->options(PopinModel::STATUSES)
                 ->displayUsingLabels()
                 ->rules('nullable', 'integer')

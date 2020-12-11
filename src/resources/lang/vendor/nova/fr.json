@@ -541,6 +541,7 @@
     "Description": "Description",
     "Image": "Image",
     "Slides": "Slides",
+    "Slide": "Slide",
     "Templates": "Pages",
     "Components": "Composants",
     "Configuration": "Configuration",
@@ -551,5 +552,15 @@
     "Menu Custom Item": "Menu personnalisé",
     "Languages": "Langues",
     "Varnish Flush": "Vider le cache de Varnish",
-    "Show site": "Voir le site"
+    "Show site": "Voir le site",
+    "Menu custom items": "Éléments personnalisés du menu",
+    "Menu custom item": "Élément personnalisé du menu",
+    "Forms": "Formulaires",
+    "Form": "Formulaire",
+    "Title fields": "Titre des champs",
+    "Title field": "Titre du champ",
+    "Slideshows": "Slideshows",
+    "Slideshow": "Slideshow",
+    "List is empty": "La liste est vide",
+    "Select option": "Choisir une option"
 }
