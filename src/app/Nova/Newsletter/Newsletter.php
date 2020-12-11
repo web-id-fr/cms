@@ -43,14 +43,14 @@ class Newsletter extends Resource
     public function fields(Request $request)
     {
         return [
-            Text::make('Email')
+            Text::make(__('Email'))
                 ->sortable()
                 ->rules('required', 'unique:newsletters,email,{{resourceId}}', 'email'),
 
-            DateTime::make('Created At')
+            DateTime::make(__('Created At'))
                 ->rules('required'),
 
-            Text::make('Language', 'lang')
+            Text::make(__('Language'), 'lang')
                 ->rules('required'),
         ];
     }

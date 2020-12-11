@@ -48,28 +48,28 @@ class Gallery extends Resource
         return [
             ID::make()->sortable(),
 
-            Translatable::make('Title')
+            Translatable::make(__('Title'))
                 ->singleLine()
                 ->rules('required', 'array')
                 ->sortable(),
 
-            Select::make('Folder')
+            Select::make(__('Folder'))
                 ->options($this->getFoldersGalleriesName())
                 ->rules('required')
                 ->hideFromIndex(),
 
-            Translatable::make('CTA name show more', 'cta_name')
+            Translatable::make(__('CTA name show more'), 'cta_name')
                 ->singleLine()
                 ->rules('required', 'array')
                 ->sortable(),
 
-            Select::make('Status', 'status')
+            Select::make(__('Status'), 'status')
                 ->options(GalleryModel::TYPE_TO_NAME)
                 ->displayUsingLabels()
                 ->rules('required', 'integer')
                 ->hideFromIndex(),
 
-            Boolean::make('Published', function () {
+            Boolean::make(__('Published'), function () {
                 return $this->isPublished();
             })->onlyOnIndex(),
         ];

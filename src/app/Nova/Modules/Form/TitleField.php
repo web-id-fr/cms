@@ -47,7 +47,7 @@ class TitleField extends Resource
         return [
             ID::make()->sortable(),
 
-            Translatable::make('Title')
+            Translatable::make(__('Title'))
                 ->singleLine(),
         ];
     }

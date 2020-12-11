@@ -46,31 +46,31 @@ class Slide extends Resource
         return [
             ID::make()->sortable(),
 
-            Translatable::make('Title')
+            Translatable::make(__('Title'))
                 ->singleLine()
                 ->rules('required'),
 
-            Translatable::make('Description')
+            Translatable::make(__('Description'))
                 ->trix()
                 ->asHtml()
                 ->hideFromIndex(),
 
-            Translatable::make('CTA name', 'cta_name')
+            Translatable::make(__('CTA name'), 'cta_name')
                 ->singleLine()
                 ->rules('array')
                 ->hideFromIndex(),
 
-            Translatable::make('CTA link', 'cta_url')
+            Translatable::make(__('CTA link'), 'cta_url')
                 ->singleLine()
                 ->rules('array')
                 ->hideFromIndex(),
 
-            Translatable::make('Url')
+            Translatable::make(__('Url'))
                 ->singleLine()
                 ->rules('array')
                 ->hideFromIndex(),
 
-            FilemanagerField::make('Image')
+            FilemanagerField::make(__('Image'))
                 ->displayAsImage(),
         ];
     }

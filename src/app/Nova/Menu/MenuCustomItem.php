@@ -48,21 +48,21 @@ class MenuCustomItem extends Resource
     public function fields(Request $request)
     {
         return [
-            Translatable::make('Title')
+            Translatable::make(__('Title'))
                 ->singleLine()
                 ->rules('array'),
 
-            Select::make('Type link', 'type_link')
+            Select::make(__('Type link'), 'type_link')
                 ->options(MenuCustomItemModel::TYPE_TO_LINK)
                 ->displayUsingLabels()
                 ->hideFromIndex(),
 
             NovaDependencyContainer::make([
-                Translatable::make('Url')
+                Translatable::make(__('Url'))
                     ->singleLine()
                     ->hideFromIndex(),
 
-                Select::make('Target')
+                Select::make(__('Target'))
                     ->options(MenuCustomItemModel::STATUS_TYPE)
                     ->displayUsingLabels()
                     ->rules('nullable')
@@ -70,7 +70,7 @@ class MenuCustomItem extends Resource
             ])->dependsOn('type_link', MenuCustomItemModel::_LINK_URL),
 
             NovaDependencyContainer::make([
-                BelongsTo::make('Form', 'form', Form::class)
+                BelongsTo::make(__('Form'), 'form', Form::class)
                     ->nullable()
                     ->onlyOnForms(),
             ])->dependsOn('type_link', MenuCustomItemModel::_LINK_FORM),

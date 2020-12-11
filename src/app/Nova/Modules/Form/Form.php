@@ -54,58 +54,58 @@ class Form extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')
+            Text::make(__('Name'))
                 ->rules('required'),
 
-            Translatable::make('Title')
+            Translatable::make(__('Title'))
                 ->singleLine()
                 ->rules('required'),
 
-            Translatable::make('Description')
+            Translatable::make(__('Description'))
                 ->trix()
                 ->rules('array')
                 ->hideFromIndex()
                 ->asHtml(),
 
-            FieldItemField::make('Fields')
+            FieldItemField::make(__('Fields'))
                 ->hideFromIndex(),
 
-            Translatable::make('CTA name')
+            Translatable::make(__('CTA name'))
                 ->singleLine()
                 ->rules('array', 'required')
                 ->hideFromIndex(),
 
-            Translatable::make('RGPD mention')
+            Translatable::make(__('RGPD mention'))
                 ->trix()
                 ->rules('array')
                 ->hideFromIndex()
                 ->asHtml(),
 
-            Select::make('Recipient type')
+            Select::make(__('Recipient type'))
                 ->options(FormModel::TYPE_TO_SERVICE)
                 ->rules('required')
                 ->onlyOnForms(),
 
             NovaDependencyContainer::make([
-                RecipientItemField::make('Recipients')
+                RecipientItemField::make(__('Recipients'))
                     ->hideFromIndex(),
             ])->dependsOn('recipient_type', formModel::_RECIPIENTS),
 
             NovaDependencyContainer::make([
-                Translatable::make('Title service')
+                Translatable::make(__('Title service'))
                     ->singleLine(),
 
-                ServiceItemField::make('Services')
+                ServiceItemField::make(__('Services'))
                     ->hideFromIndex(),
             ])->dependsOn('recipient_type', FormModel::_SERVICES),
 
-            Select::make('Status', 'status')
+            Select::make(__('Status'), 'status')
                 ->options(FormModel::TYPE_TO_NAME)
                 ->displayUsingLabels()
                 ->rules('integer', 'required')
                 ->hideFromIndex(),
 
-            Boolean::make('Published', function () {
+            Boolean::make(__('Published'), function () {
                 return $this->isPublished();
             })->onlyOnIndex(),
         ];

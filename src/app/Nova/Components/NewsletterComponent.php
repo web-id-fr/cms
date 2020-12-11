@@ -39,22 +39,6 @@ class NewsletterComponent extends Resource
     ];
 
     /**
-     * @return string
-     */
-    public static function label()
-    {
-        return 'Newsletters Components';
-    }
-
-    /**
-     * @return string
-     */
-    public static function singularLabel()
-    {
-        return 'Newsletter Component';
-    }
-
-    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -65,28 +49,28 @@ class NewsletterComponent extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')
+            Text::make(__('Name'))
                 ->rules('required'),
 
-            Translatable::make('Title', 'title')
+            Translatable::make(__('Title'), 'title')
                 ->singleLine()
                 ->sortable(),
 
-            Translatable::make('Placeholder')
+            Translatable::make(__('Placeholder'))
                 ->singleLine()
                 ->sortable(),
 
-            Translatable::make('CTA Name')
+            Translatable::make(__('CTA Name'))
                 ->singleLine()
                 ->sortable(),
 
-            Select::make('Status', 'status')
+            Select::make(__('Status'), 'status')
                 ->options(NewsletterComponentModel::TYPE_TO_NAME)
                 ->displayUsingLabels()
                 ->rules('integer')
                 ->hideFromIndex(),
 
-            Boolean::make('Published', function () {
+            Boolean::make(__('Published'), function () {
                 return $this->isPublished();
             })->onlyOnIndex(),
         ];

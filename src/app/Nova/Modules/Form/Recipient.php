@@ -44,10 +44,10 @@ class Recipient extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')
+            Text::make(__('Name'))
                 ->rules('required'),
 
-            Text::make('Email')
+            Text::make(__('Email'))
                 ->rules('required', 'email')
         ];
     }

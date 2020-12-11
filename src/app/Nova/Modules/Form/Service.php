@@ -45,11 +45,11 @@ class Service extends Resource
         return [
             ID::make()->sortable(),
 
-            Translatable::make('Name')
+            Translatable::make(__('Name'))
                 ->singleLine()
                 ->rules('array'),
 
-            RecipientItemField::make('Recipients')
+            RecipientItemField::make(__('Recipients'))
                 ->onlyOnForms(),
         ];
     }
