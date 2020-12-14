@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Webid\CardActions\CardActions;
-use Webid\Cms\App\Nova\Components\GalleryComponent;
-use Webid\Cms\App\Nova\Components\NewsletterComponent;
 use Webid\Cms\App\Nova\Menu\Menu;
 use Webid\Cms\App\Nova\Menu\MenuCustomItem;
 use Webid\Cms\App\Nova\Modules\Form\Field;
@@ -96,17 +94,17 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new CollapsibleResourceManager([
                 'navigation' => [
                     TopLevelResource::make([
-                        'label' => 'Menu',
+                        'label' => __('Menu'),
                         'badge' => null,
                         'linkTo' => Menu::class,
                         'resources' => [
                             Group::make([
-                                'label' => 'Menu',
+                                'label' => __('Menu'),
                                 'expanded' => false,
                                 'resources' => [
                                     MenuCustomItem::class,
                                     InternalLink::make([
-                                        'label' => 'Configuration',
+                                        'label' => __('Configuration'),
                                         'badge' => null,
                                         'icon' => null,
                                         'target' => '_self',
@@ -117,55 +115,59 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         ]
                     ]),
                     TopLevelResource::make([
-                        'label' => 'Templates',
+                        'label' => __('Templates'),
                         'badge' => null,
                         'linkTo' => Template::class,
                     ]),
                     TopLevelResource::make([
                         'resources' => [
-                            Group::make([
-                                'label' => 'Components',
-                                'expanded' => false,
-                                'resources' => [
-                                    InternalLink::make([
-                                        'label' => 'List of Components',
-                                        'badge' => null,
-                                        'icon' => null,
-                                        'target' => '_self',
-                                        'path' => '/component-tool',
-                                    ]),
-                                    GalleryComponent::class,
-                                    NewsletterComponent::class
-                                ]
+                            InternalLink::make([
+                                'label' => 'List of Components',
+                                'badge' => null,
+                                'icon' => null,
+                                'target' => '_self',
+                                'path' => '/component-tool',
                             ]),
                             Group::make([
-                                'label' => 'Modules',
+                                'label' => __('Modules'),
                                 'expanded' => false,
                                 'resources' => [
                                     Gallery::class,
-                                    Form::class,
-                                    Field::class,
-                                    TitleField::class,
-                                    Service::class,
-                                    Recipient::class,
-                                    Slideshow::class,
-                                    Slide::class
+                                    Group::make([
+                                        'label' => __('Form'),
+                                        'expanded' => false,
+                                        'resources' => [
+                                            Form::class,
+                                            Field::class,
+                                            TitleField::class,
+                                            Service::class,
+                                            Recipient::class,
+                                        ]
+                                    ]),
+                                    Group::make([
+                                        'label' => __('Slideshow'),
+                                        'expanded' => false,
+                                        'resources' => [
+                                            Slideshow::class,
+                                            Slide::class
+                                        ]
+                                    ]),
                                 ]
                             ]),
                         ]
                     ]),
                     TopLevelResource::make([
-                        'label' => 'Newsletter',
+                        'label' => __('Newsletter'),
                         'badge' => null,
                         'linkTo' => Newsletter::class,
                     ]),
                     TopLevelResource::make([
-                        'label' => 'Popins',
+                        'label' => __('Popins'),
                         'badge' => null,
                         'linkTo' => Popin::class,
                     ]),
                     TopLevelResource::make([
-                        'label' => 'Users',
+                        'label' => __('Users'),
                         'badge' => null,
                         'linkTo' => User::class,
                     ]),

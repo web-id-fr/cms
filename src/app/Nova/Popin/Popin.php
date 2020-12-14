@@ -46,6 +46,16 @@ class Popin extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Popins');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request $request
@@ -56,9 +66,9 @@ class Popin extends Resource
     {
         return [
             new Tabs('Tabs', [
-                'Parameters' => $this->parametersTab(),
-                'Content' => $this->contentTab(),
-                'Settings' => $this->settingsTab()
+                __('Parameters') => $this->parametersTab(),
+                __('Content') => $this->contentTab(),
+                __('Settings') => $this->settingsTab()
             ])
         ];
     }
@@ -71,21 +81,21 @@ class Popin extends Resource
     protected function parametersTab()
     {
         return [
-            Translatable::make('Title', 'title')
+            Translatable::make(__('Title'), 'title')
                 ->singleLine()
                 ->sortable()
                 ->rules('nullable', 'max:255'),
 
-            Multiselect::make('Templates', 'templates')
+            Multiselect::make(__('Templates'), 'templates')
                 ->belongsToMany(Template::class),
 
-            Select::make('Status')
+            Select::make(__('Status'), 'status')
                 ->options(PopinModel::STATUSES)
                 ->displayUsingLabels()
                 ->rules('nullable', 'integer')
                 ->hideFromIndex(),
 
-            Boolean::make('Published', function () {
+            Boolean::make(__('Published'), function () {
                 return $this->isPublished();
             })->onlyOnIndex(),
 
@@ -100,35 +110,35 @@ class Popin extends Resource
     protected function contentTab()
     {
         return [
-            FilemanagerField::make('Image'),
+            FilemanagerField::make(__('Image')),
 
-            Translatable::make('Description', 'description')
+            Translatable::make(__('Description'), 'description')
                 ->trix()
                 ->asHtml()
                 ->hideFromIndex(),
 
-            Boolean::make('Display a call-to-action', 'display_call_to_action')
+            Boolean::make(__('Display a call-to-action'), 'display_call_to_action')
                 ->hideFromIndex(),
 
             NovaDependencyContainer::make([
-                Translatable::make('CTA title', 'button_1_title')
+                Translatable::make(__('CTA title'), 'button_1_title')
                     ->singleLine()
                     ->hideFromIndex(),
 
-                Translatable::make('CTA link', 'button_1_url')
+                Translatable::make(__('CTA link'), 'button_1_url')
                     ->singleLine()
                     ->hideFromIndex(),
             ])->dependsOn('display_call_to_action', true),
 
-            Boolean::make('Display a second call-to-action', 'display_second_button')
+            Boolean::make(__('Display a second call-to-action'), 'display_second_button')
                 ->hideFromIndex(),
 
             NovaDependencyContainer::make([
-                Translatable::make('CTA title 2', 'button_2_title')
+                Translatable::make(__('CTA title 2'), 'button_2_title')
                     ->singleLine()
                     ->hideFromIndex(),
 
-                Translatable::make('CTA link 2', 'button_2_url')
+                Translatable::make(__('CTA link 2'), 'button_2_url')
                     ->singleLine()
                     ->hideFromIndex(),
 
@@ -144,28 +154,28 @@ class Popin extends Resource
     protected function settingsTab()
     {
         return [
-            Select::make('Opening rule', 'type')
+            Select::make(__('Opening rule'), 'type')
                 ->options([
-                    'auto' => 'Timer after loading the page',
-                    'focus' => 'Exit popin',
+                    'auto' => __('Timer after loading the page'),
+                    'focus' => __('Exit popin'),
                 ])
                 ->displayUsingLabels()
                 ->rules('nullable', 'string'),
 
             NovaDependencyContainer::make([
-                Number::make('Delay before displaying the popin (in seconds)', 'delay')
+                Number::make(__('Delay before displaying the popin (in seconds)'), 'delay')
                     ->hideFromIndex(),
             ])->dependsOn('type', 'auto'),
 
             NovaDependencyContainer::make([
-                Text::make('Button name', 'button_name')
+                Text::make(__('Button name'), 'button_name')
                     ->hideFromIndex(),
             ])->dependsOn('type', 'button'),
 
-            Boolean::make('Display on mobile', 'mobile_display')
+            Boolean::make(__('Display on mobile'), 'mobile_display')
                 ->hideFromIndex(),
 
-            Number::make('Max Display', 'max_display')->min(1)->step(1)->nullable()
+            Number::make(__('Max Display'), 'max_display')->min(1)->step(1)->nullable()
         ];
     }
 

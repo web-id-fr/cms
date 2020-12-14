@@ -34,6 +34,16 @@ class TitleField extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Titles field');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param Request $request
@@ -47,7 +57,7 @@ class TitleField extends Resource
         return [
             ID::make()->sortable(),
 
-            Translatable::make('Title')
+            Translatable::make(__('Title'), 'title')
                 ->singleLine(),
         ];
     }
