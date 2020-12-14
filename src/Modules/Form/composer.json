@@ -23,9 +23,9 @@
   "autoload": {
     "psr-4": {
       "Webid\\Cms\\Modules\\Form\\": "",
-      "Webid\\RecipientItemField\\" : "src/nova-components/RecipientItemField/src/",
-      "Webid\\ServiceItemField\\" : "src/nova-components/ServiceItemField/src/",
-      "Webid\\FieldItemField\\" : "src/nova-components/FieldItemField/src/"
+      "Webid\\RecipientItemField\\" : "nova-components/RecipientItemField/src/",
+      "Webid\\ServiceItemField\\" : "nova-components/ServiceItemField/src/",
+      "Webid\\FieldItemField\\" : "nova-components/FieldItemField/src/"
     }
   }
 }
