@@ -64,11 +64,14 @@ class FormServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            module_path('Form', 'config/dropzone.php') => config_path('dropzone.php'),
+            __DIR__.'/../Config/dropzone.php' => config_path('dropzone.php'),
         ], 'config');
-        $this->mergeConfigFrom(module_path('Form','config/fields_type.php'), 'form');
-        $this->mergeConfigFrom(module_path('Form','/config/fields_type_validation.php'), 'form');
-
+        $this->mergeConfigFrom(
+            __DIR__.'/../Config/fields_type.php', 'form'
+        );
+        $this->mergeConfigFrom(
+            __DIR__.'/../Config/fields_type_validation.php', 'form'
+        );
     }
 
     /**
@@ -89,9 +92,9 @@ class FormServiceProvider extends ServiceProvider
     protected function publishSendFormJs()
     {
         $this->publishes([
-            module_path('Form', '/resources/js/send_form.js') => base_path('/resources/js/send_form.js'),
-            module_path('Form', '/resources/js/send_form_popin.js') => base_path('/resources/js/send_form_popin.js'),
-            module_path('Form', '/resources/js/helpers.js') => base_path('/resources/js/helpers.js'),
+            module_path('Form', '/Resources/js/send_form.js') => base_path('/resources/js/send_form.js'),
+            module_path('Form', '/Resources/js/send_form_popin.js') => base_path('/resources/js/send_form_popin.js'),
+            module_path('Form', '/Resources/js/helpers.js') => base_path('/resources/js/helpers.js'),
         ], 'send-form');
     }
 
@@ -100,9 +103,9 @@ class FormServiceProvider extends ServiceProvider
      */
     protected function registerViews()
     {
-        $viewPath = resource_path('views/modules/form');
+        $viewPath = resource_path('resources/views/modules/form');
 
-        $sourcePath = module_path('Form', 'resources/views');
+        $sourcePath = __DIR__.'/../Resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath,
@@ -123,7 +126,7 @@ class FormServiceProvider extends ServiceProvider
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, 'form');
         } else {
-            $this->loadTranslationsFrom(module_path('Form', 'resources/lang'), 'form');
+            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'form');
         }
     }
 
