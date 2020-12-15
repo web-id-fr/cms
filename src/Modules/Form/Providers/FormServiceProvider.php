@@ -129,5 +129,4 @@ class FormServiceProvider extends ServiceProvider
             $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'form');
         }
     }
-
 }
