@@ -8,6 +8,7 @@ use DigitalCreative\CollapsibleResourceManager\Resources\Group;
 use DigitalCreative\CollapsibleResourceManager\Resources\InternalLink;
 use DigitalCreative\CollapsibleResourceManager\Resources\TopLevelResource;
 use Illuminate\Support\Facades\Gate;
+use Infinety\Filemanager\FilemanagerTool;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Webid\CardActions\CardActions;
@@ -24,6 +25,7 @@ use Webid\Cms\App\Nova\Popin\Popin;
 use Webid\Cms\App\Nova\Slideshow\Slide;
 use Webid\Cms\App\Nova\Slideshow\Slideshow;
 use Webid\Cms\App\Nova\Template;
+use Webid\Cms\App\Services\DynamicResource;
 use Webid\ComponentTool\ComponentTool;
 use Webid\LanguageTool\LanguageTool;
 use Webid\MenuTool\MenuTool;
@@ -87,14 +89,30 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new \Infinety\Filemanager\FilemanagerTool(),
+            new FilemanagerTool(),
             new LanguageTool(),
             new ComponentTool(),
             new MenuTool(),
-            new CollapsibleResourceManager([
-                'navigation' => [
-                    TopLevelResource::make([
-                        'label' => __('Menu'),
+            new CollapsibleResourceManager($this->collapsibleResourceItems()),
+        ];
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
+    private function collapsibleResourceItems(): array
+    {
+        $items = [
+            'navigation' => [
+                TopLevelResource::make([
+                    'label' => __('Menu'),
                         'badge' => null,
                         'linkTo' => Menu::class,
                         'resources' => [
@@ -106,16 +124,16 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                                     InternalLink::make([
                                         'label' => __('Configuration'),
                                         'badge' => null,
-                                        'icon' => null,
-                                        'target' => '_self',
-                                        'path' => '/menu-tool',
-                                    ])
-                                ]
-                            ]),
-                        ]
-                    ]),
-                    TopLevelResource::make([
-                        'label' => __('Templates'),
+                                    'icon' => null,
+                                    'target' => '_self',
+                                    'path' => '/menu-tool',
+                                ]),
+                            ],
+                        ]),
+                    ],
+                ]),
+                TopLevelResource::make([
+                    'label' => __('Templates'),
                         'badge' => null,
                         'linkTo' => Template::class,
                     ]),
@@ -139,25 +157,25 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                                         'resources' => [
                                             Form::class,
                                             Field::class,
-                                            TitleField::class,
-                                            Service::class,
-                                            Recipient::class,
-                                        ]
-                                    ]),
-                                    Group::make([
-                                        'label' => __('Slideshow'),
-                                        'expanded' => false,
-                                        'resources' => [
-                                            Slideshow::class,
-                                            Slide::class
-                                        ]
-                                    ]),
-                                ]
-                            ]),
-                        ]
-                    ]),
-                    TopLevelResource::make([
-                        'label' => __('Newsletter'),
+                                        TitleField::class,
+                                        Service::class,
+                                        Recipient::class,
+                                    ],
+                                ]),
+                                Group::make([
+                                    'label' => __('Slideshow'),
+                                    'expanded' => false,
+                                    'resources' => [
+                                        Slideshow::class,
+                                        Slide::class,
+                                    ],
+                                ]),
+                            ],
+                        ]),
+                    ],
+                ]),
+                TopLevelResource::make([
+                    'label' => __('Newsletter'),
                         'badge' => null,
                         'linkTo' => Newsletter::class,
                     ]),
@@ -168,21 +186,20 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     ]),
                     TopLevelResource::make([
                         'label' => __('Users'),
-                        'badge' => null,
-                        'linkTo' => User::class,
-                    ]),
-                ]
-            ]),
+                    'badge' => null,
+                    'linkTo' => User::class,
+                ]),
+            ],
         ];
-    }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
+        foreach (DynamicResource::getTopLevelResources() as $resource) {
+            $items['navigation'][] = TopLevelResource::make([
+                'label' => $resource['label'],
+                'badge' => $resource['badge'],
+                'linkTo' => $resource['linkTo'],
+            ]);
+        }
+
+        return $items;
     }
 }

@@ -31,6 +31,7 @@ use Webid\Cms\App\Nova\Slideshow\Slideshow;
 use Webid\Cms\App\Nova\Template;
 use Webid\Cms\App\Observers\TemplateObserver;
 use Webid\Cms\App\Repositories\TemplateRepository;
+use Webid\Cms\App\Services\DynamicResource;
 use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
 use Webid\Cms\App\Services\Galleries\GalleryLocalStorageService;
 use Webid\Cms\App\Services\Galleries\GalleryS3Service;
@@ -51,6 +52,8 @@ class CmsServiceProvider extends ServiceProvider
         if (!app()->isLocal()) {
             $generator->forceScheme('https');
         }
+
+        $this->app->singleton(DynamicResource::class);
 
         $this->registerMenuDirective();
 
