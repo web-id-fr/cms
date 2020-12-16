@@ -22,7 +22,7 @@ Route::group(['middleware' => 'cacheable'], function () {
 
     Route::group([
         'prefix' => '{lang}',
-        'middleware' => ['web', 'language', 'check-language-exist'],
+        'middleware' => ['web', 'pages', 'language', 'check-language-exist'],
     ], function () {
         // Homepage
         Route::get('/', [TemplateController::class, 'index'])->name('home');
@@ -45,4 +45,11 @@ Route::group([
     'middleware' => ['web', 'anti-spam', 'language', 'check-language-exist']
 ], function () {
     Route::get('/send', [FormController::class, 'handle'])->name('send.form');
+});
+
+# /!\ Cette route doit TOUJOURS être la dernière
+Route::middleware(['pages'])->group(function () {
+    Route::fallback(function () {
+        abort(404);
+    });
 });

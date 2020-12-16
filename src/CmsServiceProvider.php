@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
+use Nwidart\Modules\LaravelModulesServiceProvider;
 use Spatie\Honeypot\ProtectAgainstSpam;
 use Spatie\Varnish\Middleware\CacheWithVarnish;
 use Webid\Cms\App\Http\Middleware\CheckLanguageExist;
@@ -112,6 +113,9 @@ class CmsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/config/cms.php', 'cms');
+
+        $this->app->bind(LaravelModulesServiceProvider::class);
+
         $this->bindTemplateRepository();
         $this->bindGalleryServiceContract();
 
@@ -219,10 +223,14 @@ class CmsServiceProvider extends ServiceProvider
      */
     protected function registerAliasMiddleware(Router $router): void
     {
+        // Alias middlewares
         $router->aliasMiddleware('anti-spam', ProtectAgainstSpam::class);
         $router->aliasMiddleware('language', Language::class);
         $router->aliasMiddleware('check-language-exist', CheckLanguageExist::class);
         $router->aliasMiddleware('cacheable', CacheWithVarnish::class);
+
+        // Create middleware groups
+        $router->middlewareGroup('pages', []);
     }
 
     protected function bindTemplateRepository(): void
