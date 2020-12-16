@@ -2,6 +2,7 @@
 
 namespace  Webid\Cms\App\Nova\Popin;
 
+use Laravel\Nova\Resource;
 use OptimistDigital\MultiselectField\Multiselect;
 use Webid\Cms\App\Models\Popin\Popin as PopinModel;
 use \Eminiarts\Tabs\Tabs;
@@ -14,7 +15,6 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Webid\Cms\App\Nova\Template;
 use Webid\TranslatableTool\Translatable;
-use App\Nova\Resource;
 use Infinety\Filemanager\FilemanagerField;
 
 class Popin extends Resource

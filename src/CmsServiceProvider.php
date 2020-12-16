@@ -24,10 +24,10 @@ use Webid\Cms\App\Nova\Modules\Form\Recipient;
 use Webid\Cms\App\Nova\Modules\Form\Service;
 use Webid\Cms\App\Nova\Modules\Form\TitleField;
 use Webid\Cms\App\Nova\Modules\Galleries\Gallery;
+use Webid\Cms\App\Nova\Modules\Slideshow\Slide;
+use Webid\Cms\App\Nova\Modules\Slideshow\Slideshow;
 use Webid\Cms\App\Nova\Newsletter\Newsletter;
 use Webid\Cms\App\Nova\Popin\Popin;
-use Webid\Cms\App\Nova\Slideshow\Slide;
-use Webid\Cms\App\Nova\Slideshow\Slideshow;
 use Webid\Cms\App\Nova\Template;
 use Webid\Cms\App\Observers\TemplateObserver;
 use Webid\Cms\App\Repositories\TemplateRepository;
@@ -48,7 +48,6 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $generator, Router $router): void
     {
-        // Force https même si l'app est chargée en http
         if (!app()->isLocal()) {
             $generator->forceScheme('https');
         }
@@ -68,6 +67,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishSendFormJs();
         $this->publishServices();
         $this->publishEmailTemplate();
+
         $this->registerAliasMiddleware($router);
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');

@@ -3,8 +3,8 @@
 namespace Webid\Cms\App\Nova;
 
 use Carbon\Carbon;
-use App\Nova\Resource;
 use Laravel\Nova\Fields\Heading;
+use Laravel\Nova\Resource;
 use Webid\Cms\App\Rules\TranslatableMax;
 use Webid\Cms\App\Rules\TranslatableSlug;
 use \Eminiarts\Tabs\Tabs;
