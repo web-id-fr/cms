@@ -1,4 +1,4 @@
-image: vincentcau/laravel-docker:serverless
+image: vincentcau/laravel-docker:latest
 
 definitions:
   services:
