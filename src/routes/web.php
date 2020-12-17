@@ -37,7 +37,7 @@ Route::group(['middleware' => 'cacheable'], function () {
 Route::group([
     'middleware' => ['web']
 ], function () {
-    Route::get('/csrf', [CsrfController::class]);
+    Route::get('/csrf', [CsrfController::class, 'index'])->name('csrf.index');
 });
 
 Route::group([
