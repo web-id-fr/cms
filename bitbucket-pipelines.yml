@@ -1,4 +1,4 @@
-image: vincentcau/laravel-docker:7.3
+image: vincentcau/laravel-docker:latest
 
 definitions:
   services:
