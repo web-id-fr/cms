@@ -35,8 +35,6 @@ php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
 ```bash
 php artisan migrate
 ```
-## Update `config/cms`
-###### Update `template_model` with `App/Models/Template::class` in `config/cms.php`
 
 ## Add nova-components in composer 
 
@@ -73,7 +71,7 @@ php artisan migrate
 
    
 ## Use cookies.js
-###### To use the cookies popin, just fill the ``resuorces/views/warning_cookies.blade.php`` view, include it in ``resources/views/templae.blade.php`` with the js ``public/cms/js/cookies.js``
+###### To use the cookies popin, just fill the ``resuorces/views/warning_cookies.blade.php`` view, include it in ``resources/views/template.blade.php`` with the js ``public/cms/js/cookies.js``
 
 ## Use form & popin form
 ###js
@@ -102,7 +100,7 @@ public/cms/images/components/gallery_component.png
 public/cms/images/components/newsletter_component.png
 ```
 
-# For create a new components
+# To create a new component
 ##### 1. create Models, migration, repositories, Nova, Resource for the new component (register all elements in a Components folder)
 ##### 2. update `config\component.php` with the information of the new component and add the image of the component in `public/components/`
 ##### 3. update `App\Models\Template` with the information of the new component

@@ -2,7 +2,7 @@
 
 return [
     'date' => 'date',
-    'email' => 'email:rfc,dns',
+    'email' => 'email:filter',
     'text' => 'string|max:50',
     'textarea' => 'string'
 ];

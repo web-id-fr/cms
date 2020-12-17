@@ -2,21 +2,17 @@
 
 namespace Webid\Cms;
 
+use App\Models\Template as TemplateModel;
 use Illuminate\Routing\Router;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Spatie\Honeypot\ProtectAgainstSpam;
 use Spatie\Varnish\Middleware\CacheWithVarnish;
-use Webid\Cms\App\Http\Controllers\Ajax\Menu\MenuConfigurationController;
-use Webid\Cms\App\Http\Controllers\Ajax\Menu\MenuController;
-use Webid\Cms\App\Http\Controllers\Ajax\Menu\MenuCustomItemController;
-use Webid\Cms\App\Http\Controllers\Ajax\Menu\MenuItemController;
-use Webid\Cms\App\Http\Controllers\Ajax\Newsletter\NewsletterController;
-use Webid\Cms\App\Http\Controllers\Components\ComponentController;
 use Webid\Cms\App\Http\Middleware\CheckLanguageExist;
 use Webid\Cms\App\Http\Middleware\Language;
 use Webid\Cms\App\Nova\Components\GalleryComponent;
@@ -33,11 +29,8 @@ use Webid\Cms\App\Nova\Newsletter\Newsletter;
 use Webid\Cms\App\Nova\Popin\Popin;
 use Webid\Cms\App\Nova\Slideshow\Slide;
 use Webid\Cms\App\Nova\Slideshow\Slideshow;
-use Webid\Cms\App\Observers\TemplateObserver;
-use Webid\Cms\App\Http\Controllers\TemplateController;
 use Webid\Cms\App\Nova\Template;
-use Illuminate\Support\Facades\View;
-use Webid\Cms\App\Repositories\TemplateRepository;
+use Webid\Cms\App\Observers\TemplateObserver;
 use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
 use Webid\Cms\App\Services\Galleries\GalleryLocalStorageService;
 use Webid\Cms\App\Services\Galleries\GalleryS3Service;
@@ -77,9 +70,8 @@ class CmsServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
         Nova::serving(function (ServingNova $event) {
-            $templateClass = $this->app->config['cms.template_model'];
             // Model Observers
-            $templateClass::observe(TemplateObserver::class);
+            TemplateModel::observe(TemplateObserver::class);
         });
 
         $this->app->booted(function () {
@@ -98,7 +90,7 @@ class CmsServiceProvider extends ServiceProvider
                 Slideshow::class,
                 Slide::class,
                 Menu::class,
-                MenuCustomItem::class
+                MenuCustomItem::class,
             ]);
         });
 
@@ -113,17 +105,8 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/config/cms.php', 'cms');
-        $this->bindTemplateRepository();
+        $this->mergeConfigFrom(__DIR__ . '/config/cms.php', 'cms');
         $this->bindGalleryServiceContract();
-
-        $this->app->make(TemplateController::class);
-        $this->app->make(ComponentController::class);
-        $this->app->make(NewsletterController::class);
-        $this->app->make(MenuController::class);
-        $this->app->make(MenuConfigurationController::class);
-        $this->app->make(MenuCustomItemController::class);
-        $this->app->make(MenuItemController::class);
 
         Route::pattern('id', '[0-9]+');
         Route::pattern('lang', '(' . app(LanguageService::class)->getAllLanguagesAsRegex() . ')');
@@ -187,7 +170,7 @@ class CmsServiceProvider extends ServiceProvider
     protected function publishTemplateModel()
     {
         $this->publishes([
-            __DIR__ . '/app/Models/Publish/Template.php' => base_path('/app/Models/Template.php'),
+            __DIR__ . '/app/Models/Template.php' => base_path('/app/Models/Template.php'),
         ], 'template-model');
     }
 
@@ -230,15 +213,6 @@ class CmsServiceProvider extends ServiceProvider
         $router->aliasMiddleware('language', Language::class);
         $router->aliasMiddleware('check-language-exist', CheckLanguageExist::class);
         $router->aliasMiddleware('cacheable', CacheWithVarnish::class);
-    }
-
-    protected function bindTemplateRepository()
-    {
-        $this->app->bind(TemplateRepository::class, function () {
-            $templateClass = config('cms.template_model');
-
-            return new TemplateRepository(new $templateClass);
-        });
     }
 
     protected function bindGalleryServiceContract()

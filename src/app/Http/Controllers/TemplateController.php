@@ -2,7 +2,6 @@
 
 namespace Webid\Cms\App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Services\ExtraElementsForPageService;
 use Webid\Cms\App\Http\Resources\Popin\PopinResource;
 use Webid\Cms\App\Http\Resources\TemplateResource;
@@ -12,7 +11,7 @@ use Illuminate\Http\Request;
 use Webid\Cms\App\Services\LanguageService;
 use Webid\Cms\App\Services\TemplateService;
 
-class TemplateController extends Controller
+class TemplateController extends BaseController
 {
     /** @var TemplateRepository */
     protected $templateRepository;
