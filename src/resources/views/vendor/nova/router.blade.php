@@ -10,7 +10,6 @@
             >
                 @php
                     $langs = \Illuminate\Support\Arr::wrap(app(\Webid\Cms\App\Services\LanguageService::class)->getUsedLanguage());
-                    ksort($langs);
                 @endphp
                 @foreach($langs as $langCode => $langName)
                     <option value="{{ $langCode }}">{{ $langName }}</option>

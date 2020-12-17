@@ -35,6 +35,16 @@ class Service extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Services');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -45,11 +55,11 @@ class Service extends Resource
         return [
             ID::make()->sortable(),
 
-            Translatable::make('Name')
+            Translatable::make(__('Name'), "name")
                 ->singleLine()
                 ->rules('array'),
 
-            RecipientItemField::make('Recipients')
+            RecipientItemField::make(__('Recipients'), 'recipients')
                 ->onlyOnForms(),
         ];
     }
