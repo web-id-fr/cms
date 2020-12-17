@@ -21,10 +21,7 @@ class FormController extends Controller
      * @param ServiceRepository $serviceRepository
      * @param FormRepository $formRepository
      */
-    public function __construct(
-        ServiceRepository $serviceRepository,
-        FormRepository $formRepository
-    )
+    public function __construct(ServiceRepository $serviceRepository, FormRepository $formRepository)
     {
         $this->serviceRepository = $serviceRepository;
         $this->formRepository = $formRepository;

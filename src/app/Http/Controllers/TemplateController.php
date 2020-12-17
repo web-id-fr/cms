@@ -19,14 +19,14 @@ class TemplateController extends BaseController
     /** @var PopinRepository  */
     protected $popinRepository;
 
-    /** @var ExtraElementsForPageService */
-    protected $extraElementsForPage;
-
     /** @var LanguageService  */
     protected $languageService;
 
     /** @var TemplateService */
     protected $templateService;
+
+    /** @var array */
+    protected $extraElementsForPage;
 
     /**
      * @param TemplateRepository $templateRepository
@@ -63,7 +63,8 @@ class TemplateController extends BaseController
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
             try {
-                $this->extraElementsForPage = app(ExtraElementsForPageService::class)->getExtraElementForPage(data_get($data, 'id'));
+                $extraElementsService = app(ExtraElementsForPageService::class);
+                $this->extraElementsForPage = $extraElementsService->getExtraElementForPage(data_get($data, 'id'));
             } catch (\Exception $e) {
                 info($e);
             }
@@ -110,7 +111,8 @@ class TemplateController extends BaseController
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
             try {
-                $this->extraElementsForPage = app(ExtraElementsForPageService::class)->getExtraElementForPage(data_get($data, 'id'));
+                $extraElementsService = app(ExtraElementsForPageService::class);
+                $this->extraElementsForPage = $extraElementsService->getExtraElementForPage(data_get($data, 'id'));
             } catch (\Exception $e) {
                 info($e);
             }

@@ -37,8 +37,8 @@ class Template extends BaseTemplate
         $gallery_components = $this->galleryComponents;
         $newsletter_components = $this->newsletterComponents;
 
-        $this->mapItems($gallery_components,GalleryComponent::class,$components);
-        $this->mapItems($newsletter_components,NewsletterComponent::class,$components);
+        $this->mapItems($gallery_components, GalleryComponent::class, $components);
+        $this->mapItems($newsletter_components, NewsletterComponent::class, $components);
 
         $components = $components->sortBy(function ($item) {
             return $item->pivot->order;

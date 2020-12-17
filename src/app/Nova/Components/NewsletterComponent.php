@@ -12,7 +12,6 @@ use Laravel\Nova\Fields\Text;
 use Webid\Cms\App\Models\Components\NewsletterComponent as NewsletterComponentModel;
 use Webid\TranslatableTool\Translatable;
 
-
 class NewsletterComponent extends Resource
 {
     /**
