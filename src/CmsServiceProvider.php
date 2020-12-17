@@ -2,6 +2,7 @@
 
 namespace Webid\Cms;
 
+use App\Models\Template as TemplateModel;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Blade;
@@ -30,7 +31,6 @@ use Webid\Cms\App\Nova\Slideshow\Slide;
 use Webid\Cms\App\Nova\Slideshow\Slideshow;
 use Webid\Cms\App\Nova\Template;
 use Webid\Cms\App\Observers\TemplateObserver;
-use Webid\Cms\App\Repositories\TemplateRepository;
 use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
 use Webid\Cms\App\Services\Galleries\GalleryLocalStorageService;
 use Webid\Cms\App\Services\Galleries\GalleryS3Service;
@@ -72,9 +72,8 @@ class CmsServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
         Nova::serving(function (ServingNova $event) {
-            $templateClass = $this->app->config['cms.template_model'];
             // Model Observers
-            $templateClass::observe(TemplateObserver::class);
+            TemplateModel::observe(TemplateObserver::class);
         });
 
         $this->app->booted(function () {
@@ -109,7 +108,6 @@ class CmsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/config/cms.php', 'cms');
-        $this->bindTemplateRepository();
         $this->bindGalleryServiceContract();
 
         Route::pattern('id', '[0-9]+');
@@ -220,16 +218,6 @@ class CmsServiceProvider extends ServiceProvider
         $router->aliasMiddleware('language', Language::class);
         $router->aliasMiddleware('check-language-exist', CheckLanguageExist::class);
         $router->aliasMiddleware('cacheable', CacheWithVarnish::class);
-    }
-
-    protected function bindTemplateRepository(): void
-    {
-        $this->app->bind(TemplateRepository::class, function () {
-            /** @var string $templateClass */
-            $templateClass = config('cms.template_model');
-
-            return new TemplateRepository(new $templateClass);
-        });
     }
 
     protected function bindGalleryServiceContract(): void

@@ -40,6 +40,9 @@ class TestCase extends OrchestraTestCase
         ];
     }
 
+    /**
+     * @param Application $app
+     */
     protected function defineEnvironment($app)
     {
         View::addLocation(__DIR__ . '/../src/resources/views');
