@@ -2,9 +2,9 @@
 
 namespace Webid\Cms\App\Http\Controllers\Components;
 
-use App\Http\Controllers\Controller;
+use Webid\Cms\App\Http\Controllers\BaseController;
 
-class ComponentController extends Controller
+class ComponentController extends BaseController
 {
     /**
      * @return \Illuminate\Config\Repository|mixed

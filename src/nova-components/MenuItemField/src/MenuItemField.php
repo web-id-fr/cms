@@ -58,6 +58,8 @@ class MenuItemField extends Field
      * @param $requestAttribute
      * @param $model
      * @param $attribute
+     *
+     * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
@@ -132,7 +134,7 @@ class MenuItemField extends Field
      *
      * @return mixed
      */
-    protected function getChildren($items, $children)
+    protected function getChildren($items, array $children)
     {
         foreach ($items as $template) {
             foreach ($template->menus as $menu) {
@@ -153,7 +155,7 @@ class MenuItemField extends Field
      *
      * @return mixed
      */
-    protected function mapItems($items, $children, $model)
+    protected function mapItems($items, $children, string $model)
     {
         return $items->map(function ($item) use ($children, $model) {
             if (!empty($children)

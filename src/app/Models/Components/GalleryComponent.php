@@ -46,7 +46,7 @@ class GalleryComponent extends Model
     /** @var $recipient_items */
     public $gallery_items;
 
-    public function chargeGalleryItems()
+    public function chargeGalleryItems(): void
     {
         $galleryItems = collect();
         $galleries = $this->galleries;

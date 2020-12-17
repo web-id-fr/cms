@@ -42,8 +42,10 @@ class CmsServiceProvider extends ServiceProvider
     /**
      * @param UrlGenerator $generator
      * @param Router $router
+     *
+     * @return void
      */
-    public function boot(UrlGenerator $generator, Router $router)
+    public function boot(UrlGenerator $generator, Router $router): void
     {
         // Force https même si l'app est chargée en http
         if (!app()->isLocal()) {
@@ -112,7 +114,7 @@ class CmsServiceProvider extends ServiceProvider
         Route::pattern('lang', '(' . app(LanguageService::class)->getAllLanguagesAsRegex() . ')');
     }
 
-    protected function registerMenuDirective()
+    protected function registerMenuDirective(): void
     {
         Blade::directive('menu', function ($expression) {
             $expression = str_replace("'", "\'", $expression);
@@ -120,7 +122,7 @@ class CmsServiceProvider extends ServiceProvider
         });
     }
 
-    protected function publishConfiguration()
+    protected function publishConfiguration(): void
     {
         $this->publishes([
             __DIR__ . '/config/translatable.php' => config_path('translatable.php'),
@@ -138,28 +140,28 @@ class CmsServiceProvider extends ServiceProvider
         ], 'config');
     }
 
-    protected function publishViews()
+    protected function publishViews(): void
     {
         $this->publishes([
             __DIR__ . '/resources/views' => base_path('/resources/views'),
         ], 'views');
     }
 
-    protected function publishProvider()
+    protected function publishProvider(): void
     {
         $this->publishes([
             __DIR__ . '/app/Providers/NovaServiceProvider.php' => base_path('/app/Providers/NovaServiceProvider.php'),
         ], 'providers');
     }
 
-    protected function publishPublicFiles()
+    protected function publishPublicFiles(): void
     {
         $this->publishes([
             __DIR__ . '/public/cms' => base_path('/public/cms'),
         ], 'public');
     }
 
-    protected function publishNovaComponents()
+    protected function publishNovaComponents(): void
     {
         $this->publishes([
             __DIR__ . '/nova-components/ComponentItemField' => base_path('/nova-components/ComponentItemField'),
@@ -167,21 +169,21 @@ class CmsServiceProvider extends ServiceProvider
         ], 'nova-components');
     }
 
-    protected function publishTemplateModel()
+    protected function publishTemplateModel(): void
     {
         $this->publishes([
             __DIR__ . '/app/Models/Template.php' => base_path('/app/Models/Template.php'),
         ], 'template-model');
     }
 
-    protected function publishTranslations()
+    protected function publishTranslations(): void
     {
         $this->publishes([
             __DIR__ . '/resources/lang' => base_path('/resources/lang'),
         ], 'translations');
     }
 
-    protected function publishSendFormJs()
+    protected function publishSendFormJs(): void
     {
         $this->publishes([
             __DIR__ . '/resources/js/send_form.js' => base_path('/resources/js/send_form.js'),
@@ -190,7 +192,7 @@ class CmsServiceProvider extends ServiceProvider
         ], 'send-form');
     }
 
-    protected function publishServices()
+    protected function publishServices(): void
     {
         $this->publishes([
             __DIR__ . '/app/Services/ExtraElementsForPageService.php' =>
@@ -198,7 +200,7 @@ class CmsServiceProvider extends ServiceProvider
         ], 'services');
     }
 
-    protected function publishEmailTemplate()
+    protected function publishEmailTemplate(): void
     {
         $this->publishes([
             __DIR__ . '/resources/views/mail/form.blade.php' => base_path('/resources/views/mail/form.blade.php'),
@@ -207,8 +209,10 @@ class CmsServiceProvider extends ServiceProvider
 
     /**
      * @param Router $router
+     *
+     * @return void
      */
-    protected function registerAliasMiddleware(Router $router)
+    protected function registerAliasMiddleware(Router $router): void
     {
         $router->aliasMiddleware('anti-spam', ProtectAgainstSpam::class);
         $router->aliasMiddleware('language', Language::class);
@@ -216,7 +220,7 @@ class CmsServiceProvider extends ServiceProvider
         $router->aliasMiddleware('cacheable', CacheWithVarnish::class);
     }
 
-    protected function bindGalleryServiceContract()
+    protected function bindGalleryServiceContract(): void
     {
         if ('s3' == config('cms.filesystem_driver')) {
             $galleryService = GalleryS3Service::class;

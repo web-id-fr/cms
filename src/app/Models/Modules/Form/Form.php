@@ -102,7 +102,7 @@ class Form extends Model
     /** @var $field_items */
     public $field_items;
 
-    public function chargeFieldItems()
+    public function chargeFieldItems(): void
     {
         $fieldItems = collect();
         $fields = $this->fields;
