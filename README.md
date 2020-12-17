@@ -30,10 +30,10 @@ php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider" --force
 ```bash
 php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
 ```
-## Install migration
+## Install databases
 
 ```bash
-php artisan migrate
+make install_db
 ```
 
 ## Add nova-components in composer 
