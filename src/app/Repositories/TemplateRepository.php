@@ -2,9 +2,9 @@
 
 namespace Webid\Cms\App\Repositories;
 
+use App\Models\Template;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use App\Models\Template;
 
 class TemplateRepository extends BaseRepository
 {
