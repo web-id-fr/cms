@@ -1,6 +1,6 @@
 <template>
     <div>
-        <heading class="mb-6">Configuration</heading>
+        <heading class="mb-6">{{ __('Configuration') }}</heading>
 
         <card class="flex px-8" style="min-height: 300px">
             <form autocomplete="off" style="width: 100%;">
