@@ -15,7 +15,7 @@ definitions:
         name: Build dependencies
         script:
           - 'printf "{\"http-basic\": {\"nova.laravel.com\": {\"username\":\"$NOVA_USERNAME\", \"password\":\"$NOVA_PASSWORD\"}}}" > auth.json'
-          - composer install --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader
+          - COMPOSER_MEMORY_LIMIT=-1 composer install --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader
           - find vendor -name ".git" | xargs rm -rf
         artifacts:
           - vendor/**
