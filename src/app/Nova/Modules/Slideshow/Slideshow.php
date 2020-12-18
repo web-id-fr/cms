@@ -1,13 +1,12 @@
 <?php
 
-namespace Webid\Cms\App\Nova\Slideshow;
+namespace Webid\Cms\App\Nova\Modules\Slideshow;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Number;
 use Webid\ImageItemField\ImageItemField;
-use Webid\SlideItemField\SlideItemField;
 use Webid\TranslatableTool\Translatable;
 use Webid\Cms\App\Models\Modules\Slideshow\Slideshow as SlideshowModel;
 use Laravel\Nova\Resource;
@@ -72,7 +71,7 @@ class Slideshow extends Resource
                 ->step(1)
                 ->help(__('By default 5 seconds'))
                 ->resolveUsing(function ($js_speed) {
-                    if(empty($js_speed)) {
+                    if (empty($js_speed)) {
                         return '';
                     }
                     return $js_speed / 1000;

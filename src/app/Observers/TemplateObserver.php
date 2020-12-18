@@ -15,8 +15,10 @@ class TemplateObserver
      * @param Template $template
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return void
      */
-    public function saving(Template $template)
+    public function saving(Template $template): void
     {
         $repository = app()->make(TemplateRepository::class);
         $titles = $template->getTranslations('title');

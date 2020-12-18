@@ -2,9 +2,9 @@
 
 namespace Webid\Cms\Modules\Form\Nova;
 
-use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Resource;
 use Webid\TranslatableTool\Translatable;
 use Webid\Cms\Modules\Form\Models\TitleField as TitleFieldModel;
 

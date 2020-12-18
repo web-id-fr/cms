@@ -2,11 +2,14 @@
 
 namespace Webid\Cms\App\Models\Components;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Webid\Cms\App\Models\Modules\Galleries\Gallery;
 
 class GalleryComponent extends Model
 {
+    use HasFactory;
+
     const _STATUS_PUBLISHED = 1;
     const _STATUS_DRAFT = 2;
 
@@ -43,7 +46,7 @@ class GalleryComponent extends Model
     /** @var $recipient_items */
     public $gallery_items;
 
-    public function chargeGalleryItems()
+    public function chargeGalleryItems(): void
     {
         $galleryItems = collect();
         $galleries = $this->galleries;

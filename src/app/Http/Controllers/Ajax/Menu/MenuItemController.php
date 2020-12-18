@@ -2,13 +2,13 @@
 
 namespace Webid\Cms\App\Http\Controllers\Ajax\Menu;
 
-use App\Http\Controllers\Controller;
+use Webid\Cms\App\Http\Controllers\BaseController;
 use Webid\Cms\App\Repositories\Menu\MenuCustomItemRepository;
 use Webid\Cms\App\Repositories\TemplateRepository;
 use Illuminate\Http\Request;
 use Webid\Cms\App\Http\Resources\Menu\MenuItemResource;
 
-class MenuItemController extends Controller
+class MenuItemController extends BaseController
 {
     /** @var MenuCustomItemRepository  */
     protected $menuCustomItemRepository;

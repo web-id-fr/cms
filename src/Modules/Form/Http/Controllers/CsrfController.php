@@ -2,14 +2,12 @@
 
 namespace Webid\Cms\Modules\Form\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-
-class CsrfController extends Controller
+class CsrfController extends BaseController
 {
     /**
      * @return string
      */
-    public function __invoke()
+    public function index()
     {
         return csrf_token();
     }

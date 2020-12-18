@@ -2,7 +2,6 @@
 
 namespace Webid\Cms\Modules\Form\Nova;
 
-use App\Nova\Resource;
 use DigitalCreative\ConditionalContainer\ConditionalContainer;
 use DigitalCreative\ConditionalContainer\HasConditionalContainer;
 use Illuminate\Http\Request;
@@ -10,6 +9,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Resource;
 use Webid\TranslatableTool\Translatable;
 use Whitecube\NovaFlexibleContent\Flexible;
 use Webid\Cms\Modules\Form\Models\Field as FieldModel;

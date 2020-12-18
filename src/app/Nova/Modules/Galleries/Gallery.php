@@ -93,7 +93,7 @@ class Gallery extends Resource
         $galleriesFolder = app(GalleryServiceContract::class)->getGalleries();
         $galleries = [];
 
-        if(empty($galleriesFolder)) {
+        if (empty($galleriesFolder)) {
             return [];
         }
 

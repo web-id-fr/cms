@@ -36,5 +36,5 @@ Route::group([
     Route::get('menu', [MenuController::class, 'index']);
     Route::get('menu-custom-item', [MenuCustomItemController::class, 'index']);
     Route::get('menu-configuration', [MenuConfigurationController::class, 'index']);
-    Route::get('menu-zone', [MenuConfigurationController::class, 'updateZone']);
+    Route::post('menu-zone', [MenuConfigurationController::class, 'updateZone']);
 });

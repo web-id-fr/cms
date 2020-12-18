@@ -2,7 +2,6 @@
 
 namespace Webid\Cms\Modules\Form\Nova;
 
-use App\Nova\Resource;
 use Epartment\NovaDependencyContainer\HasDependencies;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
@@ -10,6 +9,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Resource;
 use Webid\FieldItemField\FieldItemField;
 use Webid\RecipientItemField\RecipientItemField;
 use Webid\ServiceItemField\ServiceItemField;

@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\App\Models\Menu;
 
+use App\Models\Template;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Spatie\Translatable\HasTranslations;
@@ -42,7 +43,7 @@ class Menu extends Model
      */
     public function templates()
     {
-        return $this->morphedByMany(config('cms.template_model'), 'menuable')
+        return $this->morphedByMany(Template::class, 'menuable')
             ->withPivot('order', 'parent_id', 'parent_type')
             ->orderBy('order');
     }
@@ -67,7 +68,7 @@ class Menu extends Model
         $children = $this->getChildren($templates, $children);
         $children = $this->getChildren($customItems, $children);
 
-        $this->mapItems($templates, $children, config('cms.template_model'), $menuItems);
+        $this->mapItems($templates, $children, Template::class, $menuItems);
         $this->mapItems($customItems, $children, MenuCustomItem::class, $menuItems);
 
         $menuItems = $menuItems->sortBy(function ($item) {
@@ -95,7 +96,10 @@ class Menu extends Model
     protected function mapItems($items, $children, $model, &$menuItems)
     {
         $items->each(function ($item) use ($children, &$menuItems, $model) {
-            if (!empty($children) && array_key_exists($item->getOriginal('pivot_menu_id'), $children) && array_key_exists($item->id . "-" . $model, $children[$item->getOriginal('pivot_menu_id')])) {
+            if (!empty($children)
+                && array_key_exists($item->getOriginal('pivot_menu_id'), $children)
+                && array_key_exists($item->id . "-" . $model, $children[$item->getOriginal('pivot_menu_id')])
+            ) {
                 $item->children = $children[$item->getOriginal('pivot_menu_id')][$item->id . "-" . $model];
             } else {
                 $item->children = [];
@@ -118,7 +122,8 @@ class Menu extends Model
         foreach ($items as $item) {
             foreach ($item->menus as $menu) {
                 if (!empty($menu->pivot->parent_id)) {
-                    $children[$menu->pivot->menu_id][$menu->pivot->parent_id . "-" . $menu->pivot->parent_type][] = $item;
+                    $pivot = $menu->pivot;
+                    $children[$pivot->menu_id][$pivot->parent_id . "-" . $pivot->parent_type][] = $item;
                 }
             }
         }

@@ -2,10 +2,10 @@
 
 namespace Webid\Cms\Modules\Newsletter\Nova;
 
-use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Resource;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Webid\Cms\Modules\Newsletter\Models\Newsletter as NewletterModel;
 

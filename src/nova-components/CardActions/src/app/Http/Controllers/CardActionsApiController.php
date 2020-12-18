@@ -2,16 +2,16 @@
 
 namespace Webid\CardActions\App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Webid\Cms\App\Classes\VarnishCustom;
+use Webid\Cms\App\Http\Controllers\BaseController;
 
 /**
  * Class CardActionsApiController
  *
  * @package Webid\CardActions\App\Http\Controllers
  */
-class CardActionsApiController extends Controller
+class CardActionsApiController extends BaseController
 {
     /**
      * @param \Illuminate\Http\Request $request
