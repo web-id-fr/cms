@@ -3,6 +3,7 @@
 namespace Webid\Cms\App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Webid\Cms\App\Services\SitemapGenerator;
 
 class SitemapController extends BaseController
@@ -15,6 +16,10 @@ class SitemapController extends BaseController
         $this->sitemap = $sitemap;
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function index(Request $request)
     {
         return $this->sitemap->generate()->toResponse($request);
