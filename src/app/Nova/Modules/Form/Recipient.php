@@ -2,10 +2,10 @@
 
 namespace Webid\Cms\App\Nova\Modules\Form;
 
-use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Resource;
 use Webid\Cms\App\Models\Modules\Form\Recipient as RecipientModel;
 
 class Recipient extends Resource

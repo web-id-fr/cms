@@ -15,7 +15,7 @@ class Authorize
      */
     public function handle($request, $next)
     {
-        if (resolve(LanguageTool::class)->authorize($request)) {
+        if (!resolve(LanguageTool::class)->authorize($request)) {
             abort(403);
         }
 

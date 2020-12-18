@@ -2,9 +2,9 @@
 
 namespace Webid\Cms\App\Nova\Modules\Form;
 
-use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Resource;
 use Webid\RecipientItemField\RecipientItemField;
 use Webid\TranslatableTool\Translatable;
 use Webid\Cms\App\Models\Modules\Form\Service as ServiceModel;

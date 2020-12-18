@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\App\Nova\Slideshow;
+namespace Webid\Cms\App\Nova\Modules\Slideshow;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;

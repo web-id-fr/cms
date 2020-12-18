@@ -2,13 +2,13 @@
 
 namespace Webid\Cms\App\Nova\Components;
 
-use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use IDF\HtmlCard\HtmlCard;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Resource;
 use Webid\Cms\App\Models\Components\GalleryComponent as GalleryComponentModel;
 use Webid\GalleryItemField\GalleryItemField;
 
