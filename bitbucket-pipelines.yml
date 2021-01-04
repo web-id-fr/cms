@@ -1,4 +1,4 @@
-image: vincentcau/laravel-docker:7.3-fpm
+image: webid/laravel-docker:7.3
 
 definitions:
   services:
@@ -15,7 +15,6 @@ definitions:
         name: Build dependencies
         script:
           - 'printf "{\"http-basic\": {\"nova.laravel.com\": {\"username\":\"$NOVA_USERNAME\", \"password\":\"$NOVA_PASSWORD\"}}}" > auth.json'
-          - rm -f composer.lock
           - COMPOSER_MEMORY_LIMIT=-1 composer install --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader
           - find vendor -name ".git" | xargs rm -rf
         artifacts:
