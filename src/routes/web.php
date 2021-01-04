@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Webid\Cms\App\Http\Controllers\TemplateController;
+use Webid\Cms\App\Http\Controllers\SitemapController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,5 @@ Route::group(['middleware' => 'cacheable'], function() {
         ])->name('pageFromSlug');
     });
 });
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');

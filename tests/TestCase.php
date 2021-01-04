@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Spatie\Sitemap\SitemapServiceProvider;
 use Webid\Cms\App\Services\LanguageService;
 use Webid\Cms\CmsServiceProvider;
 use Webid\Cms\Tests\Helpers\Traits\PerformsAjaxRequests;
@@ -37,6 +38,7 @@ class TestCase extends OrchestraTestCase
         return [
             CmsServiceProvider::class,
             NovaServiceProvider::class,
+            SitemapServiceProvider::class,
         ];
     }
 
