@@ -48,7 +48,9 @@
             "Webid\\MenuItemField\\" : "src/nova-components/MenuItemField/src/",
             "Webid\\CardActions\\" : "src/nova-components/CardActions/src/",
             "Webid\\PageUrlItemField\\" : "src/nova-components/PageUrlItemField/src/",
-            "Modules\\": "src/Modules/"
+            "Webid\\RecipientItemField\\": "src/nova-components/RecipientItemField/src/",
+            "Webid\\ServiceItemField\\": "src/nova-components/ServiceItemField/src/",
+            "Webid\\FieldItemField\\": "src/nova-components/FieldItemField/src/"
         },
         "files": [
             "src/app/helpers.php"
@@ -71,7 +73,10 @@
                 "Webid\\MenuTool\\ToolServiceProvider",
                 "Webid\\MenuItemField\\FieldServiceProvider",
                 "Webid\\CardActions\\CardServiceProvider",
-                "Webid\\PageUrlItemField\\FieldServiceProvider"
+                "Webid\\PageUrlItemField\\FieldServiceProvider",
+                "Webid\\RecipientItemField\\FieldServiceProvider",
+                "Webid\\ServiceItemField\\FieldServiceProvider",
+                "Webid\\FieldItemField\\FieldServiceProvider"
             ]
         }
     },

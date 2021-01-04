@@ -1,5 +1,33 @@
 <?php
 
+if (!function_exists('package_base_path')) {
+    /**
+     * Retourne le chemin en partant de la racine du package
+     *
+     * @param string $path
+     * @return string
+     */
+    function package_base_path(string $path = ''): string
+    {
+        $path = ltrim($path, '/');
+        return __DIR__ . "/../../{$path}";
+    }
+}
+
+if (!function_exists('package_module_path')) {
+    /**
+     * Retourne le chemin en partant du dossier Modules du package
+     *
+     * @param string $path
+     * @return string
+     */
+    function package_module_path(string $path = ''): string
+    {
+        $path = ltrim($path, '/');
+        return package_base_path("src/Modules/{$path}");
+    }
+}
+
 if (!function_exists('current_url_is')) {
     /**
      * Compare la chaine passée en paramètre avec l'url actuelle,

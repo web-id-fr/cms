@@ -7,7 +7,6 @@ use Illuminate\Routing\Router;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
@@ -19,15 +18,9 @@ use Webid\Cms\App\Nova\Components\GalleryComponent;
 use Webid\Cms\App\Nova\Components\NewsletterComponent;
 use Webid\Cms\App\Nova\Menu\Menu;
 use Webid\Cms\App\Nova\Menu\MenuCustomItem;
-use Webid\Cms\App\Nova\Modules\Form\Field;
-use Webid\Cms\App\Nova\Modules\Form\Form;
-use Webid\Cms\App\Nova\Modules\Form\Recipient;
-use Webid\Cms\App\Nova\Modules\Form\Service;
-use Webid\Cms\App\Nova\Modules\Form\TitleField;
 use Webid\Cms\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\App\Nova\Modules\Slideshow\Slide;
 use Webid\Cms\App\Nova\Modules\Slideshow\Slideshow;
-use Webid\Cms\App\Nova\Newsletter\Newsletter;
 use Webid\Cms\App\Nova\Popin\Popin;
 use Webid\Cms\App\Nova\Template;
 use Webid\Cms\App\Observers\TemplateObserver;
@@ -60,12 +53,10 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishProvider();
         $this->publishViews();
         $this->publishPublicFiles();
-        $this->publishPublicFiles();
         $this->publishTemplateModel();
         $this->publishNovaComponents();
         $this->publishTranslations();
         $this->publishServices();
-        $this->publishEmailTemplate();
 
         $this->registerAliasMiddleware($router);
 
@@ -107,6 +98,9 @@ class CmsServiceProvider extends ServiceProvider
         Route::pattern('lang', '(' . app(LanguageService::class)->getAllLanguagesAsRegex() . ')');
     }
 
+    /**
+     * @return void
+     */
     protected function registerMenuDirective(): void
     {
         Blade::directive('menu', function ($expression) {
@@ -115,6 +109,9 @@ class CmsServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * @return void
+     */
     protected function publishConfiguration(): void
     {
         $this->publishes([
@@ -129,6 +126,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'config');
     }
 
+    /**
+     * @return void
+     */
     protected function publishViews(): void
     {
         $this->publishes([
@@ -136,6 +136,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'views');
     }
 
+    /**
+     * @return void
+     */
     protected function publishProvider(): void
     {
         $this->publishes([
@@ -143,6 +146,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'providers');
     }
 
+    /**
+     * @return void
+     */
     protected function publishPublicFiles(): void
     {
         $this->publishes([
@@ -150,6 +156,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'public');
     }
 
+    /**
+     * @return void
+     */
     protected function publishNovaComponents(): void
     {
         $this->publishes([
@@ -158,6 +167,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'nova-components');
     }
 
+    /**
+     * @return void
+     */
     protected function publishTemplateModel(): void
     {
         $this->publishes([
@@ -165,6 +177,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'template-model');
     }
 
+    /**
+     * @return void
+     */
     protected function publishTranslations(): void
     {
         $this->publishes([
@@ -172,28 +187,15 @@ class CmsServiceProvider extends ServiceProvider
         ], 'translations');
     }
 
-    protected function publishSendFormJs(): void
-    {
-        $this->publishes([
-            __DIR__ . '/resources/js/send_form.js' => base_path('/resources/js/send_form.js'),
-            __DIR__ . '/resources/js/send_form_popin.js' => base_path('/resources/js/send_form_popin.js'),
-            __DIR__ . '/resources/js/helpers.js' => base_path('/resources/js/helpers.js'),
-        ], 'send-form');
-    }
-
+    /**
+     * @return void
+     */
     protected function publishServices(): void
     {
         $this->publishes([
             __DIR__ . '/app/Services/ExtraElementsForPageService.php' =>
                 base_path('/app/Services/ExtraElementsForPageService.php'),
         ], 'services');
-    }
-
-    protected function publishEmailTemplate(): void
-    {
-        $this->publishes([
-            __DIR__ . '/resources/views/mail/form.blade.php' => base_path('/resources/views/mail/form.blade.php'),
-        ], 'email-template');
     }
 
     /**
@@ -209,6 +211,9 @@ class CmsServiceProvider extends ServiceProvider
         $router->aliasMiddleware('cacheable', CacheWithVarnish::class);
     }
 
+    /**
+     * @return void
+     */
     protected function bindGalleryServiceContract(): void
     {
         if ('s3' == config('cms.filesystem_driver')) {
