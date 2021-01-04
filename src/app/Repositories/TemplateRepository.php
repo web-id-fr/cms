@@ -85,4 +85,16 @@ class TemplateRepository extends BaseRepository
             ->orderBy('id', 'desc')
             ->first();
     }
+
+    public function getPublishedAndIndexedTemplates(): Collection
+    {
+        return $this->model
+            ->where('status', Template::_STATUS_PUBLISHED)
+            ->where(function ($query) {
+                $query->orWhere('publish_at', '<', now())
+                    ->orWhereNull('publish_at');
+            })
+            ->where('indexation', true)
+            ->get();
+    }
 }
