@@ -7,10 +7,21 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
 use Webid\Cms\App\Http\Middleware\IsAjax;
 use Webid\Cms\App\Http\Middleware\Language;
+use Webid\Cms\App\Services\DynamicResource;
 use Webid\Cms\Modules\Newsletter\Nova\Newsletter;
 
 class NewsletterServiceProvider extends ServiceProvider
 {
+    /**
+     * @var string $moduleName
+     */
+    protected $moduleName = 'Newsletter';
+
+    /**
+     * @var string $moduleNameLower
+     */
+    protected $moduleNameLower = 'newsletter';
+
     /**
      * @param Router $router
      * @return void
@@ -20,11 +31,21 @@ class NewsletterServiceProvider extends ServiceProvider
         $router->aliasMiddleware('is-ajax', IsAjax::class);
         $router->aliasMiddleware('language', Language::class);
 
+        $this->registerViews();
+        $this->registerJs();
+        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
         $this->app->booted(function () {
             Nova::resources([
                 Newsletter::class
             ]);
         });
+
+        DynamicResource::pushTopLevelResource([
+            'label' => __('Newslettter'),
+            'badge' => null,
+            'linkTo' => Newsletter::class,
+        ]);
     }
 
     /**
@@ -33,5 +54,31 @@ class NewsletterServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+    }
+
+    /*
+     * @return void
+     */
+    protected function registerViews(): void
+    {
+        $viewPath = resource_path('views/components');
+        $sourcePath = module_path($this->moduleName, 'Resources/views');
+
+        $this->publishes([
+            $sourcePath => $viewPath
+        ], ['views', $this->moduleNameLower . '-module-views']);
+    }
+
+    /*
+    * @return void
+    */
+    protected function registerJs(): void
+    {
+        $viewPath = public_path('cms/js');
+        $sourcePath = module_path($this->moduleName, 'dist/js');
+
+        $this->publishes([
+            $sourcePath => $viewPath
+        ], ['views', $this->moduleNameLower . '-module-js']);
     }
 }

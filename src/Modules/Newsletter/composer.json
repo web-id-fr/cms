@@ -11,10 +11,7 @@
     "laravel": {
       "providers": [
         "Webid\\Cms\\Modules\\Newsletter\\Providers\\NewsletterServiceProvider"
-      ],
-      "aliases": {
-
-      }
+      ]
     }
   },
   "autoload": {

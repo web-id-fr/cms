@@ -2,20 +2,18 @@
 
 namespace Webid\Cms\Modules\Newsletter\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Webid\Cms\App\Http\Controllers\BaseController;
 use Webid\Cms\Modules\Newsletter\Http\Requests\StoreNewsletter;
 use Webid\Cms\Modules\Newsletter\Repositories\NewsletterRepository;
 use Illuminate\Support\Facades\App;
 
-class NewsletterController extends Controller
+class NewsletterController extends BaseController
 {
-    /** @var \Webid\Cms\App\Modules\Newsletter\Repositories\  */
+    /** @var NewsletterRepository  */
     protected $newsletterRepository;
 
     /**
-     * NewsletterController constructor.
-     *
-     * @param \Webid\Cms\App\Modules\Newsletter\Repositories\NewsletterRepository  $newsletterRepository
+     * @param NewsletterRepository $newsletterRepository
      */
     public function __construct(NewsletterRepository $newsletterRepository)
     {
@@ -23,7 +21,8 @@ class NewsletterController extends Controller
     }
 
     /**
-     * @param \Webid\Cms\App\Modules\Newsletter\Http\Requests\StoreNewsletter $request
+     * @param StoreNewsletter $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreNewsletter $request) {
