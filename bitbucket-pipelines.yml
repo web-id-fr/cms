@@ -1,4 +1,4 @@
-image: vincentcau/laravel-docker:latest
+image: vincentcau/laravel-docker:7.3-fpm
 
 definitions:
   services:
