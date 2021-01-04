@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\App\Http\Resources\Menu;
 
+use App\Models\Template;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webid\Cms\App\Http\Resources\Modules\Form\FormResource;
 use Webid\Cms\App\Models\Menu\MenuCustomItem;
@@ -41,7 +42,7 @@ class MenuItemResource extends JsonResource
             ]),
 
             // Champs exclusifs aux Pages
-            $this->mergeWhen(config('cms.template_model') == $this->menuable_type, [
+            $this->mergeWhen(Template::class == $this->menuable_type, [
                 'slug' => $this->slug,
             ]),
 

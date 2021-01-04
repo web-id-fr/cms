@@ -32,5 +32,6 @@
         <server name="DB_DATABASE" value="cms_test"/>
         <server name="DB_USERNAME" value="cms_test"/>
         <server name="DB_PASSWORD" value="secret"/>
+        <server name="MAIL_MAILER" value="log"/>
     </php>
 </phpunit>

@@ -2,9 +2,9 @@
 
 namespace Webid\Cms\App\Repositories;
 
+use App\Models\Template;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use App\Models\Template;
 
 class TemplateRepository extends BaseRepository
 {
@@ -84,5 +84,17 @@ class TemplateRepository extends BaseRepository
             ->where('slug', 'regexp', "\"$language\"[ ]*:[ ]*\"$slug(-[1-9])\"")
             ->orderBy('id', 'desc')
             ->first();
+    }
+
+    public function getPublishedAndIndexedTemplates(): Collection
+    {
+        return $this->model
+            ->where('status', Template::_STATUS_PUBLISHED)
+            ->where(function ($query) {
+                $query->orWhere('publish_at', '<', now())
+                    ->orWhereNull('publish_at');
+            })
+            ->where('indexation', true)
+            ->get();
     }
 }

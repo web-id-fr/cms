@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Laravel\Nova\NovaCoreServiceProvider;
 use Nwidart\Modules\LaravelModulesServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Spatie\Sitemap\SitemapServiceProvider;
 use Webid\Cms\App\Providers\TestServiceProvider;
 use Webid\Cms\App\Services\LanguageService;
 use Webid\Cms\CmsServiceProvider;
@@ -52,10 +53,14 @@ class TestCase extends OrchestraTestCase
             CmsServiceProvider::class,
             NovaCoreServiceProvider::class,
             NovaServiceProvider::class,
+            SitemapServiceProvider::class,
             LaravelModulesServiceProvider::class,
         ];
     }
 
+    /**
+     * @param Application $app
+     */
     protected function defineEnvironment($app)
     {
         View::addLocation(package_base_path('src/resources/views'));

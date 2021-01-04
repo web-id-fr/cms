@@ -28,6 +28,7 @@
         "optimistdigital/nova-multiselect-field": "^2.0",
         "spatie/laravel-honeypot": "^2.3",
         "ext-json": "*",
+        "spatie/laravel-sitemap": "^5.8",
         "nwidart/laravel-modules": "^8.0"
     },
     "require-dev": {

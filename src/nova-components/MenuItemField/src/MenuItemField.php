@@ -2,6 +2,7 @@
 
 namespace Webid\MenuItemField;
 
+use App\Models\Template;
 use Webid\Cms\App\Models\Menu\Menu;
 use Webid\Cms\App\Repositories\Menu\MenuCustomItemRepository;
 use Webid\Cms\App\Repositories\TemplateRepository;
@@ -43,7 +44,7 @@ class MenuItemField extends Field
         // TEMPLATE
         $allTemplate = $templateRepository->getPublishedTemplates();
         $children = $this->getChildren($allTemplate, $children);
-        $allTemplate = $this->mapItems($allTemplate, $children, config('cms.template_model'));
+        $allTemplate = $this->mapItems($allTemplate, $children, Template::class);
         $allTemplate->each(function ($template) use (&$allItem) {
             $allItem->push($template);
         });
@@ -69,7 +70,7 @@ class MenuItemField extends Field
         $menuItemCustomIds = [];
 
         $menuItems->each(function ($menuItem, $key) use (&$menuItemTemplateIds, &$menuItemCustomIds) {
-            if ($menuItem['menuable_type'] == config('cms.template_model')) {
+            if ($menuItem['menuable_type'] == Template::class) {
                 $menuItemTemplateIds[$menuItem['id']] = [
                     'order' => $key + 1,
                     'parent_id' => null,
@@ -85,7 +86,7 @@ class MenuItemField extends Field
 
             $count = 1;
             foreach ($menuItem['children'] as $children) {
-                if ($children['menuable_type'] == config('cms.template_model')) {
+                if ($children['menuable_type'] == Template::class) {
                     $menuItemTemplateIds[$children['id']] = [
                         'parent_id' => $menuItem['id'],
                         'parent_type' => $menuItem['menuable_type'],

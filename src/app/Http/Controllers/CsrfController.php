@@ -7,7 +7,7 @@ class CsrfController extends BaseController
     /**
      * @return string
      */
-    public function __invoke()
+    public function index()
     {
         return csrf_token();
     }
