@@ -48,6 +48,6 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('ajax')
             ->middleware('ajax')
             ->namespace($this->moduleNamespace)
-            ->group(module_path('Newsletter', 'routes/ajax.php'));
+            ->group(module_path('Newsletter', 'Routes/ajax.php'));
     }
 }

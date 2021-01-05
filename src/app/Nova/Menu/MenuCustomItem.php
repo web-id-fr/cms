@@ -7,7 +7,7 @@ use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Select;
-use Webid\Cms\App\Nova\Modules\Form\Form;
+use Webid\Cms\Modules\Form\Nova\Form;
 use Webid\TranslatableTool\Translatable;
 use Laravel\Nova\Resource;
 use Webid\Cms\App\Models\Menu\MenuCustomItem as MenuCustomItemModel;

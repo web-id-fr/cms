@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Database\Factories;
+namespace Webid\Cms\Modules\Newsletter\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Webid\Cms\Modules\Newsletter\Models\Newsletter;

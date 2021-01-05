@@ -4,7 +4,7 @@ namespace Webid\Cms\App\Models\Menu;
 
 use Illuminate\Database\Eloquent\Model;
 use \Spatie\Translatable\HasTranslations;
-use Webid\Cms\App\Models\Modules\Form\Form;
+use Webid\Cms\Modules\Form\Models\Form;
 
 class MenuCustomItem extends Model
 {

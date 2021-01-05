@@ -2,7 +2,9 @@
 
 namespace Webid\Cms\Modules\Newsletter\Providers;
 
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Router;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
 use Webid\Cms\App\Http\Middleware\IsAjax;
@@ -30,6 +32,11 @@ class NewsletterServiceProvider extends ServiceProvider
     {
         $router->aliasMiddleware('is-ajax', IsAjax::class);
         $router->aliasMiddleware('language', Language::class);
+        $router->middlewareGroup('ajax', [
+            StartSession::class,
+            IsAjax::class,
+            VerifyCsrfToken::class
+        ]);
 
         $this->publishViews();
         $this->publishJs();
