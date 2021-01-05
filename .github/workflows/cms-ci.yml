@@ -10,7 +10,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
-          extensions: ext-gd
+#          extensions: ext-gd
           tools: composer:v1
 
       - uses: actions/checkout@v2
@@ -28,7 +28,9 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Installing PHP dependencies
-        run: composer install --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader
+        run: |
+          composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
+          composer install --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader
 
       - name: Generating laravel key
         run: php artisan key:generate
