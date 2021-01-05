@@ -79,7 +79,9 @@
                 "Webid\\MenuTool\\ToolServiceProvider",
                 "Webid\\MenuItemField\\FieldServiceProvider",
                 "Webid\\CardActions\\CardServiceProvider",
-                "Webid\\PageUrlItemField\\FieldServiceProvider"
+                "Webid\\PageUrlItemField\\FieldServiceProvider",
+                "Nwidart\\Modules\\LaravelModulesServiceProvider",
+                "Laravel\\Nova\\NovaServiceProvider"
             ]
         }
     },

@@ -21,6 +21,6 @@ class IsUrlPath implements Rule
      */
     public function message()
     {
-        return __("Le champ :attribute n'est pas un chemin correct.");
+        return __('rules.is_url_path');
     }
 }

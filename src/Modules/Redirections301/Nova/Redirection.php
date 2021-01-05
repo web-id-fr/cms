@@ -29,8 +29,8 @@ class Redirection extends Resource
     {
         return [
             Text::make(__('Source'), 'source_url')
-                ->placeholder('/mon-url-source')
-                ->help(__("Accepte uniquement les chemins, pas d'URL complète. Doit commencer par un / ."))
+                ->placeholder(__('/my-source-url'))
+                ->help(__("Accepts only paths, no complete URL. Must start with a / ."))
                 ->rules([
                     'required',
                     Rule::unique($this->model()->getTable(), 'source_url')->ignore($this->model()->getKey()),
@@ -38,8 +38,8 @@ class Redirection extends Resource
                 ]),
 
             Text::make(__('Destination'), 'destination_url')
-                ->placeholder('/mon-url-de-destination')
-                ->help(__("Accepte uniquement les chemins, pas d'URL complète. Doit commencer par un / ."))
+                ->placeholder(__('/my-destination-url'))
+                ->help(__("Accepts only paths, no complete URL. Must start with a / ."))
                 ->rules([
                     'required',
                     new IsUrlPath,

@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
-use Nwidart\Modules\LaravelModulesServiceProvider;
 use Spatie\Honeypot\ProtectAgainstSpam;
 use Spatie\Varnish\Middleware\CacheWithVarnish;
 use Webid\Cms\App\Http\Middleware\CheckLanguageExist;
@@ -112,8 +111,6 @@ class CmsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/config/cms.php', 'cms');
-
-        $this->app->bind(LaravelModulesServiceProvider::class);
 
         $this->bindGalleryServiceContract();
 
