@@ -29,11 +29,11 @@ This package can be installed as a [Composer](https://getcomposer.org/) dependen
 
 ```bash
 "repositories": [
-        {
-            "type": "vcs",
-            "url" : "git@bitbucket.org:web-id/test.git"
-        }
-    ]
+    {
+        "type": "vcs",
+        "url" : "git@github.com:web-id-fr/cms.git"
+    }
+]
 ```
 
 ```bash
@@ -64,32 +64,32 @@ make install_db
 
 ```bash
 "extra": {
-        "laravel": {
-            "dont-discover": [],
-            "providers": [
-                "Webid\\ComponentTool\\ToolServiceProvider"
-            ]
-        }
+    "laravel": {
+        "dont-discover": [],
+        "providers": [
+            "Webid\\ComponentTool\\ToolServiceProvider"
+        ]
     }
+}
 ```  
 ```bash
 "autoload": {
-        "psr-4": {
-            "Webid\\ComponentTool\\" : "nova-components/ComponentTool/src/"
-        },
+    "psr-4": {
+        "Webid\\ComponentTool\\" : "nova-components/ComponentTool/src/"
     },
+},
 ```  
 ```bash
-    "require": {
-        "webid/ComponentItemField": "*",
-    },
-    
-    "repositories": [
-            {
-                "type": "path",
-                "url": "./nova-components/ComponentItemField"
-            }
-        ]
+"require": {
+    "webid/ComponentItemField": "*",
+},
+
+"repositories": [
+    {
+        "type": "path",
+        "url": "./nova-components/ComponentItemField"
+    }
+]
 ```
 
 <a id="configure-sitemap"></a>
