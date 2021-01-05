@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Webid\Cms\Modules\Newsletter\Http\Controllers\NewsletterController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Ajax Routes

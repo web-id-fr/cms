@@ -15,7 +15,7 @@ use Webid\Cms\App\Http\Controllers\SitemapController;
 |
 */
 
-Route::group(['middleware' => 'cacheable'], function() {
+Route::group(['middleware' => 'cacheable'], function () {
     // Redirect homepage without lang
     Route::get('/', [TemplateController::class, 'rootPage']);
 
