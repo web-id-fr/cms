@@ -17,7 +17,7 @@ use Webid\Cms\Modules\Form\Http\Controllers\CsrfController;
 
 Route::group(['middleware' => ['web']
 ], function () {
-    Route::get('/csrf', [CsrfController::class]);
+    Route::get('/csrf', [CsrfController::class], 'index')->name('csrf.index');;
 });
 
 Route::group([

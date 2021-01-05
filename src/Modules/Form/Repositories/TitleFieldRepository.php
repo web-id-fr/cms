@@ -3,10 +3,12 @@
 namespace Webid\Cms\Modules\Form\Repositories;
 
 use Webid\Cms\Modules\Form\Models\TitleField;
-use Webid\Cms\App\Repositories\BaseRepository;
 
-class TitleFieldRepository extends BaseRepository
+class TitleFieldRepository
 {
+    /** @var TitleField  */
+    private $model;
+
     /**
      * TitleFieldRepository constructor.
      *
@@ -14,6 +16,6 @@ class TitleFieldRepository extends BaseRepository
      */
     public function __construct(TitleField $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 }

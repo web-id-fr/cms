@@ -3,7 +3,6 @@
 namespace Webid\Cms\Modules\Form\Providers;
 
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
@@ -11,6 +10,7 @@ use Laravel\Nova\Nova;
 use Spatie\Honeypot\ProtectAgainstSpam;
 use Webid\Cms\App\Http\Middleware\CheckLanguageExist;
 use Webid\Cms\App\Http\Middleware\Language;
+use Webid\Cms\App\Services\DynamicResource;
 use Webid\Cms\App\Services\LanguageService;
 use Webid\Cms\Modules\Form\Nova\Field;
 use Webid\Cms\Modules\Form\Nova\Form;
@@ -20,6 +20,12 @@ use Webid\Cms\Modules\Form\Nova\TitleField;
 
 class FormServiceProvider extends ServiceProvider
 {
+    /** @var string  */
+    protected $moduleName = 'Form';
+
+    /** @var string  */
+    protected $moduleNameLower = 'form';
+
     /**
      * @param Router $router
      *
@@ -27,10 +33,12 @@ class FormServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        $this->registerConfig();
-        $this->registerViews();
+        $this->publishConfig();
+        $this->publishViews();
+        $this->publishJs();
+        $this->publishTranslations();
         $this->registerAliasMiddleware($router);
-        $this->publishSendFormJs();
+        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
 
         $this->app->booted(function () {
             Nova::resources([
@@ -44,6 +52,18 @@ class FormServiceProvider extends ServiceProvider
 
         View::share('maxFiles', config('dropzone.max-files'));
         View::share('maxTotalSize', config('dropzone.max-file-size'));
+
+        DynamicResource::pushGroupModuleResource([
+            'label' => __('Form'),
+            'expanded' => false,
+            'resources' => [
+                Form::class,
+                Field::class,
+                TitleField::class,
+                Service::class,
+                Recipient::class,
+            ]
+        ]);
     }
 
     /*
@@ -54,7 +74,7 @@ class FormServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
-
+        $this->registerConfig();
         Route::pattern('lang', '(' . app(LanguageService::class)->getAllLanguagesAsRegex() . ')');
     }
 
@@ -63,15 +83,33 @@ class FormServiceProvider extends ServiceProvider
      */
     protected function registerConfig()
     {
+        $sourcePath = module_path($this->moduleName, 'Config');
+
+        $this->mergeConfigFrom(
+            $sourcePath . '/fields_type.php',
+            $this->moduleNameLower
+        );
+        $this->mergeConfigFrom(
+            $sourcePath . '/fields_type_validation.php',
+            $this->moduleNameLower
+        );
+    }
+
+    /*
+    * @return void
+    */
+    protected function publishConfig()
+    {
+        $sourcePath = module_path($this->moduleName, 'Config');
+
         $this->publishes([
-            __DIR__.'/../Config/dropzone.php' => config_path('dropzone.php'),
-        ], 'config');
-        $this->mergeConfigFrom(
-            __DIR__.'/../Config/fields_type.php', 'form'
-        );
-        $this->mergeConfigFrom(
-            __DIR__.'/../Config/fields_type_validation.php', 'form'
-        );
+            $sourcePath . '/dropzone.php' => config_path('dropzone.php'),
+            $sourcePath . '/fields_type.php' => config_path('fields_type.php'),
+            $sourcePath . '/fields_type_validation.php' => config_path('fields_type_validation.php'),
+        ], [
+            $this->moduleNameLower . '-module',
+            $this->moduleNameLower . '-module-config'
+        ]);
     }
 
     /**
@@ -89,44 +127,50 @@ class FormServiceProvider extends ServiceProvider
     /*
      * @return void
      */
-    protected function publishSendFormJs()
+    protected function publishJs()
     {
+        $jsPath = resource_path('js');
+        $sourcePath = module_path($this->moduleName, 'Resources/js');
+
         $this->publishes([
-            module_path('Form', '/Resources/js/send_form.js') => base_path('/resources/js/send_form.js'),
-            module_path('Form', '/Resources/js/send_form_popin.js') => base_path('/resources/js/send_form_popin.js'),
-            module_path('Form', '/Resources/js/helpers.js') => base_path('/resources/js/helpers.js'),
-        ], 'send-form');
+            $sourcePath . '/send_form.js' => $jsPath . '/send_form.js',
+            $sourcePath . '/send_form_popin.js' => $jsPath . '/send_form_popin.js',
+            $sourcePath . '/helpers.js' => $jsPath . '/helpers.js',
+        ], [
+            $this->moduleNameLower . '-module',
+            $this->moduleNameLower . '-module-js'
+        ]);
     }
 
     /*
      * @return void
      */
-    protected function registerViews()
+    protected function publishViews()
     {
-        $viewPath = resource_path('resources/views/modules/form');
-
-        $sourcePath = __DIR__.'/../Resources/views';
+        $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
+        $sourcePath = module_path($this->moduleName, 'Resources/views');
 
         $this->publishes([
             $sourcePath => $viewPath,
-        ], 'views');
-
-        $this->loadViewsFrom(array_merge(array_map(function ($path) {
-            return $path . '/modules/form';
-        }, Config::get('view.paths')), [$sourcePath]), 'form');
+        ], [
+            $this->moduleNameLower . '-module',
+            $this->moduleNameLower . '-module-views'
+        ]);
     }
 
     /**
      * @return void
      */
-    public function registerTranslations()
+    public function publishTranslations()
     {
-        $langPath = resource_path('lang/modules/form');
+        $langPath = resource_path('lang');
+        $sourcePath = module_path($this->moduleName, 'Resources/lang');
 
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'form');
-        } else {
-            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'form');
-        }
+        $this->publishes([
+            $sourcePath => $langPath,
+        ], [
+            $this->moduleNameLower . '-module',
+            $this->moduleNameLower . '-module-lang'
+        ]);
     }
 }

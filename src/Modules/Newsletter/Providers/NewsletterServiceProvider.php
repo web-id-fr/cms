@@ -31,8 +31,8 @@ class NewsletterServiceProvider extends ServiceProvider
         $router->aliasMiddleware('is-ajax', IsAjax::class);
         $router->aliasMiddleware('language', Language::class);
 
-        $this->registerViews();
-        $this->registerJs();
+        $this->publishViews();
+        $this->publishJs();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
 
         $this->app->booted(function () {
@@ -59,26 +59,32 @@ class NewsletterServiceProvider extends ServiceProvider
     /*
      * @return void
      */
-    protected function registerViews(): void
+    protected function publishViews(): void
     {
         $viewPath = resource_path('views/components');
         $sourcePath = module_path($this->moduleName, 'Resources/views');
 
         $this->publishes([
             $sourcePath => $viewPath
-        ], ['views', $this->moduleNameLower . '-module-views']);
+        ], [
+            $this->moduleNameLower . '-module',
+            $this->moduleNameLower . '-module-views'
+        ]);
     }
 
     /*
     * @return void
     */
-    protected function registerJs(): void
+    protected function publishJs(): void
     {
         $viewPath = public_path('cms/js');
         $sourcePath = module_path($this->moduleName, 'dist/js');
 
         $this->publishes([
             $sourcePath => $viewPath
-        ], ['views', $this->moduleNameLower . '-module-js']);
+        ], [
+            $this->moduleNameLower .'-module',
+            $this->moduleNameLower . '-module-js'
+        ]);
     }
 }

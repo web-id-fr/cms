@@ -3,10 +3,12 @@
 namespace Webid\Cms\Modules\Form\Repositories;
 
 use Webid\Cms\Modules\Form\Models\Field;
-use Webid\Cms\App\Repositories\BaseRepository;
 
-class FieldRepository extends BaseRepository
+class FieldRepository
 {
+    /** @var Field  */
+    private $model;
+
     /**
      * FieldRepository constructor.
      *
@@ -14,6 +16,6 @@ class FieldRepository extends BaseRepository
      */
     public function __construct(Field $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 }

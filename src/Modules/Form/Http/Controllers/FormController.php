@@ -2,14 +2,14 @@
 
 namespace Webid\Cms\Modules\Form\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use Webid\Cms\App\Http\Controllers\BaseController;
 use Webid\Cms\Modules\Form\Http\Requests\FormRequest;
 use Webid\Cms\Modules\Form\Mail\SendForm;
 use Webid\Cms\Modules\Form\Repositories\FormRepository;
 use Webid\Cms\Modules\Form\Repositories\ServiceRepository;
 
-class FormController extends Controller
+class FormController extends BaseController
 {
     /** @var ServiceRepository */
     protected $serviceRepository;

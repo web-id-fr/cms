@@ -3,10 +3,12 @@
 namespace Webid\Cms\Modules\Form\Repositories;
 
 use Webid\Cms\Modules\Form\Models\Recipient;
-use Webid\Cms\App\Repositories\BaseRepository;
 
-class RecipientRepository extends BaseRepository
+class RecipientRepository
 {
+    /** @var Recipient  */
+    private $model;
+
     /**
      * FieldRepository constructor.
      *
@@ -14,6 +16,6 @@ class RecipientRepository extends BaseRepository
      */
     public function __construct(Recipient $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 }
