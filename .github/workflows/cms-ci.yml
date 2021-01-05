@@ -1,0 +1,65 @@
+name: CMS CI
+on: [push]
+jobs:
+  cms-ci:
+    runs-on: ubuntu-20.04
+    steps:
+
+      # Setup
+      - name: Setup PHP 7.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.3'
+          tools: composer:v2
+
+      - uses: actions/checkout@v2
+
+      # Preparing environment
+      - name: Copying .env environment file
+        run: cp .env.example .env
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-cms
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Installing PHP dependencies
+        run: composer install --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader
+
+      - name: Generating laravel key
+        run: php artisan key:generate
+
+      # Tests that just need composer dependencies
+      - name: Running symfony security checker
+        run: ./vendor/bin/security-checker security:check
+
+      - name: Running phpcs
+        run: ./vendor/bin/phpcs --report=full
+
+      - name: Running psalm
+        run: ./vendor/bin/psalm
+
+      # Tests that require database
+      - name: Starting MySQL
+        run: sudo systemctl start mysql.service
+
+      - name: Running phpunit
+        run: ./vendor/bin/phpunit --no-coverage
+
+      # On failure
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        if: ${{ failure() }}
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_COLOR: '#FF5555'
+          SLACK_USERNAME: 'CMS CI'
+          SLACK_ICON_EMOJI: ':see_no_evil:'
+          SLACK_TITLE: Dernier commit
+          SLACK_FOOTER: "“Je ne comprends pas, pourtant ça marche en local.” — inconnu"
