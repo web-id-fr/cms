@@ -111,6 +111,7 @@ class CmsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/config/cms.php', 'cms');
+
         $this->bindGalleryServiceContract();
 
         Route::pattern('id', '[0-9]+');
@@ -217,10 +218,14 @@ class CmsServiceProvider extends ServiceProvider
      */
     protected function registerAliasMiddleware(Router $router): void
     {
+        // Alias middlewares
         $router->aliasMiddleware('anti-spam', ProtectAgainstSpam::class);
         $router->aliasMiddleware('language', Language::class);
         $router->aliasMiddleware('check-language-exist', CheckLanguageExist::class);
         $router->aliasMiddleware('cacheable', CacheWithVarnish::class);
+
+        // Create middleware groups
+        $router->middlewareGroup('pages', []);
     }
 
     protected function bindGalleryServiceContract(): void

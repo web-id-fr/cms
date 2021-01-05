@@ -23,7 +23,7 @@ Route::group(['middleware' => 'cacheable'], function () {
 
     Route::group([
         'prefix' => '{lang}',
-        'middleware' => ['web', 'language', 'check-language-exist'],
+        'middleware' => ['web', 'pages', 'language', 'check-language-exist'],
     ], function () {
         // Homepage
         Route::get('/', [TemplateController::class, 'index'])->name('home');
@@ -49,3 +49,10 @@ Route::group([
 });
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+# /!\ Cette route doit TOUJOURS être la dernière
+Route::middleware(['pages'])->group(function () {
+    Route::fallback(function () {
+        abort(404);
+    });
+});
