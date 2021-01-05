@@ -110,7 +110,7 @@ Sitemap: https://www.your-domain.com/sitemap.xml
 
 <a id="use-cookies-js"></a>
 ### Use cookies.js
-###### To use the cookies popin, just fill the ``resuorces/views/warning_cookies.blade.php`` view, include it in ``resources/views/template.blade.php`` with the js ``public/cms/js/cookies.js``
+###### To use the cookies popin, just fill the ``resources/views/warning_cookies.blade.php`` view, include it in ``resources/views/template.blade.php`` with the js ``public/cms/js/cookies.js``
 
 <a id="use-form-popin"></a>
 ### Use form & popin form
