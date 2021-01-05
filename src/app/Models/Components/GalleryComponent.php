@@ -4,6 +4,7 @@ namespace Webid\Cms\App\Models\Components;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Webid\Cms\App\Models\Modules\Galleries\Gallery;
 
 class GalleryComponent extends Model
@@ -35,6 +36,9 @@ class GalleryComponent extends Model
         'status',
     ];
 
+    /** @var Collection */
+    public $gallery_items;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -42,9 +46,6 @@ class GalleryComponent extends Model
     {
         return $this->belongsToMany(Gallery::class);
     }
-
-    /** @var $recipient_items */
-    public $gallery_items;
 
     public function chargeGalleryItems(): void
     {

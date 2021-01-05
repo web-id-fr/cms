@@ -10,6 +10,7 @@
         <directory name="src"/>
         <ignoreFiles>
             <directory name="vendor"/>
+            <directory name="src/Modules/*/Tests"/>
         </ignoreFiles>
     </projectFiles>
     <issueHandlers>
@@ -20,18 +21,12 @@
                 <file name="src/app/Repositories/Menu/MenuRepository.php"/>
             </errorLevel>
         </DuplicateClass>
-        <MissingDependency>
-            <errorLevel type="suppress">
-                <file name="src/app/Nova/Menu/MenuCustomItem.php"/>
-                <file name="src/app/Providers/NovaServiceProvider.php"/>
-                <file name="src/CmsServiceProvider.php"/>
-            </errorLevel>
-        </MissingDependency>
         <UndefinedClass>
             <errorLevel type="suppress">
-                <directory name="src/app/Nova"/>
                 <file name="src/app/Providers/NovaServiceProvider.php"/>
             </errorLevel>
         </UndefinedClass>
+        <PropertyNotSetInConstructor errorLevel="suppress"/>
+        <MissingClosureParamType errorLevel="suppress"/>
     </issueHandlers>
 </psalm>
