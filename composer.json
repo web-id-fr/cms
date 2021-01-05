@@ -79,7 +79,7 @@
                 "Webid\\CardActions\\CardServiceProvider",
                 "Webid\\RecipientItemField\\FieldServiceProvider",
                 "Webid\\ServiceItemField\\FieldServiceProvider",
-                "Webid\\FieldItemField\\FieldServiceProvider"
+                "Webid\\FieldItemField\\FieldServiceProvider",
                 "Webid\\PageUrlItemField\\FieldServiceProvider",
                 "Nwidart\\Modules\\LaravelModulesServiceProvider",
                 "Laravel\\Nova\\NovaServiceProvider"
