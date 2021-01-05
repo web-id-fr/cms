@@ -29,8 +29,8 @@
         <server name="DB_CONNECTION" value="mysql"/>
         <server name="DB_HOST" value="127.0.0.1"/>
         <server name="DB_DATABASE" value="cms_test"/>
-        <server name="DB_USERNAME" value="root"/>
-        <server name="DB_PASSWORD" value=""/>
+        <server name="DB_USERNAME" value="cms_test"/>
+        <server name="DB_PASSWORD" value="root"/>
         <server name="MAIL_MAILER" value="log"/>
     </php>
 </phpunit>
