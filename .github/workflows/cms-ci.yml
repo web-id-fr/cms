@@ -13,7 +13,7 @@ jobs:
           MYSQL_PASSWORD: secret
           MYSQL_ROOT_PASSWORD: secret
         ports:
-          - 3306
+          - 32574:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
@@ -60,6 +60,8 @@ jobs:
 
       - name: Running phpunit
         run: ./vendor/bin/phpunit --no-coverage
+        env:
+          DB_PORT: 32574
 
       # On failure
 #      - name: Slack Notification
