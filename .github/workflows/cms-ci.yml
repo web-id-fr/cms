@@ -10,6 +10,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.3'
+          extensions: ext-gd
           tools: composer:v1
 
       - uses: actions/checkout@v2
@@ -50,13 +51,13 @@ jobs:
         run: ./vendor/bin/phpunit --no-coverage
 
       # On failure
-      - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2
-        if: ${{ failure() }}
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_COLOR: '#FF5555'
-          SLACK_USERNAME: 'CMS CI'
-          SLACK_ICON_EMOJI: ':see_no_evil:'
-          SLACK_TITLE: Dernier commit
-          SLACK_FOOTER: "“Je ne comprends pas, pourtant ça marche en local.” — inconnu"
+#      - name: Slack Notification
+#        uses: rtCamp/action-slack-notify@v2
+#        if: ${{ failure() }}
+#        env:
+#          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+#          SLACK_COLOR: '#FF5555'
+#          SLACK_USERNAME: 'CMS CI'
+#          SLACK_ICON_EMOJI: ':see_no_evil:'
+#          SLACK_TITLE: Dernier commit
+#          SLACK_FOOTER: "“Je ne comprends pas, pourtant ça marche en local.” — inconnu"
