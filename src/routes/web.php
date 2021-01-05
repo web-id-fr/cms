@@ -1,9 +1,5 @@
 <?php
 
-use Webid\Cms\Src\App\Http\Middleware\CheckLanguageExist;
-use Webid\Cms\Src\App\Http\Middleware\Language;
-use Spatie\Honeypot\ProtectAgainstSpam;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,27 +11,48 @@ use Spatie\Honeypot\ProtectAgainstSpam;
 |
 */
 
-// Redirect homepage without lang
-Route::get('/', 'Webid\Cms\Src\App\Http\Controllers\TemplateController@rootPage');
+use Illuminate\Support\Facades\Route;
+use Webid\Cms\App\Http\Controllers\CsrfController;
+use Webid\Cms\App\Http\Controllers\Modules\Ajax\Form\FormController;
+use Webid\Cms\App\Http\Controllers\SitemapController;
+use Webid\Cms\App\Http\Controllers\TemplateController;
 
-Route::group([
-    'namespace' => 'Webid\Cms\Src\App\Http\Controllers',
-    'prefix' => '{lang}',
-    'middleware' => ['web', Language::class, CheckLanguageExist::class],
-], function () {
-    // Homepage
-    Route::get('/', 'TemplateController@index')->name('home');
+Route::group(['middleware' => 'cacheable'], function () {
+    // Redirect homepage without lang
+    Route::get('/', [TemplateController::class, 'rootPage']);
 
-    // Laisser cette règle en dernier, elle risque "d'attraper" toutes les routes !
-    Route::get('{slug}', 'TemplateController@show')->where([
-        'slug' => '(?!' . trim(config('nova.path'), '/') . '|ajax|api)(.+)',
-    ])->name('pageFromSlug');
+    Route::group([
+        'prefix' => '{lang}',
+        'middleware' => ['web', 'pages', 'language', 'check-language-exist'],
+    ], function () {
+        // Homepage
+        Route::get('/', [TemplateController::class, 'index'])->name('home');
+
+        // Laisser cette règle en dernier, elle risque "d'attraper" toutes les routes !
+        Route::get('{slug}', [TemplateController::class, 'show'])->where([
+            'slug' => '(?!' . trim(config('nova.path'), '/') . '|ajax|api)(.+)',
+        ])->name('pageFromSlug');
+    });
 });
 
 Route::group([
-    'prefix' => 'form',
-    'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Modules\Ajax\Form',
-    'middleware' => ['web', ProtectAgainstSpam::class]
+    'middleware' => ['web'],
 ], function () {
-    Route::post('/send', 'FormController@handle')->name('send.form');
+    Route::get('/csrf', [CsrfController::class, 'index'])->name('csrf.index');
+});
+
+Route::group([
+    'prefix' => '{lang}/form',
+    'middleware' => ['web', 'anti-spam', 'language', 'check-language-exist'],
+], function () {
+    Route::get('/send', [FormController::class, 'handle'])->name('send.form');
+});
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+# /!\ Cette route doit TOUJOURS être la dernière
+Route::middleware(['pages'])->group(function () {
+    Route::fallback(function () {
+        abort(404);
+    });
 });

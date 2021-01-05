@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Models\Modules\Form;
+namespace Webid\Cms\App\Models\Modules\Form;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -28,6 +28,13 @@ class Field extends Model
         'field_type',
         'placeholder',
         'required',
+        'date_field_title',
+        'date_field_placeholder',
+        'time_field_title',
+        'time_field_placeholder',
+        'duration_field_title',
+        'field_name_time',
+        'field_name_duration',
     ];
 
     /**
@@ -38,6 +45,11 @@ class Field extends Model
     public $translatable = [
         'placeholder',
         'field_options',
+        'date_field_title',
+        'date_field_placeholder',
+        'time_field_title',
+        'time_field_placeholder',
+        'duration_field_title',
     ];
 
     /**

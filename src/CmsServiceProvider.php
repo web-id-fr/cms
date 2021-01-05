@@ -2,53 +2,57 @@
 
 namespace Webid\Cms;
 
+use App\Models\Template as TemplateModel;
+use Illuminate\Routing\Router;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
-use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuConfigurationController;
-use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuController;
-use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuCustomItemController;
-use Webid\Cms\Src\App\Http\Controllers\Ajax\Menu\MenuItemController;
-use Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter\NewsletterController;
-use Webid\Cms\Src\App\Http\Controllers\Components\ComponentController;
-use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
-use Webid\Cms\Src\App\Nova\Components\NewsletterComponent;
-use Webid\Cms\Src\App\Nova\Menu\Menu;
-use Webid\Cms\Src\App\Nova\Menu\MenuCustomItem;
-use Webid\Cms\Src\App\Nova\Modules\Form\Field;
-use Webid\Cms\Src\App\Nova\Modules\Form\Form;
-use Webid\Cms\Src\App\Nova\Modules\Form\Recipient;
-use Webid\Cms\Src\App\Nova\Modules\Form\Service;
-use Webid\Cms\Src\App\Nova\Modules\Form\TitleField;
-use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
-use Webid\Cms\Src\App\Nova\Newsletter\Newsletter;
-use Webid\Cms\Src\App\Nova\Popin\Popin;
-use Webid\Cms\Src\App\Nova\Slideshow\Slide;
-use Webid\Cms\Src\App\Nova\Slideshow\Slideshow;
-use Webid\Cms\Src\App\Observers\TemplateObserver;
-use Webid\Cms\Src\App\Http\Controllers\TemplateController;
-use Webid\Cms\Src\App\Nova\Template;
-use Illuminate\Support\Facades\View;
-use Webid\Cms\Src\App\Repositories\TemplateRepository;
-use Webid\Cms\Src\App\Services\LanguageService;
-use Webid\Cms\Src\App\Services\MenuService;
+use Spatie\Honeypot\ProtectAgainstSpam;
+use Spatie\Varnish\Middleware\CacheWithVarnish;
+use Webid\Cms\App\Http\Middleware\CheckLanguageExist;
+use Webid\Cms\App\Http\Middleware\Language;
+use Webid\Cms\App\Nova\Components\GalleryComponent;
+use Webid\Cms\App\Nova\Components\NewsletterComponent;
+use Webid\Cms\App\Nova\Menu\Menu;
+use Webid\Cms\App\Nova\Menu\MenuCustomItem;
+use Webid\Cms\App\Nova\Modules\Form\Field;
+use Webid\Cms\App\Nova\Modules\Form\Form;
+use Webid\Cms\App\Nova\Modules\Form\Recipient;
+use Webid\Cms\App\Nova\Modules\Form\Service;
+use Webid\Cms\App\Nova\Modules\Form\TitleField;
+use Webid\Cms\App\Nova\Modules\Galleries\Gallery;
+use Webid\Cms\App\Nova\Modules\Slideshow\Slide;
+use Webid\Cms\App\Nova\Modules\Slideshow\Slideshow;
+use Webid\Cms\App\Nova\Newsletter\Newsletter;
+use Webid\Cms\App\Nova\Popin\Popin;
+use Webid\Cms\App\Nova\Template;
+use Webid\Cms\App\Observers\TemplateObserver;
+use Webid\Cms\App\Services\DynamicResource;
+use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
+use Webid\Cms\App\Services\Galleries\GalleryLocalStorageService;
+use Webid\Cms\App\Services\Galleries\GalleryS3Service;
+use Webid\Cms\App\Services\LanguageService;
+use Webid\Cms\App\Services\MenuService;
 
 class CmsServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap services.
+     * @param UrlGenerator $generator
+     * @param Router $router
      *
      * @return void
      */
-    public function boot(UrlGenerator $generator)
+    public function boot(UrlGenerator $generator, Router $router): void
     {
-        // Force https même si l'app est chargée en http
         if (!app()->isLocal()) {
             $generator->forceScheme('https');
         }
+
+        $this->app->singleton(DynamicResource::class);
 
         $this->registerMenuDirective();
 
@@ -62,15 +66,17 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishTranslations();
         $this->publishSendFormJs();
         $this->publishServices();
+        $this->publishEmailTemplate();
+
+        $this->registerAliasMiddleware($router);
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadRoutesFrom(__DIR__ . '/routes/ajax.php');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
         Nova::serving(function (ServingNova $event) {
-            $templateClass = $this->app->config['cms.template_model'];
             // Model Observers
-            $templateClass::observe(TemplateObserver::class);
+            TemplateModel::observe(TemplateObserver::class);
         });
 
         $this->app->booted(function () {
@@ -89,7 +95,7 @@ class CmsServiceProvider extends ServiceProvider
                 Slideshow::class,
                 Slide::class,
                 Menu::class,
-                MenuCustomItem::class
+                MenuCustomItem::class,
             ]);
         });
 
@@ -104,27 +110,15 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/config/cms.php', 'cms');
-        
-        $this->app->bind(TemplateRepository::class, function () {
-            $templateClass = config('cms.template_model');
+        $this->mergeConfigFrom(__DIR__ . '/config/cms.php', 'cms');
 
-            return new TemplateRepository(new $templateClass);
-        });
-
-        $this->app->make(TemplateController::class);
-        $this->app->make(ComponentController::class);
-        $this->app->make(NewsletterController::class);
-        $this->app->make(MenuController::class);
-        $this->app->make(MenuConfigurationController::class);
-        $this->app->make(MenuCustomItemController::class);
-        $this->app->make(MenuItemController::class);
+        $this->bindGalleryServiceContract();
 
         Route::pattern('id', '[0-9]+');
         Route::pattern('lang', '(' . app(LanguageService::class)->getAllLanguagesAsRegex() . ')');
     }
 
-    protected function registerMenuDirective()
+    protected function registerMenuDirective(): void
     {
         Blade::directive('menu', function ($expression) {
             $expression = str_replace("'", "\'", $expression);
@@ -132,7 +126,7 @@ class CmsServiceProvider extends ServiceProvider
         });
     }
 
-    protected function publishConfiguration()
+    protected function publishConfiguration(): void
     {
         $this->publishes([
             __DIR__ . '/config/translatable.php' => config_path('translatable.php'),
@@ -146,54 +140,54 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/config/fields_type_validation.php' => config_path('fields_type_validation.php'),
             __DIR__ . '/config/ziggy.php' => config_path('ziggy.php'),
             __DIR__ . '/config/cms.php' => config_path('cms.php'),
+            __DIR__ . '/config/varnish.php' => config_path('varnish.php'),
         ], 'config');
     }
 
-    protected function publishViews()
+    protected function publishViews(): void
     {
         $this->publishes([
             __DIR__ . '/resources/views' => base_path('/resources/views'),
         ], 'views');
     }
 
-    protected function publishProvider()
+    protected function publishProvider(): void
     {
         $this->publishes([
             __DIR__ . '/app/Providers/NovaServiceProvider.php' => base_path('/app/Providers/NovaServiceProvider.php'),
         ], 'providers');
     }
 
-    protected function publishPublicFiles()
+    protected function publishPublicFiles(): void
     {
         $this->publishes([
             __DIR__ . '/public/cms' => base_path('/public/cms'),
         ], 'public');
     }
 
-    protected function publishNovaComponents()
+    protected function publishNovaComponents(): void
     {
         $this->publishes([
             __DIR__ . '/nova-components/ComponentItemField' => base_path('/nova-components/ComponentItemField'),
             __DIR__ . '/nova-components/ComponentTool' => base_path('/nova-components/ComponentTool'),
-            __DIR__ . '/nova-components/TemplateItemField' => base_path('/nova-components/TemplateItemField'),
         ], 'nova-components');
     }
 
-    protected function publishTemplateModel()
+    protected function publishTemplateModel(): void
     {
         $this->publishes([
-            __DIR__ . '/app/Models/Publish/Template.php' => base_path('/app/Models/Template.php'),
+            __DIR__ . '/app/Models/Template.php' => base_path('/app/Models/Template.php'),
         ], 'template-model');
     }
 
-    protected function publishTranslations()
+    protected function publishTranslations(): void
     {
         $this->publishes([
             __DIR__ . '/resources/lang' => base_path('/resources/lang'),
         ], 'translations');
     }
 
-    protected function publishSendFormJs()
+    protected function publishSendFormJs(): void
     {
         $this->publishes([
             __DIR__ . '/resources/js/send_form.js' => base_path('/resources/js/send_form.js'),
@@ -202,10 +196,49 @@ class CmsServiceProvider extends ServiceProvider
         ], 'send-form');
     }
 
-    protected function publishServices()
+    protected function publishServices(): void
     {
         $this->publishes([
-            __DIR__ . '/app/Services/Publish/ExtraElementsForPageService.php' => base_path('/app/Services/ExtraElementsForPageService.php'),
+            __DIR__ . '/app/Services/ExtraElementsForPageService.php' =>
+                base_path('/app/Services/ExtraElementsForPageService.php'),
         ], 'services');
+    }
+
+    protected function publishEmailTemplate(): void
+    {
+        $this->publishes([
+            __DIR__ . '/resources/views/mail/form.blade.php' => base_path('/resources/views/mail/form.blade.php'),
+        ], 'email-template');
+    }
+
+    /**
+     * @param Router $router
+     *
+     * @return void
+     */
+    protected function registerAliasMiddleware(Router $router): void
+    {
+        // Alias middlewares
+        $router->aliasMiddleware('anti-spam', ProtectAgainstSpam::class);
+        $router->aliasMiddleware('language', Language::class);
+        $router->aliasMiddleware('check-language-exist', CheckLanguageExist::class);
+        $router->aliasMiddleware('cacheable', CacheWithVarnish::class);
+
+        // Create middleware groups
+        $router->middlewareGroup('pages', []);
+    }
+
+    protected function bindGalleryServiceContract(): void
+    {
+        if ('s3' == config('cms.filesystem_driver')) {
+            $galleryService = GalleryS3Service::class;
+        } else {
+            $galleryService = GalleryLocalStorageService::class;
+        }
+
+        $this->app->bind(
+            GalleryServiceContract::class,
+            $galleryService
+        );
     }
 }

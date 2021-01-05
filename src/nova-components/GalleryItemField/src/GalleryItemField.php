@@ -4,8 +4,8 @@ namespace Webid\GalleryItemField;
 
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Webid\Cms\Src\App\Models\Components\GalleryComponent;
-use Webid\Cms\Src\App\Repositories\GalleryRepository;
+use Webid\Cms\App\Models\Components\GalleryComponent;
+use Webid\Cms\App\Repositories\GalleryRepository;
 
 class GalleryItemField extends Field
 {
@@ -45,6 +45,8 @@ class GalleryItemField extends Field
      * @param $requestAttribute
      * @param $model
      * @param $attribute
+     *
+     * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {

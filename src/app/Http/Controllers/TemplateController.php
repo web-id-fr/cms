@@ -1,46 +1,49 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Controllers;
+namespace Webid\Cms\App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Services\ExtraElementsForPageService;
-use Webid\Cms\Src\App\Http\Resources\Popin\PopinResource;
-use Webid\Cms\Src\App\Http\Resources\TemplateResource;
-use Webid\Cms\Src\App\Repositories\Popin\PopinRepository;
-use Webid\Cms\Src\App\Repositories\TemplateRepository;
+use Webid\Cms\App\Http\Resources\Popin\PopinResource;
+use Webid\Cms\App\Http\Resources\TemplateResource;
+use Webid\Cms\App\Repositories\Popin\PopinRepository;
+use Webid\Cms\App\Repositories\TemplateRepository;
 use Illuminate\Http\Request;
-use Webid\Cms\Src\App\Services\LanguageService;
-use Webid\Cms\Src\App\Traits\CanRenderTemplates;
+use Webid\Cms\App\Services\LanguageService;
+use Webid\Cms\App\Services\TemplateService;
 
-class TemplateController extends Controller
+class TemplateController extends BaseController
 {
-    use CanRenderTemplates;
-
     /** @var TemplateRepository */
     protected $templateRepository;
 
     /** @var PopinRepository  */
     protected $popinRepository;
 
-    /** @var array */
-    protected $extraElementsForPage;
-
     /** @var LanguageService  */
     protected $languageService;
+
+    /** @var TemplateService */
+    protected $templateService;
+
+    /** @var array */
+    protected $extraElementsForPage;
 
     /**
      * @param TemplateRepository $templateRepository
      * @param PopinRepository $popinRepository
      * @param LanguageService $languageService
+     * @param TemplateService $templateService
      */
     public function __construct(
         TemplateRepository $templateRepository,
         PopinRepository $popinRepository,
-        LanguageService $languageService
+        LanguageService $languageService,
+        TemplateService $templateService
     ) {
         $this->templateRepository = $templateRepository;
         $this->popinRepository = $popinRepository;
         $this->languageService = $languageService;
+        $this->templateService = $templateService;
         $this->extraElementsForPage = [];
     }
 
@@ -60,7 +63,8 @@ class TemplateController extends Controller
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
             try {
-                $this->extraElementsForPage = app(ExtraElementsForPageService::class)->getExtraElementForPage(data_get($data, 'id'));
+                $extraElementsService = app(ExtraElementsForPageService::class);
+                $this->extraElementsForPage = $extraElementsService->getExtraElementForPage(data_get($data, 'id'));
             } catch (\Exception $e) {
                 info($e);
             }
@@ -68,7 +72,6 @@ class TemplateController extends Controller
             $meta = [
                 'title' => data_get($data, 'meta_title'),
                 'type' => 'realisations',
-                'author' => data_get($data, 'meta_author'),
                 'description' => data_get($data, 'meta_description'),
                 'og_title' => data_get($data, 'opengraph_title'),
                 'og_image' => data_get($data, 'opengraph_picture'),
@@ -80,8 +83,6 @@ class TemplateController extends Controller
             return view('template', [
                 'data' => $data,
                 'meta' => $meta,
-                'languages' => $this->getAvailableLanguages(),
-                'currentLang' => request()->lang ?? '',
                 'popins' => PopinResource::collection($popins)->resolve(),
                 'extras' => $this->extraElementsForPage,
             ]);
@@ -98,7 +99,7 @@ class TemplateController extends Controller
     public function show(Request $request)
     {
         try {
-            if ($this->templateRepository->getSlugForHomepage() == $request->slug) {
+            if ($this->templateService->getHomepageSlug() == $request->slug) {
                 return redirect(route('home'), 301);
             }
 
@@ -110,7 +111,8 @@ class TemplateController extends Controller
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
             try {
-                $this->extraElementsForPage = app(ExtraElementsForPageService::class)->getExtraElementForPage(data_get($data, 'id'));
+                $extraElementsService = app(ExtraElementsForPageService::class);
+                $this->extraElementsForPage = $extraElementsService->getExtraElementForPage(data_get($data, 'id'));
             } catch (\Exception $e) {
                 info($e);
             }
@@ -118,7 +120,6 @@ class TemplateController extends Controller
             $meta = [
                 'title' => data_get($data, 'meta_title'),
                 'type' => 'realisations',
-                'author' => data_get($data, 'meta_author'),
                 'description' => data_get($data, 'meta_description'),
                 'og_title' => data_get($data, 'opengraph_title'),
                 'og_image' => data_get($data, 'opengraph_picture'),
@@ -130,8 +131,6 @@ class TemplateController extends Controller
             return view('template', [
                 'data' => $data,
                 'meta' => $meta,
-                'languages' => $this->getAvailableLanguages(),
-                'currentLang' => request()->lang ?? '',
                 'popins' => PopinResource::collection($popins)->resolve(),
                 'extras' => $this->extraElementsForPage,
             ]);

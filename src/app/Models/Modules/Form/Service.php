@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Models\Modules\Form;
+namespace Webid\Cms\App\Models\Modules\Form;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -40,20 +40,5 @@ class Service extends Model
     public function recipients()
     {
         return $this->belongsToMany(Recipient::class);
-    }
-
-    /** @var $recipient_items */
-    public $recipient_items;
-
-    public function chargeRecipientItems()
-    {
-        $recipientItems = collect();
-        $recipients = $this->recipients;
-
-        $recipients->each(function ($recipient) use (&$recipientItems) {
-            $recipientItems->push($recipient);
-        });
-
-        $this->recipient_items = $recipientItems;
     }
 }

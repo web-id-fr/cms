@@ -1,6 +1,6 @@
 <template>
     <div>
-        <heading class="mb-6">Languages</heading>
+        <heading class="mb-6">{{ __('Languages') }}</heading>
 
         <!-- Search -->
         <div class="flex">

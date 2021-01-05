@@ -1,15 +1,15 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Controllers\Ajax\Menu;
+namespace Webid\Cms\App\Http\Controllers\Ajax\Menu;
 
-use App\Http\Controllers\Controller;
-use Webid\Cms\Src\App\Repositories\Menu\MenuRepository;
-use Webid\Cms\Src\App\Services\MenuService;
+use Webid\Cms\App\Http\Controllers\BaseController;
+use Webid\Cms\App\Repositories\Menu\MenuRepository;
+use Webid\Cms\App\Services\MenuService;
 use Illuminate\Http\Request;
 use Throwable;
-use Webid\Cms\Src\App\Http\Resources\Menu\MenuZone as MenuZoneResource;
+use Webid\Cms\App\Http\Resources\Menu\MenuZoneResource;
 
-class MenuConfigurationController extends Controller
+class MenuConfigurationController extends BaseController
 {
     /** @var MenuRepository  */
     protected $menuRepository;

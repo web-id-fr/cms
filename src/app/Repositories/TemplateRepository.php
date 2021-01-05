@@ -1,8 +1,8 @@
 <?php
 
-namespace Webid\Cms\Src\App\Repositories;
+namespace Webid\Cms\App\Repositories;
 
-use Webid\Cms\Src\App\Models\Template;
+use App\Models\Template;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
@@ -69,5 +69,32 @@ class TemplateRepository extends BaseRepository
         $model->chargeComponents();
 
         return $model;
+    }
+
+    /**
+     * @param string $slug
+     * @param string $language
+     *
+     * @return mixed
+     */
+    public function getLastCorrespondingSlugWithNumber(string $slug, string $language)
+    {
+        $slug = strtolower($slug);
+        return $this->model
+            ->where('slug', 'regexp', "\"$language\"[ ]*:[ ]*\"$slug(-[1-9])\"")
+            ->orderBy('id', 'desc')
+            ->first();
+    }
+
+    public function getPublishedAndIndexedTemplates(): Collection
+    {
+        return $this->model
+            ->where('status', Template::_STATUS_PUBLISHED)
+            ->where(function ($query) {
+                $query->orWhere('publish_at', '<', now())
+                    ->orWhereNull('publish_at');
+            })
+            ->where('indexation', true)
+            ->get();
     }
 }

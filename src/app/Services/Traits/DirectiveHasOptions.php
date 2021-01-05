@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Services\Traits;
+namespace Webid\Cms\App\Services\Traits;
 
 trait DirectiveHasOptions
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Requests;
+namespace Webid\Cms\App\Http\Requests;
 
-use Webid\Cms\Src\App\Models\Modules\Form\Field;
-use Webid\Cms\Src\App\Repositories\Modules\Form\FormRepository;
+use Webid\Cms\App\Models\Modules\Form\Field;
+use Webid\Cms\App\Repositories\Modules\Form\FormRepository;
 use Illuminate\Foundation\Http\FormRequest as BaseRequest;
 
 class FormRequest extends BaseRequest
@@ -56,7 +56,7 @@ class FormRequest extends BaseRequest
                     if ($field->required) {
                         $rules = config("fields_type_validation.$field_type") . '|required';
                     } else {
-                        $rules = config("fields_type_validation.$field_type");
+                        $rules = 'nullable|' . config("fields_type_validation.$field_type");
                     }
                     $fields_rules[$field->field_name] = $rules;
                 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Models\Modules\Form;
+namespace Webid\Cms\App\Models\Modules\Form;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -38,6 +38,7 @@ class Form extends Model
      * @var array
      */
     protected $fillable = [
+        'name',
         'title',
         'status',
         'description',
@@ -93,13 +94,15 @@ class Form extends Model
      */
     public function services()
     {
-        return $this->belongsToMany(Service::class);
+        return $this->belongsToMany(Service::class)
+            ->withPivot('order')
+            ->orderBy('order');
     }
 
     /** @var $field_items */
     public $field_items;
 
-    public function chargeFieldItems()
+    public function chargeFieldItems(): void
     {
         $fieldItems = collect();
         $fields = $this->fields;
@@ -120,35 +123,5 @@ class Form extends Model
         });
 
         $this->field_items = $fieldItems;
-    }
-
-    /** @var $recipient_items */
-    public $recipient_items;
-
-    public function chargeRecipientItems()
-    {
-        $recipientItems = collect();
-        $recipients = $this->recipients;
-
-        $recipients->each(function ($recipient) use (&$recipientItems) {
-            $recipientItems->push($recipient);
-        });
-
-        $this->recipient_items = $recipientItems;
-    }
-
-    /** @var $service_items */
-    public $service_items;
-
-    public function chargeServiceItems()
-    {
-        $serviceItems = collect();
-        $services = $this->services;
-
-        $services->each(function ($service) use (&$serviceItems) {
-            $serviceItems->push($service);
-        });
-
-        $this->service_items = $serviceItems;
     }
 }

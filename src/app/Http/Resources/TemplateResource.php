@@ -1,10 +1,10 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Resources;
+namespace Webid\Cms\App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use phpDocumentor\Reflection\Types\Boolean;
-use Webid\Cms\Src\App\Http\Resources\Components\ComponentResource;
+use Webid\Cms\App\Http\Resources\Components\ComponentResource;
 
 class TemplateResource extends JsonResource
 {
@@ -22,8 +22,8 @@ class TemplateResource extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'status' => $this->status,
-            'meta_title' => $this->meta_title,
-            'meta_description' => $this->meta_description,
+            'meta_title' => $this->metatitle,
+            'meta_description' => $this->metadescription,
             'opengraph_title' => $this->opengraph_title,
             'opengraph_description' => $this->opengraph_description,
             'opengraph_picture' => $this->opengraph_picture,
@@ -47,7 +47,7 @@ class TemplateResource extends JsonResource
             $indexationValue = 'noindex';
         }
 
-        if($follow){
+        if ($follow) {
             $followValue = 'follow';
         } else {
             $followValue = 'nofollow';

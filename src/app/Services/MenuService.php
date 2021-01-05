@@ -1,16 +1,16 @@
 <?php
 
-namespace Webid\Cms\Src\App\Services;
+namespace Webid\Cms\App\Services;
 
-use Webid\Cms\Src\App\Exceptions\Templates\DepthExceededException;
-use Webid\Cms\Src\App\Exceptions\Templates\MissingParameterException;
-use Webid\Cms\Src\App\Exceptions\Templates\TemplateNotFoundException;
-use Webid\Cms\Src\App\Repositories\Menu\MenuRepository;
-use Webid\Cms\Src\App\Services\MenuBladeDirective\Menu;
+use Webid\Cms\App\Exceptions\Templates\DepthExceededException;
+use Webid\Cms\App\Exceptions\Templates\MissingParameterException;
+use Webid\Cms\App\Exceptions\Templates\TemplateNotFoundException;
+use Webid\Cms\App\Http\Resources\Menu\MenuResource;
+use Webid\Cms\App\Repositories\Menu\MenuRepository;
+use Webid\Cms\App\Services\MenuBladeDirective\Menu;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Webid\Cms\Src\App\Http\Resources\Menu\Menu as MenuResource;
 
 class MenuService
 {

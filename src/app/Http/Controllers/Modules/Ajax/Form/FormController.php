@@ -1,36 +1,28 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Controllers\Modules\Ajax\Form;
+namespace Webid\Cms\App\Http\Controllers\Modules\Ajax\Form;
 
-use App\Http\Controllers\Controller;
-use Webid\Cms\Src\App\Http\Requests\FormRequest;
-use Webid\Cms\Src\App\Mail\SendForm;
-use Webid\Cms\Src\App\Repositories\Modules\Form\FormRepository;
-use Webid\Cms\Src\App\Repositories\Modules\Form\ServiceRepository;
-use Webid\Cms\Src\App\Services\MailService;
+use Illuminate\Support\Facades\Mail;
+use Webid\Cms\App\Http\Controllers\BaseController;
+use Webid\Cms\App\Http\Requests\FormRequest;
+use Webid\Cms\App\Mail\SendForm;
+use Webid\Cms\App\Repositories\Modules\Form\FormRepository;
+use Webid\Cms\App\Repositories\Modules\Form\ServiceRepository;
 
-class FormController extends Controller
+class FormController extends BaseController
 {
-    /** @var MailService  */
-    protected $mailService;
-
-    /** @var ServiceRepository  */
+    /** @var ServiceRepository */
     protected $serviceRepository;
 
-    /** @var FormRepository  */
+    /** @var FormRepository */
     protected $formRepository;
 
     /**
-     * @param MailService $mailService
      * @param ServiceRepository $serviceRepository
      * @param FormRepository $formRepository
      */
-    public function __construct(
-        MailService $mailService,
-        ServiceRepository $serviceRepository,
-        FormRepository $formRepository
-    ) {
-        $this->mailService = $mailService;
+    public function __construct(ServiceRepository $serviceRepository, FormRepository $formRepository)
+    {
         $this->serviceRepository = $serviceRepository;
         $this->formRepository = $formRepository;
     }
@@ -50,7 +42,11 @@ class FormController extends Controller
             $to = $form->recipients->pluck("email");
         }
 
-        $this->mailService->sendForm(new SendForm($request->all()), $to ?? config('mail.from.address'));
+        $files = !empty($request->file) ? $request->file : null;
+
+        $fields = $request->except(['valid_from', 'form_id', 'file']);
+
+        Mail::to($to ?? config('mail.from.address'))->send(new SendForm($fields, $files));
 
         return response()->json([
             'errors' => false,

@@ -1,9 +1,9 @@
 <?php
 
-namespace Webid\Cms\Src\App\Repositories\Modules\Form;
+namespace Webid\Cms\App\Repositories\Modules\Form;
 
-use Webid\Cms\Src\App\Models\Modules\Form\Service;
-use Webid\Cms\Src\App\Repositories\BaseRepository;
+use Webid\Cms\App\Models\Modules\Form\Service;
+use Webid\Cms\App\Repositories\BaseRepository;
 
 class ServiceRepository extends BaseRepository
 {

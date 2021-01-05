@@ -1,15 +1,15 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Modules\Galleries;
+namespace Webid\Cms\App\Nova\Modules\Galleries;
 
-use Webid\Cms\Src\App\Services\GalleryService;
+use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Resource;
 use Webid\TranslatableTool\Translatable;
-use Webid\Cms\Src\App\Models\Modules\Galleries\Gallery as GalleryModel;
+use Webid\Cms\App\Models\Modules\Galleries\Gallery as GalleryModel;
 
 class Gallery extends Resource
 {
@@ -37,6 +37,16 @@ class Gallery extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Galleries');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param \Illuminate\Http\Request $request
@@ -48,28 +58,28 @@ class Gallery extends Resource
         return [
             ID::make()->sortable(),
 
-            Translatable::make('Title')
+            Translatable::make(__('Title'), 'title')
                 ->singleLine()
                 ->rules('required', 'array')
                 ->sortable(),
 
-            Select::make('Folder')
+            Select::make(__('Folder'), 'folder')
                 ->options($this->getFoldersGalleriesName())
                 ->rules('required')
                 ->hideFromIndex(),
 
-            Translatable::make('CTA name show more', 'cta_name')
+            Translatable::make(__('CTA name show more'), 'cta_name')
                 ->singleLine()
                 ->rules('required', 'array')
                 ->sortable(),
 
-            Select::make('Status', 'status')
+            Select::make(__('Status'), 'status')
                 ->options(GalleryModel::TYPE_TO_NAME)
                 ->displayUsingLabels()
                 ->rules('required', 'integer')
                 ->hideFromIndex(),
 
-            Boolean::make('Published', function () {
+            Boolean::make(__('Published'), function () {
                 return $this->isPublished();
             })->onlyOnIndex(),
         ];
@@ -80,10 +90,10 @@ class Gallery extends Resource
      */
     public function getFoldersGalleriesName()
     {
-        $galleriesFolder = app(GalleryService::class)->getGalleries();
+        $galleriesFolder = app(GalleryServiceContract::class)->getGalleries();
         $galleries = [];
 
-        if(empty($galleriesFolder)) {
+        if (empty($galleriesFolder)) {
             return [];
         }
 

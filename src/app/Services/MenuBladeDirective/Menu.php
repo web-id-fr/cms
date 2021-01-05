@@ -1,9 +1,9 @@
 <?php
 
-namespace Webid\Cms\Src\App\Services\MenuBladeDirective;
+namespace Webid\Cms\App\Services\MenuBladeDirective;
 
-use Webid\Cms\Src\App\Exceptions\Templates\MissingParameterException;
-use Webid\Cms\Src\App\Services\Traits\DirectiveHasOptions;
+use Webid\Cms\App\Exceptions\Templates\MissingParameterException;
+use Webid\Cms\App\Services\Traits\DirectiveHasOptions;
 use InvalidArgumentException;
 
 class Menu

@@ -1,11 +1,11 @@
 <?php
 
-namespace Webid\Cms\Src\App\Observers;
+namespace Webid\Cms\App\Observers;
 
 use App\Models\Template;
-use Webid\Cms\Src\App\Repositories\TemplateRepository;
+use Webid\Cms\App\Repositories\TemplateRepository;
 use Illuminate\Support\Str;
-use Webid\Cms\Src\App\Services\LanguageService;
+use Webid\Cms\App\Services\LanguageService;
 
 class TemplateObserver
 {
@@ -15,14 +15,16 @@ class TemplateObserver
      * @param Template $template
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return void
      */
-    public function saving(Template $template)
+    public function saving(Template $template): void
     {
         $repository = app()->make(TemplateRepository::class);
         $titles = $template->getTranslations('title');
         $slugArray = [];
         $slugCreationArray = [];
-        $originalSlug = json_decode($template->getOriginal('slug'), true) ?? [];
+        $originalSlug = $template->getOriginal('slug') ?? [];
         $value = $template->getTranslations('slug') ?? [];
         $slugUpdating = array_diff_assoc($value, $originalSlug);
         $count = 1;
@@ -57,9 +59,9 @@ class TemplateObserver
         foreach ($CheckSlugs as $language => $slug) {
             if ($slug) {
                 try {
-                    $repository->getBySlug($language, $slug);
+                    $repository->getBySlug($slug, $language);
 
-                    $slugExisting = $repository->getLastCorrespondingSlugWithNumber($language, $slug);
+                    $slugExisting = $repository->getLastCorrespondingSlugWithNumber($slug, $language);
                     if ($slugExisting) {
                         foreach (json_decode($slugExisting->attributes['slug'], true) as $temp_language => $temp_slug) {
                             if ($language == $temp_language) {

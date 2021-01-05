@@ -9,12 +9,16 @@ class Authorize
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
      * @return \Illuminate\Http\Response
      */
     public function handle($request, $next)
     {
-        return resolve(LanguageTool::class)->authorize($request) ? $next($request) : abort(403);
+        if (!resolve(LanguageTool::class)->authorize($request)) {
+            abort(403);
+        }
+
+        return $next($request);
     }
 }

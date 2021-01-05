@@ -7,11 +7,13 @@ $(document).ready(function () {
         let email = $(this).find('input[type="email"]').val();
         let feedback_newsletter = $(this).find('.feedback_newsletter');
         let lang = $('html').attr('lang');
-        axiosPost(lang + '/ajax/newsletter', {
+        let protocol = window.location.protocol;
+        let hostname = window.location.hostname;
+        axiosPost( protocol + '//' + hostname + '/' + lang + '/ajax/newsletter', {
             'email': email
         }).then(function (response) {
             let message = response.data;
-            $(this).trigger('reset');
+            $("form").trigger('reset');
             feedback_newsletter.removeClass('error');
             feedback_newsletter.addClass('success');
             feedback_newsletter.text(message.message);

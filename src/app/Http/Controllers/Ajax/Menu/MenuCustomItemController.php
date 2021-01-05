@@ -1,13 +1,13 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Controllers\Ajax\Menu;
+namespace Webid\Cms\App\Http\Controllers\Ajax\Menu;
 
-use App\Http\Controllers\Controller;
-use Webid\Cms\Src\App\Repositories\Menu\MenuCustomItemRepository;
+use Webid\Cms\App\Http\Controllers\BaseController;
+use Webid\Cms\App\Repositories\Menu\MenuCustomItemRepository;
 use Illuminate\Http\Request;
-use Webid\Cms\Src\App\Http\Resources\Menu\MenuCustomItem as MenuCustomItemResource;
+use Webid\Cms\App\Http\Resources\Menu\MenuCustomItemResource;
 
-class MenuCustomItemController extends Controller
+class MenuCustomItemController extends BaseController
 {
     /** @var MenuCustomItemRepository  */
     protected $menuCustomItemRepository;
@@ -27,10 +27,6 @@ class MenuCustomItemController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json(MenuCustomItemResource::collection($this->menuCustomItemRepository->getPaginateAndFilter(!!$request->page, [
-            'search' => $request->search,
-            'notIn' => $request->notIn,
-            'in' => $request->in
-        ])));
+        return response()->json(MenuCustomItemResource::collection($this->menuCustomItemRepository->all()));
     }
 }

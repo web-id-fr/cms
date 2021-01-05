@@ -1,14 +1,14 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Controllers\Ajax\Menu;
+namespace Webid\Cms\App\Http\Controllers\Ajax\Menu;
 
-use App\Http\Controllers\Controller;
-use Webid\Cms\Src\App\Repositories\Menu\MenuCustomItemRepository;
-use Webid\Cms\Src\App\Repositories\TemplateRepository;
+use Webid\Cms\App\Http\Controllers\BaseController;
+use Webid\Cms\App\Repositories\Menu\MenuCustomItemRepository;
+use Webid\Cms\App\Repositories\TemplateRepository;
 use Illuminate\Http\Request;
-use Webid\Cms\Src\App\Http\Resources\Menu\MenuItem as MenuItemResource;
+use Webid\Cms\App\Http\Resources\Menu\MenuItemResource;
 
-class MenuItemController extends Controller
+class MenuItemController extends BaseController
 {
     /** @var MenuCustomItemRepository  */
     protected $menuCustomItemRepository;
@@ -35,7 +35,7 @@ class MenuItemController extends Controller
      */
     public function index(Request $request)
     {
-        $allCustomItem = $this->menuCustomItemRepository->getPaginateAndFilter();
+        $allCustomItem = $this->menuCustomItemRepository->all();
         $allPage = $this->templateRepository->getPublishedTemplates();
         $allItem = $allCustomItem->merge($allPage);
 

@@ -3,17 +3,19 @@
 namespace Webid\ComponentItemField;
 
 use App\Models\Template;
+use Illuminate\Support\Collection;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Webid\Cms\Src\App\Models\Components\GalleryComponent;
-use Webid\Cms\Src\App\Models\Components\NewsletterComponent;
-use Webid\Cms\Src\App\Repositories\Components\GalleryComponentRepository;
-use Webid\Cms\Src\App\Repositories\Components\NewsletterComponentRepository;
+use Webid\Cms\App\Models\Components\GalleryComponent;
+use Webid\Cms\App\Models\Components\NewsletterComponent;
+use Webid\Cms\App\Repositories\Components\GalleryComponentRepository;
+use Webid\Cms\App\Repositories\Components\NewsletterComponentRepository;
 
 class ComponentItemField extends Field
 {
     /** @var $galleryComponentRepository  */
     protected $galleryComponentRepository;
+
     /** @var $newsletterComponentRepository  */
     protected $newsletterComponentRepository;
 
@@ -56,7 +58,7 @@ class ComponentItemField extends Field
      *
      * @return mixed
      */
-    protected function mapItems($items, $model)
+    protected function mapItems($items, string $model)
     {
         return $items->each(function ($item) use ($model) {
             $item->component_type = $model;
@@ -68,12 +70,12 @@ class ComponentItemField extends Field
 
     /**
      * @param $publishComponent
-     * @param $model
+     * @param string $model
      * @param $allComponents
      *
-     * @return mixed
+     * @return Collection
      */
-    protected function loadComponents($publishComponent, $model, $allComponents)
+    protected function loadComponents($publishComponent, string $model, Collection $allComponents)
     {
         $allPublishComponents = $this->mapItems($publishComponent, $model);
         $allPublishComponents->each(function ($component) use (&$allComponents) {
@@ -88,6 +90,8 @@ class ComponentItemField extends Field
      * @param $requestAttribute
      * @param $model
      * @param $attribute
+     *
+     * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {

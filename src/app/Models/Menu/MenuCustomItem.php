@@ -1,9 +1,10 @@
 <?php
 
-namespace Webid\Cms\Src\App\Models\Menu;
+namespace Webid\Cms\App\Models\Menu;
 
 use Illuminate\Database\Eloquent\Model;
 use \Spatie\Translatable\HasTranslations;
+use Webid\Cms\App\Models\Modules\Form\Form;
 
 class MenuCustomItem extends Model
 {
@@ -11,10 +12,17 @@ class MenuCustomItem extends Model
 
     const _STATUS_SELF = '_SELF';
     const _STATUS_BLANK = '_BLANK';
+    const _LINK_URL = 1;
+    const _LINK_FORM = 2;
 
     const STATUS_TYPE= [
         self::_STATUS_SELF => 'Same window',
         self::_STATUS_BLANK => 'New window',
+    ];
+
+    const TYPE_TO_LINK = [
+        self::_LINK_URL => "Link url",
+        self::_LINK_FORM => "Link form"
     ];
 
     /** @var string  */
@@ -27,7 +35,7 @@ class MenuCustomItem extends Model
      */
     public $translatable = [
         'title',
-        'url'
+        'url',
     ];
 
     /**
@@ -39,7 +47,17 @@ class MenuCustomItem extends Model
         'title',
         'url',
         'target',
+        'type_link',
+        'form_id',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function form()
+    {
+        return $this->belongsTo(Form::class);
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany

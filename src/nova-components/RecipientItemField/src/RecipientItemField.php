@@ -2,9 +2,9 @@
 
 namespace Webid\RecipientItemField;
 
-use Webid\Cms\Src\App\Models\Modules\Form\Form;
-use Webid\Cms\Src\App\Models\Modules\Form\Service;
-use Webid\Cms\Src\App\Repositories\Modules\Form\RecipientRepository;
+use Webid\Cms\App\Models\Modules\Form\Form;
+use Webid\Cms\App\Models\Modules\Form\Service;
+use Webid\Cms\App\Repositories\Modules\Form\RecipientRepository;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -48,6 +48,8 @@ class RecipientItemField extends Field
      * @param $requestAttribute
      * @param $model
      * @param $attribute
+     *
+     * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
@@ -60,7 +62,7 @@ class RecipientItemField extends Field
             $recipientItemIds[] = $recipientItem['id'];
         });
 
-        if(get_class($model) == Form::class) {
+        if (get_class($model) == Form::class) {
             Form::saved(function ($model) use ($recipientItemIds) {
                 $model->recipients()->sync($recipientItemIds);
             });
@@ -78,10 +80,10 @@ class RecipientItemField extends Field
     public function resolve($resource, $attribute = null)
     {
         parent::resolve($resource, $attribute);
-        $resource->chargeRecipientItems();
+        $resource->recipients();
 
         $valueInArray = [];
-        $resource->recipient_items->each(function ($item) use (&$valueInArray) {
+        $resource->recipients->each(function ($item) use (&$valueInArray) {
             $valueInArray[] = $item;
         });
 

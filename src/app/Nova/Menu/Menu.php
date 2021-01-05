@@ -1,13 +1,13 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Menu;
+namespace Webid\Cms\App\Nova\Menu;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource;
 use Webid\MenuItemField\MenuItemField;
-use Webid\Cms\Src\App\Models\Menu\Menu as MenuModel;
+use Webid\Cms\App\Models\Menu\Menu as MenuModel;
 
 class Menu extends Resource
 {
@@ -35,6 +35,16 @@ class Menu extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Menus');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param \Illuminate\Http\Request $request
@@ -46,10 +56,10 @@ class Menu extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('title')
+            Text::make(__('Title'), 'title')
                 ->rules('required'),
 
-            MenuItemField::make('Menu', 'menu_item')
+            MenuItemField::make(__('Menu'), 'menu_item')
                 ->onlyOnForms(),
         ];
     }

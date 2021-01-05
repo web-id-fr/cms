@@ -1,12 +1,16 @@
 <?php
 
-namespace Webid\Cms\Src\App\Models\Components;
+namespace Webid\Cms\App\Models\Components;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Webid\Cms\Src\App\Models\Modules\Galleries\Gallery;
+use Illuminate\Support\Collection;
+use Webid\Cms\App\Models\Modules\Galleries\Gallery;
 
 class GalleryComponent extends Model
 {
+    use HasFactory;
+
     const _STATUS_PUBLISHED = 1;
     const _STATUS_DRAFT = 2;
 
@@ -32,6 +36,9 @@ class GalleryComponent extends Model
         'status',
     ];
 
+    /** @var Collection */
+    public $gallery_items;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -40,10 +47,7 @@ class GalleryComponent extends Model
         return $this->belongsToMany(Gallery::class);
     }
 
-    /** @var $recipient_items */
-    public $gallery_items;
-
-    public function chargeGalleryItems()
+    public function chargeGalleryItems(): void
     {
         $galleryItems = collect();
         $galleries = $this->galleries;

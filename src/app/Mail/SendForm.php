@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Mail;
+namespace Webid\Cms\App\Mail;
 
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -12,14 +12,18 @@ class SendForm extends Mailable
     //stock les données qui seront affichées sur le mail
     protected $mailData;
 
+    /** @var $files */
+    protected $files;
+
     /**
      * Create a new message instance
      *
      * @param array $mailData
      */
-    public function __construct(array $mailData)
+    public function __construct(array $mailData, $files)
     {
         $this->mailData = $mailData;
+        $this->files = $files;
     }
 
     /**
@@ -37,9 +41,8 @@ class SendForm extends Mailable
                 "mail" => $this->mailData,
             ])->subject('Demande de contact');
 
-
-        if (isset($this->mailData['file'])) {
-            foreach ($this->mailData['file'] as $file) {
+        if (isset($this->files)) {
+            foreach ($this->files as $file) {
                 $message->attach($file, [
                     'as' => $file->getClientOriginalName()
                 ]);

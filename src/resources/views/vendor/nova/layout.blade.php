@@ -48,7 +48,7 @@
         <div class="content">
             <div class="flex items-center relative shadow h-header bg-white z-20 px-view">
                 <a v-if="@json(\Laravel\Nova\Nova::name() !== null)" href="{{ \Illuminate\Support\Facades\Config::get('nova.url') }}" class="no-underline dim font-bold text-90 mr-6">
-                    {{ env('APP_NAME') }} BO
+                    {{ __('Show site') }}
                 </a>
 
                 @if (count(\Laravel\Nova\Nova::globallySearchableResources(request())) > 0)
@@ -62,8 +62,6 @@
 
             <div data-testid="content" class="px-view py-view mx-auto">
                 @yield('content')
-
-                @include('nova::partials.footer')
             </div>
         </div>
     </div>

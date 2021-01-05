@@ -17,7 +17,6 @@
                 @foreach(data_get($form, 'fields') as $field)
                     @component("forms.fields." . data_get($field, 'field_type') , [
                         'field' => $field,
-                        'lang' => $lang
                     ])
                     @endcomponent
                 @endforeach
