@@ -3,8 +3,10 @@
 namespace Webid\Cms;
 
 use App\Models\Template as TemplateModel;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\UrlGenerator;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -13,6 +15,7 @@ use Laravel\Nova\Nova;
 use Spatie\Honeypot\ProtectAgainstSpam;
 use Spatie\Varnish\Middleware\CacheWithVarnish;
 use Webid\Cms\App\Http\Middleware\CheckLanguageExist;
+use Webid\Cms\App\Http\Middleware\IsAjax;
 use Webid\Cms\App\Http\Middleware\Language;
 use Webid\Cms\App\Nova\Components\GalleryComponent;
 use Webid\Cms\App\Nova\Components\NewsletterComponent;
@@ -211,6 +214,12 @@ class CmsServiceProvider extends ServiceProvider
         $router->aliasMiddleware('language', Language::class);
         $router->aliasMiddleware('check-language-exist', CheckLanguageExist::class);
         $router->aliasMiddleware('cacheable', CacheWithVarnish::class);
+        $router->aliasMiddleware('is-ajax', IsAjax::class);
+        $router->middlewareGroup('ajax', [
+            StartSession::class,
+            'is-ajax',
+            VerifyCsrfToken::class
+        ]);
 
         // Create middleware groups
         $router->middlewareGroup('pages', []);

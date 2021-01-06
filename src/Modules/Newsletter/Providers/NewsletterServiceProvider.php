@@ -2,12 +2,8 @@
 
 namespace Webid\Cms\Modules\Newsletter\Providers;
 
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use Illuminate\Routing\Router;
-use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
-use Webid\Cms\App\Http\Middleware\IsAjax;
 use Webid\Cms\App\Services\DynamicResource;
 use Webid\Cms\Modules\Newsletter\Nova\Newsletter;
 
@@ -19,20 +15,8 @@ class NewsletterServiceProvider extends ServiceProvider
     /** @var string  */
     protected $moduleNameLower = 'newsletter';
 
-    /**
-     * @param Router $router
-     *
-     * @return void
-     */
-    public function boot(Router $router): void
+    public function boot(): void
     {
-        $router->aliasMiddleware('is-ajax', IsAjax::class);
-        $router->middlewareGroup('ajax', [
-            StartSession::class,
-            IsAjax::class,
-            VerifyCsrfToken::class
-        ]);
-
         $this->publishViews();
         $this->publishJs();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
@@ -44,23 +28,17 @@ class NewsletterServiceProvider extends ServiceProvider
         });
 
         DynamicResource::pushTopLevelResource([
-            'label' => __('Newslettter'),
+            'label' => __('Newsletter'),
             'badge' => null,
             'linkTo' => Newsletter::class,
         ]);
     }
 
-    /**
-     * @return void
-     */
     public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
     }
 
-    /*
-     * @return void
-     */
     protected function publishViews(): void
     {
         $viewPath = resource_path('views/components');
@@ -74,13 +52,10 @@ class NewsletterServiceProvider extends ServiceProvider
         ]);
     }
 
-    /*
-    * @return void
-    */
     protected function publishJs(): void
     {
         $viewPath = public_path('cms/js');
-        $sourcePath = module_path($this->moduleName, 'dist/js');
+        $sourcePath = module_path($this->moduleName, 'Resources/dist/js');
 
         $this->publishes([
             $sourcePath => $viewPath
