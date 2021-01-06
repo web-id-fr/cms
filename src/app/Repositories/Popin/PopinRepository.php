@@ -1,9 +1,9 @@
 <?php
 
-namespace Webid\Cms\Src\App\Repositories\Popin;
+namespace Webid\Cms\App\Repositories\Popin;
 
-use Webid\Cms\Src\App\Models\Popin\Popin;
-use Webid\Cms\Src\App\Repositories\BaseRepository;
+use Webid\Cms\App\Models\Popin\Popin;
+use Webid\Cms\App\Repositories\BaseRepository;
 
 class PopinRepository extends BaseRepository
 {

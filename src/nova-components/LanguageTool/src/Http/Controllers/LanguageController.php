@@ -2,12 +2,12 @@
 
 namespace Webid\LanguageTool\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Webid\Cms\App\Http\Controllers\BaseController;
 use Webid\LanguageTool\Http\Requests\CreateLanguageRequest;
 use Webid\LanguageTool\Models\Language;
 use Webid\LanguageTool\Repositories\LanguageRepository;
 
-class LanguageController extends Controller
+class LanguageController extends BaseController
 {
     /**
      * @var LanguageRepository

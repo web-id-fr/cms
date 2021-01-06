@@ -1,9 +1,9 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Resources\Modules\Form;
+namespace Webid\Cms\App\Http\Resources\Modules\Form;
 
-use Webid\Cms\Src\App\Models\Modules\Form\TitleField;
-use Webid\Cms\Src\App\Models\Modules\Form\Field as FieldModel;
+use Webid\Cms\App\Models\Modules\Form\TitleField;
+use Webid\Cms\App\Models\Modules\Form\Field as FieldModel;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class FieldResource extends JsonResource

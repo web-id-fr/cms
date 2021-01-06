@@ -1,16 +1,16 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Controllers\Modules\Ajax\Form;
+namespace Webid\Cms\App\Http\Controllers\Modules\Ajax\Form;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
-use Webid\Cms\Src\App\Http\Requests\FormRequest;
+use Webid\Cms\App\Http\Controllers\BaseController;
+use Webid\Cms\App\Http\Requests\FormRequest;
+use Webid\Cms\App\Mail\SendForm;
+use Webid\Cms\App\Repositories\Modules\Form\FormRepository;
+use Webid\Cms\App\Repositories\Modules\Form\ServiceRepository;
 use Webid\Cms\Src\App\Mail\SendConfirmationContact;
-use Webid\Cms\Src\App\Mail\SendForm;
-use Webid\Cms\Src\App\Repositories\Modules\Form\FormRepository;
-use Webid\Cms\Src\App\Repositories\Modules\Form\ServiceRepository;
 
-class FormController extends Controller
+class FormController extends BaseController
 {
     /** @var ServiceRepository */
     protected $serviceRepository;
@@ -22,10 +22,7 @@ class FormController extends Controller
      * @param ServiceRepository $serviceRepository
      * @param FormRepository $formRepository
      */
-    public function __construct(
-        ServiceRepository $serviceRepository,
-        FormRepository $formRepository
-    )
+    public function __construct(ServiceRepository $serviceRepository, FormRepository $formRepository)
     {
         $this->serviceRepository = $serviceRepository;
         $this->formRepository = $formRepository;

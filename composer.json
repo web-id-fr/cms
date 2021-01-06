@@ -9,29 +9,35 @@
         }
     ],
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
-        "php": ">=7.1.0",
-        "laravel/framework": "^7.0",
+        "php": "^7.3|^8.0",
+        "laravel/framework": "^8.12",
         "laravel/nova": "~2.0|~3.0",
-        "spatie/laravel-honeypot": "^1.4",
         "whitecube/nova-flexible-content": "^0.1.15",
         "spatie/laravel-translatable": "^4.2",
         "infinety-es/nova-filemanager": "^2.6",
         "idf/nova-html-card": "^1.2",
         "digital-creative/collapsible-resource-manager": "^1.2",
-        "digital-creative/conditional-container": "1.1.5",
+        "digital-creative/conditional-container": "^1.2",
         "eminiarts/nova-tabs": "^1.2",
         "epartment/nova-dependency-container": "^1.2",
         "maatwebsite/laravel-nova-excel": "^1.1",
         "tightenco/ziggy": "^0.9.3",
         "spatie/laravel-varnish": "^2.8",
-        "optimistdigital/nova-multiselect-field": "dev-master"
+        "optimistdigital/nova-multiselect-field": "^2.0",
+        "spatie/laravel-honeypot": "^2.3",
+        "ext-json": "*",
+        "spatie/laravel-sitemap": "^5.8",
+        "nwidart/laravel-modules": "^8.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5",
-        "sensiolabs/security-checker": "^6.0@dev",
-        "squizlabs/php_codesniffer": "*",
-        "vimeo/psalm": "^3.9"
+        "sensiolabs/security-checker": "^6.0",
+        "squizlabs/php_codesniffer": "^3.5",
+        "vimeo/psalm": "^3.9",
+        "orchestra/testbench": "^6.0",
+        "dillingham/nova-assertions": "^1.2"
     },
     "autoload": {
         "psr-4": {
@@ -45,7 +51,8 @@
             "Webid\\TranslatableTool\\" : "src/nova-components/TranslatableTool/src/",
             "Webid\\MenuTool\\" : "src/nova-components/MenuTool/src/",
             "Webid\\MenuItemField\\" : "src/nova-components/MenuItemField/src/",
-            "Webid\\CardActions\\" : "src/nova-components/CardActions/src/"
+            "Webid\\CardActions\\" : "src/nova-components/CardActions/src/",
+            "Webid\\PageUrlItemField\\" : "src/nova-components/PageUrlItemField/src/"
         },
         "files": [
             "src/app/helpers.php"
@@ -53,7 +60,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Webid\\Cms\\Tests\\": "tests/"
+            "Webid\\Cms\\Tests\\": "tests/",
+            "Webid\\ComponentTool\\" : "src/nova-components/ComponentTool/src/",
+            "App\\": "src/app/"
         }
     },
     "extra": {
@@ -69,7 +78,10 @@
                 "Webid\\TranslatableTool\\FieldServiceProvider",
                 "Webid\\MenuTool\\ToolServiceProvider",
                 "Webid\\MenuItemField\\FieldServiceProvider",
-                "Webid\\CardActions\\CardServiceProvider"
+                "Webid\\CardActions\\CardServiceProvider",
+                "Webid\\PageUrlItemField\\FieldServiceProvider",
+                "Nwidart\\Modules\\LaravelModulesServiceProvider",
+                "Laravel\\Nova\\NovaServiceProvider"
             ]
         }
     },

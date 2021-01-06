@@ -1,13 +1,13 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Modules\Form;
+namespace Webid\Cms\App\Nova\Modules\Form;
 
-use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Resource;
 use Webid\RecipientItemField\RecipientItemField;
 use Webid\TranslatableTool\Translatable;
-use Webid\Cms\Src\App\Models\Modules\Form\Service as ServiceModel;
+use Webid\Cms\App\Models\Modules\Form\Service as ServiceModel;
 
 class Service extends Resource
 {
@@ -35,6 +35,16 @@ class Service extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Services');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -45,11 +55,11 @@ class Service extends Resource
         return [
             ID::make()->sortable(),
 
-            Translatable::make('Name')
+            Translatable::make(__('Name'), "name")
                 ->singleLine()
                 ->rules('array'),
 
-            RecipientItemField::make('Recipients')
+            RecipientItemField::make(__('Recipients'), 'recipients')
                 ->onlyOnForms(),
         ];
     }

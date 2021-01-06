@@ -1,8 +1,7 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Modules\Form;
+namespace Webid\Cms\App\Nova\Modules\Form;
 
-use App\Nova\Resource;
 use Epartment\NovaDependencyContainer\HasDependencies;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
@@ -10,11 +9,12 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Resource;
 use Webid\FieldItemField\FieldItemField;
 use Webid\RecipientItemField\RecipientItemField;
 use Webid\ServiceItemField\ServiceItemField;
 use Webid\TranslatableTool\Translatable;
-use Webid\Cms\Src\App\Models\Modules\Form\Form as FormModel;
+use Webid\Cms\App\Models\Modules\Form\Form as FormModel;
 
 class Form extends Resource
 {
@@ -44,6 +44,16 @@ class Form extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Forms');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -54,58 +64,58 @@ class Form extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')
+            Text::make(__('Name'), 'name')
                 ->rules('required'),
 
-            Translatable::make('Title')
+            Translatable::make(__('Title'), 'title')
                 ->singleLine()
                 ->rules('required'),
 
-            Translatable::make('Description')
+            Translatable::make(__('Description'), 'description')
                 ->trix()
                 ->rules('array')
                 ->hideFromIndex()
                 ->asHtml(),
 
-            FieldItemField::make('Fields')
+            FieldItemField::make(__('Fields'), 'fields')
                 ->hideFromIndex(),
 
-            Translatable::make('CTA name')
+            Translatable::make(__('CTA name'), 'cta_name')
                 ->singleLine()
                 ->rules('array', 'required')
                 ->hideFromIndex(),
 
-            Translatable::make('RGPD mention')
+            Translatable::make(__('RGPD mention'), 'rgpd_mention')
                 ->trix()
                 ->rules('array')
                 ->hideFromIndex()
                 ->asHtml(),
 
-            Select::make('Recipient type')
+            Select::make(__('Recipient type'), 'recipient_type')
                 ->options(FormModel::TYPE_TO_SERVICE)
                 ->rules('required')
                 ->onlyOnForms(),
 
             NovaDependencyContainer::make([
-                RecipientItemField::make('Recipients')
+                RecipientItemField::make(__('Recipients'), 'recipients')
                     ->hideFromIndex(),
             ])->dependsOn('recipient_type', formModel::_RECIPIENTS),
 
             NovaDependencyContainer::make([
-                Translatable::make('Title service')
+                Translatable::make(__('Title service'), 'title_service')
                     ->singleLine(),
 
-                ServiceItemField::make('Services')
+                ServiceItemField::make(__('Services'), 'services')
                     ->hideFromIndex(),
             ])->dependsOn('recipient_type', FormModel::_SERVICES),
 
-            Select::make('Status', 'status')
+            Select::make(__('Status'), 'status')
                 ->options(FormModel::TYPE_TO_NAME)
                 ->displayUsingLabels()
                 ->rules('integer', 'required')
                 ->hideFromIndex(),
 
-            Boolean::make('Published', function () {
+            Boolean::make(__('Published'), function () {
                 return $this->isPublished();
             })->onlyOnIndex(),
         ];

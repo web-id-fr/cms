@@ -1,11 +1,11 @@
 <?php
 
-namespace Webid\Cms\Src\App\Classes;
+namespace Webid\Cms\App\Classes;
 
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-Class VarnishCustom
+class VarnishCustom
 {
     /**
      * @param string|array $host
@@ -55,7 +55,16 @@ Class VarnishCustom
         $config = config('varnish');
         $requestHost = "req.http.host ~ $hostsString";
 
-        return ['sudo', 'varnishadm', '-S', $config['administrative_secret'], '-T', '127.0.0.1:' . $config['administrative_port'], 'ban', $requestHost];
+        return [
+            'sudo',
+            'varnishadm',
+            '-S',
+            $config['administrative_secret'],
+            '-T',
+            '127.0.0.1:' . $config['administrative_port'],
+            'ban',
+            $requestHost
+        ];
     }
 
     /**

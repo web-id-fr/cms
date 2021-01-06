@@ -17,12 +17,12 @@ install_db:
 # TESTS
 testing:
 	- ./vendor/bin/security-checker security:check
-	- ./vendor/bin/phpcs --report=summary
+	- ./vendor/bin/phpcs --report=full
 	- ./vendor/bin/psalm
 
 # lance un Code Sniffer
 cssee:
-	./vendor/bin/phpcs
+	./vendor/bin/phpcs --report=full
 
 # Fixe les errors + warnings du Code Sniffer
 csfix:

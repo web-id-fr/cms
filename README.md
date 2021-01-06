@@ -1,82 +1,120 @@
-#CMS^ID
-<p align="center">
-<a href="blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square"></a>
-</p>
+# CMS^ID
 
+![](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
+## Table of contents
+* [Installation](#installation)
+  1. [Install the package](#install-the-package)
+  2. [Publish files](#publish-files)
+  3. [Install databases](#install-databases)
+  4. [Add nova-components in composer](#add-nova-components) 
+  5. [Configure sitemap.xml](#configure-sitemap)
+* [Customization](#customization)
+  1. [Use cookies.js](#use-cookies-js)
+  2. [Use form & popin form](#use-form-popin)
+  3. [Language for front](#language-front)
+  4. [Update email template](#update-mail-template)
+  5. [Add images for components](#add-image-components)
+* [Extending functionalities](#extending-cms)
+  1. [Create a new component](#create-new-component)
+
+---
+
+<a id="installation"></a>
 ## Installation
+<a id="install-the-package"></a>
+### 1. Install the package
 
 This package can be installed as a [Composer](https://getcomposer.org/) dependency.
 
 ```bash
 "repositories": [
-        {
-            "type": "vcs",
-            "url" : "git@bitbucket.org:web-id/test.git"
-        }
-    ]
+    {
+        "type": "vcs",
+        "url" : "git@github.com:web-id-fr/cms.git"
+    }
+]
 ```
 
 ```bash
 composer require webid/cms
 ```
 
-## Publish vendor
-####First install
+<a id="publish-files"></a>
+
+### 2. Publish files
+#### Case 1 : First install
 ```bash
 php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider" --force
 ```
-####Second install
+#### Case 2 : Second install (or after)
 ```bash
 php artisan vendor:publish --provider="Webid\Cms\CmsServiceProvider"
 ```
-## Install migration
+
+<a id="install-databases"></a>
+### 3. Install databases
 
 ```bash
-php artisan migrate
+make install_db
 ```
-## Update `config/cms`
-###### Update `template_model` with `App/Models/Template::class` in `config/cms.php`
 
-## Add nova-components in composer 
+<a id="add-nova-components"></a>
+### 4. Add nova-components in composer 
 
 ```bash
 "extra": {
-        "laravel": {
-            "dont-discover": [],
-            "providers": [
-                "Webid\\ComponentTool\\ToolServiceProvider"
-            ]
-        }
+    "laravel": {
+        "dont-discover": [],
+        "providers": [
+            "Webid\\ComponentTool\\ToolServiceProvider"
+        ]
     }
+}
 ```  
 ```bash
 "autoload": {
-        "psr-4": {
-            "Webid\\ComponentTool\\" : "nova-components/ComponentTool/src/"
-        },
+    "psr-4": {
+        "Webid\\ComponentTool\\" : "nova-components/ComponentTool/src/"
     },
+},
 ```  
 ```bash
-    "require": {
-        "webid/ComponentItemField": "*",
-    },
-    
-    "repositories": [
-            {
-                "type": "path",
-                "url": "./nova-components/ComponentItemField"
-            }
-        ]
+"require": {
+    "webid/ComponentItemField": "*",
+},
+
+"repositories": [
+    {
+        "type": "path",
+        "url": "./nova-components/ComponentItemField"
+    }
+]
 ```
-##![#f03c15](https://placehold.it/15/f03c15/000000?text=+) :warning: :warning: Do not delete existing code in nova-components !!!  :warning: :warning: ![#f03c15](https://placehold.it/15/f03c15/000000?text=+)
 
-   
-## Use cookies.js
-###### To use the cookies popin, just fill the ``resuorces/views/warning_cookies.blade.php`` view, include it in ``resources/views/templae.blade.php`` with the js ``public/cms/js/cookies.js``
+<a id="configure-sitemap"></a>
+### 5. Configure sitemap.xml
 
-## Use form & popin form
-###js
+If you want to allow robots to access your sitemap, add this line in the `robots.txt` file :
+```
+Sitemap: https://www.your-domain.com/sitemap.xml
+```
+⚠ Replace `www.your-domain.com` by your actual website domain.
+
+## ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) ⚠ ⚠ Do not delete existing code in nova-components !!!  ⚠ ⚠ ![#f03c15](https://placehold.it/15/f03c15/000000?text=+)
+
+---
+
+<a id="customization"></a>
+## Customization
+
+<a id="use-cookies-js"></a>
+### Use cookies.js
+###### To use the cookies popin, just fill the ``resuorces/views/warning_cookies.blade.php`` view, include it in ``resources/views/template.blade.php`` with the js ``public/cms/js/cookies.js``
+
+<a id="use-form-popin"></a>
+### Use form & popin form
+#### js
 do not modify the files `send_form.js` and `send_form_popin.js` !
 Edit the`helper.js` file with the form front information to display errors and the success message.
 Added to `package.json` :
@@ -85,24 +123,33 @@ Added to `package.json` :
 "lang.js": "^1.1.14"
 ```
 And add in the `webpack.mix` file the `send_form_js` and `send_form_popin_js` files. The files are already linked in the front.
-###front-end
+#### front-end
 You can change the form frontend but DO NOT TOUCH the `submit_form` class for sending forms.
 
-## Language for front
+<a id="language-front"></a>
+### Language for front
 Don't forget to create a service to display the languages as you need them.
 Use this service into a ViewServiceProvider to share both languages and translated slugs to views.
 
-## Template email in `resources/views/mail/form.blade.php`
+<a id="update-mail-template"></a>
+### Update email template
+#### Template email in `resources/views/mail/form.blade.php`
 You can change the design of the mail template but do not delete or modify the existing code! The present code allows you to display the fields of the form sent in the email.
 
-## Add image for components
+<a id="add-image-components"></a>
+### Add images for components
 
 ```bash
 public/cms/images/components/gallery_component.png
 public/cms/images/components/newsletter_component.png
 ```
 
-# For create a new components
+---
+
+<a id="extending-cms"></a>
+## Extending functionalities
+<a id="create-new-component"></a>
+### Create a new component
 ##### 1. create Models, migration, repositories, Nova, Resource for the new component (register all elements in a Components folder)
 ##### 2. update `config\component.php` with the information of the new component and add the image of the component in `public/components/`
 ##### 3. update `App\Models\Template` with the information of the new component

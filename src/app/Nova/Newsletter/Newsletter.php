@@ -1,13 +1,13 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Newsletter;
+namespace Webid\Cms\App\Nova\Newsletter;
 
-use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Resource;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
-use Webid\Cms\Src\App\Models\Newsletter\Newsletter as NewletterModel;
+use Webid\Cms\App\Models\Newsletter\Newsletter as NewletterModel;
 
 class Newsletter extends Resource
 {
@@ -35,6 +35,16 @@ class Newsletter extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Newsletters');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -43,14 +53,14 @@ class Newsletter extends Resource
     public function fields(Request $request)
     {
         return [
-            Text::make('Email')
+            Text::make(__('Email'), 'email')
                 ->sortable()
                 ->rules('required', 'unique:newsletters,email,{{resourceId}}', 'email'),
 
-            DateTime::make('Created At')
+            DateTime::make(__('Created At'), 'created_at')
                 ->rules('required'),
 
-            Text::make('Language', 'lang')
+            Text::make(__('Language'), 'lang')
                 ->rules('required'),
         ];
     }

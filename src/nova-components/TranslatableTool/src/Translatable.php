@@ -74,32 +74,40 @@ class Translatable extends Field
 
     /**
      * Set the input field to a single line text field.
+     *
+     * @return self
      */
-    public function singleLine()
+    public function singleLine(): self
     {
         return $this->withMeta(['singleLine' => true]);
     }
 
     /**
      * Use Trix Editor.
+     *
+     * @return self
      */
-    public function trix()
+    public function trix(): self
     {
         return $this->withMeta(['trix' => true]);
     }
 
     /**
      * Display the field as raw HTML.
+     *
+     * @return self
      */
-    public function asHtml()
+    public function asHtml(): self
     {
         return $this->withMeta(['asHtml' => true]);
     }
 
     /**
      * Truncate on Detail Page.
+     *
+     * @return self
      */
-    public function truncate()
+    public function truncate(): self
     {
         return $this->withMeta(['truncate' => true]);
     }

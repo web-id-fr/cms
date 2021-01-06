@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,36 +11,48 @@
 |
 */
 
-Route::group(['middleware' => 'cacheable'], function() {
+use Illuminate\Support\Facades\Route;
+use Webid\Cms\App\Http\Controllers\CsrfController;
+use Webid\Cms\App\Http\Controllers\Modules\Ajax\Form\FormController;
+use Webid\Cms\App\Http\Controllers\SitemapController;
+use Webid\Cms\App\Http\Controllers\TemplateController;
+
+Route::group(['middleware' => 'cacheable'], function () {
     // Redirect homepage without lang
-    Route::get('/', 'Webid\Cms\Src\App\Http\Controllers\TemplateController@rootPage');
+    Route::get('/', [TemplateController::class, 'rootPage']);
 
     Route::group([
-        'namespace' => 'Webid\Cms\Src\App\Http\Controllers',
         'prefix' => '{lang}',
-        'middleware' => ['web', 'language', 'check-language-exist'],
+        'middleware' => ['web', 'pages', 'language', 'check-language-exist'],
     ], function () {
         // Homepage
-        Route::get('/', 'TemplateController@index')->name('home');
+        Route::get('/', [TemplateController::class, 'index'])->name('home');
 
         // Laisser cette règle en dernier, elle risque "d'attraper" toutes les routes !
-        Route::get('{slug}', 'TemplateController@show')->where([
+        Route::get('{slug}', [TemplateController::class, 'show'])->where([
             'slug' => '(?!' . trim(config('nova.path'), '/') . '|ajax|api)(.+)',
         ])->name('pageFromSlug');
     });
 });
 
 Route::group([
-    'namespace' => 'Webid\Cms\Src\App\Http\Controllers',
-    'middleware' => ['web']
+    'middleware' => ['web'],
 ], function () {
-    Route::get('/csrf', 'CsrfController');
+    Route::get('/csrf', [CsrfController::class, 'index'])->name('csrf.index');
 });
 
 Route::group([
     'prefix' => '{lang}/form',
-    'namespace' => 'Webid\Cms\Src\App\Http\Controllers\Modules\Ajax\Form',
-    'middleware' => ['web', 'anti-spam', 'language', 'check-language-exist']
+    'middleware' => ['web', 'anti-spam', 'language', 'check-language-exist'],
 ], function () {
-    Route::post('/send', 'FormController@handle')->name('send.form');
+    Route::get('/send', [FormController::class, 'handle'])->name('send.form');
+});
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+# /!\ Cette route doit TOUJOURS être la dernière
+Route::middleware(['pages'])->group(function () {
+    Route::fallback(function () {
+        abort(404);
+    });
 });

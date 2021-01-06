@@ -2,12 +2,13 @@
 
 namespace Webid\MenuItemField;
 
-use Webid\Cms\Src\App\Models\Menu\Menu;
-use Webid\Cms\Src\App\Repositories\Menu\MenuCustomItemRepository;
-use Webid\Cms\Src\App\Repositories\TemplateRepository;
+use App\Models\Template;
+use Webid\Cms\App\Models\Menu\Menu;
+use Webid\Cms\App\Repositories\Menu\MenuCustomItemRepository;
+use Webid\Cms\App\Repositories\TemplateRepository;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Webid\Cms\Src\App\Models\Menu\MenuCustomItem;
+use Webid\Cms\App\Models\Menu\MenuCustomItem;
 
 class MenuItemField extends Field
 {
@@ -43,7 +44,7 @@ class MenuItemField extends Field
         // TEMPLATE
         $allTemplate = $templateRepository->getPublishedTemplates();
         $children = $this->getChildren($allTemplate, $children);
-        $allTemplate = $this->mapItems($allTemplate, $children, config('cms.template_model'));
+        $allTemplate = $this->mapItems($allTemplate, $children, Template::class);
         $allTemplate->each(function ($template) use (&$allItem) {
             $allItem->push($template);
         });
@@ -57,6 +58,8 @@ class MenuItemField extends Field
      * @param $requestAttribute
      * @param $model
      * @param $attribute
+     *
+     * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
@@ -67,7 +70,7 @@ class MenuItemField extends Field
         $menuItemCustomIds = [];
 
         $menuItems->each(function ($menuItem, $key) use (&$menuItemTemplateIds, &$menuItemCustomIds) {
-            if ($menuItem['menuable_type'] == config('cms.template_model')) {
+            if ($menuItem['menuable_type'] == Template::class) {
                 $menuItemTemplateIds[$menuItem['id']] = [
                     'order' => $key + 1,
                     'parent_id' => null,
@@ -83,7 +86,7 @@ class MenuItemField extends Field
 
             $count = 1;
             foreach ($menuItem['children'] as $children) {
-                if ($children['menuable_type'] == config('cms.template_model')) {
+                if ($children['menuable_type'] == Template::class) {
                     $menuItemTemplateIds[$children['id']] = [
                         'parent_id' => $menuItem['id'],
                         'parent_type' => $menuItem['menuable_type'],
@@ -131,12 +134,13 @@ class MenuItemField extends Field
      *
      * @return mixed
      */
-    protected function getChildren($items, $children)
+    protected function getChildren($items, array $children)
     {
         foreach ($items as $template) {
             foreach ($template->menus as $menu) {
                 if (!empty($menu->pivot->parent_id)) {
-                    $children[$menu->pivot->menu_id][$menu->pivot->parent_id . "-" . $menu->pivot->parent_type][] = $template;
+                    $pivot = $menu->pivot;
+                    $children[$pivot->menu_id][$pivot->parent_id . "-" . $pivot->parent_type][] = $template;
                 }
             }
         }
@@ -151,10 +155,14 @@ class MenuItemField extends Field
      *
      * @return mixed
      */
-    protected function mapItems($items, $children, $model)
+    protected function mapItems($items, $children, string $model)
     {
         return $items->map(function ($item) use ($children, $model) {
-            if (!empty($children) && request()->route('resourceId') && array_key_exists(request()->route('resourceId'), $children)  && array_key_exists($item->id . "-" . $model, $children[request()->route('resourceId')])){
+            if (!empty($children)
+                && request()->route('resourceId')
+                && array_key_exists(request()->route('resourceId'), $children)
+                && array_key_exists($item->id . "-" . $model, $children[request()->route('resourceId')])
+            ) {
                 $item->children = $children[request()->route('resourceId')][$item->id . "-" . $model];
             } else {
                 $item->children = [];

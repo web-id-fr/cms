@@ -2,8 +2,8 @@
 
 namespace Webid\ServiceItemField;
 
-use Webid\Cms\Src\App\Models\Modules\Form\Form;
-use Webid\Cms\Src\App\Repositories\Modules\Form\ServiceRepository;
+use Webid\Cms\App\Models\Modules\Form\Form;
+use Webid\Cms\App\Repositories\Modules\Form\ServiceRepository;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -45,6 +45,8 @@ class ServiceItemField extends Field
      * @param $requestAttribute
      * @param $model
      * @param $attribute
+     *
+     * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
@@ -64,7 +66,7 @@ class ServiceItemField extends Field
 
     /**
      * @param mixed $resource
-     * @param null $attribute
+     * @param string|null $attribute
      */
     public function resolve($resource, $attribute = null)
     {

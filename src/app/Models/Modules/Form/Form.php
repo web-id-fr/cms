@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Models\Modules\Form;
+namespace Webid\Cms\App\Models\Modules\Form;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -102,7 +102,7 @@ class Form extends Model
     /** @var $field_items */
     public $field_items;
 
-    public function chargeFieldItems()
+    public function chargeFieldItems(): void
     {
         $fieldItems = collect();
         $fields = $this->fields;
