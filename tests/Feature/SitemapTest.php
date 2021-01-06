@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Tests\Feature\Console;
+namespace Webid\Cms\Tests\Feature;
 
 use App\Models\Template;
 use Carbon\Carbon;
