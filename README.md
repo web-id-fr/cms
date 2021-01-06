@@ -7,8 +7,9 @@
   1. [Install the package](#install-the-package)
   2. [Publish files](#publish-files)
   3. [Install databases](#install-databases)
-  4. [Add nova-components in composer](#add-nova-components) 
-  5. [Configure sitemap.xml](#configure-sitemap)
+  4. [Add nova-components in composer](#add-nova-components)
+  5. [Prepare routes](#prepare-routes)
+  6. [Configure sitemap.xml](#configure-sitemap)
 * [Customization](#customization)
   1. [Use cookies.js](#use-cookies-js)
   2. [Use form & popin form](#use-form-popin)
@@ -81,7 +82,7 @@ make install_db
 ```  
 ```bash
 "require": {
-    "webid/ComponentItemField": "*",
+    "webid/component-item-field": "*",
 },
 
 "repositories": [
@@ -92,8 +93,23 @@ make install_db
 ]
 ```
 
+Then run `composer update`
+
+<a id="prepare-routes"></a>
+### 5. Prepare routes
+
+You have to remove all routes from your `routes/web.php` file to make sure
+the cms will work properly.
+
+If the project is a fresh Laravel project, you may have some generated code like this to remove :
+```php
+Route::get('/', function () {
+    return view('welcome');
+});
+ ```
+
 <a id="configure-sitemap"></a>
-### 5. Configure sitemap.xml
+### 6. Configure sitemap.xml
 
 If you want to allow robots to access your sitemap, add this line in the `robots.txt` file :
 ```
