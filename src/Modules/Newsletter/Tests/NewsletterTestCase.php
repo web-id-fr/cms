@@ -20,11 +20,4 @@ class NewsletterTestCase extends TestCase
 
         return $providers;
     }
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        Module::find('Newsletter')->enable();
-    }
 }

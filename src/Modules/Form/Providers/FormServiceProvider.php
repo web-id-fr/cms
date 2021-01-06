@@ -2,16 +2,10 @@
 
 namespace Webid\Cms\Modules\Form\Providers;
 
-use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Laravel\Nova\Nova;
-use Spatie\Honeypot\ProtectAgainstSpam;
-use Webid\Cms\App\Http\Middleware\CheckLanguageExist;
-use Webid\Cms\App\Http\Middleware\Language;
 use Webid\Cms\App\Services\DynamicResource;
-use Webid\Cms\App\Services\LanguageService;
 use Webid\Cms\Modules\Form\Nova\Field;
 use Webid\Cms\Modules\Form\Nova\Form;
 use Webid\Cms\Modules\Form\Nova\Recipient;
@@ -27,17 +21,15 @@ class FormServiceProvider extends ServiceProvider
     protected $moduleNameLower = 'form';
 
     /**
-     * @param Router $router
-     *
      * @return void
      */
-    public function boot(Router $router)
+    public function boot(): void
     {
         $this->publishConfig();
         $this->publishViews();
         $this->publishJs();
         $this->publishTranslations();
-        $this->registerAliasMiddleware($router);
+        $this->registerConfig();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
 
         $this->app->booted(function () {
@@ -71,17 +63,15 @@ class FormServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
-        $this->registerConfig();
-        Route::pattern('lang', '(' . app(LanguageService::class)->getAllLanguagesAsRegex() . ')');
     }
 
     /*
      * @return void
      */
-    protected function registerConfig()
+    protected function registerConfig(): void
     {
         $sourcePath = module_path($this->moduleName, 'Config');
 
@@ -98,7 +88,7 @@ class FormServiceProvider extends ServiceProvider
     /*
     * @return void
     */
-    protected function publishConfig()
+    protected function publishConfig(): void
     {
         $sourcePath = module_path($this->moduleName, 'Config');
 
@@ -112,22 +102,10 @@ class FormServiceProvider extends ServiceProvider
         ]);
     }
 
-    /**
-     * @param Router $router
-     *
-     * @return void
-     */
-    protected function registerAliasMiddleware(Router $router)
-    {
-        $router->aliasMiddleware('anti-spam', ProtectAgainstSpam::class);
-        $router->aliasMiddleware('language', Language::class);
-        $router->aliasMiddleware('check-language-exist', CheckLanguageExist::class);
-    }
-
     /*
      * @return void
      */
-    protected function publishJs()
+    protected function publishJs(): void
     {
         $jsPath = resource_path('js');
         $sourcePath = module_path($this->moduleName, 'Resources/js');
@@ -145,7 +123,7 @@ class FormServiceProvider extends ServiceProvider
     /*
      * @return void
      */
-    protected function publishViews()
+    protected function publishViews(): void
     {
         $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
         $sourcePath = module_path($this->moduleName, 'Resources/views');
@@ -161,7 +139,7 @@ class FormServiceProvider extends ServiceProvider
     /**
      * @return void
      */
-    public function publishTranslations()
+    public function publishTranslations(): void
     {
         $langPath = resource_path('lang');
         $sourcePath = module_path($this->moduleName, 'Resources/lang');

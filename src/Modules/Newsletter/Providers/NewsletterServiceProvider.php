@@ -8,7 +8,6 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
 use Webid\Cms\App\Http\Middleware\IsAjax;
-use Webid\Cms\App\Http\Middleware\Language;
 use Webid\Cms\App\Services\DynamicResource;
 use Webid\Cms\Modules\Newsletter\Nova\Newsletter;
 
@@ -22,12 +21,12 @@ class NewsletterServiceProvider extends ServiceProvider
 
     /**
      * @param Router $router
+     *
      * @return void
      */
-    public function boot(Router $router)
+    public function boot(Router $router): void
     {
         $router->aliasMiddleware('is-ajax', IsAjax::class);
-        $router->aliasMiddleware('language', Language::class);
         $router->middlewareGroup('ajax', [
             StartSession::class,
             IsAjax::class,
@@ -54,7 +53,7 @@ class NewsletterServiceProvider extends ServiceProvider
     /**
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
     }
