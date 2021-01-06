@@ -10,8 +10,6 @@ class FormRepository
     private $model;
 
     /**
-     * FieldRepository constructor.
-     *
      * @param Form $model
      */
     public function __construct(Form $model)

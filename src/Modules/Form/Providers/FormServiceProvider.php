@@ -20,9 +20,6 @@ class FormServiceProvider extends ServiceProvider
     /** @var string  */
     protected $moduleNameLower = 'form';
 
-    /**
-     * @return void
-     */
     public function boot(): void
     {
         $this->publishConfig();
@@ -58,19 +55,11 @@ class FormServiceProvider extends ServiceProvider
         ]);
     }
 
-    /*
-     * Register services
-     *
-     * @return void
-     */
     public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
     }
 
-    /*
-     * @return void
-     */
     protected function registerConfig(): void
     {
         $sourcePath = module_path($this->moduleName, 'Config');
@@ -85,9 +74,6 @@ class FormServiceProvider extends ServiceProvider
         );
     }
 
-    /*
-    * @return void
-    */
     protected function publishConfig(): void
     {
         $sourcePath = module_path($this->moduleName, 'Config');
@@ -102,9 +88,6 @@ class FormServiceProvider extends ServiceProvider
         ]);
     }
 
-    /*
-     * @return void
-     */
     protected function publishJs(): void
     {
         $jsPath = resource_path('js');
@@ -120,9 +103,6 @@ class FormServiceProvider extends ServiceProvider
         ]);
     }
 
-    /*
-     * @return void
-     */
     protected function publishViews(): void
     {
         $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
@@ -136,9 +116,6 @@ class FormServiceProvider extends ServiceProvider
         ]);
     }
 
-    /**
-     * @return void
-     */
     public function publishTranslations(): void
     {
         $langPath = resource_path('lang');

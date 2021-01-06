@@ -15,7 +15,6 @@
         "laravel-nova": "^1.0"
     },
     "dependencies": {
-        "ajv": "^6.12.6",
         "vue": "^2.5.0",
         "vue-multiselect": "^2.1.4",
         "vuedraggable": "^2.20.0"
