@@ -16,7 +16,6 @@ Route::group([
     'middleware' => ['is-ajax', 'language'],
     'prefix' => '{lang}/ajax'
 ], function () {
-    Route::prefix('/newsletter')->name('newsletter.')->group(function () {
-        Route::post('/', [NewsletterController::class, 'store'])->name('store');
-    });
+    Route::post('/newsletter', [NewsletterController::class, 'store'])
+        ->name('newsletter.store');
 });

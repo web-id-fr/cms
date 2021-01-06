@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\Modules\Newsletter\Tests;
 
+use Nwidart\Modules\Facades\Module;
 use Webid\Cms\Modules\Newsletter\Providers\NewsletterServiceProvider;
 use Webid\Cms\Tests\TestCase;
 
@@ -18,5 +19,12 @@ class NewsletterTestCase extends TestCase
         array_push($providers, NewsletterServiceProvider::class);
 
         return $providers;
+    }
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        Module::find('Newsletter')->enable();
     }
 }

@@ -45,8 +45,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapAjaxRoutes()
     {
-        Route::prefix('ajax')
-            ->middleware('ajax')
+        Route::middleware('ajax')
             ->namespace($this->moduleNamespace)
             ->group(module_path('Newsletter', 'Routes/ajax.php'));
     }

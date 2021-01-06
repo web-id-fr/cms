@@ -14,14 +14,10 @@ use Webid\Cms\Modules\Newsletter\Nova\Newsletter;
 
 class NewsletterServiceProvider extends ServiceProvider
 {
-    /**
-     * @var string $moduleName
-     */
+    /** @var string  */
     protected $moduleName = 'Newsletter';
 
-    /**
-     * @var string $moduleNameLower
-     */
+    /** @var string  */
     protected $moduleNameLower = 'newsletter';
 
     /**
