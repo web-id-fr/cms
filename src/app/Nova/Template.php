@@ -66,11 +66,11 @@ class Template extends Resource
     public function fields(Request $request)
     {
         return [
-            new Tabs('Tabs', [
+            (new Tabs('Tabs', [
                 __('Parameters') => $this->parameterFields(),
                 __('Content') => $this->contentFields(),
                 __('SEO') => $this->seoFields(),
-            ]),
+            ]))->withToolbar(),
         ];
     }
 
