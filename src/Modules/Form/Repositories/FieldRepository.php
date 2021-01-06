@@ -18,7 +18,7 @@ class FieldRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|Model[]
+     * @return \Illuminate\Database\Eloquent\Collection|Field[]
      */
     public function all()
     {

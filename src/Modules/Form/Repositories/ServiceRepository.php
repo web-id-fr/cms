@@ -18,7 +18,7 @@ class ServiceRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|Model[]
+     * @return \Illuminate\Database\Eloquent\Collection|Service[]
      */
     public function all()
     {

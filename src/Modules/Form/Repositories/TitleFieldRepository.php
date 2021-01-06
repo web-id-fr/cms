@@ -18,7 +18,7 @@ class TitleFieldRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|Model[]
+     * @return \Illuminate\Database\Eloquent\Collection|TitleField[]
      */
     public function all()
     {

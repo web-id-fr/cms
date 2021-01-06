@@ -18,7 +18,7 @@ class RecipientRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|Model[]
+     * @return \Illuminate\Database\Eloquent\Collection|Recipient[]
      */
     public function all()
     {

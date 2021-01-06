@@ -18,7 +18,7 @@ class FormRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
+     * @return mixed
      */
     public function getPublishedForms()
     {
@@ -33,6 +33,11 @@ class FormRepository
         return $models;
     }
 
+    /**
+     * @param int $id
+     *
+     * @return mixed
+     */
     public function find(int $id)
     {
         $model = $this->model->find($id);
