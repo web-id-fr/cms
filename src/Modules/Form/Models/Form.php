@@ -105,7 +105,7 @@ class Form extends Model
     /**
      * @return void
      */
-    public function chargeFieldItems()
+    public function chargeFieldItems(): void
     {
         $fieldItems = collect();
         $fields = $this->fields;
