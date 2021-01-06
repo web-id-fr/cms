@@ -10,12 +10,18 @@ class FieldRepository
     private $model;
 
     /**
-     * FieldRepository constructor.
-     *
      * @param Field $model
      */
     public function __construct(Field $model)
     {
         $this->model = $model;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|Model[]
+     */
+    public function all()
+    {
+        return $this->model->all();
     }
 }

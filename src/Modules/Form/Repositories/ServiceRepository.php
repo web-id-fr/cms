@@ -10,12 +10,18 @@ class ServiceRepository
     private $model;
 
     /**
-     * FieldRepository constructor.
-     *
      * @param Service $model
      */
     public function __construct(Service $model)
     {
         $this->model = $model;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|Model[]
+     */
+    public function all()
+    {
+        return $this->model->all();
     }
 }

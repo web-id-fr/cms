@@ -10,12 +10,18 @@ class RecipientRepository
     private $model;
 
     /**
-     * FieldRepository constructor.
-     *
      * @param Recipient $model
      */
     public function __construct(Recipient $model)
     {
         $this->model = $model;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|Model[]
+     */
+    public function all()
+    {
+        return $this->model->all();
     }
 }
