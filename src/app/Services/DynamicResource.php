@@ -8,7 +8,7 @@ class DynamicResource
     private static $topLevelResources = [];
 
     /** @var array  */
-    private static $groupGroupModuleResource = [];
+    private static $groupModuleResources = [];
 
     /**
      * @param array $resource
@@ -31,7 +31,7 @@ class DynamicResource
      */
     public static function pushGroupModuleResource(array $resource): void
     {
-        array_push(self::$groupGroupModuleResource, $resource);
+        array_push(self::$groupModuleResources, $resource);
     }
 
     /**
@@ -39,6 +39,6 @@ class DynamicResource
      */
     public static function getGroupModuleResources(): array
     {
-        return self::$groupGroupModuleResource;
+        return self::$groupModuleResources;
     }
 }
