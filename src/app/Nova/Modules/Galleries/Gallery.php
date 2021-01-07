@@ -47,6 +47,14 @@ class Gallery extends Resource
     }
 
     /**
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Gallery');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param \Illuminate\Http\Request $request

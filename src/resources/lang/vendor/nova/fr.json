@@ -583,5 +583,7 @@
     "Update attached :resource: :title": "Mettre à jour :resource attaché : :title",
     ":resource Details: :title": "Détails :resource : :title",
     "The HasOne relationship has already been filled.": "La relation HasOne a déjà été remplie.",
-    "An error occured while uploading the file.": "Une erreur est survenue pendant l'upload du fichier."
+    "An error occured while uploading the file.": "Une erreur est survenue pendant l'upload du fichier.",
+    "Galleries": "Galeries",
+    "Gallery": "Galerie"
 }
