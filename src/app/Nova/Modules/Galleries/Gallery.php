@@ -2,14 +2,14 @@
 
 namespace Webid\Cms\App\Nova\Modules\Galleries;
 
-use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Resource;
-use Webid\TranslatableTool\Translatable;
 use Webid\Cms\App\Models\Modules\Galleries\Gallery as GalleryModel;
+use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
+use Webid\TranslatableTool\Translatable;
 
 class Gallery extends Resource
 {
@@ -86,31 +86,27 @@ class Gallery extends Resource
     }
 
     /**
-     * @return array|false
+     * @return array
      */
     public function getFoldersGalleriesName()
     {
-        $galleriesFolder = app(GalleryServiceContract::class)->getGalleries();
+        $galleriesFolders = app(GalleryServiceContract::class)->getGalleries();
         $galleries = [];
 
-        if (empty($galleriesFolder)) {
+        if (empty($galleriesFolders)) {
             return [];
         }
 
-        foreach ($galleriesFolder as $gallery) {
-            $galleries[] = $gallery;
+        foreach ($galleriesFolders as $galleryFolder) {
+            if (is_dir(config('cms.gallery_path') . $galleryFolder)) {
+                $galleries[] = $galleryFolder;
+            }
         }
 
-        $galleriesList = array_combine($galleries, $galleries);
-
-        return $galleriesList;
+        return array_combine($galleries, $galleries) ?? [];
     }
 
     /**
-     * Si le status est publié  : VERT
-     *
-     * Si ce n'est pas le cas ROUGE
-     *
      * @return bool
      */
     public function isPublished()
