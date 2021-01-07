@@ -140,7 +140,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 TopLevelResource::make([
                     'resources' => [
                         InternalLink::make([
-                            'label' => 'List of Components',
+                            'label' => __('List of Components'),
                             'badge' => null,
                             'icon' => null,
                             'target' => '_self',
