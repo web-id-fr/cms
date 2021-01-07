@@ -3,9 +3,9 @@
 namespace Webid\Cms\Modules\Redirections301\Tests;
 
 use Webid\Cms\Modules\Redirections301\Providers\Redirections301ServiceProvider;
-use Webid\Cms\Tests\TestCase;
+use Webid\Cms\Tests\NovaResourceTestCase;
 
-class Redirections301TestCase extends TestCase
+class Redirections301TestCase extends NovaResourceTestCase
 {
     protected function getPackageProviders($app)
     {

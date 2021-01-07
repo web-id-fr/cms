@@ -2,12 +2,34 @@
 
 namespace Webid\Cms\Modules\Redirections301\Tests\Feature;
 
+use Illuminate\Database\Eloquent\Model;
 use Webid\Cms\Modules\Redirections301\Tests\Helpers\RedirectionCreator;
 use Webid\Cms\Modules\Redirections301\Tests\Redirections301TestCase;
+use Webid\Cms\Tests\Helpers\Traits\DummyUserCreator;
 
 class RedirectionTest extends Redirections301TestCase
 {
-    use RedirectionCreator;
+    use RedirectionCreator, DummyUserCreator;
+
+    /** @var string  */
+    protected $resourceName = 'redirections';
+
+    /**
+     * @return string
+     */
+    protected function getResourceName(): string
+    {
+        return $this->resourceName;
+    }
+
+    /**
+     * @return Model
+     */
+    protected function getModel(): Model
+    {
+        return $this->createRedirection();
+    }
+
 
     /** @test */
     public function we_cannot_create_two_redirections_with_same_source_url()
@@ -19,11 +41,11 @@ class RedirectionTest extends Redirections301TestCase
             'destination_url' => '/new-path',
         ];
 
-        $this->createNovaResource('redirections', $data)->originalResponse()->assertSuccessful();
+        $this->createNovaResource($this->resourceName, $data)->originalResponse()->assertSuccessful();
 
         $this->assertDatabaseHas('redirections', $data);
 
-        $this->createNovaResource('redirections', $data)->originalResponse()->assertStatus(422);
+        $this->createNovaResource($this->resourceName, $data)->originalResponse()->assertStatus(422);
     }
 
     /** @test */

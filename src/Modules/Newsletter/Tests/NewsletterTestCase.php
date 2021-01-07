@@ -2,11 +2,10 @@
 
 namespace Webid\Cms\Modules\Newsletter\Tests;
 
-use Nwidart\Modules\Facades\Module;
 use Webid\Cms\Modules\Newsletter\Providers\NewsletterServiceProvider;
-use Webid\Cms\Tests\TestCase;
+use Webid\Cms\Tests\NovaResourceTestCase;
 
-class NewsletterTestCase extends TestCase
+class NewsletterTestCase extends NovaResourceTestCase
 {
     /**
      * @param \Illuminate\Foundation\Application $app

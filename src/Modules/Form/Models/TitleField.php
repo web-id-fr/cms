@@ -2,12 +2,13 @@
 
 namespace Webid\Cms\Modules\Form\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
 class TitleField extends Model
 {
-    use HasTranslations;
+    use HasTranslations, HasFactory;
 
     /**
      * The table associated with the model.

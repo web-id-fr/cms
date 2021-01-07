@@ -2,12 +2,13 @@
 
 namespace Webid\Cms\Modules\Form\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
 class Form extends Model
 {
-    use HasTranslations;
+    use HasTranslations, HasFactory;
 
     const _STATUS_PUBLISHED = 0;
     const _STATUS_DRAFT = 1;
