@@ -215,14 +215,14 @@ class CmsServiceProvider extends ServiceProvider
         $router->aliasMiddleware('check-language-exist', CheckLanguageExist::class);
         $router->aliasMiddleware('cacheable', CacheWithVarnish::class);
         $router->aliasMiddleware('is-ajax', IsAjax::class);
+
+        // Create middleware groups
+        $router->middlewareGroup('pages', []);
         $router->middlewareGroup('ajax', [
             StartSession::class,
             'is-ajax',
             VerifyCsrfToken::class
         ]);
-
-        // Create middleware groups
-        $router->middlewareGroup('pages', []);
     }
 
     /**
