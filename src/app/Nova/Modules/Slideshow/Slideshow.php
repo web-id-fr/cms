@@ -1,15 +1,14 @@
 <?php
 
-namespace Webid\Cms\Src\App\Nova\Slideshow;
+namespace Webid\Cms\App\Nova\Modules\Slideshow;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Number;
 use Webid\ImageItemField\ImageItemField;
-use Webid\SlideItemField\SlideItemField;
 use Webid\TranslatableTool\Translatable;
-use Webid\Cms\Src\App\Models\Modules\Slideshow\Slideshow as SlideshowModel;
+use Webid\Cms\App\Models\Modules\Slideshow\Slideshow as SlideshowModel;
 use Laravel\Nova\Resource;
 
 class Slideshow extends Resource
@@ -38,6 +37,16 @@ class Slideshow extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Slideshows');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request $request
@@ -49,20 +58,20 @@ class Slideshow extends Resource
         return [
             ID::make()->sortable(),
 
-            Translatable::make('Title')
+            Translatable::make(__('Title'), 'title')
                 ->singleLine()
                 ->rules('required'),
 
-            Boolean::make('Arrows display', 'js_controls'),
+            Boolean::make(__('Arrows display'), 'js_controls'),
 
-            Boolean::make('Automatic slider', 'js_animate_auto'),
+            Boolean::make(__('Automatic slider'), 'js_animate_auto'),
 
-            Number::make('Sliding speed', 'js_speed')
+            Number::make(__('Sliding speed'), 'js_speed')
                 ->min(1)
                 ->step(1)
-                ->help('By default 5 seconds')
+                ->help(__('By default 5 seconds'))
                 ->resolveUsing(function ($js_speed) {
-                    if(empty($js_speed)) {
+                    if (empty($js_speed)) {
                         return '';
                     }
                     return $js_speed / 1000;
@@ -70,7 +79,7 @@ class Slideshow extends Resource
                     return $js_speed / 1000;
                 }),
 
-            ImageItemField::make('Slides')
+            ImageItemField::make(__('Slides'), 'slides')
                 ->onlyOnForms(),
         ];
     }

@@ -1,79 +1,79 @@
 <?php
 
-namespace Webid\Cms\Src\App\Models;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Spatie\Translatable\HasTranslations;
-use Webid\Cms\Src\App\Models\Menu\Menu;
+use Illuminate\Support\Collection;
+use Webid\Cms\App\Models\BaseTemplate;
+use Webid\Cms\App\Models\Components\GalleryComponent;
+use Webid\Cms\App\Models\Components\NewsletterComponent;
+use Webid\Cms\App\Models\Component;
 
-class Template extends Model
+class Template extends BaseTemplate
 {
-    use HasTranslations;
-
-    const _STATUS_PUBLISHED = 0;
-    const _STATUS_DRAFT = 1;
-
-    const TYPE_TO_NAME = [
-        self::_STATUS_PUBLISHED => 'published',
-        self::_STATUS_DRAFT => 'draft',
-    ];
+    /** @var $components_item */
+    public $component_items;
 
     /**
-     * The table associated with the model.
-     *
-     * @var string
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    protected $table = 'templates';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'title',
-        'slug',
-        'status',
-        'indexation',
-        'follow',
-        'metatitle',
-        'metadescription',
-        'opengraph_title',
-        'opengraph_description',
-        'opengraph_picture',
-        'publish_at',
-        'homepage',
-    ];
-
-    /**
-     * The attributes that ar translatable.
-     *
-     * @var array
-     */
-    public $translatable = [
-        'title',
-        'slug',
-        'metatitle',
-        'metadescription',
-        'opengraph_title',
-        'opengraph_description',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'publish_at' => 'datetime',
-    ];
+    public function related()
+    {
+        return $this->hasMany(Component::class)
+            ->orderBy('order');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public function menus()
+    public function galleryComponents()
     {
-        return $this->morphToMany(Menu::class, 'menuable')
-            ->withPivot('order', 'parent_id', 'parent_type');
+        return $this->morphedByMany(GalleryComponent::class, 'component')
+            ->withPivot('order')
+            ->orderBy('order');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function newsletterComponents()
+    {
+        return $this->morphedByMany(NewsletterComponent::class, 'component')
+            ->withPivot('order')
+            ->orderBy('order');
+    }
+
+    public function chargeComponents(): void
+    {
+        $components = collect();
+        $gallery_components = $this->galleryComponents;
+        $newsletter_components = $this->newsletterComponents;
+
+        $this->mapItems($gallery_components, GalleryComponent::class, $components);
+        $this->mapItems($newsletter_components, NewsletterComponent::class, $components);
+
+        $components = $components->sortBy(function ($item) {
+            return $item->pivot->order;
+        });
+
+        $this->component_items = $components;
+    }
+
+    /**
+     * @param $items
+     * @param $model
+     * @param $components
+     *
+     * @return mixed
+     */
+    protected function mapItems($items, string $model, Collection &$components)
+    {
+        $items->each(function ($item) use (&$components, $model) {
+            $item->component_type = $model;
+            $item->component_nova = config("components.$model.nova");
+            $item->component_image = asset(config("components.$model.image"));
+            $components->push($item);
+        });
+
+        return $components;
     }
 }

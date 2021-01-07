@@ -1,21 +1,21 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Controllers\Ajax\Newsletter;
+namespace Webid\Cms\App\Http\Controllers\Ajax\Newsletter;
 
-use App\Http\Controllers\Controller;
-use Webid\Cms\Src\App\Http\Requests\StoreNewsletter;
-use Webid\Cms\Src\App\Repositories\Newsletter\NewsletterRepository;
+use Webid\Cms\App\Http\Controllers\BaseController;
+use Webid\Cms\App\Http\Requests\StoreNewsletter;
+use Webid\Cms\App\Repositories\Newsletter\NewsletterRepository;
 use Illuminate\Support\Facades\App;
 
-class NewsletterController extends Controller
+class NewsletterController extends BaseController
 {
-    /** @var \App\Repositories\Newsletter\NewsletterRepository */
+    /** @var NewsletterRepository */
     protected $newsletterRepository;
 
     /**
      * NewsletterController constructor.
      *
-     * @param \App\Repositories\Newsletter\NewsletterRepository $newsletterRepository
+     * @param NewsletterRepository $newsletterRepository
      */
     public function __construct(NewsletterRepository $newsletterRepository)
     {
@@ -23,10 +23,12 @@ class NewsletterController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\StoreNewsletter $request
+     * @param StoreNewsletter $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreNewsletter $request) {
+    public function store(StoreNewsletter $request)
+    {
         $data = $request->validated();
         $data['lang'] = App::getLocale();
         $this->newsletterRepository->create($data);

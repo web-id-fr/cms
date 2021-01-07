@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -9,17 +10,20 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use Webid\Cms\Src\App\Http\Controllers\TemplateController;
-use Webid\Cms\Src\App\Http\Controllers\CsrfController;
-use Webid\Cms\Src\App\Http\Controllers\Modules\Ajax\Form\FormController;
 
-Route::group(['middleware' => 'cacheable'], function() {
+use Illuminate\Support\Facades\Route;
+use Webid\Cms\App\Http\Controllers\CsrfController;
+use Webid\Cms\App\Http\Controllers\Modules\Ajax\Form\FormController;
+use Webid\Cms\App\Http\Controllers\SitemapController;
+use Webid\Cms\App\Http\Controllers\TemplateController;
+
+Route::group(['middleware' => 'cacheable'], function () {
     // Redirect homepage without lang
     Route::get('/', [TemplateController::class, 'rootPage']);
 
     Route::group([
         'prefix' => '{lang}',
-        'middleware' => ['web', 'language', 'check-language-exist'],
+        'middleware' => ['web', 'pages', 'language', 'check-language-exist'],
     ], function () {
         // Homepage
         Route::get('/', [TemplateController::class, 'index'])->name('home');
@@ -32,14 +36,23 @@ Route::group(['middleware' => 'cacheable'], function() {
 });
 
 Route::group([
-    'middleware' => ['web']
+    'middleware' => ['web'],
 ], function () {
-    Route::get('/csrf', [CsrfController::class]);
+    Route::get('/csrf', [CsrfController::class, 'index'])->name('csrf.index');
 });
 
 Route::group([
     'prefix' => '{lang}/form',
-    'middleware' => ['web', 'anti-spam', 'language', 'check-language-exist']
+    'middleware' => ['web', 'anti-spam', 'language', 'check-language-exist'],
 ], function () {
     Route::get('/send', [FormController::class, 'handle'])->name('send.form');
+});
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+# /!\ Cette route doit TOUJOURS être la dernière
+Route::middleware(['pages'])->group(function () {
+    Route::fallback(function () {
+        abort(404);
+    });
 });

@@ -1,13 +1,15 @@
 <?php
 
-namespace Webid\Cms\Src\App\Models\Components;
+namespace Webid\Cms\App\Models\Components;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
 class NewsletterComponent extends Model
 {
-    use HasTranslations;
+    use HasTranslations,
+        HasFactory;
 
     const _STATUS_PUBLISHED = 1;
     const _STATUS_DRAFT = 2;

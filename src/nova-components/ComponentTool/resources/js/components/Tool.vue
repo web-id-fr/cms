@@ -1,6 +1,6 @@
 <template>
     <div>
-        <heading class="mb-6">Components</heading>
+        <heading class="mb-6">{{ __('Components') }}</heading>
 
         <card class="flex items-stretch flex-wrap p-8" style="min-height: 300px">
             <div class="w-1/3 py-4 px-8" v-for="component in components" :key="component.title">

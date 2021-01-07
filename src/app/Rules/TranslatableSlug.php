@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Rules;
+namespace Webid\Cms\App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 

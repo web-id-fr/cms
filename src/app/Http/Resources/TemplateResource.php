@@ -1,10 +1,10 @@
 <?php
 
-namespace Webid\Cms\Src\App\Http\Resources;
+namespace Webid\Cms\App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use phpDocumentor\Reflection\Types\Boolean;
-use Webid\Cms\Src\App\Http\Resources\Components\ComponentResource;
+use Webid\Cms\App\Http\Resources\Components\ComponentResource;
 
 class TemplateResource extends JsonResource
 {
@@ -47,7 +47,7 @@ class TemplateResource extends JsonResource
             $indexationValue = 'noindex';
         }
 
-        if($follow){
+        if ($follow) {
             $followValue = 'follow';
         } else {
             $followValue = 'nofollow';

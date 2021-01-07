@@ -1,11 +1,11 @@
 <?php
 
-namespace Webid\Cms\Src\App\Observers;
+namespace Webid\Cms\App\Observers;
 
 use App\Models\Template;
-use Webid\Cms\Src\App\Repositories\TemplateRepository;
+use Webid\Cms\App\Repositories\TemplateRepository;
 use Illuminate\Support\Str;
-use Webid\Cms\Src\App\Services\LanguageService;
+use Webid\Cms\App\Services\LanguageService;
 
 class TemplateObserver
 {
@@ -15,8 +15,10 @@ class TemplateObserver
      * @param Template $template
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return void
      */
-    public function saving(Template $template)
+    public function saving(Template $template): void
     {
         $repository = app()->make(TemplateRepository::class);
         $titles = $template->getTranslations('title');

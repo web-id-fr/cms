@@ -8,24 +8,24 @@ use DigitalCreative\CollapsibleResourceManager\Resources\Group;
 use DigitalCreative\CollapsibleResourceManager\Resources\InternalLink;
 use DigitalCreative\CollapsibleResourceManager\Resources\TopLevelResource;
 use Illuminate\Support\Facades\Gate;
+use Infinety\Filemanager\FilemanagerTool;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Webid\CardActions\CardActions;
-use Webid\Cms\Src\App\Nova\Components\GalleryComponent;
-use Webid\Cms\Src\App\Nova\Components\NewsletterComponent;
-use Webid\Cms\Src\App\Nova\Menu\Menu;
-use Webid\Cms\Src\App\Nova\Menu\MenuCustomItem;
-use Webid\Cms\Src\App\Nova\Modules\Form\Field;
-use Webid\Cms\Src\App\Nova\Modules\Form\Form;
-use Webid\Cms\Src\App\Nova\Modules\Form\Recipient;
-use Webid\Cms\Src\App\Nova\Modules\Form\Service;
-use Webid\Cms\Src\App\Nova\Modules\Form\TitleField;
-use Webid\Cms\Src\App\Nova\Modules\Galleries\Gallery;
-use Webid\Cms\Src\App\Nova\Newsletter\Newsletter;
-use Webid\Cms\Src\App\Nova\Popin\Popin;
-use Webid\Cms\Src\App\Nova\Slideshow\Slide;
-use Webid\Cms\Src\App\Nova\Slideshow\Slideshow;
-use Webid\Cms\Src\App\Nova\Template;
+use Webid\Cms\App\Nova\Menu\Menu;
+use Webid\Cms\App\Nova\Menu\MenuCustomItem;
+use Webid\Cms\App\Nova\Modules\Form\Field;
+use Webid\Cms\App\Nova\Modules\Form\Form;
+use Webid\Cms\App\Nova\Modules\Form\Recipient;
+use Webid\Cms\App\Nova\Modules\Form\Service;
+use Webid\Cms\App\Nova\Modules\Form\TitleField;
+use Webid\Cms\App\Nova\Modules\Galleries\Gallery;
+use Webid\Cms\App\Nova\Modules\Slideshow\Slide;
+use Webid\Cms\App\Nova\Modules\Slideshow\Slideshow;
+use Webid\Cms\App\Nova\Newsletter\Newsletter;
+use Webid\Cms\App\Nova\Popin\Popin;
+use Webid\Cms\App\Nova\Template;
+use Webid\Cms\App\Services\DynamicResource;
 use Webid\ComponentTool\ComponentTool;
 use Webid\LanguageTool\LanguageTool;
 use Webid\MenuTool\MenuTool;
@@ -89,88 +89,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new \Infinety\Filemanager\FilemanagerTool(),
+            new FilemanagerTool(),
             new LanguageTool(),
             new ComponentTool(),
             new MenuTool(),
-            new CollapsibleResourceManager([
-                'navigation' => [
-                    TopLevelResource::make([
-                        'label' => 'Menu',
-                        'badge' => null,
-                        'linkTo' => Menu::class,
-                        'resources' => [
-                            Group::make([
-                                'label' => 'Menu',
-                                'expanded' => false,
-                                'resources' => [
-                                    MenuCustomItem::class,
-                                    InternalLink::make([
-                                        'label' => 'Configuration',
-                                        'badge' => null,
-                                        'icon' => null,
-                                        'target' => '_self',
-                                        'path' => '/menu-tool',
-                                    ])
-                                ]
-                            ]),
-                        ]
-                    ]),
-                    TopLevelResource::make([
-                        'label' => 'Templates',
-                        'badge' => null,
-                        'linkTo' => Template::class,
-                    ]),
-                    TopLevelResource::make([
-                        'resources' => [
-                            Group::make([
-                                'label' => 'Components',
-                                'expanded' => false,
-                                'resources' => [
-                                    InternalLink::make([
-                                        'label' => 'List of Components',
-                                        'badge' => null,
-                                        'icon' => null,
-                                        'target' => '_self',
-                                        'path' => '/component-tool',
-                                    ]),
-                                    GalleryComponent::class,
-                                    NewsletterComponent::class
-                                ]
-                            ]),
-                            Group::make([
-                                'label' => 'Modules',
-                                'expanded' => false,
-                                'resources' => [
-                                    Gallery::class,
-                                    Form::class,
-                                    Field::class,
-                                    TitleField::class,
-                                    Service::class,
-                                    Recipient::class,
-                                    Slideshow::class,
-                                    Slide::class
-                                ]
-                            ]),
-                        ]
-                    ]),
-                    TopLevelResource::make([
-                        'label' => 'Newsletter',
-                        'badge' => null,
-                        'linkTo' => Newsletter::class,
-                    ]),
-                    TopLevelResource::make([
-                        'label' => 'Popins',
-                        'badge' => null,
-                        'linkTo' => Popin::class,
-                    ]),
-                    TopLevelResource::make([
-                        'label' => 'Users',
-                        'badge' => null,
-                        'linkTo' => User::class,
-                    ]),
-                ]
-            ]),
+            new CollapsibleResourceManager($this->collapsibleResourceItems()),
         ];
     }
 
@@ -182,5 +105,101 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function register()
     {
         //
+    }
+
+    private function collapsibleResourceItems(): array
+    {
+        $items = [
+            'navigation' => [
+                TopLevelResource::make([
+                    'label' => __('Menu'),
+                    'badge' => null,
+                    'linkTo' => Menu::class,
+                    'resources' => [
+                        Group::make([
+                            'label' => __('Menu'),
+                            'expanded' => false,
+                            'resources' => [
+                                MenuCustomItem::class,
+                                InternalLink::make([
+                                    'label' => __('Configuration'),
+                                    'badge' => null,
+                                    'icon' => null,
+                                    'target' => '_self',
+                                    'path' => '/menu-tool',
+                                ]),
+                            ],
+                        ]),
+                    ],
+                ]),
+                TopLevelResource::make([
+                    'label' => __('Templates'),
+                    'badge' => null,
+                    'linkTo' => Template::class,
+                ]),
+                TopLevelResource::make([
+                    'resources' => [
+                        InternalLink::make([
+                            'label' => 'List of Components',
+                            'badge' => null,
+                            'icon' => null,
+                            'target' => '_self',
+                            'path' => '/component-tool',
+                        ]),
+                        Group::make([
+                            'label' => __('Modules'),
+                            'expanded' => false,
+                            'resources' => [
+                                Gallery::class,
+                                Group::make([
+                                    'label' => __('Form'),
+                                    'expanded' => false,
+                                    'resources' => [
+                                        Form::class,
+                                        Field::class,
+                                        TitleField::class,
+                                        Service::class,
+                                        Recipient::class,
+                                    ],
+                                ]),
+                                Group::make([
+                                    'label' => __('Slideshow'),
+                                    'expanded' => false,
+                                    'resources' => [
+                                        Slideshow::class,
+                                        Slide::class,
+                                    ],
+                                ]),
+                            ],
+                        ]),
+                    ],
+                ]),
+                TopLevelResource::make([
+                    'label' => __('Newsletter'),
+                    'badge' => null,
+                    'linkTo' => Newsletter::class,
+                ]),
+                TopLevelResource::make([
+                    'label' => __('Popins'),
+                    'badge' => null,
+                    'linkTo' => Popin::class,
+                ]),
+                TopLevelResource::make([
+                    'label' => __('Users'),
+                    'badge' => null,
+                    'linkTo' => User::class,
+                ]),
+            ],
+        ];
+
+        foreach (DynamicResource::getTopLevelResources() as $resource) {
+            $items['navigation'][] = TopLevelResource::make([
+                'label' => $resource['label'],
+                'badge' => $resource['badge'],
+                'linkTo' => $resource['linkTo'],
+            ]);
+        }
+
+        return $items;
     }
 }

@@ -40,7 +40,7 @@ class Language extends Model
     /**
      * Retourne le drapeau à utiliser pour une langue donnée
      *
-     * @param $local
+     * @param string $local
      *
      * @return mixed
      */

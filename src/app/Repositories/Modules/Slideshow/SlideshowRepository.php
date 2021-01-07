@@ -1,9 +1,9 @@
 <?php
 
-namespace Webid\Cms\Src\App\Repositories\Modules\Slideshow;
+namespace Webid\Cms\App\Repositories\Modules\Slideshow;
 
-use Webid\Cms\Src\App\Repositories\BaseRepository;
-use Webid\Cms\Src\App\Models\Modules\Slideshow\Slideshow;
+use Webid\Cms\App\Repositories\BaseRepository;
+use Webid\Cms\App\Models\Modules\Slideshow\Slideshow;
 use Illuminate\Support\Collection;
 
 class SlideshowRepository extends BaseRepository

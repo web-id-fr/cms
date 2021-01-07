@@ -1,0 +1,25 @@
+{
+    "name": "webid/redirections-301",
+    "description": "",
+    "authors": [
+        {
+            "name": "Wilfried",
+            "email": "wilfried@web-id.fr"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webid\\Cms\\Modules\\Redirections301\\Providers\\Redirections301ServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Webid\\Cms\\Modules\\Redirections301\\": ""
+        }
+    }
+}

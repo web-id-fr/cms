@@ -1,10 +1,10 @@
 <?php
 
-namespace Webid\Cms\Src\App\Models\Menu;
+namespace Webid\Cms\App\Models\Menu;
 
 use Illuminate\Database\Eloquent\Model;
 use \Spatie\Translatable\HasTranslations;
-use Webid\Cms\Src\App\Models\Modules\Form\Form;
+use Webid\Cms\App\Models\Modules\Form\Form;
 
 class MenuCustomItem extends Model
 {

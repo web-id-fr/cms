@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Models\Modules\Slideshow;
+namespace Webid\Cms\App\Models\Modules\Slideshow;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -71,7 +71,7 @@ class Slideshow extends Model
     /** @var $recipient_items */
     public $slide_items;
 
-    public function chargeSlideItems()
+    public function chargeSlideItems(): void
     {
         $slideItems = collect();
         $slides = $this->slides;

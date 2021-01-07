@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Services;
+namespace Webid\Cms\App\Services;
 
 use Webid\LanguageTool\Models\Language;
 use Webid\LanguageTool\Repositories\LanguageRepository;

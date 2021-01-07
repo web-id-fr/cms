@@ -2,7 +2,7 @@
 
 namespace Webid\LanguageTool\Repositories;
 
-use Webid\Cms\Src\App\Repositories\BaseRepository;
+use Webid\Cms\App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 use Webid\LanguageTool\Models\Language;
 

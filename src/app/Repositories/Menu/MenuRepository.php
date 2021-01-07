@@ -1,10 +1,10 @@
 <?php
 
-namespace Webid\Cms\Src\App\Repositories\Menu;
+namespace Webid\Cms\App\Repositories\Menu;
 
-use Webid\Cms\Src\App\Repositories\BaseRepository;
+use Webid\Cms\App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
-use Webid\Cms\Src\App\Models\Menu\Menu;
+use Webid\Cms\App\Models\Menu\Menu;
 
 class MenuRepository extends BaseRepository
 {

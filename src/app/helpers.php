@@ -1,5 +1,33 @@
 <?php
 
+if (!function_exists('package_base_path')) {
+    /**
+     * Retourne le chemin en partant de la racine du package
+     *
+     * @param string $path
+     * @return string
+     */
+    function package_base_path(string $path = ''): string
+    {
+        $path = ltrim($path, '/');
+        return __DIR__ . "/../../{$path}";
+    }
+}
+
+if (!function_exists('package_module_path')) {
+    /**
+     * Retourne le chemin en partant du dossier Modules du package
+     *
+     * @param string $path
+     * @return string
+     */
+    function package_module_path(string $path = ''): string
+    {
+        $path = ltrim($path, '/');
+        return package_base_path("src/Modules/{$path}");
+    }
+}
+
 if (!function_exists('current_url_is')) {
     /**
      * @param string $urlToCompare
@@ -44,7 +72,7 @@ if (!function_exists('has_zone_menu')) {
      */
     function has_zone_menu($zone): bool
     {
-        $menus =  app()->make(\Webid\Cms\Src\App\Repositories\Menu\MenuRepository::class);
+        $menus =  app()->make(\Webid\Cms\App\Repositories\Menu\MenuRepository::class);
 
         return $menus->menuZoneExist($zone);
     }
@@ -83,11 +111,11 @@ if (!function_exists('menu_builder')) {
      */
     function menu_builder($zoneId, $label)
     {
-        $menuRepository = app(\Webid\Cms\Src\App\Repositories\Menu\MenuRepository::class);
+        $menuRepository = app(\Webid\Cms\App\Repositories\Menu\MenuRepository::class);
         $menu = $menuRepository->getMenuByMenuZone($zoneId);
 
         if (!empty($menu)) {
-            $data = \Webid\Cms\Src\App\Http\Resources\Menu\MenuResource::make($menu)->resolve();
+            $data = \Webid\Cms\App\Http\Resources\Menu\MenuResource::make($menu)->resolve();
 
             return view('components.menu')->with($data);
         }
