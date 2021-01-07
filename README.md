@@ -13,7 +13,7 @@
 * [Customization](#customization)
   1. [Use cookies.js](#use-cookies-js)
   2. [Use form & popin form](#use-form-popin)
-  3. [Language for front](#language-front)
+  3. [Internationalization](#language-front)
   4. [Update email template](#update-mail-template)
   5. [Add images for components](#add-image-components)
 * [Extending functionalities](#extending-cms)
@@ -143,9 +143,33 @@ And add in the `webpack.mix` file the `send_form_js` and `send_form_popin_js` fi
 You can change the form frontend but DO NOT TOUCH the `submit_form` class for sending forms.
 
 <a id="language-front"></a>
-### Language for front
+### Internationalization
 Don't forget to create a service to display the languages as you need them.
 Use this service into a ViewServiceProvider to share both languages and translated slugs to views.
+
+To create the service provider, you can run :
+```bash
+php artisan make:provider ViewServiceProvider
+```
+
+Then in the `boot` method, you can add necessary shared variables
+```php
+use Illuminate\Support\Facades\View;
+
+public function boot()
+{
+    View::composer('*', function ($view) {
+        if (!request()->is('nova*')) {
+            $currentLangKey = request()->lang ?? config('app.locale');
+            $currentLang = config("translatable.locales.{$currentLangKey}");
+            
+            View::share('currentLang', $currentLang);
+        }
+    });
+}
+```
+
+⚠ Don't forget to add the service provider in the file `config/app.php`.
 
 <a id="update-mail-template"></a>
 ### Update email template
