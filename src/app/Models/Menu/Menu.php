@@ -3,7 +3,6 @@
 namespace Webid\Cms\App\Models\Menu;
 
 use App\Models\Template;
-use App\Models\Menuable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Spatie\Translatable\HasTranslations;
