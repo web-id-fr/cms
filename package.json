@@ -9,9 +9,7 @@
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "build-menu-tool": "cd nova-components/MenuTool && npm run dev",
-        "build-menu-tool-prod": "cd nova-components/MenuTool && npm run prod",
-        "build-custom-resource-toolbar": "cd src/nova-components/CustomResourceToolbar && npm i && npm run dev",
-        "build-custom-resource-toolbar-prod": "cd src/nova-components/CustomResourceToolbar && npm i && npm run prod"
+        "build-menu-tool-prod": "cd nova-components/MenuTool && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.19",
