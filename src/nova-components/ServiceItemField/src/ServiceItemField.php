@@ -2,10 +2,10 @@
 
 namespace Webid\ServiceItemField;
 
-use Webid\Cms\App\Models\Modules\Form\Form;
-use Webid\Cms\App\Repositories\Modules\Form\ServiceRepository;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Webid\Cms\Modules\Form\Models\Form;
+use Webid\Cms\Modules\Form\Repositories\ServiceRepository;
 
 class ServiceItemField extends Field
 {

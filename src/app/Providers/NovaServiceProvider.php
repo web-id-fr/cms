@@ -14,15 +14,9 @@ use Laravel\Nova\NovaApplicationServiceProvider;
 use Webid\CardActions\CardActions;
 use Webid\Cms\App\Nova\Menu\Menu;
 use Webid\Cms\App\Nova\Menu\MenuCustomItem;
-use Webid\Cms\App\Nova\Modules\Form\Field;
-use Webid\Cms\App\Nova\Modules\Form\Form;
-use Webid\Cms\App\Nova\Modules\Form\Recipient;
-use Webid\Cms\App\Nova\Modules\Form\Service;
-use Webid\Cms\App\Nova\Modules\Form\TitleField;
 use Webid\Cms\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\App\Nova\Modules\Slideshow\Slide;
 use Webid\Cms\App\Nova\Modules\Slideshow\Slideshow;
-use Webid\Cms\App\Nova\Newsletter\Newsletter;
 use Webid\Cms\App\Nova\Popin\Popin;
 use Webid\Cms\App\Nova\Template;
 use Webid\Cms\App\Services\DynamicResource;
@@ -98,15 +92,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     }
 
     /**
-     * Register any application services.
-     *
-     * @return void
+     * @return array
      */
-    public function register()
-    {
-        //
-    }
-
     private function collapsibleResourceItems(): array
     {
         $items = [
@@ -136,8 +123,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     'label' => __('Templates'),
                     'badge' => null,
                     'linkTo' => Template::class,
-                ]),
-                TopLevelResource::make([
                     'resources' => [
                         InternalLink::make([
                             'label' => __('List of Components'),
@@ -149,35 +134,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         Group::make([
                             'label' => __('Modules'),
                             'expanded' => false,
-                            'resources' => [
-                                Gallery::class,
-                                Group::make([
-                                    'label' => __('Form'),
-                                    'expanded' => false,
-                                    'resources' => [
-                                        Form::class,
-                                        Field::class,
-                                        TitleField::class,
-                                        Service::class,
-                                        Recipient::class,
-                                    ],
-                                ]),
-                                Group::make([
-                                    'label' => __('Slideshow'),
-                                    'expanded' => false,
-                                    'resources' => [
-                                        Slideshow::class,
-                                        Slide::class,
-                                    ],
-                                ]),
-                            ],
+                            'resources' => $this->getModuleResources()
                         ]),
                     ],
-                ]),
-                TopLevelResource::make([
-                    'label' => __('Newsletter'),
-                    'badge' => null,
-                    'linkTo' => Newsletter::class,
                 ]),
                 TopLevelResource::make([
                     'label' => __('Popins'),
@@ -197,6 +156,34 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 'label' => $resource['label'],
                 'badge' => $resource['badge'],
                 'linkTo' => $resource['linkTo'],
+            ]);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getModuleResources(): array
+    {
+        $items = [
+            Gallery::class,
+            Group::make([
+                'label' => __('Slideshow'),
+                'expanded' => false,
+                'resources' => [
+                    Slideshow::class,
+                    Slide::class,
+                ],
+            ]),
+        ];
+
+        foreach (DynamicResource::getGroupModuleResources() as $resource) {
+            $items[] = Group::make([
+                'label' => $resource['label'],
+                'expanded' => $resource['expanded'] ?? false,
+                'resources' => $resource['resources'] ?? [],
             ]);
         }
 

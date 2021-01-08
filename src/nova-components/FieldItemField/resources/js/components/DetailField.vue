@@ -32,7 +32,7 @@
             selectFirstTitle(title, formable_type) {
                 let type;
 
-                if(formable_type === 'Webid\\Cms\\App\\Models\\Modules\\Form\\TitleField'){
+                if(formable_type === 'Webid\\Cms\\Modules\\Form\\Models\\TitleField'){
                     type = 'Title  | '
                 } else {
                     type = 'Field | '
