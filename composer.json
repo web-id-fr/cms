@@ -42,6 +42,9 @@
     "autoload": {
         "psr-4": {
             "Webid\\Cms\\": "src/",
+            "Webid\\Cms\\App\\": "src/app/",
+            "Webid\\Cms\\Database\\Factories\\": "src/database/factories/",
+            "Webid\\FieldItemField\\" : "src/nova-components/FieldItemField/src/",
             "Webid\\GalleryItemField\\" : "src/nova-components/GalleryItemField/src/",
             "Webid\\ImageItemField\\" : "src/nova-components/ImageItemField/src/",
             "Webid\\LanguageTool\\" : "src/nova-components/LanguageTool/src/",
@@ -49,10 +52,10 @@
             "Webid\\MenuTool\\" : "src/nova-components/MenuTool/src/",
             "Webid\\MenuItemField\\" : "src/nova-components/MenuItemField/src/",
             "Webid\\CardActions\\" : "src/nova-components/CardActions/src/",
-            "Webid\\PageUrlItemField\\" : "src/nova-components/PageUrlItemField/src/",
             "Webid\\RecipientItemField\\": "src/nova-components/RecipientItemField/src/",
             "Webid\\ServiceItemField\\": "src/nova-components/ServiceItemField/src/",
-            "Webid\\FieldItemField\\": "src/nova-components/FieldItemField/src/"
+            "Webid\\CardActions\\App\\" : "src/nova-components/CardActions/src/app/",
+            "Webid\\PageUrlItemField\\" : "src/nova-components/PageUrlItemField/src/"
         },
         "files": [
             "src/app/helpers.php"

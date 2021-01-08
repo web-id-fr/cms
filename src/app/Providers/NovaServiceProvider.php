@@ -125,7 +125,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     'linkTo' => Template::class,
                     'resources' => [
                         InternalLink::make([
-                            'label' => 'List of Components',
+                            'label' => __('List of Components'),
                             'badge' => null,
                             'icon' => null,
                             'target' => '_self',

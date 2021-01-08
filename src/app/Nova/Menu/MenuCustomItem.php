@@ -63,7 +63,7 @@ class MenuCustomItem extends Resource
                 ->rules('array'),
 
             Select::make(__('Type link'), 'type_link')
-                ->options(MenuCustomItemModel::TYPE_TO_LINK)
+                ->options(MenuCustomItemModel::linksTypes())
                 ->displayUsingLabels()
                 ->hideFromIndex(),
 
@@ -73,7 +73,7 @@ class MenuCustomItem extends Resource
                     ->hideFromIndex(),
 
                 Select::make(__('Target'), 'target')
-                    ->options(MenuCustomItemModel::STATUS_TYPE)
+                    ->options(MenuCustomItemModel::statusTypes())
                     ->displayUsingLabels()
                     ->rules('nullable')
                     ->hideFromIndex(),

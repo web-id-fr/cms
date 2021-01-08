@@ -15,16 +15,6 @@ class MenuCustomItem extends Model
     const _LINK_URL = 1;
     const _LINK_FORM = 2;
 
-    const STATUS_TYPE= [
-        self::_STATUS_SELF => 'Same window',
-        self::_STATUS_BLANK => 'New window',
-    ];
-
-    const TYPE_TO_LINK = [
-        self::_LINK_URL => "Link url",
-        self::_LINK_FORM => "Link form"
-    ];
-
     /** @var string  */
     protected $table = 'menu_custom_items';
 
@@ -50,6 +40,28 @@ class MenuCustomItem extends Model
         'type_link',
         'form_id',
     ];
+
+    /**
+     * @return array
+     */
+    public static function statusTypes(): array
+    {
+        return [
+            self::_STATUS_SELF => __('Same window'),
+            self::_STATUS_BLANK => __('New window'),
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function linksTypes(): array
+    {
+        return [
+            self::_LINK_URL => __("Link url"),
+            self::_LINK_FORM => __("Link form"),
+        ];
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
