@@ -17,6 +17,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Webid\ComponentItemField\ComponentItemField;
 use Webid\PageUrlItemField\PageUrlItemField;
+use Webid\PreviewItemField\PreviewItemField;
 use Webid\TranslatableTool\Translatable;
 use App\Models\Template as TemplateModel;
 
@@ -71,6 +72,7 @@ class Template extends Resource
                 __('Content') => $this->contentFields(),
                 __('SEO') => $this->seoFields(),
             ]))->withToolbar(),
+            PreviewItemField::make('preview_btn')->onlyOnForms()
         ];
     }
 
