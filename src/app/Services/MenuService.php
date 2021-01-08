@@ -5,6 +5,7 @@ namespace Webid\Cms\App\Services;
 use Webid\Cms\App\Exceptions\Templates\DepthExceededException;
 use Webid\Cms\App\Exceptions\Templates\MissingParameterException;
 use Webid\Cms\App\Exceptions\Templates\TemplateNotFoundException;
+use Webid\Cms\App\Models\Menu\Menu;
 use Webid\Cms\App\Repositories\Menu\MenuRepository;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
