@@ -22,25 +22,30 @@
             },
         },
 
+        data() {
+            return {
+                fields: {},
+            }
+        },
+
         created() {
             this.field.fill = () => {}
         },
 
         methods: {
             getAllFieldsValue() {
-                let value = [];
-
                 this.$parent.$children.forEach(component => {
-                    if (component.field !== undefined && component.field.attribute !== "") {
-                        value[component.field.attribute] = component.field.value;
+                    if (component.field !== undefined &&
+                        (component.field.attribute !== "" || component.field.attribute !== this.field.attribute)
+                    ) {
+                        console.log(component.field.attribute);
+                        this.fields[component.field.attribute] = component.field.value;
 
                         if (component.field.attribute === 'components') {
-                            value[component.field.attribute] = component.selected;
+                            this.fields[component.field.attribute] = component.selected;
                         }
                     }
                 });
-
-                return value
             }
         }
     }
