@@ -38,7 +38,6 @@
                     if (component.field !== undefined &&
                         (component.field.attribute !== "" || component.field.attribute !== this.field.attribute)
                     ) {
-                        console.log(component.field.attribute);
                         this.fields[component.field.attribute] = component.field.value;
 
                         if (component.field.attribute === 'components') {
