@@ -9,12 +9,16 @@ class PreviewTest extends TestCase
 {
     use NewsletterComponentCreator;
 
+    /** @var array */
+    protected $data;
+
     const _ROUTE_INDEX = 'preview';
 
-    /** @test */
-    public function we_can_make_preview()
+    public function setUp(): void
     {
-        $data = [
+        parent::setUp();
+
+        $this->data = [
             "homepage" => true,
             "title" => "titre-en-fr",
             "slug" => "slug-en-fr",
@@ -23,12 +27,24 @@ class PreviewTest extends TestCase
         ];
 
         $newsletterComponent = $this->createNewsletterComponent();
-        $data['components'][] = [
+        $this->data['components'][] = [
             "id" => $newsletterComponent->getKey(),
             "component_type" => get_class($newsletterComponent)
         ];
-        $this->withSession([$data['token'] => $data]);
-        $this->get(route(self::_ROUTE_INDEX, $data))->assertSuccessful();
+    }
+
+    /** @test */
+    public function we_can_make_preview()
+    {
+        $this->withSession([$this->data['token'] => $this->data]);
+        $this->get(route(self::_ROUTE_INDEX, $this->data))->assertSuccessful();
+    }
+
+    /** @test */
+    public function we_cant_make_preview_with_wrong_token()
+    {
+        $this->withSession(['wrong-token' => $this->data]);
+        $this->get(route(self::_ROUTE_INDEX, $this->data))->assertNotFound();
     }
 }
 
