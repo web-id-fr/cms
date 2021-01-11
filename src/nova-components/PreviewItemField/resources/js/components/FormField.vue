@@ -44,18 +44,16 @@
             getAllFieldsValue() {
                 this.$parent.$children.forEach(component => {
                     if (component.field !== undefined &&
-                        component.field.value !== null &&
                         (component.field.attribute !== "" || component.field.attribute !== this.field.attribute)
                     ) {
-                        if (typeof component.field.value === 'object') {
-                            if (component.field.attribute === 'components') {
-                                this.fields[component.field.attribute] = component.selected;
-                            } else {
-                                this.fields[component.field.attribute] = component.field.value[this.currentLocale];
-                            }
+                        if (typeof component.field.value === 'object' && component.field.value !== null) {
+                            this.fields[component.field.attribute] = component.field.value[this.currentLocale];
                         } else {
                             this.fields[component.field.attribute] = component.field.value;
                         }
+                    }
+                    if (component.field.attribute === 'components') {
+                        this.fields[component.field.attribute] = component.selected;
                     }
                 });
 

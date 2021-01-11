@@ -5,7 +5,7 @@
     @foreach(data_get($data, 'components', []) as $component)
         @component(data_get($component, 'view') ,[
             'component' => $component,
-            'lang' => $currentLang
+            'lang' => data_get($component, 'lang')
         ])
         @endcomponent
     @endforeach
