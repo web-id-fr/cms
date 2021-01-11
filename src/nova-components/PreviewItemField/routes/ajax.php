@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Webid\PreviewItemField\App\Http\Controllers\PreviewItemFieldController;
+use Webid\PreviewItemField\Http\Controllers\PreviewItemFieldController;
 
 /*
 |--------------------------------------------------------------------------
