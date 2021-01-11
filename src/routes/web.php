@@ -41,7 +41,6 @@ Route::group([
 ], function () {
     Route::get('/csrf', [CsrfController::class, 'index'])->name('csrf.index');
     Route::get('/preview/{token}', [PreviewController::class, 'preview'])->name('preview');
-
 });
 
 Route::group([
