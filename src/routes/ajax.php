@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Webid\Cms\App\Http\Middleware\IsAjax;
-use Webid\Cms\App\Http\Middleware\Language;
 use Webid\Cms\App\Http\Controllers\Components\ComponentController;
-use Webid\Cms\App\Http\Controllers\Ajax\Newsletter\NewsletterController;
 use Webid\Cms\App\Http\Controllers\Ajax\Menu\MenuController;
 use Webid\Cms\App\Http\Controllers\Ajax\Menu\MenuCustomItemController;
 use Webid\Cms\App\Http\Controllers\Ajax\Menu\MenuConfigurationController;
@@ -26,21 +24,6 @@ Route::group([
     'prefix' => 'ajax',
 ], function () {
     Route::get('component', [ComponentController::class, 'index']);
-});
-
-/* *********************************************************************************
-* NEWSLETTER AJAX ROUTE
-********************************************************************************* */
-Route::group([
-    'middleware' => [IsAjax::class, Language::class],
-    'prefix' => '{lang}/ajax'
-], function () {
-    /**
-     * Newsletter
-     */
-    Route::prefix('/newsletter')->name('newsletter.')->group(function () {
-        Route::post('/', [NewsletterController::class, 'store'])->name('store');
-    });
 });
 
 /* *********************************************************************************

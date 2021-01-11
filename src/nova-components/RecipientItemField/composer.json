@@ -1,5 +1,5 @@
 {
-    "name": "webid/RecipientItemField",
+    "name": "webid/recipientitemfield",
     "description": "A Laravel Nova field.",
     "keywords": [
         "laravel",

@@ -2,13 +2,13 @@
 
 namespace Webid\FieldItemField;
 
-use Webid\Cms\App\Models\Modules\Form\Form;
-use Webid\Cms\App\Models\Modules\Form\TitleField;
-use Webid\Cms\App\Repositories\Modules\Form\FieldRepository;
-use Webid\Cms\App\Repositories\Modules\Form\TitleFieldRepository;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Webid\Cms\App\Models\Modules\Form\Field as FieldModel;
+use Webid\Cms\Modules\Form\Models\Form;
+use Webid\Cms\Modules\Form\Models\TitleField;
+use Webid\Cms\Modules\Form\Repositories\FieldRepository;
+use Webid\Cms\Modules\Form\Repositories\TitleFieldRepository;
+use Webid\Cms\Modules\Form\Models\Field as FieldModel;
 
 class FieldItemField extends Field
 {

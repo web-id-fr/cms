@@ -7,7 +7,7 @@ use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Select;
-use Webid\Cms\App\Nova\Modules\Form\Form;
+use Webid\Cms\Modules\Form\Nova\Form;
 use Webid\TranslatableTool\Translatable;
 use Laravel\Nova\Resource;
 use Webid\Cms\App\Models\Menu\MenuCustomItem as MenuCustomItemModel;
@@ -63,7 +63,7 @@ class MenuCustomItem extends Resource
                 ->rules('array'),
 
             Select::make(__('Type link'), 'type_link')
-                ->options(MenuCustomItemModel::TYPE_TO_LINK)
+                ->options(MenuCustomItemModel::linksTypes())
                 ->displayUsingLabels()
                 ->hideFromIndex(),
 
@@ -73,7 +73,7 @@ class MenuCustomItem extends Resource
                     ->hideFromIndex(),
 
                 Select::make(__('Target'), 'target')
-                    ->options(MenuCustomItemModel::STATUS_TYPE)
+                    ->options(MenuCustomItemModel::statusTypes())
                     ->displayUsingLabels()
                     ->rules('nullable')
                     ->hideFromIndex(),

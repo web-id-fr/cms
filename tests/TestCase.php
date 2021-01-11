@@ -84,12 +84,8 @@ class TestCase extends OrchestraTestCase
 
         $configToLoad = [
             'components',
-            'dropzone',
-            'fields_type',
-            'fields_type_validation',
             'filemanager',
             'translatable',
-            'ziggy',
         ];
 
         foreach ($configToLoad as $configName) {

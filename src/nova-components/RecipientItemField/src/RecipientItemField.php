@@ -2,11 +2,11 @@
 
 namespace Webid\RecipientItemField;
 
-use Webid\Cms\App\Models\Modules\Form\Form;
-use Webid\Cms\App\Models\Modules\Form\Service;
-use Webid\Cms\App\Repositories\Modules\Form\RecipientRepository;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Webid\Cms\Modules\Form\Models\Form;
+use Webid\Cms\Modules\Form\Models\Service;
+use Webid\Cms\Modules\Form\Repositories\RecipientRepository;
 
 class RecipientItemField extends Field
 {
