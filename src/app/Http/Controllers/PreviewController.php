@@ -17,7 +17,6 @@ class PreviewController extends BaseController
             $components = [];
             $token = $request->token;
             $data = session($token);
-            session()->forget($token);
 
             foreach (data_get($data, 'components') as $component) {
                 $model = app($component['component_type'])::find($component['id']);
