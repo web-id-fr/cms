@@ -3,7 +3,7 @@
         <button type="button" class="btn btn-default btn-primary inline-flex items-center relative mr-3"
                 @click="getAllFieldsValue">
                     <span class="">
-                        {{ __("Preview in") + ' ' + this.currentLocale }}
+                        {{ __("Preview in :locale", {locale: this.currentLang}) }}
                     </span>
         </button>
     </div>
@@ -26,6 +26,7 @@
             return {
                 fields: {},
                 currentLocale: null,
+                currentLang: null,
             }
         },
 
@@ -35,8 +36,10 @@
 
         mounted() {
             this.currentLocale = document.querySelector('#select-language-translatable').value;
+            this.currentLang = document.querySelector('#select-language-translatable option[value="'+this.currentLocale+'"]').text;
             Nova.$on('change-language', (lang) => {
                 this.currentLocale = lang;
+                this.currentLang = document.querySelector('#select-language-translatable option[value="'+lang+'"]').text;
             });
         },
 
