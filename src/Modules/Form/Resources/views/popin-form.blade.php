@@ -24,6 +24,7 @@
                             @endcomponent
                         @endforeach
                         <input type="hidden" name="form_id" value="{{ data_get($form, 'id') }}">
+                        <input type="hidden" name="confirmation_email_name" value="{{ data_get($form, 'confirmation_email_name') }}">
                     </div>
                     <div class="pad_popin">
                         <button type="submit"

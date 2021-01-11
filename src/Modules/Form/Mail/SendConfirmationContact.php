@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Src\App\Mail;
+namespace Webid\Cms\Modules\Form\Mail;
 
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -16,7 +16,7 @@ class SendConfirmationContact extends Mailable
      */
     public function build()
     {
-        $mailPath = "mail.confirmation_contact";
+        $mailPath = "modules.form.mail.confirmation_contact";
 
         return $this->from(config('mail.from.address'), config('mail.from.name'))
             ->view($mailPath)

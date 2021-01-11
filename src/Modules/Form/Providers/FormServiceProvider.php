@@ -4,6 +4,7 @@ namespace Webid\Cms\Modules\Form\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Webid\Cms\App\Services\DynamicResource;
 use Webid\Cms\Modules\Form\Nova\Field;
@@ -11,6 +12,8 @@ use Webid\Cms\Modules\Form\Nova\Form;
 use Webid\Cms\Modules\Form\Nova\Recipient;
 use Webid\Cms\Modules\Form\Nova\Service;
 use Webid\Cms\Modules\Form\Nova\TitleField;
+use Webid\Cms\Modules\Form\Models\Field as FieldModel;
+use Webid\Cms\Modules\Form\Observers\FieldObserver;
 
 class FormServiceProvider extends ServiceProvider
 {
@@ -53,6 +56,11 @@ class FormServiceProvider extends ServiceProvider
                 Recipient::class,
             ]
         ]);
+
+        Nova::serving(function (ServingNova $event) {
+            FieldModel::observe(FieldObserver::class);
+        });
+
     }
 
     public function register(): void

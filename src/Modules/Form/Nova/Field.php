@@ -69,7 +69,7 @@ class Field extends Resource
                 ->options(config('fields_type'))
                 ->hideFromIndex(),
 
-            Text::make(__('Field name')),
+            Text::make(__('Field name'), 'field_name'),
 
             ConditionalContainer::make([
                 Flexible::make(__('Field items'), 'field_options')
