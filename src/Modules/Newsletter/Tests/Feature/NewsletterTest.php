@@ -7,7 +7,6 @@ use Webid\Cms\Modules\Newsletter\Tests\Helpers\Traits\NewsletterCreator;
 use Webid\Cms\Modules\Newsletter\Tests\NewsletterTestCase;
 use Webid\Cms\Tests\Helpers\Traits\TestsNovaResource;
 
-
 class NewsletterTest extends NewsletterTestCase
 {
     use NewsletterCreator, TestsNovaResource;
