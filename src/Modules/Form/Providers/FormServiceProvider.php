@@ -60,7 +60,6 @@ class FormServiceProvider extends ServiceProvider
         Nova::serving(function (ServingNova $event) {
             FieldModel::observe(FieldObserver::class);
         });
-
     }
 
     public function register(): void
