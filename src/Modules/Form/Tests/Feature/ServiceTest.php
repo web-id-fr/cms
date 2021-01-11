@@ -5,10 +5,11 @@ namespace Webid\Cms\Modules\Form\Tests\Feature;
 use Illuminate\Database\Eloquent\Model;
 use Webid\Cms\Modules\Form\Tests\FormTestCase;
 use Webid\Cms\Modules\Form\Tests\Helpers\ServiceCreator;
+use Webid\Cms\Tests\Helpers\Traits\TestsNovaResource;
 
 class ServiceTest extends FormTestCase
 {
-    use ServiceCreator;
+    use ServiceCreator, TestsNovaResource;
 
     /**
      * @return string

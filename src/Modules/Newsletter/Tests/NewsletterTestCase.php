@@ -3,9 +3,9 @@
 namespace Webid\Cms\Modules\Newsletter\Tests;
 
 use Webid\Cms\Modules\Newsletter\Providers\NewsletterServiceProvider;
-use Webid\Cms\Tests\NovaResourceTestCase;
+use Webid\Cms\Tests\TestCase;
 
-class NewsletterTestCase extends NovaResourceTestCase
+class NewsletterTestCase extends TestCase
 {
     /**
      * @param \Illuminate\Foundation\Application $app

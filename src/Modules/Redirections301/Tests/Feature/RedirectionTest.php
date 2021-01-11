@@ -6,20 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use Webid\Cms\Modules\Redirections301\Tests\Helpers\RedirectionCreator;
 use Webid\Cms\Modules\Redirections301\Tests\Redirections301TestCase;
 use Webid\Cms\Tests\Helpers\Traits\DummyUserCreator;
+use Webid\Cms\Tests\Helpers\Traits\TestsNovaResource;
 
 class RedirectionTest extends Redirections301TestCase
 {
-    use RedirectionCreator, DummyUserCreator;
-
-    /** @var string  */
-    protected $resourceName = 'redirections';
+    use RedirectionCreator, DummyUserCreator, TestsNovaResource;
 
     /**
      * @return string
      */
     protected function getResourceName(): string
     {
-        return $this->resourceName;
+        return 'redirections';
     }
 
     /**
@@ -41,11 +39,11 @@ class RedirectionTest extends Redirections301TestCase
             'destination_url' => '/new-path',
         ];
 
-        $this->createNovaResource($this->resourceName, $data)->originalResponse()->assertSuccessful();
+        $this->createNovaResource('redirections', $data)->originalResponse()->assertSuccessful();
 
         $this->assertDatabaseHas('redirections', $data);
 
-        $this->createNovaResource($this->resourceName, $data)->originalResponse()->assertStatus(422);
+        $this->createNovaResource('redirections', $data)->originalResponse()->assertStatus(422);
     }
 
     /** @test */

@@ -1,40 +1,36 @@
 <?php
 
-namespace Webid\Cms\Tests;
+namespace Webid\Cms\Tests\Helpers\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User;
-use Webid\Cms\Tests\Helpers\Traits\DummyUserCreator;
+use Illuminate\Foundation\Testing\Concerns\InteractsWithAuthentication;
 
-class NovaResourceTestCase extends TestCase
+trait TestsNovaResource
 {
-    use DummyUserCreator;
+    use DummyUserCreator, InteractsWithAuthentication, NovaAssertions;
 
     /** @var User */
     protected $user;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->user = $this->createDummyUser();
+    private function getUser() {
+        if (empty($this->user)) {
+            $this->user = $this->createDummyUser();
+        }
+
+        return $this->user;
     }
 
     /** @return string */
-    protected function getResourceName(): string
-    {
-        // Define your resource name.
-    }
+    abstract protected function getResourceName(): string;
 
     /** @return Model */
-    protected function getModel(): Model
-    {
-        // Define your Model.
-    }
+    abstract protected function getModel(): Model;
 
     /** @test */
     public function we_can_create_resource()
     {
-        $this->actingAs($this->user)
+        $this->actingAs($this->getUser())
             ->novaCreate($this->getResourceName())
             ->assertOk();
     }
@@ -42,7 +38,7 @@ class NovaResourceTestCase extends TestCase
     /** @test */
     public function we_can_show_index()
     {
-        $this->actingAs($this->user)
+        $this->actingAs($this->getUser())
             ->novaIndex($this->getResourceName())
             ->assertOk();
     }
@@ -50,7 +46,7 @@ class NovaResourceTestCase extends TestCase
     /** @test */
     public function we_can_show_detail()
     {
-        $this->actingAs($this->user)
+        $this->actingAs($this->getUser())
             ->novaDetail($this->getResourceName(), $this->getModel()->getKey())
             ->assertOk();
     }
@@ -58,7 +54,7 @@ class NovaResourceTestCase extends TestCase
     /** @test */
     public function we_can_edit_resource()
     {
-        $this->actingAs($this->user)
+        $this->actingAs($this->getUser())
             ->novaEdit($this->getResourceName(), $this->getModel()->getKey())
             ->assertOk();
     }
