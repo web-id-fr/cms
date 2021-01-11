@@ -18,6 +18,7 @@ use Webid\Cms\App\Services\LanguageService;
 use Webid\Cms\CmsServiceProvider;
 use Webid\Cms\Tests\Helpers\Traits\NovaAssertions;
 use Webid\Cms\Tests\Helpers\Traits\PerformsAjaxRequests;
+use Webid\PreviewItemField\FieldServiceProvider;
 
 class TestCase extends OrchestraTestCase
 {
@@ -55,6 +56,7 @@ class TestCase extends OrchestraTestCase
             NovaServiceProvider::class,
             SitemapServiceProvider::class,
             LaravelModulesServiceProvider::class,
+            FieldServiceProvider::class,
         ];
     }
 
