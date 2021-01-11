@@ -16,6 +16,7 @@ use Webid\Cms\App\Http\Controllers\CsrfController;
 use Webid\Cms\App\Http\Controllers\Modules\Ajax\Form\FormController;
 use Webid\Cms\App\Http\Controllers\SitemapController;
 use Webid\Cms\App\Http\Controllers\TemplateController;
+use Webid\Cms\App\Http\Controllers\PreviewController;
 
 Route::group(['middleware' => 'cacheable'], function () {
     // Redirect homepage without lang
@@ -39,6 +40,8 @@ Route::group([
     'middleware' => ['web'],
 ], function () {
     Route::get('/csrf', [CsrfController::class, 'index'])->name('csrf.index');
+    Route::get('/preview/{token}', [PreviewController::class, 'preview'])->name('preview');
+
 });
 
 Route::group([
