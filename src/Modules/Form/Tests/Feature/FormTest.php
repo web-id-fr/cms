@@ -11,8 +11,6 @@ class FormTest extends FormTestCase
 {
     use FormCreator, TestsNovaResource;
 
-    const _FORM_ROUTE = 'send.form';
-
     /**
      * @return string
      */
