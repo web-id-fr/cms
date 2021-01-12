@@ -7,19 +7,6 @@ use Webid\Cms\Modules\Form\Tests\FormTestCase;
 
 class CsrfTest extends FormTestCase
 {
-    /**
-     * @param \Illuminate\Foundation\Application $app
-     *
-     * @return array
-     */
-    protected function getPackageProviders($app)
-    {
-        $providers = parent::getPackageProviders($app);
-        array_push($providers, FormServiceProvider::class);
-
-        return $providers;
-    }
-
     /** @test */
     public function route_works()
     {
