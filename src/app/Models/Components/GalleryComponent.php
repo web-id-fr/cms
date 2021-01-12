@@ -40,6 +40,15 @@ class GalleryComponent extends Model
     public $gallery_items;
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = [
+        'galleries',
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function galleries()

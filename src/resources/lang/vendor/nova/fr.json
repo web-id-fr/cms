@@ -589,5 +589,8 @@
     "Same window": "Fenêtre actuelle",
     "New window": "Nouvelle fenêtre",
     "Link url": "Lien vers URL",
-    "Link form": "Lien vers formulaire"
+    "Link form": "Lien vers formulaire",
+    "The preview has been correctly created.": "L'aperçu a été correctement créé.",
+    "An unexpected error occurred during the creation of the preview.": "Une erreur inattendue s'est produite lors de la création de l'aperçu.",
+    "Preview in :locale": "Aperçu en :locale"
 }

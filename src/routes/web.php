@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Webid\Cms\App\Http\Controllers\TemplateController;
+use Webid\Cms\App\Http\Controllers\PreviewController;
 use Webid\Cms\App\Http\Controllers\SitemapController;
+use Webid\Cms\App\Http\Controllers\TemplateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,12 @@ Route::group(['middleware' => 'cacheable'], function () {
             'slug' => '(?!' . trim(config('nova.path'), '/') . '|ajax|api)(.+)',
         ])->name('pageFromSlug');
     });
+});
+
+Route::group([
+    'middleware' => ['web'],
+], function () {
+    Route::get('/preview/{token}', [PreviewController::class, 'preview'])->name('preview');
 });
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
