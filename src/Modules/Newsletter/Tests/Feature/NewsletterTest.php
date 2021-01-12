@@ -2,14 +2,32 @@
 
 namespace Webid\Cms\Modules\Newsletter\Tests\Feature;
 
+use Illuminate\Database\Eloquent\Model;
 use Webid\Cms\Modules\Newsletter\Tests\Helpers\Traits\NewsletterCreator;
 use Webid\Cms\Modules\Newsletter\Tests\NewsletterTestCase;
+use Webid\Cms\Tests\Helpers\Traits\TestsNovaResource;
 
 class NewsletterTest extends NewsletterTestCase
 {
-    use NewsletterCreator;
+    use NewsletterCreator, TestsNovaResource;
 
     const _NEWSLETTER_ROUTE = 'newsletter.store';
+
+    /**
+     * @return string
+     */
+    protected function getResourceName(): string
+    {
+        return 'newsletters';
+    }
+
+    /**
+     * @return Model
+     */
+    protected function getModel(): Model
+    {
+        return $this->createNewsletter();
+    }
 
     /** @test */
     public function it_cant_store_without_email()
