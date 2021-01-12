@@ -3,6 +3,7 @@
 namespace Webid\Cms\Tests;
 
 use App\Providers\NovaServiceProvider;
+use DigitalCreative\ConditionalContainer\ConditionalContainerServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -55,6 +56,7 @@ class TestCase extends OrchestraTestCase
             NovaServiceProvider::class,
             SitemapServiceProvider::class,
             LaravelModulesServiceProvider::class,
+            ConditionalContainerServiceProvider::class
         ];
     }
 
@@ -84,12 +86,8 @@ class TestCase extends OrchestraTestCase
 
         $configToLoad = [
             'components',
-            'dropzone',
-            'fields_type',
-            'fields_type_validation',
             'filemanager',
             'translatable',
-            'ziggy',
         ];
 
         foreach ($configToLoad as $configName) {

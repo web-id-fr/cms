@@ -23,7 +23,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
-          tools: composer:v1
+          tools: composer:v2
 
       - uses: actions/checkout@v2
 
@@ -67,6 +67,6 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_COLOR: '#FF5555'
           SLACK_USERNAME: 'CMS CI'
-          SLACK_ICON_EMOJI: ':see_no_evil:'
+          SLACK_ICON_EMOJI: ':hinhin:'
           SLACK_TITLE: Dernier commit
           SLACK_FOOTER: "“Je ne comprends pas, pourtant ça marche en local.” — inconnu"

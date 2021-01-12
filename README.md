@@ -7,12 +7,13 @@
   1. [Install the package](#install-the-package)
   2. [Publish files](#publish-files)
   3. [Install databases](#install-databases)
-  4. [Add nova-components in composer](#add-nova-components) 
-  5. [Configure sitemap.xml](#configure-sitemap)
+  4. [Add nova-components in composer](#add-nova-components)
+  5. [Prepare routes](#prepare-routes)
+  6. [Configure sitemap.xml](#configure-sitemap)
 * [Customization](#customization)
   1. [Use cookies.js](#use-cookies-js)
   2. [Use form & popin form](#use-form-popin)
-  3. [Language for front](#language-front)
+  3. [Internationalization](#language-front)
   4. [Update email template](#update-mail-template)
   5. [Add images for components](#add-image-components)
 * [Extending functionalities](#extending-cms)
@@ -29,11 +30,11 @@ This package can be installed as a [Composer](https://getcomposer.org/) dependen
 
 ```bash
 "repositories": [
-        {
-            "type": "vcs",
-            "url" : "git@bitbucket.org:web-id/test.git"
-        }
-    ]
+    {
+        "type": "vcs",
+        "url" : "git@github.com:web-id-fr/cms.git"
+    }
+]
 ```
 
 ```bash
@@ -64,36 +65,51 @@ make install_db
 
 ```bash
 "extra": {
-        "laravel": {
-            "dont-discover": [],
-            "providers": [
-                "Webid\\ComponentTool\\ToolServiceProvider"
-            ]
-        }
+    "laravel": {
+        "dont-discover": [],
+        "providers": [
+            "Webid\\ComponentTool\\ToolServiceProvider"
+        ]
     }
+}
 ```  
 ```bash
 "autoload": {
-        "psr-4": {
-            "Webid\\ComponentTool\\" : "nova-components/ComponentTool/src/"
-        },
+    "psr-4": {
+        "Webid\\ComponentTool\\" : "nova-components/ComponentTool/src/"
     },
+},
 ```  
 ```bash
-    "require": {
-        "webid/ComponentItemField": "*",
-    },
-    
-    "repositories": [
-            {
-                "type": "path",
-                "url": "./nova-components/ComponentItemField"
-            }
-        ]
+"require": {
+    "webid/component-item-field": "*",
+},
+
+"repositories": [
+    {
+        "type": "path",
+        "url": "./nova-components/ComponentItemField"
+    }
+]
 ```
 
+Then run `composer update`
+
+<a id="prepare-routes"></a>
+### 5. Prepare routes
+
+You have to remove all routes from your `routes/web.php` file to make sure
+the cms will work properly.
+
+If the project is a fresh Laravel project, you may have some generated code like this to remove :
+```php
+Route::get('/', function () {
+    return view('welcome');
+});
+ ```
+
 <a id="configure-sitemap"></a>
-### 5. Configure sitemap.xml
+### 6. Configure sitemap.xml
 
 If you want to allow robots to access your sitemap, add this line in the `robots.txt` file :
 ```
@@ -110,7 +126,7 @@ Sitemap: https://www.your-domain.com/sitemap.xml
 
 <a id="use-cookies-js"></a>
 ### Use cookies.js
-###### To use the cookies popin, just fill the ``resuorces/views/warning_cookies.blade.php`` view, include it in ``resources/views/template.blade.php`` with the js ``public/cms/js/cookies.js``
+###### To use the cookies popin, just fill the ``resources/views/warning_cookies.blade.php`` view, include it in ``resources/views/template.blade.php`` with the js ``public/cms/js/cookies.js``
 
 <a id="use-form-popin"></a>
 ### Use form & popin form
@@ -127,9 +143,33 @@ And add in the `webpack.mix` file the `send_form_js` and `send_form_popin_js` fi
 You can change the form frontend but DO NOT TOUCH the `submit_form` class for sending forms.
 
 <a id="language-front"></a>
-### Language for front
+### Internationalization
 Don't forget to create a service to display the languages as you need them.
 Use this service into a ViewServiceProvider to share both languages and translated slugs to views.
+
+To create the service provider, you can run :
+```bash
+php artisan make:provider ViewServiceProvider
+```
+
+Then in the `boot` method, you can add necessary shared variables
+```php
+use Illuminate\Support\Facades\View;
+
+public function boot()
+{
+    View::composer('*', function ($view) {
+        if (!request()->is('nova*')) {
+            $currentLangKey = request()->lang ?? config('app.locale');
+            $currentLang = config("translatable.locales.{$currentLangKey}");
+            
+            View::share('currentLang', $currentLang);
+        }
+    });
+}
+```
+
+⚠ Don't forget to add the service provider in the file `config/app.php`.
 
 <a id="update-mail-template"></a>
 ### Update email template

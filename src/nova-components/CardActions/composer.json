@@ -11,7 +11,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Webid\\CardActions\\": "src/"
+            "Webid\\CardActions\\": "src/",
+            "Webid\\CardActions\\App\\": "src/app/"
         }
     },
     "extra": {
