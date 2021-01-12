@@ -2,7 +2,6 @@
 
 namespace Webid\Cms\Modules\Form\Tests\Feature;
 
-use Webid\Cms\Modules\Form\Providers\FormServiceProvider;
 use Webid\Cms\Modules\Form\Tests\FormTestCase;
 
 class CsrfTest extends FormTestCase
