@@ -66,7 +66,8 @@
         "psr-4": {
             "Webid\\Cms\\Tests\\": "tests/",
             "Webid\\ComponentTool\\" : "src/nova-components/ComponentTool/src/",
-            "App\\": "src/app/"
+            "App\\": "src/app/",
+            "Webid\\PreviewItemField\\Tests\\" : "src/nova-components/PreviewItemField/tests/"
         }
     },
     "extra": {
