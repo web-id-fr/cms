@@ -20,5 +20,6 @@ class PreviewItemFieldTest extends PreviewItemFieldTestCase
 
         $response = $this->ajaxPost(route('store.preview'), $data)->assertSuccessful();
         $response->assertExactJson(['token' => $response['token']]);
+        $response->assertSessionHas($response['token'], $data);
     }
 }
