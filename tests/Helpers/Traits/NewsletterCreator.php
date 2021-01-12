@@ -2,7 +2,7 @@
 
 namespace Webid\Cms\Tests\Helpers\Traits;
 
-use Webid\Cms\App\Models\Newsletter\Newsletter;
+use Webid\Cms\Modules\Newsletter\Models\Newsletter;
 
 trait NewsletterCreator
 {

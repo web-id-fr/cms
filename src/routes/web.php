@@ -1,5 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Webid\Cms\App\Http\Controllers\PreviewController;
+use Webid\Cms\App\Http\Controllers\SitemapController;
+use Webid\Cms\App\Http\Controllers\TemplateController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,13 +15,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-use Illuminate\Support\Facades\Route;
-use Webid\Cms\App\Http\Controllers\CsrfController;
-use Webid\Cms\App\Http\Controllers\Modules\Ajax\Form\FormController;
-use Webid\Cms\App\Http\Controllers\SitemapController;
-use Webid\Cms\App\Http\Controllers\TemplateController;
-use Webid\Cms\App\Http\Controllers\PreviewController;
 
 Route::group(['middleware' => 'cacheable'], function () {
     // Redirect homepage without lang
@@ -39,15 +37,7 @@ Route::group(['middleware' => 'cacheable'], function () {
 Route::group([
     'middleware' => ['web'],
 ], function () {
-    Route::get('/csrf', [CsrfController::class, 'index'])->name('csrf.index');
     Route::get('/preview/{token}', [PreviewController::class, 'preview'])->name('preview');
-});
-
-Route::group([
-    'prefix' => '{lang}/form',
-    'middleware' => ['web', 'anti-spam', 'language', 'check-language-exist'],
-], function () {
-    Route::get('/send', [FormController::class, 'handle'])->name('send.form');
 });
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');

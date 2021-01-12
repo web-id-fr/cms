@@ -12,8 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.sass('src/resources/sass/language.scss', 'src/public/cms/css')
-    .sass('src/resources/sass/override_nova.scss', 'src/public/cms/css')
-    .js('src/resources/js/newsletter.js', 'src/public/cms/js');
+    .sass('src/resources/sass/override_nova.scss', 'src/public/cms/css');
 
 if (mix.inProduction()) {
     mix.options({ uglify: { uglifyOptions: { compress: { drop_console: true, } } } });

@@ -3,31 +3,27 @@
 namespace Webid\Cms;
 
 use App\Models\Template as TemplateModel;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\UrlGenerator;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Spatie\Honeypot\ProtectAgainstSpam;
 use Spatie\Varnish\Middleware\CacheWithVarnish;
 use Webid\Cms\App\Http\Middleware\CheckLanguageExist;
+use Webid\Cms\App\Http\Middleware\IsAjax;
 use Webid\Cms\App\Http\Middleware\Language;
 use Webid\Cms\App\Nova\Components\GalleryComponent;
 use Webid\Cms\App\Nova\Components\NewsletterComponent;
 use Webid\Cms\App\Nova\Menu\Menu;
 use Webid\Cms\App\Nova\Menu\MenuCustomItem;
-use Webid\Cms\App\Nova\Modules\Form\Field;
-use Webid\Cms\App\Nova\Modules\Form\Form;
-use Webid\Cms\App\Nova\Modules\Form\Recipient;
-use Webid\Cms\App\Nova\Modules\Form\Service;
-use Webid\Cms\App\Nova\Modules\Form\TitleField;
 use Webid\Cms\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\App\Nova\Modules\Slideshow\Slide;
 use Webid\Cms\App\Nova\Modules\Slideshow\Slideshow;
-use Webid\Cms\App\Nova\Newsletter\Newsletter;
 use Webid\Cms\App\Nova\Popin\Popin;
 use Webid\Cms\App\Nova\Template;
 use Webid\Cms\App\Observers\TemplateObserver;
@@ -60,13 +56,10 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishProvider();
         $this->publishViews();
         $this->publishPublicFiles();
-        $this->publishPublicFiles();
         $this->publishTemplateModel();
         $this->publishNovaComponents();
         $this->publishTranslations();
-        $this->publishSendFormJs();
         $this->publishServices();
-        $this->publishEmailTemplate();
 
         $this->registerAliasMiddleware($router);
 
@@ -84,29 +77,20 @@ class CmsServiceProvider extends ServiceProvider
                 Template::class,
                 Gallery::class,
                 GalleryComponent::class,
-                Newsletter::class,
                 NewsletterComponent::class,
                 Popin::class,
-                Form::class,
-                Field::class,
-                TitleField::class,
-                Recipient::class,
-                Service::class,
                 Slideshow::class,
                 Slide::class,
                 Menu::class,
                 MenuCustomItem::class,
             ]);
         });
-
-        View::share('maxFiles', config('dropzone.max-files'));
-        View::share('maxTotalSize', config('dropzone.max-file-size'));
     }
 
     /**
      * Register services.
      *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @return void
      */
     public function register()
     {
@@ -118,6 +102,9 @@ class CmsServiceProvider extends ServiceProvider
         Route::pattern('lang', '(' . app(LanguageService::class)->getAllLanguagesAsRegex() . ')');
     }
 
+    /**
+     * @return void
+     */
     protected function registerMenuDirective(): void
     {
         Blade::directive('menu', function ($expression) {
@@ -126,6 +113,9 @@ class CmsServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * @return void
+     */
     protected function publishConfiguration(): void
     {
         $this->publishes([
@@ -135,15 +125,14 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/config/phpcs.xml' => base_path('phpcs.xml'),
             __DIR__ . '/config/psalm.xml' => base_path('psalm.xml'),
             __DIR__ . '/config/Makefile' => base_path('Makefile'),
-            __DIR__ . '/config/dropzone.php' => config_path('dropzone.php'),
-            __DIR__ . '/config/fields_type.php' => config_path('fields_type.php'),
-            __DIR__ . '/config/fields_type_validation.php' => config_path('fields_type_validation.php'),
-            __DIR__ . '/config/ziggy.php' => config_path('ziggy.php'),
             __DIR__ . '/config/cms.php' => config_path('cms.php'),
             __DIR__ . '/config/varnish.php' => config_path('varnish.php'),
         ], 'config');
     }
 
+    /**
+     * @return void
+     */
     protected function publishViews(): void
     {
         $this->publishes([
@@ -151,6 +140,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'views');
     }
 
+    /**
+     * @return void
+     */
     protected function publishProvider(): void
     {
         $this->publishes([
@@ -158,6 +150,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'providers');
     }
 
+    /**
+     * @return void
+     */
     protected function publishPublicFiles(): void
     {
         $this->publishes([
@@ -165,6 +160,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'public');
     }
 
+    /**
+     * @return void
+     */
     protected function publishNovaComponents(): void
     {
         $this->publishes([
@@ -173,6 +171,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'nova-components');
     }
 
+    /**
+     * @return void
+     */
     protected function publishTemplateModel(): void
     {
         $this->publishes([
@@ -180,6 +181,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'template-model');
     }
 
+    /**
+     * @return void
+     */
     protected function publishTranslations(): void
     {
         $this->publishes([
@@ -187,28 +191,15 @@ class CmsServiceProvider extends ServiceProvider
         ], 'translations');
     }
 
-    protected function publishSendFormJs(): void
-    {
-        $this->publishes([
-            __DIR__ . '/resources/js/send_form.js' => base_path('/resources/js/send_form.js'),
-            __DIR__ . '/resources/js/send_form_popin.js' => base_path('/resources/js/send_form_popin.js'),
-            __DIR__ . '/resources/js/helpers.js' => base_path('/resources/js/helpers.js'),
-        ], 'send-form');
-    }
-
+    /**
+     * @return void
+     */
     protected function publishServices(): void
     {
         $this->publishes([
             __DIR__ . '/app/Services/ExtraElementsForPageService.php' =>
                 base_path('/app/Services/ExtraElementsForPageService.php'),
         ], 'services');
-    }
-
-    protected function publishEmailTemplate(): void
-    {
-        $this->publishes([
-            __DIR__ . '/resources/views/mail/form.blade.php' => base_path('/resources/views/mail/form.blade.php'),
-        ], 'email-template');
     }
 
     /**
@@ -223,11 +214,20 @@ class CmsServiceProvider extends ServiceProvider
         $router->aliasMiddleware('language', Language::class);
         $router->aliasMiddleware('check-language-exist', CheckLanguageExist::class);
         $router->aliasMiddleware('cacheable', CacheWithVarnish::class);
+        $router->aliasMiddleware('is-ajax', IsAjax::class);
 
         // Create middleware groups
         $router->middlewareGroup('pages', []);
+        $router->middlewareGroup('ajax', [
+            StartSession::class,
+            'is-ajax',
+            VerifyCsrfToken::class
+        ]);
     }
 
+    /**
+     * @return void
+     */
     protected function bindGalleryServiceContract(): void
     {
         if ('s3' == config('cms.filesystem_driver')) {
