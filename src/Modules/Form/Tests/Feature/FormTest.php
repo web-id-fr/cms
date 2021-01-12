@@ -25,7 +25,7 @@ class FormTest extends FormTestCase
     protected function getModel(): Model
     {
         return $this->createForm([
-            'recipient_type' => 2
+            'recipient_type' => array_search('email', config('fields_type'))
         ]);
     }
 }
