@@ -92,7 +92,7 @@ class Popin extends Resource
             Select::make(__('Status'), 'status')
                 ->options(PopinModel::STATUSES)
                 ->displayUsingLabels()
-                ->rules('nullable', 'integer')
+                ->rules('required', 'integer')
                 ->hideFromIndex(),
 
             Boolean::make(__('Published'), function () {
@@ -160,7 +160,7 @@ class Popin extends Resource
                     'focus' => __('Exit popin'),
                 ])
                 ->displayUsingLabels()
-                ->rules('nullable', 'string'),
+                ->rules('required', 'string'),
 
             NovaDependencyContainer::make([
                 Number::make(__('Delay before displaying the popin (in seconds)'), 'delay')

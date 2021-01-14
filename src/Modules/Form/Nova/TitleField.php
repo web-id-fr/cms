@@ -58,6 +58,7 @@ class TitleField extends Resource
             ID::make()->sortable(),
 
             Translatable::make(__('Title'), 'title')
+                ->rules('required')
                 ->singleLine(),
         ];
     }
