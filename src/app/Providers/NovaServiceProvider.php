@@ -134,7 +134,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         Group::make([
                             'label' => __('Modules'),
                             'expanded' => false,
-                            'resources' => $this->getModuleResources()
+                            'resources' => $this->getTemplateModuleResources(),
                         ]),
                     ],
                 ]),
@@ -154,8 +154,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         foreach (DynamicResource::getTopLevelResources() as $resource) {
             $items['navigation'][] = TopLevelResource::make([
                 'label' => $resource['label'],
-                'badge' => $resource['badge'],
+                'badge' => $resource['badge'] ?? null,
                 'linkTo' => $resource['linkTo'],
+                'resources' => $resource['resources'] ?? [],
             ]);
         }
 
@@ -165,7 +166,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     /**
      * @return array
      */
-    protected function getModuleResources(): array
+    protected function getTemplateModuleResources(): array
     {
         $items = [
             Gallery::class,
@@ -179,7 +180,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ]),
         ];
 
-        foreach (DynamicResource::getGroupModuleResources() as $resource) {
+        foreach (DynamicResource::getTemplateModuleGroupResources() as $resource) {
             $items[] = Group::make([
                 'label' => $resource['label'],
                 'expanded' => $resource['expanded'] ?? false,

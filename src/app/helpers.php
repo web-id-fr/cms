@@ -146,3 +146,17 @@ if (!function_exists('bladeCompile')) {
         return $content;
     }
 }
+
+if (!function_exists('filemanager_full_url')) {
+    /**
+     * Retourne l'URL complète d'un fichier qui est stocké dans le filemanager
+     *
+     * @param string $file_path
+     * @return string
+     */
+    function filemanager_full_url(string $file_path): string
+    {
+        $file_path = ltrim($file_path, '/');
+        return \Illuminate\Support\Facades\URL::to("storage/{$file_path}");
+    }
+}

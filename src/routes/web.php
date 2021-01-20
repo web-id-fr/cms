@@ -29,7 +29,7 @@ Route::group(['middleware' => 'cacheable'], function () {
 
         // Laisser cette règle en dernier, elle risque "d'attraper" toutes les routes !
         Route::get('{slug}', [TemplateController::class, 'show'])->where([
-            'slug' => '(?!' . trim(config('nova.path'), '/') . '|ajax|api)(.+)',
+            'slug' => '(?!' . trim(config('nova.path'), '/') . '|' . trim(config('articles.path', 'blog'), '/') . '|ajax|api)(.+)',
         ])->name('pageFromSlug');
     });
 });
