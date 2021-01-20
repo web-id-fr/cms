@@ -35,26 +35,34 @@ class ComponentItemField extends Field
     {
         $this->galleryComponentRepository = app(GalleryComponentRepository::class);
         $this->newsletterComponentRepository = app(NewsletterComponentRepository::class);
-        $allComponents = collect();
+        $components = collect();
+        $allGalleriesComponents = collect();
+        $allNewsletterComponents = collect();
 
         $this->loadComponents(
             $this->galleryComponentRepository->getPublishedComponents(),
             GalleryComponent::class,
-            $allComponents
+            $allGalleriesComponents
         );
         $this->loadComponents(
             $this->newsletterComponentRepository->getPublishedComponents(),
             NewsletterComponent::class,
-            $allComponents
+            $allNewsletterComponents
         );
 
-        $this->withMeta(['items' => $allComponents]);
+        $components[config('components.' . GalleryComponent::class . '.title')] = $allGalleriesComponents;
+        $components[config('components.' . NewsletterComponent::class . '.title')] = $allNewsletterComponents;
+
+        $this->withMeta([
+            'items' => $components,
+        ]);
+
         parent::__construct($name, $attribute, $resolveCallback);
     }
 
     /**
      * @param $items
-     * @param $model
+     * @param string $model
      *
      * @return mixed
      */
@@ -71,7 +79,7 @@ class ComponentItemField extends Field
     /**
      * @param $publishComponent
      * @param string $model
-     * @param $allComponents
+     * @param Collection $allComponents
      *
      * @return Collection
      */
@@ -86,10 +94,10 @@ class ComponentItemField extends Field
     }
 
     /**
-     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
-     * @param $requestAttribute
-     * @param $model
-     * @param $attribute
+     * @param NovaRequest $request
+     * @param string $requestAttribute
+     * @param object $model
+     * @param string $attribute
      *
      * @return void
      */
@@ -124,6 +132,8 @@ class ComponentItemField extends Field
     /**
      * @param mixed $resource
      * @param null $attribute
+     *
+     * @return void
      */
     public function resolve($resource, $attribute = null)
     {
