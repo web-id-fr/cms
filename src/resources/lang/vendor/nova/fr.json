@@ -594,4 +594,7 @@
     "An unexpected error occurred during the creation of the preview.": "Une erreur inattendue s'est produite lors de la création de l'aperçu.",
     "Preview in :locale": "Aperçu en :locale",
     "Please use only this type of name 'name-of-the-field'": "Veuillez n'utiliser que ce type de nom 'nom-du-champ'",
+    "Back": "Retour",
+    "My page": "Ma page",
+    "Add a component": "Ajouter un composant"
 }
