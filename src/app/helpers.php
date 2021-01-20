@@ -111,42 +111,6 @@ if (!function_exists('is_image')) {
     }
 }
 
-if (!function_exists('bladeCompile')) {
-    /**
-     * Prend une chaine contenant un fragment de template Blade en paramètre, et retourne le résultat
-     * construit avec les valeurs contenues dans $args
-     *
-     * @param       $value
-     * @param array $args
-     *
-     * @return false|string
-     * @throws Exception
-     */
-    function bladeCompile($value, array $args = [])
-    {
-        $generated = \Illuminate\Support\Facades\Blade::compileString($value);
-
-        ob_start() and extract($args, EXTR_SKIP);
-
-        try {
-            // We'll include the view contents for parsing within a catcher
-            // so we can avoid any WSOD errors. If an exception occurs we
-            // will throw it out to the exception handler.
-            eval('?>' . $generated);
-        } catch (Exception $e) {
-            // If we caught an exception, we'll silently flush the output
-            // buffer so that no partially rendered views get thrown out
-            // to the client and confuse the user with junk.
-            ob_get_clean();
-            throw $e;
-        }
-
-        $content = ob_get_clean();
-
-        return $content;
-    }
-}
-
 if (!function_exists('filemanager_full_url')) {
     /**
      * Retourne l'URL complète d'un fichier qui est stocké dans le filemanager
