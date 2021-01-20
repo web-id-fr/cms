@@ -65,11 +65,14 @@ class Popin extends Resource
     public function fields(Request $request)
     {
         return [
-            new Tabs('Tabs', [
+            (new Tabs(__(':resource Details: :title', [
+                'resource' => self::singularLabel(),
+                'title' => $this->title(),
+            ]), [
                 __('Parameters') => $this->parametersTab(),
                 __('Content') => $this->contentTab(),
                 __('Settings') => $this->settingsTab()
-            ])
+            ]))->withToolbar()
         ];
     }
 
