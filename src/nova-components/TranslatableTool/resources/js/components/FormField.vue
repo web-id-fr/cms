@@ -43,9 +43,9 @@
                     @keydown.tab="handleTab"
             />
 
-            <p v-if="hasError" class="my-2 text-danger">
+            <div v-if="hasError" class="help-text error-text mt-2 text-danger">
                 {{ firstError }}
-            </p>
+            </div>
             <help-text class="help-text mt-2" v-if="field.helpText">
                 {{ field.helpText }}
             </help-text>

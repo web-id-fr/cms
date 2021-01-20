@@ -57,7 +57,7 @@ class Service extends Resource
 
             Translatable::make(__('Name'), "name")
                 ->singleLine()
-                ->rules('array'),
+                ->rules('array', 'required'),
 
             RecipientItemField::make(__('Recipients'), 'recipients')
                 ->onlyOnForms(),

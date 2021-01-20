@@ -590,5 +590,9 @@
     "New window": "Nouvelle fenêtre",
     "Link url": "Lien vers URL",
     "Link form": "Lien vers formulaire",
-    "Confirmation email field": "Champ confirmation email"
+    "Confirmation email field": "Champ confirmation email",
+    "The preview has been correctly created.": "L'aperçu a été correctement créé.",
+    "An unexpected error occurred during the creation of the preview.": "Une erreur inattendue s'est produite lors de la création de l'aperçu.",
+    "Preview in :locale": "Aperçu en :locale",
+    "Please use only this type of name 'name-of-the-field'": "Veuillez n'utiliser que ce type de nom 'nom-du-champ'",
 }

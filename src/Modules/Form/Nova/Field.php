@@ -67,9 +67,12 @@ class Field extends Resource
 
             Select::make(__('Field type'), 'field_type')
                 ->options(config('fields_type'))
+                ->rules('required')
                 ->hideFromIndex(),
 
-            Text::make(__('Field name'), 'field_name'),
+            Text::make(__('Field name'), 'field_name')
+                ->help(__('Please use only this type of name "name-of-the-field"'))
+                ->rules('required'),
 
             ConditionalContainer::make([
                 Flexible::make(__('Field items'), 'field_options')

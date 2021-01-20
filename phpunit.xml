@@ -12,6 +12,10 @@
             <directory suffix="Test.php">./src/Modules/*/Tests/Feature</directory>
             <directory suffix="Test.php">./src/Modules/*/Tests/Unit</directory>
         </testsuite>
+        <testsuite name="NovaComponents">
+            <directory suffix="Test.php">./src/nova-components/*/tests/Feature</directory>
+            <directory suffix="Test.php">./src/nova-components/*/tests/Unit</directory>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">

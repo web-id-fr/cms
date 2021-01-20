@@ -2,7 +2,6 @@
 
 namespace Webid\Cms\Modules\Newsletter\Tests;
 
-use Nwidart\Modules\Facades\Module;
 use Webid\Cms\Modules\Newsletter\Providers\NewsletterServiceProvider;
 use Webid\Cms\Tests\TestCase;
 
