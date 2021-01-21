@@ -110,7 +110,7 @@ class Template extends Resource
                 ->hideWhenCreating(),
 
             Select::make(__('Status'), 'status')
-                ->options(TemplateModel::TYPE_TO_NAME)
+                ->options(TemplateModel::statusLabels())
                 ->displayUsingLabels()
                 ->rules('integer', 'required')
                 ->hideFromIndex(),

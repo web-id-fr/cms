@@ -93,7 +93,7 @@ class Popin extends Resource
                 ->belongsToMany(Template::class),
 
             Select::make(__('Status'), 'status')
-                ->options(PopinModel::STATUSES)
+                ->options(PopinModel::statusLabels())
                 ->displayUsingLabels()
                 ->rules('required', 'integer')
                 ->hideFromIndex(),

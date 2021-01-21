@@ -73,7 +73,7 @@ class GalleryComponent extends Resource
                 ->onlyOnForms(),
 
             Select::make(__('Status'), 'status')
-                ->options(GalleryComponentModel::TYPE_TO_NAME)
+                ->options(GalleryComponentModel::statusLabels())
                 ->displayUsingLabels()
                 ->rules('required', 'integer')
                 ->hideFromIndex(),
