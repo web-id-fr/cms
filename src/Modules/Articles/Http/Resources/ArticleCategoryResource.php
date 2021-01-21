@@ -3,11 +3,11 @@
 namespace Webid\Cms\Modules\Articles\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Webid\Cms\Modules\Articles\Models\ArticleTag;
+use Webid\Cms\Modules\Articles\Models\ArticleCategory;
 
-class ArticleTagResource extends JsonResource
+class ArticleCategoryResource extends JsonResource
 {
-    /** @var ArticleTag */
+    /** @var ArticleCategory */
     public $resource;
 
     public function toArray($request)

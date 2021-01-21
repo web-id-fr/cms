@@ -25,7 +25,7 @@
         Opengraph description : {{ $article['og_description'] }}
         Opengraph picture : <img width="150" src="{{ $article['og_picture'] }}">
         ---
-        Tags : @foreach($article['tags'] as $tag)
-@if(!empty($tag['name'])) <a href="{{ route('articles.tags.show', ['tag' => $tag['name']]) }}">#{{ $tag['name'] }}</a> @endif @endforeach
+        Categories : @foreach($article['categories'] as $category)
+@if(!empty($category['name'])) <a href="{{ route('articles.categories.show', ['category' => $category['name']]) }}">#{{ $category['name'] }}</a> @endif @endforeach
     </pre>
 @endsection

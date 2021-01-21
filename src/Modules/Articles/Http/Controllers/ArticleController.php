@@ -39,7 +39,7 @@ class ArticleController extends BaseController
         $article = $this->repository->getBySlug($request->slug, app()->getLocale());
 
         return View::make('articles::article.show', [
-            'article' => $this->resourceToArray(ArticleResource::make($article->load('tags'))),
+            'article' => $this->resourceToArray(ArticleResource::make($article->load('categories'))),
         ]);
     }
 }

@@ -10,7 +10,7 @@ use Laravel\Nova\Nova;
 use Webid\Cms\App\Services\DynamicResource;
 use Webid\Cms\Modules\Articles\Models\Article as ArticleModel;
 use Webid\Cms\Modules\Articles\Nova\Article;
-use Webid\Cms\Modules\Articles\Nova\ArticleTag;
+use Webid\Cms\Modules\Articles\Nova\ArticleCategory;
 use Webid\Cms\Modules\Articles\Observers\ArticleObserver;
 
 class ArticlesServiceProvider extends ServiceProvider
@@ -30,7 +30,7 @@ class ArticlesServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             Nova::resources([
                 Article::class,
-                ArticleTag::class,
+                ArticleCategory::class,
             ]);
         });
 
@@ -43,7 +43,7 @@ class ArticlesServiceProvider extends ServiceProvider
             'badge' => null,
             'linkTo' => Article::class,
             'resources' => [
-                NovaResource::make(ArticleTag::class),
+                NovaResource::make(ArticleCategory::class),
             ],
         ]);
     }

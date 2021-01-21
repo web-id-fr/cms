@@ -9,7 +9,7 @@
 ])
 
 @section('content')
-    <h1>Liste des articles correspondant au tag {{ $tag }} : {{ count($articles) }}</h1>
+    <h1>Liste des articles correspondant à la catégorie {{ $category }} : {{ count($articles) }}</h1>
 
     @foreach($articles as $article)
         <hr>

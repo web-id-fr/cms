@@ -11,7 +11,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string $name
  * @property Collection<Article> $articles
  */
-class ArticleTag extends Model
+class ArticleCategory extends Model
 {
     use HasTranslations, HasFactory;
 

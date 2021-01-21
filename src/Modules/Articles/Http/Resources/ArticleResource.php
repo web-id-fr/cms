@@ -29,7 +29,7 @@ class ArticleResource extends JsonResource
                 ? filemanager_full_url($this->resource->opengraph_picture)
                 : null,
             'publish_at' => $this->resource->publish_at,
-            'tags' => ArticleTagResource::collection($this->whenLoaded('tags')),
+            'categories' => ArticleCategoryResource::collection($this->whenLoaded('categories')),
         ];
     }
 }
