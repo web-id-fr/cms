@@ -166,20 +166,20 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function getModuleResources(): array
     {
+        $items = [];
+
         foreach (DynamicResource::getSingleModuleResources() as $resource) {
-            $items[] = $resource['resources'];
+            $items[] = $resource['resource'];
         }
 
-        $items = [
-            Group::make([
-                'label' => __('Slideshow'),
-                'expanded' => false,
-                'resources' => [
-                    Slideshow::class,
-                    Slide::class,
-                ],
-            ]),
-        ];
+        $items[] = Group::make([
+            'label' => __('Slideshow'),
+            'expanded' => false,
+            'resources' => [
+                Slideshow::class,
+                Slide::class,
+            ],
+        ]);
 
         foreach (DynamicResource::getGroupModuleResources() as $resource) {
             $items[] = Group::make([
