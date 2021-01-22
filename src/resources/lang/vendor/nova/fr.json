@@ -599,5 +599,9 @@
     "Add a component": "Ajouter un composant",
     "Category": "Catégorie",
     "Categories": "Catégories",
-    "Excerpt": "Extrait"
+    "Excerpt": "Extrait",
+    "Articles": "Articles",
+    ":resource root slug": "Slug de base des :resource",
+    "Default value: :value": "Valeur par défaut : :value",
+    "This is the root slug that will be used for :resource pages: :url": "Il s'agit du slug qui sera utilisé comme racine pour les :resource : :url"
 }
