@@ -14,7 +14,6 @@ use Laravel\Nova\NovaApplicationServiceProvider;
 use Webid\CardActions\CardActions;
 use Webid\Cms\App\Nova\Menu\Menu;
 use Webid\Cms\App\Nova\Menu\MenuCustomItem;
-use Webid\Cms\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\App\Nova\Modules\Slideshow\Slide;
 use Webid\Cms\App\Nova\Modules\Slideshow\Slideshow;
 use Webid\Cms\App\Nova\Popin\Popin;
@@ -167,8 +166,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function getModuleResources(): array
     {
+        foreach (DynamicResource::getSingleModuleResources() as $resource) {
+            $items[] = $resource['resources'];
+        }
+
         $items = [
-            Gallery::class,
             Group::make([
                 'label' => __('Slideshow'),
                 'expanded' => false,

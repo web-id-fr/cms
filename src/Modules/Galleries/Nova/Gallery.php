@@ -1,18 +1,21 @@
 <?php
 
-namespace Webid\Cms\App\Nova\Modules\Galleries;
+namespace Webid\Cms\Modules\Galleries\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Resource;
-use Webid\Cms\App\Models\Modules\Galleries\Gallery as GalleryModel;
-use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
+use Webid\Cms\App\Nova\Traits\HasIconSvg;
+use Webid\Cms\Modules\Galleries\Http\Services\Contracts\GalleryServiceContract;
+use Webid\Cms\Modules\Galleries\Models\Gallery as GalleryModel;
 use Webid\TranslatableTool\Translatable;
 
 class Gallery extends Resource
 {
+    use HasIconSvg;
+
     /**
      * The model the resource corresponds to.
      *
@@ -124,15 +127,11 @@ class Gallery extends Resource
 
     /**
      * @return string
+     *
+     * @throws \Exception
      */
     public static function icon(): string
     {
-        return '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <circle fill="#B3C1D1" cx="12" cy="12" r="3.2"/>
-                    <path fill="#B3C1D1"
-                          d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 
-                          2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
-                    <path d="M0 0h24v24H0z" fill="none"/>
-                </svg>';
+        return self::svgIcon('galleries', package_module_path('Galleries/Resources/svg'));
     }
 }

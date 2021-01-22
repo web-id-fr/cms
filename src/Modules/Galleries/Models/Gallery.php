@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\App\Models\Modules\Galleries;
+namespace Webid\Cms\Modules\Galleries\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;

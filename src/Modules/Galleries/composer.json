@@ -1,0 +1,22 @@
+{
+  "name": "webid/galleries",
+  "description": "",
+  "authors": [
+    {
+      "name": "Elise",
+      "email": "elise@web-id.fr"
+    }
+  ],
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Webid\\Cms\\Modules\\Galleries\\Providers\\GalleriesServiceProvider"
+      ]
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Webid\\Cms\\Modules\\Galleries\\": ""
+    }
+  }
+}

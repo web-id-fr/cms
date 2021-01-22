@@ -1,12 +1,14 @@
 <?php
 
-namespace Webid\Cms\App\Repositories\Modules\Galleries;
+namespace Webid\Cms\Modules\Galleries\Repositories;
 
-use Webid\Cms\App\Models\Modules\Galleries\Gallery;
-use Webid\Cms\App\Repositories\BaseRepository;
+use Webid\Cms\Modules\Galleries\Models\Gallery;
 
-class GalleryRepository extends BaseRepository
+class GalleryRepository
 {
+    /** @var Gallery  */
+    private $model;
+
     /**
      * TemplateRepository constructor.
      *
@@ -14,7 +16,7 @@ class GalleryRepository extends BaseRepository
      */
     public function __construct(Gallery $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 
     /**
