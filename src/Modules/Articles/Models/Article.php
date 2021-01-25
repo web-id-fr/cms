@@ -74,9 +74,9 @@ class Article extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function tags()
+    public function categories()
     {
-        return $this->belongsToMany(ArticleTag::class);
+        return $this->belongsToMany(ArticleCategory::class);
     }
 
     /**

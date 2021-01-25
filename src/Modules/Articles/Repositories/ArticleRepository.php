@@ -38,7 +38,8 @@ class ArticleRepository
         return $this->model
             ->where('slug', 'regexp', "\"$language\"[ ]*:[ ]*\"$slug\"")
             ->publishedForLang($language)
-            ->firstOrFail();
+            ->firstOrFail()
+            ->load('categories');
     }
 
     /**

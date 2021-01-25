@@ -5,17 +5,17 @@ namespace Webid\Cms\Modules\Articles\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Resource;
-use Webid\Cms\Modules\Articles\Models\ArticleTag as ArticleTagModel;
+use Webid\Cms\Modules\Articles\Models\ArticleCategory as ArticleCategoryModel;
 use Webid\TranslatableTool\Translatable;
 
-class ArticleTag extends Resource
+class ArticleCategory extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = ArticleTagModel::class;
+    public static $model = ArticleCategoryModel::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -38,7 +38,7 @@ class ArticleTag extends Resource
      */
     public static function label()
     {
-        return __('Tags');
+        return __('Categories');
     }
 
     /**
@@ -46,7 +46,7 @@ class ArticleTag extends Resource
      */
     public static function singularLabel()
     {
-        return __('Tag');
+        return __('Category');
     }
 
     /**

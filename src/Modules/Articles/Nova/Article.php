@@ -93,7 +93,7 @@ class Article extends Resource
                 ->singleLine()
                 ->rules('array', new TranslatableMax(100), new TranslatableSlug()),
 
-            BelongsToMany::make(__('Tags'), 'tags', ArticleTag::class),
+            BelongsToMany::make(__('Categories'), 'categories', ArticleCategory::class),
 
             Select::make(__('Status'), 'status')
                 ->options(ArticleModel::statusLabels())

@@ -28,9 +28,10 @@ Route::group(['middleware' => 'cacheable'], function () {
         Route::get('/', [TemplateController::class, 'index'])->name('home');
 
         // Laisser cette règle en dernier, elle risque "d'attraper" toutes les routes !
-        Route::get('{slug}', [TemplateController::class, 'show'])->where([
-            'slug' => '(?!' . trim(config('nova.path'), '/') . '|' . trim(config('articles.path', 'blog'), '/') . '|ajax|api)(.+)',
-        ])->name('pageFromSlug');
+        Route::get('{slug}', [TemplateController::class, 'show'])
+            ->where(['slug' => '(?!' . trim(config('nova.path'), '/') . '|ajax|api)(.+)'])
+            ->name('pageFromSlug')
+            ->fallback();
     });
 });
 

@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Webid\Cms\App\Http\Controllers\BaseController;
 use Webid\Cms\Modules\Articles\Http\Resources\ArticleResource;
-use Webid\Cms\Modules\Articles\Repositories\ArticleTagRepository;
+use Webid\Cms\Modules\Articles\Repositories\ArticleCategoryRepository;
 
-class ArticleTagController extends BaseController
+class ArticleCategoryController extends BaseController
 {
-    /** @var ArticleTagRepository */
+    /** @var ArticleCategoryRepository */
     private $repository;
 
-    public function __construct(ArticleTagRepository $repository)
+    public function __construct(ArticleCategoryRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -25,12 +25,12 @@ class ArticleTagController extends BaseController
     public function show(Request $request)
     {
         $lang = app()->getLocale();
-        $tag = $this->repository->getTagByName($request->tag, $lang);
+        $category = $this->repository->getCategoryByName($request->category, $lang);
 
-        return View::make('articles::article-tag.show', [
-            'tag' => $request->tag,
+        return View::make('articles::article-category.show', [
+            'category' => $request->category,
             'articles' => $this->resourceToArray(
-                ArticleResource::collection($tag->publishedArticlesForLang($lang))
+                ArticleResource::collection($category->publishedArticlesForLang($lang))
             ),
         ]);
     }
