@@ -34,6 +34,7 @@ use Webid\Cms\App\Services\Galleries\GalleryLocalStorageService;
 use Webid\Cms\App\Services\Galleries\GalleryS3Service;
 use Webid\Cms\App\Services\LanguageService;
 use Webid\Cms\App\Services\MenuService;
+use Webid\Cms\App\Services\Sitemap\SitemapGenerator;
 
 class CmsServiceProvider extends ServiceProvider
 {
@@ -50,6 +51,7 @@ class CmsServiceProvider extends ServiceProvider
         }
 
         $this->app->singleton(DynamicResource::class);
+        $this->app->singleton(SitemapGenerator::class);
 
         $this->registerMenuDirective();
 

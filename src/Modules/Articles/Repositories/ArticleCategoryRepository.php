@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\Modules\Articles\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Webid\Cms\Modules\Articles\Models\ArticleCategory;
 
 class ArticleCategoryRepository
@@ -12,6 +13,14 @@ class ArticleCategoryRepository
     public function __construct(ArticleCategory $model)
     {
         $this->model = $model;
+    }
+
+    /**
+     * @return Collection<ArticleCategory>
+     */
+    public function all(): Collection
+    {
+        return $this->model->all();
     }
 
     /**

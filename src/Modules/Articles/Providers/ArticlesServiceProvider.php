@@ -12,6 +12,7 @@ use Laravel\Nova\Nova;
 use OptimistDigital\NovaSettings\NovaSettings;
 use Webid\Cms\App\Rules\TranslatableSlug;
 use Webid\Cms\App\Services\DynamicResource;
+use Webid\Cms\App\Services\Sitemap\SitemapGenerator;
 use Webid\Cms\Modules\Articles\Helpers\SlugHelper;
 use Webid\Cms\Modules\Articles\Http\Middleware\CheckSlugsMatch;
 use Webid\Cms\Modules\Articles\Http\Middleware\SetDefaultSlugs;
@@ -32,8 +33,6 @@ class ArticlesServiceProvider extends ServiceProvider
         $this->registerConfig();
 
         $this->registerMiddlewares($router);
-
-        $this->app->register(RouteServiceProvider::class);
 
         $this->loadMigrationsFrom(module_path(self::MODULE_NAME, 'Database/Migrations'));
 
@@ -58,6 +57,14 @@ class ArticlesServiceProvider extends ServiceProvider
         ]);
 
         $this->addSettings();
+    }
+
+    public function register()
+    {
+        parent::register();
+
+        $this->app->register(RouteServiceProvider::class);
+        $this->app->register(SitemapServiceProvider::class);
     }
 
     /**
