@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\Modules\Galleries\Providers;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
@@ -36,6 +37,12 @@ class GalleriesServiceProvider extends ServiceProvider
         DynamicResource::pushSingleModuleResources([
             'resource' => Gallery::class
         ]);
+
+        $folderName = config('galleries.gallery_folder_name');
+
+        if (!Storage::disk('public')->exists($folderName)) {
+            Storage::disk('public')->makeDirectory($folderName);
+        }
     }
 
     /**
@@ -44,12 +51,6 @@ class GalleriesServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->bindGalleryServiceContract();
-
-        $folderName = config('galleries.gallery_folder_name');
-
-        if (!Storage::disk('public')->exists($folderName)) {
-            Storage::disk('public')->makeDirectory($folderName);
-        }
     }
 
     /**

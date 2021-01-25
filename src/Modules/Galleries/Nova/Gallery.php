@@ -109,7 +109,7 @@ class Gallery extends Resource
         }
 
         foreach ($galleriesFolders as $galleryFolder) {
-            if (is_dir(config('cms.gallery_path') . $galleryFolder)) {
+            if (is_dir(config('galleries.gallery_path') . $galleryFolder)) {
                 $galleries[] = $galleryFolder;
             }
         }

@@ -18,7 +18,7 @@ class GalleryS3Service implements GalleryServiceContract
             return $this->getGalleriesInFolder($folder);
         }
 
-        $galleriesPath = config('cms.gallery_path');
+        $galleriesPath = config('galleries.gallery_path');
         $filesExist =  Storage::disk('s3')->exists($galleriesPath);
 
         if (!$filesExist) {
