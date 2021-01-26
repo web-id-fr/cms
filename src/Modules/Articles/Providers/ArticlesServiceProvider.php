@@ -61,8 +61,6 @@ class ArticlesServiceProvider extends ServiceProvider
 
     public function register()
     {
-        parent::register();
-
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(SitemapServiceProvider::class);
     }
