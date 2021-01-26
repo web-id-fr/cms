@@ -2,8 +2,6 @@
 
 namespace Webid\Cms\Modules\Galleries\Providers;
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
 use Webid\Cms\App\Services\DynamicResource;
