@@ -4,6 +4,7 @@ namespace Webid\Cms;
 
 use App\Models\Template as TemplateModel;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Middleware\StartSession;
@@ -85,6 +86,8 @@ class CmsServiceProvider extends ServiceProvider
                 MenuCustomItem::class,
             ]);
         });
+
+        JsonResource::withoutWrapping();
     }
 
     /**

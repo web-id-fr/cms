@@ -18,7 +18,6 @@
                     :placeholder="field.name"
                     v-model="value[currentLocale]"
                     v-if="!field.singleLine && !field.trix"
-                    @keydown.tab="handleTab"
             ></textarea>
 
             <div v-if="!field.singleField && field.trix" @keydown.stop class="mt-4">
@@ -40,7 +39,6 @@
                     :placeholder="field.name"
                     v-model="value[currentLocale]"
                     v-if="field.singleLine"
-                    @keydown.tab="handleTab"
             />
 
             <div v-if="hasError" class="help-text error-text mt-2 text-danger">
@@ -125,21 +123,6 @@
                     }
                 })
             },
-
-            handleTab(e) {
-                const currentIndex = this.locales.indexOf(this.currentLocale)
-                if (!e.shiftKey) {
-                    if (currentIndex < this.locales.length - 1) {
-                        e.preventDefault()
-                        this.changeTab(this.locales[currentIndex + 1])
-                    }
-                } else {
-                    if (currentIndex > 0) {
-                        e.preventDefault()
-                        this.changeTab(this.locales[currentIndex - 1])
-                    }
-                }
-            }
         },
 
         computed: {
