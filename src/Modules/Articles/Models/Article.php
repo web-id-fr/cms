@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
 /**
  * @property string $title
@@ -24,7 +25,7 @@ use Spatie\Translatable\HasTranslations;
  */
 class Article extends Model
 {
-    use HasTranslations, HasFactory;
+    use HasTranslations, HasFactory, HasStatusLabels;
 
     /**
      * @var string
@@ -69,17 +70,6 @@ class Article extends Model
 
     const _STATUS_PUBLISHED = 0;
     const _STATUS_DRAFT = 1;
-
-    /**
-     * @return array
-     */
-    public static function statusLabels(): array
-    {
-        return [
-            self::_STATUS_PUBLISHED => __('Published'),
-            self::_STATUS_DRAFT => __('Draft'),
-        ];
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

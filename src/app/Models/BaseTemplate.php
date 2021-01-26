@@ -6,19 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Menu\Menu;
+use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
 abstract class BaseTemplate extends Model
 {
     use HasTranslations,
-        HasFactory;
+        HasFactory,
+        HasStatusLabels;
 
     const _STATUS_PUBLISHED = 0;
     const _STATUS_DRAFT = 1;
-
-    const TYPE_TO_NAME = [
-        self::_STATUS_PUBLISHED => 'published',
-        self::_STATUS_DRAFT => 'draft',
-    ];
 
     /**
      * The table associated with the model.
