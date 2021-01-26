@@ -23,7 +23,7 @@ class GalleriesServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->mergeConfig();
+        $this->publishConfig();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
 
         $this->app->booted(function () {
@@ -65,13 +65,15 @@ class GalleriesServiceProvider extends ServiceProvider
     /**
      * @return void
      */
-    protected function mergeConfig(): void
+    protected function publishConfig(): void
     {
         $sourcePath = module_path($this->moduleName, 'Config');
 
-        $this->mergeConfigFrom(
-            $sourcePath . '/galleries.php',
-            $this->moduleNameLower
-        );
+        $this->publishes([
+            $sourcePath . '/galleries.php' => config_path('galleries.php'),
+        ], [
+            $this->moduleNameLower . '-module',
+            $this->moduleNameLower . '-module-config'
+        ]);
     }
 }
