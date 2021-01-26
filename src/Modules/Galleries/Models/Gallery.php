@@ -12,7 +12,7 @@ class Gallery extends Model
     use HasTranslations,
         HasFactory,
         HasStatusLabels;
-    
+
     const _STATUS_PUBLISHED = 1;
     const _STATUS_DRAFT = 2;
 
