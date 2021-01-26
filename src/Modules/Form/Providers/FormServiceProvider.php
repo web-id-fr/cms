@@ -42,7 +42,7 @@ class FormServiceProvider extends ServiceProvider
         View::share('maxFiles', config('dropzone.max-files'));
         View::share('maxTotalSize', config('dropzone.max-file-size'));
 
-        DynamicResource::pushGroupModuleResource([
+        DynamicResource::pushTemplateModuleGroupResource([
             'label' => __('Form'),
             'expanded' => false,
             'resources' => [

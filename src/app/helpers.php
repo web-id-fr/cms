@@ -111,38 +111,16 @@ if (!function_exists('is_image')) {
     }
 }
 
-if (!function_exists('bladeCompile')) {
+if (!function_exists('filemanager_full_url')) {
     /**
-     * Prend une chaine contenant un fragment de template Blade en paramètre, et retourne le résultat
-     * construit avec les valeurs contenues dans $args
+     * Retourne l'URL complète d'un fichier qui est stocké dans le filemanager
      *
-     * @param       $value
-     * @param array $args
-     *
-     * @return false|string
-     * @throws Exception
+     * @param string $file_path
+     * @return string
      */
-    function bladeCompile($value, array $args = [])
+    function filemanager_full_url(string $file_path): string
     {
-        $generated = \Illuminate\Support\Facades\Blade::compileString($value);
-
-        ob_start() and extract($args, EXTR_SKIP);
-
-        try {
-            // We'll include the view contents for parsing within a catcher
-            // so we can avoid any WSOD errors. If an exception occurs we
-            // will throw it out to the exception handler.
-            eval('?>' . $generated);
-        } catch (Exception $e) {
-            // If we caught an exception, we'll silently flush the output
-            // buffer so that no partially rendered views get thrown out
-            // to the client and confuse the user with junk.
-            ob_get_clean();
-            throw $e;
-        }
-
-        $content = ob_get_clean();
-
-        return $content;
+        $file_path = ltrim($file_path, '/');
+        return \Illuminate\Support\Facades\URL::to("storage/{$file_path}");
     }
 }

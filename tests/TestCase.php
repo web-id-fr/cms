@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Laravel\Nova\NovaCoreServiceProvider;
 use Nwidart\Modules\LaravelModulesServiceProvider;
+use OptimistDigital\NovaSettings\NovaSettingsServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Spatie\Sitemap\SitemapServiceProvider;
 use Webid\Cms\App\Providers\TestServiceProvider;
@@ -56,7 +57,8 @@ class TestCase extends OrchestraTestCase
             NovaServiceProvider::class,
             SitemapServiceProvider::class,
             LaravelModulesServiceProvider::class,
-            ConditionalContainerServiceProvider::class
+            ConditionalContainerServiceProvider::class,
+            NovaSettingsServiceProvider::class,
         ];
     }
 

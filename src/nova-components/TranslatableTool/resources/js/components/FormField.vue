@@ -15,10 +15,9 @@
                     :id="field.name"
                     class="mt-4 w-full form-control form-input form-input-bordered py-3 min-h-textarea"
                     :class="errorClasses"
-                    :placeholder="field.name"
+                    :placeholder="extraAttributes.placeholder || field.name"
                     v-model="value[currentLocale]"
                     v-if="!field.singleLine && !field.trix"
-                    @keydown.tab="handleTab"
             ></textarea>
 
             <div v-if="!field.singleField && field.trix" @keydown.stop class="mt-4">
@@ -37,10 +36,9 @@
                     :id="field.name"
                     class="mt-4 w-full form-control form-input form-input-bordered"
                     :class="errorClasses"
-                    :placeholder="field.name"
+                    :placeholder="extraAttributes.placeholder || field.name"
                     v-model="value[currentLocale]"
                     v-if="field.singleLine"
-                    @keydown.tab="handleTab"
             />
 
             <div v-if="hasError" class="help-text error-text mt-2 text-danger">
@@ -79,11 +77,13 @@
             return {
                 locales: Object.keys(this.field.locales),
                 currentLocale: null,
+                extraAttributes: {}
             }
         },
 
         mounted() {
             this.currentLocale = document.querySelector('#select-language-translatable').value;
+            this.extraAttributes = this.field.extraAttributes || {};
             Nova.$on('change-language', (lang) => {
                 this.changeTab(lang);
             });
@@ -125,21 +125,6 @@
                     }
                 })
             },
-
-            handleTab(e) {
-                const currentIndex = this.locales.indexOf(this.currentLocale)
-                if (!e.shiftKey) {
-                    if (currentIndex < this.locales.length - 1) {
-                        e.preventDefault()
-                        this.changeTab(this.locales[currentIndex + 1])
-                    }
-                } else {
-                    if (currentIndex > 0) {
-                        e.preventDefault()
-                        this.changeTab(this.locales[currentIndex - 1])
-                    }
-                }
-            }
         },
 
         computed: {

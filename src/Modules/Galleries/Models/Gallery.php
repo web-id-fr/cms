@@ -5,18 +5,16 @@ namespace Webid\Cms\Modules\Galleries\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
 class Gallery extends Model
 {
-    use HasTranslations, HasFactory;
-
+    use HasTranslations,
+        HasFactory,
+        HasStatusLabels;
+    
     const _STATUS_PUBLISHED = 1;
     const _STATUS_DRAFT = 2;
-
-    const TYPE_TO_NAME = [
-        self::_STATUS_PUBLISHED => 'Published',
-        self::_STATUS_DRAFT => 'Draft',
-    ];
 
     /**
      * @var string

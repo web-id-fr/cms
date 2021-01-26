@@ -20,6 +20,12 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>
+            <exclude>
+                <directory>./src/config</directory>
+                <directory>./src/routes</directory>
+                <directory>./src/Modules/*/Routes</directory>
+                <directory>./src/nova-components/*/routes</directory>
+            </exclude>
         </whitelist>
     </filter>
     <php>

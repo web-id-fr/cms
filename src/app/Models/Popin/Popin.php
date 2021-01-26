@@ -5,24 +5,18 @@ namespace Webid\Cms\App\Models\Popin;
 use App\Models\Template;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
 class Popin extends Model
 {
-    use HasTranslations;
+    use HasTranslations,
+        HasStatusLabels;
 
     /**
      * Valeurs des statuts possibles
      */
     const _STATUS_DRAFT = 1;
     const _STATUS_PUBLISHED = 2;
-
-    /**
-     * La liste des statuts possibles, indexée sur la valeur en base
-     */
-    const STATUSES = [
-        self::_STATUS_PUBLISHED => 'Published',
-        self::_STATUS_DRAFT => 'Draft',
-    ];
 
     protected $table = 'popins';
 

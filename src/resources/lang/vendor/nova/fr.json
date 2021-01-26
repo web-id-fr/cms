@@ -470,6 +470,7 @@
     "galleries": "Galeries",
     "Status":  "Statut",
     "Published": "Publié",
+    "Draft": "Brouillon",
     "Gallery component": "Galerie",
     "Galleries component": "Galeries",
     "Placeholder": "Placeholder",
@@ -596,5 +597,14 @@
     "Please use only this type of name 'name-of-the-field'": "Veuillez n'utiliser que ce type de nom 'nom-du-champ'",
     "Back": "Retour",
     "My page": "Ma page",
-    "Add a component": "Ajouter un composant"
+    "Add a component": "Ajouter un composant",
+    "Category": "Catégorie",
+    "Categories": "Catégories",
+    "Excerpt": "Extrait",
+    "Articles": "Articles",
+    ":resource root slug": "Slug de base des :resource",
+    "Default value: :value": "Valeur par défaut : :value",
+    "This is the root slug that will be used for :resource pages: :url": "Il s'agit du slug qui sera utilisé comme racine pour les :resource : :url",
+    "Move up": "Remonter",
+    "Move down": "Redescendre"
 }

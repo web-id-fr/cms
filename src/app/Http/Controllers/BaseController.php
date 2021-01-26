@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Routing\Controller;
 
 abstract class BaseController extends Controller
@@ -31,5 +32,15 @@ abstract class BaseController extends Controller
             'data' => $data,
             'message' => $message,
         ], $status);
+    }
+
+    /**
+     * @param JsonResource $resource
+     *
+     * @return array
+     */
+    protected function resourceToArray(JsonResource $resource): array
+    {
+        return $resource->response()->getData(true);
     }
 }

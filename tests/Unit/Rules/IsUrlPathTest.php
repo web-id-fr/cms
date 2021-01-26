@@ -13,11 +13,11 @@ class IsUrlPathTest extends TestCase
         $rule = new IsUrlPath();
 
         foreach ($this->failingValues() as $value) {
-            $this->assertFalse($rule->passes('attribute', $value));
+            $this->assertFalse($rule->passes('attribute', $value), "La valeur suivante devrait échouer : " . print_r($value, true));
         }
 
         foreach ($this->successfulValues() as $value) {
-            $this->assertTrue($rule->passes('attribute', $value));
+            $this->assertTrue($rule->passes('attribute', $value), "La valeur suivante devrait passer : " . print_r($value, true));
         }
     }
 

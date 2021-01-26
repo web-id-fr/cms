@@ -67,7 +67,10 @@ class Template extends Resource
     public function fields(Request $request)
     {
         return [
-            (new Tabs('Tabs', [
+            (new Tabs(__(':resource Details: :title', [
+                'resource' => self::singularLabel(),
+                'title' => $this->title(),
+            ]), [
                 __('Parameters') => $this->parameterFields(),
                 __('Content') => $this->contentFields(),
                 __('SEO') => $this->seoFields(),
@@ -107,7 +110,7 @@ class Template extends Resource
                 ->hideWhenCreating(),
 
             Select::make(__('Status'), 'status')
-                ->options(TemplateModel::TYPE_TO_NAME)
+                ->options(TemplateModel::statusLabels())
                 ->displayUsingLabels()
                 ->rules('integer', 'required')
                 ->hideFromIndex(),

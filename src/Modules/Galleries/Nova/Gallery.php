@@ -85,7 +85,7 @@ class Gallery extends Resource
                 ->sortable(),
 
             Select::make(__('Status'), 'status')
-                ->options(GalleryModel::TYPE_TO_NAME)
+                ->options(GalleryModel::statusLabels())
                 ->displayUsingLabels()
                 ->rules('required', 'integer')
                 ->hideFromIndex(),

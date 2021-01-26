@@ -79,12 +79,12 @@ class TemplateTest extends TestCase
     {
         $this->createHomepageTemplate();
         $component = $this->createNewsletterComponent();
-        $template = $this->createTemplate(['homepage' => false]);
+        $template = $this->createTemplate(['homepage' => false, 'slug' => ['fr' => 'mon-slug']]);
 
         $template->newsletterComponents()->attach($component->getKey(), ['order' => 1]);
 
         $this->get(route(self::_ROUTE_PAGE, [
-            'slug' => $template->slug,
+            'slug' => 'mon-slug',
             'lang' => 'fr',
         ]))->assertSuccessful();
     }

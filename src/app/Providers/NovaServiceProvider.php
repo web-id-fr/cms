@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Gate;
 use Infinety\Filemanager\FilemanagerTool;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use OptimistDigital\NovaSettings\NovaSettings;
 use Webid\CardActions\CardActions;
 use Webid\Cms\App\Nova\Menu\Menu;
 use Webid\Cms\App\Nova\Menu\MenuCustomItem;
@@ -87,6 +88,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new ComponentTool(),
             new MenuTool(),
             new CollapsibleResourceManager($this->collapsibleResourceItems()),
+            new NovaSettings(),
         ];
     }
 
@@ -133,7 +135,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         Group::make([
                             'label' => __('Modules'),
                             'expanded' => false,
-                            'resources' => $this->getModuleResources()
+                            'resources' => $this->getTemplateModuleResources(),
                         ]),
                     ],
                 ]),
@@ -153,8 +155,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         foreach (DynamicResource::getTopLevelResources() as $resource) {
             $items['navigation'][] = TopLevelResource::make([
                 'label' => $resource['label'],
-                'badge' => $resource['badge'],
+                'badge' => $resource['badge'] ?? null,
                 'linkTo' => $resource['linkTo'],
+                'resources' => $resource['resources'] ?? [],
             ]);
         }
 
@@ -164,7 +167,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     /**
      * @return array
      */
-    protected function getModuleResources(): array
+    protected function getTemplateModuleResources(): array
     {
         $items = [];
 
@@ -181,7 +184,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ],
         ]);
 
-        foreach (DynamicResource::getGroupModuleResources() as $resource) {
+        foreach (DynamicResource::getTemplateModuleGroupResources() as $resource) {
             $items[] = Group::make([
                 'label' => $resource['label'],
                 'expanded' => $resource['expanded'] ?? false,
