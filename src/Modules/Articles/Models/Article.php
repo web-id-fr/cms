@@ -22,6 +22,8 @@ use Webid\Cms\App\Models\Traits\HasStatusLabels;
  * @property string $opengraph_description
  * @property string $opengraph_picture
  * @property Carbon $publish_at
+ * @method Builder published()
+ * @method Builder publishedForLang(string $language)
  */
 class Article extends Model
 {
@@ -81,17 +83,27 @@ class Article extends Model
 
     /**
      * @param Builder $query
-     * @param string $language
      * @return Builder
      */
-    public function scopePublishedForLang(Builder $query, string $language)
+    public function scopePublished(Builder $query): Builder
     {
         return $query
             ->where('status', self::_STATUS_PUBLISHED)
             ->where(function ($query) {
                 $query->orWhere('publish_at', '<', Carbon::now())
                     ->orWhereNull('publish_at');
-            })
+            });
+    }
+
+    /**
+     * @param Builder $query
+     * @param string $language
+     * @return Builder
+     */
+    public function scopePublishedForLang(Builder $query, string $language): Builder
+    {
+        return $this
+            ->scopePublished($query)
             ->where("slug->{$language}", '!=', '');
     }
 }

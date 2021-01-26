@@ -12,12 +12,14 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Laravel\Nova\NovaCoreServiceProvider;
 use Nwidart\Modules\LaravelModulesServiceProvider;
+use OptimistDigital\NovaSettings\NovaSettings;
 use OptimistDigital\NovaSettings\NovaSettingsServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Spatie\Sitemap\SitemapServiceProvider;
 use Webid\Cms\App\Providers\TestServiceProvider;
 use Webid\Cms\App\Services\LanguageService;
 use Webid\Cms\CmsServiceProvider;
+use Webid\Cms\Tests\Helpers\Traits\CustomAssertions;
 use Webid\Cms\Tests\Helpers\Traits\NovaAssertions;
 use Webid\Cms\Tests\Helpers\Traits\PerformsAjaxRequests;
 
@@ -25,13 +27,22 @@ class TestCase extends OrchestraTestCase
 {
     use RefreshDatabase,
         NovaAssertions,
-        PerformsAjaxRequests;
+        PerformsAjaxRequests,
+        CustomAssertions;
 
     public function setUp(): void
     {
         parent::setUp();
 
+        NovaSettings::clearFields();
+
         Factory::guessFactoryNamesUsing(function (string $modelName) {
+            // Charge les factories depuis les nova-components
+            if (preg_match('/Webid[\\\]\w+(Field|Tool)/', $modelName, $matches)) {
+                return $matches[0] . "\\Database\\Factories\\" . class_basename($modelName) . 'Factory';
+            }
+
+            // Charge les factories depuis les modules
             if (Str::contains($modelName, 'Webid\\Cms\\Modules\\')) {
                 preg_match('/^Webid\\\Cms\\\Modules\\\([^\\\]+)\\\.*$/', $modelName, $matches);
                 $moduleName = $matches[1];
@@ -40,6 +51,7 @@ class TestCase extends OrchestraTestCase
                     . class_basename($modelName) . 'Factory';
             }
 
+            // Charge les factories du core
             return "Webid\\Cms\\Database\\Factories\\" . class_basename($modelName) . 'Factory';
         });
     }

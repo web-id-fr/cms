@@ -23,7 +23,7 @@ class ArticleController extends BaseController
      */
     public function index()
     {
-        $articles = $this->repository->getPublishedArticles(app()->getLocale());
+        $articles = $this->repository->getPublishedArticlesForLang(app()->getLocale());
 
         return View::make('articles::article.index', [
             'articles' => $this->resourceToArray(ArticleResource::collection($articles)),

@@ -4,12 +4,12 @@ namespace Webid\Cms\App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Webid\Cms\App\Services\SitemapGenerator;
+use Webid\Cms\App\Services\Sitemap\SitemapGenerator;
 
 class SitemapController extends BaseController
 {
     /** @var SitemapGenerator */
-    private $sitemap;
+    private SitemapGenerator $sitemap;
 
     public function __construct(SitemapGenerator $sitemap)
     {
