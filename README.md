@@ -202,5 +202,5 @@ public/cms/images/components/newsletter_component.png
 <a id="modules"></a>
 ## Modules
 <a id="modules-galleries"></a>
-### Modules galleries
+### Module galleries
 ##### 1. create a folder in the Filemanager, the default name is `Galeries`
