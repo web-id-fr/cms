@@ -48,7 +48,7 @@ class DynamicResource
     /**
      * @param array $resource
      */
-    public static function pushSingleModuleResources(array $resource): void
+    public static function pushSingleModuleResource(array $resource): void
     {
         array_push(self::$singleModuleResources, $resource);
     }
