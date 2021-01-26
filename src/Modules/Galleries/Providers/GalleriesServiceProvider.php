@@ -16,7 +16,7 @@ class GalleriesServiceProvider extends ServiceProvider
     protected $moduleName = 'Galleries';
 
     /** @var string  */
-    protected $moduleNameLower = 'Galleries';
+    protected $moduleNameLower = 'galleries';
 
     /**
      * @return void
