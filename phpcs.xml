@@ -76,6 +76,7 @@
     <rule ref="Generic.Files.LineLength">
         <exclude-pattern>tests/*</exclude-pattern>
         <exclude-pattern>routes/*.php</exclude-pattern>
+        <exclude-pattern>src/Modules/Articles/Providers/ArticlesServiceProvider.php</exclude-pattern>
     </rule>
 
     <rule ref="PSR1.Files.SideEffects">
