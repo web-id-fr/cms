@@ -87,7 +87,8 @@
                 "Webid\\FieldItemField\\FieldServiceProvider",
                 "Webid\\PageUrlItemField\\FieldServiceProvider",
                 "Nwidart\\Modules\\LaravelModulesServiceProvider",
-                "Laravel\\Nova\\NovaServiceProvider"
+                "Laravel\\Nova\\NovaServiceProvider",
+                "Webid\\ConfirmationEmailItemField\\FieldServiceProvider"
             ]
         }
     },
