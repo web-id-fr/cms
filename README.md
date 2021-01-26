@@ -203,4 +203,6 @@ public/cms/images/components/newsletter_component.png
 ## Modules
 <a id="module-galleries"></a>
 ### Module galleries
-##### 1. create a folder in the Filemanager, the default name is `Galeries`
+##### 1. create a folder  for the Filemanager, in the `storage/app/public` directory. The default name is `Galeries`.
+
+    mkdir storage/app/public/Galeries
