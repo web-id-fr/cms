@@ -5,9 +5,9 @@ namespace Webid\Cms\Modules\Galleries\Providers;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
 use Webid\Cms\App\Services\DynamicResource;
-use Webid\Cms\Modules\Galleries\Http\Services\Contracts\GalleryServiceContract;
-use Webid\Cms\Modules\Galleries\Http\Services\GalleryLocalStorageService;
-use Webid\Cms\Modules\Galleries\Http\Services\GalleryS3Service;
+use Webid\Cms\Modules\Galleries\Services\Contracts\GalleryServiceContract;
+use Webid\Cms\Modules\Galleries\Services\GalleryLocalStorageService;
+use Webid\Cms\Modules\Galleries\Services\GalleryS3Service;
 use Webid\Cms\Modules\Galleries\Nova\Gallery;
 
 class GalleriesServiceProvider extends ServiceProvider

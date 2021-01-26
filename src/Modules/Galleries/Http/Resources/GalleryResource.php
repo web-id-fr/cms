@@ -3,7 +3,7 @@
 namespace Webid\Cms\Modules\Galleries\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Webid\Cms\Modules\Galleries\Http\Services\Contracts\GalleryServiceContract;
+use Webid\Cms\Modules\Galleries\Services\Contracts\GalleryServiceContract;
 
 class GalleryResource extends JsonResource
 {

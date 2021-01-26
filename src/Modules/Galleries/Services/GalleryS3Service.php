@@ -1,9 +1,9 @@
 <?php
 
-namespace Webid\Cms\Modules\Galleries\Http\Services;
+namespace Webid\Cms\Modules\Galleries\Services;
 
 use Illuminate\Support\Facades\Storage;
-use Webid\Cms\Modules\Galleries\Http\Services\Contracts\GalleryServiceContract;
+use Webid\Cms\Modules\Galleries\Services\Contracts\GalleryServiceContract;
 
 class GalleryS3Service implements GalleryServiceContract
 {

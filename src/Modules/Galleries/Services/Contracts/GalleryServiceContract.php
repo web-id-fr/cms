@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Modules\Galleries\Http\Services\Contracts;
+namespace Webid\Cms\Modules\Galleries\Services\Contracts;
 
 interface GalleryServiceContract
 {
