@@ -37,12 +37,6 @@ class GalleriesServiceProvider extends ServiceProvider
         DynamicResource::pushSingleModuleResources([
             'resource' => Gallery::class
         ]);
-
-        $folderName = config('galleries.gallery_folder_name');
-
-        if (!Storage::disk('public')->exists($folderName)) {
-            Storage::disk('public')->makeDirectory($folderName);
-        }
     }
 
     /**
