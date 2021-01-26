@@ -32,7 +32,7 @@ class GalleriesServiceProvider extends ServiceProvider
             ]);
         });
 
-        DynamicResource::pushSingleModuleResources([
+        DynamicResource::pushSingleModuleResource([
             'resource' => Gallery::class
         ]);
     }
