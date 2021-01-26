@@ -18,6 +18,8 @@
   5. [Add images for components](#add-image-components)
 * [Extending functionalities](#extending-cms)
   1. [Create a new component](#create-new-component)
+* [Modules](#modules)
+    1. [Modules galleries](#modules-galleries)
 
 ---
 
@@ -194,3 +196,11 @@ public/cms/images/components/newsletter_component.png
 ##### 2. update `config\component.php` with the information of the new component and add the image of the component in `public/components/`
 ##### 3. update `App\Models\Template` with the information of the new component
 ##### 4. update `nova-components\ComponentField` with the information of the new component
+
+---
+
+<a id="modules"></a>
+## Modules
+<a id="modules-galleries"></a>
+### Modules galleries
+##### 1. create a folder in the Filemanager, the default name is `Galeries`
