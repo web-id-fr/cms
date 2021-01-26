@@ -19,7 +19,7 @@
 * [Extending functionalities](#extending-cms)
   1. [Create a new component](#create-new-component)
 * [Modules](#modules)
-    1. [Modules galleries](#modules-galleries)
+    1. [Module galleries](#module-galleries)
 
 ---
 
