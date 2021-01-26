@@ -3,14 +3,14 @@
 namespace Webid\Cms\Tests\Unit\Rules;
 
 use PHPUnit\Framework\TestCase;
-use Webid\Cms\App\Rules\IsUrlPath;
+use Webid\Cms\App\Rules\TranslatableSlug;
 
-class IsUrlPathTest extends TestCase
+class TranslatableSlugTest extends TestCase
 {
     /** @test */
     public function rule_is_well_configured()
     {
-        $rule = new IsUrlPath();
+        $rule = new TranslatableSlug();
 
         foreach ($this->failingValues() as $value) {
             $this->assertFalse($rule->passes('attribute', $value), "La valeur suivante devrait échouer : " . print_r($value, true));
@@ -24,30 +24,28 @@ class IsUrlPathTest extends TestCase
     private function successfulValues(): array
     {
         return [
-            '/toto',
-            '/toto/',
-            '/12',
-            '/with_underscores',
-            '/with-dashes',
-            '/with/multiple/levels',
-            '/with-query-param?with=true',
-            '/and-another/?with=true',
-            '/avec-caractères-accentués',
+            [],
+            ['slug'],
+            ['slug_avec_underscore'],
+            ['slug-avec-tirets'],
+            ['slug-avec-nombre-2dans'],
+            ['1234567890'],
+            [123456],
+            ['slug-accentué'],
         ];
     }
 
     private function failingValues(): array
     {
         return [
-            null,
-            '',
-            'https://www.truc.com',
-            'www.truc.com',
-            'www.url.com/',
-            'without-slash',
-            '//too-many-slashes',
-            '/again//too-many',
-            '/whoops//',
+            [null],
+            [''],
+            [' '],
+            ['...'],
+            ['pas/un/slug'],
+            ['pas un slug'],
+            ['pas.un.slug'],
+            ['#pasunslug']
         ];
     }
 }

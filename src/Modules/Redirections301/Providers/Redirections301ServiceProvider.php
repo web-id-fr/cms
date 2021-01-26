@@ -12,7 +12,7 @@ use Webid\Cms\Modules\Redirections301\Nova\Redirection;
 class Redirections301ServiceProvider extends ServiceProvider
 {
     const MODULE_NAME = 'Redirections301';
-    const MODULE_ALIAS = 'redirections301';
+    const MODULE_ALIAS = 'redirections-301';
 
     public function boot(Router $router)
     {

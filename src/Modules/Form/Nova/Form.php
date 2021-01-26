@@ -111,7 +111,7 @@ class Form extends Resource
             ])->dependsOn('recipient_type', FormModel::_SERVICES),
 
             Select::make(__('Status'), 'status')
-                ->options(FormModel::TYPE_TO_NAME)
+                ->options(FormModel::statusLabels())
                 ->displayUsingLabels()
                 ->rules('integer', 'required')
                 ->hideFromIndex(),

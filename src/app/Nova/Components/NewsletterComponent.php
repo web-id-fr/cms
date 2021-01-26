@@ -74,7 +74,7 @@ class NewsletterComponent extends Resource
                 ->sortable(),
 
             Select::make(__('Status'), 'status')
-                ->options(NewsletterComponentModel::TYPE_TO_NAME)
+                ->options(NewsletterComponentModel::statusLabels())
                 ->displayUsingLabels()
                 ->rules('integer')
                 ->hideFromIndex(),

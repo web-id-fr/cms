@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
 /**
  * @property string $title
@@ -21,10 +22,12 @@ use Spatie\Translatable\HasTranslations;
  * @property string $opengraph_description
  * @property string $opengraph_picture
  * @property Carbon $publish_at
+ * @method Builder published()
+ * @method Builder publishedForLang(string $language)
  */
 class Article extends Model
 {
-    use HasTranslations, HasFactory;
+    use HasTranslations, HasFactory, HasStatusLabels;
 
     /**
      * @var string
@@ -71,17 +74,6 @@ class Article extends Model
     const _STATUS_DRAFT = 1;
 
     /**
-     * @return array
-     */
-    public static function statusLabels(): array
-    {
-        return [
-            self::_STATUS_PUBLISHED => __('Published'),
-            self::_STATUS_DRAFT => __('Draft'),
-        ];
-    }
-
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function categories()
@@ -91,17 +83,27 @@ class Article extends Model
 
     /**
      * @param Builder $query
-     * @param string $language
      * @return Builder
      */
-    public function scopePublishedForLang(Builder $query, string $language)
+    public function scopePublished(Builder $query): Builder
     {
         return $query
             ->where('status', self::_STATUS_PUBLISHED)
             ->where(function ($query) {
                 $query->orWhere('publish_at', '<', Carbon::now())
                     ->orWhereNull('publish_at');
-            })
+            });
+    }
+
+    /**
+     * @param Builder $query
+     * @param string $language
+     * @return Builder
+     */
+    public function scopePublishedForLang(Builder $query, string $language): Builder
+    {
+        return $this
+            ->scopePublished($query)
             ->where("slug->{$language}", '!=', '');
     }
 }
