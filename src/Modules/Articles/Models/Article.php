@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Webid\Cms\App\Models\Modules\Slideshow\Slideshow;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
+use Whitecube\NovaFlexibleContent\Concerns\HasFlexible;
 
 /**
  * @property string $title
@@ -27,7 +29,10 @@ use Webid\Cms\App\Models\Traits\HasStatusLabels;
  */
 class Article extends Model
 {
-    use HasTranslations, HasFactory, HasStatusLabels;
+    use HasTranslations,
+        HasFactory,
+        HasStatusLabels,
+        HasFlexible;
 
     /**
      * @var string
@@ -81,6 +86,11 @@ class Article extends Model
         return $this->belongsToMany(ArticleCategory::class);
     }
 
+    public function slideshows()
+    {
+        return $this->belongsToMany(Slideshow::class);
+    }
+
     /**
      * @param Builder $query
      * @return Builder
@@ -105,5 +115,13 @@ class Article extends Model
         return $this
             ->scopePublished($query)
             ->where("slug->{$language}", '!=', '');
+    }
+
+    /**
+     * @return \Whitecube\NovaFlexibleContent\Layouts\Collection
+     */
+    public function getFlexibleContentAttribute()
+    {
+        return $this->flexible('content');
     }
 }

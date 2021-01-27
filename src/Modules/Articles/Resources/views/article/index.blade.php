@@ -21,7 +21,14 @@
             Image : <img width="150" src="{{ $article['image'] }}">
             Statut : {{ $article['status'] }}
             Extrait (HTML) : {!! $article['extrait'] !!}
-            Contenu (HTML) : {!! $article['content'] !!}
+            Contenu (HTML) :
+            @foreach($article['content'] as $content)
+                @component('modules.articles.content.' . data_get($content, 'layout'), [
+                    'data' => data_get($content, 'attributes'),
+                    'current_lang' => $current_lang
+                ])
+                @endcomponent
+            @endforeach
             ---
             Meta title : {{ $article['metatitle'] }}
             Meta description : {{ $article['metadescription'] }}

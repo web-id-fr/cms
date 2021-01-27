@@ -32,6 +32,7 @@ class ArticleCategoryController extends BaseController
             'articles' => $this->resourceToArray(
                 ArticleResource::collection($category->publishedArticlesForLang($lang))
             ),
+            'current_lang' => $lang
         ]);
     }
 }
