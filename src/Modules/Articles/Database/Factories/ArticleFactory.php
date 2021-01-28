@@ -38,7 +38,7 @@ class ArticleFactory extends Factory
                     "key" => "2nRvHkFHn8pxGmYu",
                     "layout" => "image",
                     "attributes" => [
-                        "layout" => "articles::content.image",
+                        "layout" => "image",
                         "image" => "fake.png",
                         "balise_alt" => [
                             'fr' => $this->faker->text,
@@ -49,7 +49,7 @@ class ArticleFactory extends Factory
                     "key" => "tkBsQ7uCQMJCcRV6",
                     "layout" => "video",
                     "attributes" => [
-                        "layout" => "articles::content.video",
+                        "layout" => "video",
                         "video" => "fake.mp4"
                     ]
                 ]

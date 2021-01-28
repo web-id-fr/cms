@@ -66,6 +66,8 @@ class ArticleResolver implements ResolverInterface
                 ];
             }
 
+            $attributes['layout'] = $group->name();
+
             return [
                 'layout' => $group->name(),
                 'key' => $group->key(),
