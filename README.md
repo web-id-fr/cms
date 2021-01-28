@@ -3,6 +3,7 @@
 ![](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
 ## Table of contents
+* [Requirements](#requirements)
 * [Installation](#installation)
   1. [Install the package](#install-the-package)
   2. [Publish files](#publish-files)
@@ -22,9 +23,14 @@
 
 ---
 
-<a id="installation"></a>
+## Requirements
+
+* PHP >= 7.4
+* Composer 2
+* MariaDB / MySQL
+
 ## Installation
-<a id="install-the-package"></a>
+
 ### 1. Install the package
 
 This package can be installed as a [Composer](https://getcomposer.org/) dependency.
