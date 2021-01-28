@@ -3,13 +3,15 @@
 ![](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
 ## Table of contents
+* [Requirements](#requirements)
 * [Installation](#installation)
   1. [Install the package](#install-the-package)
   2. [Publish files](#publish-files)
   3. [Install databases](#install-databases)
   4. [Add nova-components in composer](#add-nova-components)
   5. [Prepare routes](#prepare-routes)
-  6. [Configure sitemap.xml](#configure-sitemap)
+  6. [Link storage files](#6-link-storage-files)
+  7. [Configure sitemap.xml](#configure-sitemap)
 * [Customization](#customization)
   1. [Use cookies.js](#use-cookies-js)
   2. [Use form & popin form](#use-form-popin)
@@ -21,9 +23,14 @@
 
 ---
 
-<a id="installation"></a>
+## Requirements
+
+* PHP >= 7.4
+* Composer 2
+* MariaDB / MySQL
+
 ## Installation
-<a id="install-the-package"></a>
+
 ### 1. Install the package
 
 This package can be installed as a [Composer](https://getcomposer.org/) dependency.
@@ -108,8 +115,12 @@ Route::get('/', function () {
 });
  ```
 
+### 6. Link storage files
+
+Run command `php artisan storage:link`.
+
 <a id="configure-sitemap"></a>
-### 6. Configure sitemap.xml
+### 7. Configure sitemap.xml
 
 If you want to allow robots to access your sitemap, add this line in the `robots.txt` file :
 ```
