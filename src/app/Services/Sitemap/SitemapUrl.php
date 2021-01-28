@@ -12,13 +12,13 @@ use DateTime;
 class SitemapUrl
 {
     /** @var string */
-    public string $path;
+    public $path;
 
     /** @var DateTime */
-    public DateTime $updated_at;
+    public $updated_at;
 
     /** @var SitemapUrlAlternate[] */
-    public array $alternates;
+    public $alternates;
 
     /**
      * @param string $path

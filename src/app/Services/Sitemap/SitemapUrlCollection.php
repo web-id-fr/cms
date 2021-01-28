@@ -5,7 +5,7 @@ namespace Webid\Cms\App\Services\Sitemap;
 class SitemapUrlCollection
 {
     /** @var SitemapUrl[] */
-    private array $urls;
+    private $urls;
 
     public function __construct()
     {

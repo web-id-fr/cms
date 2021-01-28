@@ -9,10 +9,10 @@ namespace Webid\Cms\App\Services\Sitemap;
 class SitemapUrlAlternate
 {
     /** @var string */
-    public string $lang;
+    public $lang;
 
     /** @var string */
-    public string $path;
+    public $path;
 
     /**
      * @param string $lang
