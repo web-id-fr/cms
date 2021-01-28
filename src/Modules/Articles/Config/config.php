@@ -21,7 +21,5 @@ return [
     'default_paths' => [
         'articles' => 'blog',
         'categories' => 'cat',
-    ],
-
-    'default_paths_content_layout_views' => 'modules.articles.content'
+    ]
 ];
