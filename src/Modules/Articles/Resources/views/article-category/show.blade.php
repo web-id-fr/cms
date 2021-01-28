@@ -23,7 +23,7 @@
             Extrait (HTML) : {!! $article['extrait'] !!}
             Contenu (HTML) :
             @foreach($article['content'] ?? [] as $content)
-                @component($content['layout'], [
+                @component('articles::content.' . $content['layout'], [
                     'data' => $content,
                     'current_lang' => $current_lang
                 ])
