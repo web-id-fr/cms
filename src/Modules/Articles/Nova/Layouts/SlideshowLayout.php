@@ -1,7 +1,6 @@
 <?php
 namespace Webid\Cms\Modules\Articles\Nova\Layouts;
 
-use Laravel\Nova\Fields\Hidden;
 use Laravel\Nova\Fields\Select;
 use Webid\Cms\App\Repositories\Modules\Slideshow\SlideshowRepository;
 use Whitecube\NovaFlexibleContent\Layouts\Layout;
@@ -26,7 +25,6 @@ class SlideshowLayout extends Layout
      */
     public function fields()
     {
-        $layoutViewPath = config('articles.default_paths.articles');
         $slideshowRepository = app(SlideshowRepository::class);
         $slideshows = $slideshowRepository->all();
         $slideshows = $slideshows->reduce(function ($values, $slideshow) {
@@ -35,8 +33,6 @@ class SlideshowLayout extends Layout
         }, []);
 
         return [
-            Hidden::make('Layout')->default("$layoutViewPath.$this->name"),
-
             Select::make('Slideshow', 'slideshow_select')
                 ->options($slideshows)
                 ->displayUsingLabels()
