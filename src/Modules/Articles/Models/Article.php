@@ -85,6 +85,9 @@ class Article extends Model
         return $this->belongsToMany(ArticleCategory::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function slideshows()
     {
         return $this->belongsToMany(Slideshow::class);
