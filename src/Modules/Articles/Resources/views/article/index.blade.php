@@ -22,9 +22,10 @@
             Statut : {{ $article['status'] }}
             Extrait (HTML) : {!! $article['extrait'] !!}
             Contenu (HTML) :
-            @foreach($article['content'] as $content)
-                @component('modules.articles.content.' . data_get($content, 'layout'), [
-                    'data' => data_get($content, 'attributes'),
+
+            @foreach($article['content'] ?? [] as $content)
+                @component($content['layout'], [
+                    'data' => $content,
                     'current_lang' => $current_lang
                 ])
                 @endcomponent

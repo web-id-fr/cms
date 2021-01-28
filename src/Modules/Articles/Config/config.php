@@ -23,4 +23,5 @@ return [
         'categories' => 'cat',
     ],
 
+    'default_paths_content_layout_views' => 'modules.articles.content'
 ];

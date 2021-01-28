@@ -2,6 +2,7 @@
 namespace Webid\Cms\Modules\Articles\Nova\Layouts;
 
 use Infinety\Filemanager\FilemanagerField;
+use Laravel\Nova\Fields\Hidden;
 use Whitecube\NovaFlexibleContent\Layouts\Layout;
 
 class VideoLayout extends Layout
@@ -28,7 +29,11 @@ class VideoLayout extends Layout
      */
     public function fields()
     {
+        $layoutViewPath = config('articles.default_paths.articles');
+
         return [
+            Hidden::make('Layout')->default("$layoutViewPath.$this->name"),
+
             FilemanagerField::make(__('Video'))
                 ->filterBy('videos')
                 ->displayAsImage(),

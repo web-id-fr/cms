@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Modules\Slideshow\Slideshow;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
-use Whitecube\NovaFlexibleContent\Concerns\HasFlexible;
+use Whitecube\NovaFlexibleContent\Value\FlexibleCast;
 
 /**
  * @property string $title
@@ -17,7 +17,7 @@ use Whitecube\NovaFlexibleContent\Concerns\HasFlexible;
  * @property string $article_image
  * @property integer $status
  * @property string $extrait
- * @property string $content
+ * @property flexibleCast $content
  * @property string $metatitle
  * @property string $metadescription
  * @property string $opengraph_title
@@ -31,8 +31,7 @@ class Article extends Model
 {
     use HasTranslations,
         HasFactory,
-        HasStatusLabels,
-        HasFlexible;
+        HasStatusLabels;
 
     /**
      * @var string
@@ -64,7 +63,6 @@ class Article extends Model
         'title',
         'slug',
         'extrait',
-        'content',
         'metatitle',
         'metadescription',
         'opengraph_title',
@@ -73,6 +71,7 @@ class Article extends Model
 
     protected $casts = [
         'publish_at' => 'datetime',
+        'content' => FlexibleCast::class
     ];
 
     const _STATUS_PUBLISHED = 0;
@@ -115,13 +114,5 @@ class Article extends Model
         return $this
             ->scopePublished($query)
             ->where("slug->{$language}", '!=', '');
-    }
-
-    /**
-     * @return \Whitecube\NovaFlexibleContent\Layouts\Collection
-     */
-    public function getFlexibleContentAttribute()
-    {
-        return $this->flexible('content');
     }
 }
