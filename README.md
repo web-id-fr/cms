@@ -10,7 +10,7 @@
   3. [Install databases](#install-databases)
   4. [Add nova-components in composer](#add-nova-components)
   5. [Prepare routes](#prepare-routes)
-  6. [Link storage files](#link-storage-files)
+  6. [Link storage files](#6-link-storage-files)
   7. [Configure sitemap.xml](#configure-sitemap)
 * [Customization](#customization)
   1. [Use cookies.js](#use-cookies-js)
