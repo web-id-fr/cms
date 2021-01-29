@@ -82,6 +82,10 @@ class Slide extends Resource
 
             FilemanagerField::make(__('Image'), 'image')
                 ->displayAsImage(),
+
+            Translatable::make(__('Image balise alt'), 'image_alt')
+                ->singleLine()
+                ->hideFromIndex(),
         ];
     }
 }
