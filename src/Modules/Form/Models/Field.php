@@ -54,10 +54,16 @@ class Field extends Model
     ];
 
     /**
+     * @param $value
+     *
      * @return \Whitecube\NovaFlexibleContent\Layouts\Collection
      */
-    public function getFlexibleFieldOptionsAttribute()
+    public function getFieldOptionsAttribute($value)
     {
-        return $this->flexible('field_options');
+        if (str_contains(request()->getUri(), 'nova-api')) {
+            return $value;
+        }
+
+        return $this->toFlexible($value);
     }
 }
