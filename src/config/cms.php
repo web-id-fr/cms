@@ -19,10 +19,4 @@ return [
         : "/",
 
     'filesystem_driver' => env('FILESYSTEM_DRIVER'),
-
-    //------------------------------------------
-    // FOR SEND EMAIL CONFIRMATION
-    //------------------------------------------
-
-    'send_email_confirmation' => env('SEND_EMAIL_CONFIRMATION', false)
 ];

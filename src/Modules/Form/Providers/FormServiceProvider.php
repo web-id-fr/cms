@@ -79,6 +79,10 @@ class FormServiceProvider extends ServiceProvider
             $sourcePath . '/fields_type_validation.php',
             $this->moduleNameLower
         );
+        $this->mergeConfigFrom(
+            $sourcePath . '/form.php',
+            $this->moduleNameLower
+        );
     }
 
     protected function publishConfig(): void

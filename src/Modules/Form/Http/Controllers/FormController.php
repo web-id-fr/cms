@@ -51,7 +51,7 @@ class FormController extends BaseController
 
         Mail::to($to ?? config('mail.from.address'))->send(new SendForm($fields, $files));
 
-        if (config('cms.send_email_confirmation') && !empty($request->confirmation_email_name)) {
+        if (config('form.send_email_confirmation') && !empty($request->confirmation_email_name)) {
             $field = $request->confirmation_email_name;
             Mail::to($request->$field)->send(new SendConfirmationContact());
         }

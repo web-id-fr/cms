@@ -84,7 +84,7 @@ class Form extends Resource
 
             ConfirmationEmailItemField::make(__('Confirmation email field'), 'confirmation_email_name')
                 ->canSee(function ($request) {
-                    return config('cms.send_email_confirmation');
+                    return config('form.send_email_confirmation');
                 }),
 
             Translatable::make(__('CTA name'), 'cta_name')
