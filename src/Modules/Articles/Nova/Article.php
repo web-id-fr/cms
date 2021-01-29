@@ -123,11 +123,13 @@ class Article extends Resource
 
             Translatable::make(__('Content'), 'content')
                 ->trix()
+                ->asHtml()
                 ->rules('array')
                 ->hideFromIndex(),
 
             Translatable::make(__('Excerpt'), 'extrait')
                 ->trix()
+                ->asHtml()
                 ->rules('array')
                 ->hideFromIndex(),
         ];
