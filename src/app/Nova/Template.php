@@ -172,6 +172,10 @@ class Template extends Resource
                 ->hideFromIndex()
                 ->displayAsImage(),
 
+            Translatable::make(__('Picture balise alt'), 'opengraph_title_alt')
+                ->singleLine()
+                ->hideFromIndex(),
+
             Heading::make(__('Indexation')),
 
             Boolean::make(__('Index the page'), 'indexation')
