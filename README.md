@@ -18,6 +18,8 @@
   5. [Add images for components](#add-image-components)
 * [Extending functionalities](#extending-cms)
   1. [Create a new component](#create-new-component)
+* [Modules](#modules)
+  1. [Module form](#module-form)
 
 ---
 
@@ -194,3 +196,11 @@ public/cms/images/components/newsletter_component.png
 ##### 2. update `config\component.php` with the information of the new component and add the image of the component in `public/components/`
 ##### 3. update `App\Models\Template` with the information of the new component
 ##### 4. update `nova-components\ComponentField` with the information of the new component
+
+---
+
+<a id="modules"></a>
+## Modules
+<a id="module-form"></a>
+### Module form
+#### 1. Add in your `.env` file the `SEND_EMAIL_CONFIRMATION` key, to send or not to send a confirmation email
