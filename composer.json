@@ -89,6 +89,7 @@
                 "Webid\\PageUrlItemField\\FieldServiceProvider",
                 "Nwidart\\Modules\\LaravelModulesServiceProvider",
                 "Laravel\\Nova\\NovaServiceProvider",
+                "Webid\\PreviewItemField\\FieldServiceProvider",
                 "Webid\\ConfirmationEmailItemField\\FieldServiceProvider"
             ]
         }
