@@ -121,6 +121,10 @@ class Article extends Resource
                 ->hideFromIndex()
                 ->displayAsImage(),
 
+            Translatable::make(__('Article image balise alt'), 'article_image_alt')
+                ->singleLine()
+                ->hideFromIndex(),
+
             Translatable::make(__('Content'), 'content')
                 ->trix()
                 ->rules('array')
@@ -162,6 +166,10 @@ class Article extends Resource
             FilemanagerField::make(__('Picture'), 'opengraph_picture')
                 ->hideFromIndex()
                 ->displayAsImage(),
+
+            Translatable::make(__('Picture balise alt'), 'opengraph_picture_alt')
+                ->singleLine()
+                ->hideFromIndex(),
 
             Heading::make(__('Indexation')),
 
