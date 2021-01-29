@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\Modules\Galleries\Providers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
 use Webid\Cms\App\Services\DynamicResource;
@@ -43,6 +44,10 @@ class GalleriesServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->bindGalleryServiceContract();
+
+        // CRÉATION D'UN DOSSIER GALERIES
+        $folderName = "Galeries";
+        Storage::disk('public')->makeDirectory("/$folderName");
     }
 
     /**

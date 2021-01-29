@@ -18,8 +18,6 @@
   5. [Add images for components](#add-image-components)
 * [Extending functionalities](#extending-cms)
   1. [Create a new component](#create-new-component)
-* [Modules](#modules)
-    1. [Module galleries](#module-galleries)
 
 ---
 
@@ -199,10 +197,3 @@ public/cms/images/components/newsletter_component.png
 
 ---
 
-<a id="modules"></a>
-## Modules
-<a id="module-galleries"></a>
-### Module galleries
-##### 1. create a folder  for the Filemanager, in the `storage/app/public` directory. The default name is `Galeries`.
-
-    mkdir storage/app/public/Galeries
