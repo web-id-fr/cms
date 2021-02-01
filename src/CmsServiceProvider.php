@@ -226,7 +226,7 @@ class CmsServiceProvider extends ServiceProvider
         $router->middlewareGroup('ajax', [
             StartSession::class,
             'is-ajax',
-            VerifyCsrfToken::class
+            VerifyCsrfToken::class,
         ]);
     }
 
