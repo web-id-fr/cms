@@ -16,7 +16,6 @@ install_db:
 
 # TESTS
 testing:
-	./bin/local-php-security-checker-macos
 	./vendor/bin/phpcs --report=full
 	./vendor/bin/psalm
 
@@ -30,9 +29,6 @@ csfix:
 
 psalm:
 	./vendor/bin/psalm
-
-secucheck:
-	./bin/local-php-security-checker-macos
 
 # COMMANDES ARTISAN
 migrate:
