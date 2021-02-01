@@ -16,9 +16,9 @@ install_db:
 
 # TESTS
 testing:
-	- ./vendor/bin/security-checker security:check
-	- ./vendor/bin/phpcs --report=full
-	- ./vendor/bin/psalm
+	./bin/local-php-security-checker-macos
+	./vendor/bin/phpcs --report=full
+	./vendor/bin/psalm
 
 # lance un Code Sniffer
 cssee:
@@ -32,7 +32,7 @@ psalm:
 	./vendor/bin/psalm
 
 secucheck:
-	./vendor/bin/security-checker security:check
+	./bin/local-php-security-checker-macos
 
 # COMMANDES ARTISAN
 migrate:

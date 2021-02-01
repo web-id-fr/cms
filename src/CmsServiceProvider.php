@@ -55,6 +55,7 @@ class CmsServiceProvider extends ServiceProvider
 
         $this->registerMenuDirective();
 
+        $this->publishExecutables();
         $this->publishConfiguration();
         $this->publishProvider();
         $this->publishViews();
@@ -116,6 +117,16 @@ class CmsServiceProvider extends ServiceProvider
             $expression = str_replace("'", "\'", $expression);
             return "<?php echo app('" . MenuService::class . "')->showMenu('{$expression}'); ?>";
         });
+    }
+
+    /**
+     * @return void
+     */
+    protected function publishExecutables(): void
+    {
+        $this->publishes([
+            __DIR__ . '/../bin' => base_path('bin'),
+        ], 'executables');
     }
 
     /**
@@ -226,7 +237,7 @@ class CmsServiceProvider extends ServiceProvider
         $router->middlewareGroup('ajax', [
             StartSession::class,
             'is-ajax',
-            VerifyCsrfToken::class
+            VerifyCsrfToken::class,
         ]);
     }
 
