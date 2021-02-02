@@ -60,7 +60,7 @@ class Field extends Model
      */
     public function getFieldOptionsAttribute($value)
     {
-        if (str_contains(request()->getUri(), 'nova-api')) {
+        if (request()->is('nova-api*')) {
             return $value;
         }
 
