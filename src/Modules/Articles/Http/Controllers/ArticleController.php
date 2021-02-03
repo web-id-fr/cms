@@ -27,7 +27,6 @@ class ArticleController extends BaseController
 
         return View::make('articles::article.index', [
             'articles' => $this->resourceToArray(ArticleResource::collection($articles)),
-            'current_lang' => app()->getLocale()
         ]);
     }
 
@@ -41,7 +40,6 @@ class ArticleController extends BaseController
 
         return View::make('articles::article.show', [
             'article' => $this->resourceToArray(ArticleResource::make($article)),
-            'current_lang' => app()->getLocale()
         ]);
     }
 }
