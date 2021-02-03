@@ -14,14 +14,11 @@ class PageUrlItemField extends Field
     public $component = 'PageUrlItemField';
 
     /**
-     * Create a new field.
-     *
-     * @param  string  $name
-     * @param  string|null  $attribute
-     * @param  mixed|null  $resolveCallback
-     * @return void
+     * @param $name
+     * @param null $attribute
+     * @param callable|null $resolveCallback
      */
-    public function __construct($name, $attribute = null, $resolveCallback = null)
+    public function __construct($name, $attribute = null, callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
 

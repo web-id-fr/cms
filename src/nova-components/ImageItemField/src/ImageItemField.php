@@ -19,11 +19,11 @@ class ImageItemField extends Field
     /**
      * @param string $name
      * @param string|null $attribute
-     * @param mixed|null $resolveCallback
+     * @param callable|null $resolveCallback
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct(string $name, ?string $attribute = null, ?mixed $resolveCallback = null)
+    public function __construct(string $name, ?string $attribute = null, callable $resolveCallback = null)
     {
         $slideRepository = app()->make(SlideRepository::class);
 
