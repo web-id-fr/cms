@@ -21,5 +21,6 @@ return [
     'default_paths' => [
         'articles' => 'blog',
         'categories' => 'cat',
-    ]
+    ],
+
 ];
