@@ -11,10 +11,10 @@ use Webid\Cms\App\Repositories\TemplateRepository;
 class SitemapGenerator
 {
     /** @var TemplateRepository */
-    protected $templateRepository;
+    protected TemplateRepository $templateRepository;
 
     /** @var array|Closure[] */
-    protected $closures;
+    protected array $closures;
 
     public function __construct(TemplateRepository $templateRepository)
     {

@@ -15,13 +15,13 @@ use Webid\Cms\Modules\Articles\Repositories\ArticleRepository;
 class SitemapServiceProvider extends ServiceProvider
 {
     /** @var SitemapGenerator */
-    protected $sitemap;
+    protected SitemapGenerator $sitemap;
 
     /** @var ArticleRepository */
-    protected $articleRepository;
+    protected ArticleRepository $articleRepository;
 
     /** @var ArticleCategoryRepository */
-    protected $categoryRepository;
+    protected ArticleCategoryRepository $categoryRepository;
 
     public function boot(
         SitemapGenerator $sitemap,
