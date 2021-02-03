@@ -126,7 +126,7 @@ class Article extends Model
      */
     public function getContentAttribute($value)
     {
-        if (str_contains(request()->getUri(), 'nova-api')) {
+        if (request()->is('nova-api*')) {
             return $value;
         }
 
