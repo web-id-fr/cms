@@ -44,10 +44,8 @@ class GalleriesServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->bindGalleryServiceContract();
-
-        // CRÉATION D'UN DOSSIER GALERIES
-        $folderName = "Galeries";
-        Storage::disk('public')->makeDirectory("/$folderName");
+        
+        Storage::disk('public')->makeDirectory("/Galeries");
     }
 
     /**
