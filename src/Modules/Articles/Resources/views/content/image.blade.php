@@ -1,3 +1,3 @@
 Layout : image
-<img width="150" src="{{ $data['image'] }}" alt="{{ $data['balise_alt'][$current_lang] }}">
+<img width="150" src="{{ $data['image'] }}" alt="{{ $data['balise_alt'][$currentLangKey] }}">
 

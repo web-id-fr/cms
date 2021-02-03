@@ -28,6 +28,7 @@ use Webid\Cms\App\Nova\Modules\Slideshow\Slideshow;
 use Webid\Cms\App\Nova\Popin\Popin;
 use Webid\Cms\App\Nova\Template;
 use Webid\Cms\App\Observers\TemplateObserver;
+use Webid\Cms\App\Providers\ViewServiceProvider;
 use Webid\Cms\App\Services\DynamicResource;
 use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
 use Webid\Cms\App\Services\Galleries\GalleryLocalStorageService;
@@ -105,6 +106,8 @@ class CmsServiceProvider extends ServiceProvider
 
         Route::pattern('id', '[0-9]+');
         Route::pattern('lang', '(' . app(LanguageService::class)->getAllLanguagesAsRegex() . ')');
+
+        $this->app->register(ViewServiceProvider::class);
     }
 
     /**

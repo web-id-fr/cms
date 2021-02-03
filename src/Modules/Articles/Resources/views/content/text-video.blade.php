@@ -1,4 +1,4 @@
 Layout : texte & video
-texte : {!! $data['text'][$current_lang] !!}
+texte : {!! $data['text'][$currentLangKey] !!}
 Position du texte : {{ $data['text_position'] }}
 Video : {{ $data['video'] }}

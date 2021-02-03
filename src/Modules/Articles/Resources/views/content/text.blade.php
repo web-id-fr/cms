@@ -1,3 +1,3 @@
 Layout : texte
-Text : {!! $data['text'][$current_lang] !!}
+Text : {!! $data['text'][$currentLangKey] !!}
 
