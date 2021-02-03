@@ -7,13 +7,13 @@ use Eminiarts\Tabs\Tabs;
 use Eminiarts\Tabs\TabsOnEdit;
 use Illuminate\Http\Request;
 use Infinety\Filemanager\FilemanagerField;
-use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Resource;
+use Webid\ArticleCategoriesItemField\ArticleCategoriesItemField;
 use Webid\Cms\App\Nova\Traits\HasIconSvg;
 use Webid\Cms\App\Rules\TranslatableMax;
 use Webid\Cms\App\Rules\TranslatableSlug;
@@ -98,7 +98,7 @@ class Article extends Resource
                 ->singleLine()
                 ->rules('array', new TranslatableMax(100), new TranslatableSlug()),
 
-            BelongsToMany::make(__('Categories'), 'categories', ArticleCategory::class),
+            ArticleCategoriesItemField::make(__('Categories'), 'categories'),
 
             Select::make(__('Status'), 'status')
                 ->options(ArticleModel::statusLabels())
@@ -134,6 +134,7 @@ class Article extends Resource
 
             Translatable::make(__('Excerpt'), 'extrait')
                 ->trix()
+                ->asHtml()
                 ->rules('array')
                 ->hideFromIndex(),
         ];
