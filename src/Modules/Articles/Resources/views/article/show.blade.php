@@ -20,8 +20,7 @@
         Contenu (HTML) :
        @foreach($article['content'] ?? [] as $content)
             @component('articles::content.' . $content['layout'], [
-                'data' => $content,
-                'current_lang' => $current_lang
+                'data' => $content
             ])
             @endcomponent
         @endforeach
