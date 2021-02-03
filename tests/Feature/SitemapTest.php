@@ -169,12 +169,4 @@ class SitemapTest extends TestCase
     {
         return $this->get(route('sitemap'))->content();
     }
-
-    private function assertStringContainsStringTimes(string $haystack, string $needle, $timesExpected): void
-    {
-        $this->assertEquals(
-            $timesExpected,
-            substr_count($haystack, $needle)
-        );
-    }
 }
