@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\App\Models\Modules\Slideshow;
+namespace Webid\Cms\Modules\Slideshow\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -11,6 +11,15 @@ class Slideshow extends Model
 
     /** @var string  */
     protected $table = 'slideshows';
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = [
+        'slides',
+    ];
 
     /**
      * The attributes that ar translatable.
@@ -68,7 +77,9 @@ class Slideshow extends Model
         $slides = $this->slides;
 
         $slides->each(function ($slide) use (&$slideItems) {
-            $slide->imageAsset = config('cms.image_path') . $slide->image;
+            if (!empty($slide->image)) {
+                $slide->imageAsset = config('cms.image_path') . $slide->image;
+            }
             $slideItems->push($slide);
         });
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\App\Models\Modules\Slideshow;
+namespace Webid\Cms\Modules\Slideshow\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
