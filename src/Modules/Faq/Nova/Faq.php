@@ -53,33 +53,33 @@ class Faq extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')
+            Text::make(__('Name'), 'name')
                 ->rules('required'),
 
-            Translatable::make('Question')
+            Translatable::make(__('Question'), 'question')
                 ->trix()
                 ->hideFromIndex()
                 ->asHtml(),
 
-            Translatable::make('Answer')
+            Translatable::make(__('Answer'), 'answer')
                 ->trix()
                 ->hideFromIndex()
                 ->asHtml(),
 
-            Number::make('Order')
+            Number::make(__('Order'), 'order')
                 ->min(0)
                 ->step(1),
 
-            BelongsTo::make('Theme', 'FaqTheme', FaqTheme::class)
+            BelongsTo::make(__('Theme'), 'FaqTheme', FaqTheme::class)
                 ->showCreateRelationButton(),
 
-            Select::make('Status', 'status')
+            Select::make(__('Status'), 'status')
                 ->options(FaqModel::statusLabels())
                 ->displayUsingLabels()
                 ->rules('required', 'integer')
                 ->sortable(),
 
-            Boolean::make('Published', function () {
+            Boolean::make(__('Published'), function () {
                 return $this->isPublished();
             })->onlyOnIndex(),
         ];
