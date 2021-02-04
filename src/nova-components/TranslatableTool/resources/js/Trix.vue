@@ -17,7 +17,7 @@
                     menubar: false,
                     plugins: "code textcolor preview link",
                     toolbar: "code | undo redo | formatselect | bold italic strikethrough underline forecolor backcolor | link | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | link",
-                    forced_root_block: "div"
+                    forced_root_block: "p"
                 }
             }
         },

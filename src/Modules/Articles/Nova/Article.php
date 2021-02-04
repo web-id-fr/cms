@@ -18,7 +18,9 @@ use Webid\Cms\App\Nova\Traits\HasIconSvg;
 use Webid\Cms\App\Rules\TranslatableMax;
 use Webid\Cms\App\Rules\TranslatableSlug;
 use Webid\Cms\Modules\Articles\Models\Article as ArticleModel;
+use Webid\Cms\Modules\Articles\Nova\Layouts\Preset\ArticlePreset;
 use Webid\TranslatableTool\Translatable;
+use Whitecube\NovaFlexibleContent\Flexible;
 
 class Article extends Resource
 {
@@ -58,8 +60,11 @@ class Article extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
+     *
      * @return array
+     *
+     * @throws \Exception
      */
     public function fields(Request $request)
     {
@@ -112,6 +117,8 @@ class Article extends Resource
 
     /**
      * @return array
+     *
+     * @throws \Exception
      */
     protected function contentFields(): array
     {
@@ -121,10 +128,8 @@ class Article extends Resource
                 ->hideFromIndex()
                 ->displayAsImage(),
 
-            Translatable::make(__('Content'), 'content')
-                ->trix()
-                ->asHtml()
-                ->rules('array')
+            Flexible::make(__('Content'), 'content')
+                ->preset(ArticlePreset::class)
                 ->hideFromIndex(),
 
             Translatable::make(__('Excerpt'), 'extrait')
@@ -181,6 +186,8 @@ class Article extends Resource
 
     /**
      * @return string
+     *
+     * @throws \Exception
      */
     public static function icon(): string
     {
