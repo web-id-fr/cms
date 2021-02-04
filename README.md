@@ -163,23 +163,6 @@ To create the service provider, you can run :
 php artisan make:provider ViewServiceProvider
 ```
 
-Then in the `boot` method, you can add necessary shared variables
-```php
-use Illuminate\Support\Facades\View;
-
-public function boot()
-{
-    View::composer('*', function ($view) {
-        if (!request()->is('nova*')) {
-            $currentLangKey = request()->lang ?? config('app.locale');
-            $currentLang = config("translatable.locales.{$currentLangKey}");
-            
-            View::share('currentLang', $currentLang);
-        }
-    });
-}
-```
-
 ⚠ Don't forget to add the service provider in the file `config/app.php`.
 
 <a id="update-mail-template"></a>
@@ -205,3 +188,6 @@ public/cms/images/components/newsletter_component.png
 ##### 2. update `config\component.php` with the information of the new component and add the image of the component in `public/components/`
 ##### 3. update `App\Models\Template` with the information of the new component
 ##### 4. update `nova-components\ComponentField` with the information of the new component
+
+---
+
