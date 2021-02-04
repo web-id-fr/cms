@@ -15,7 +15,6 @@ use OptimistDigital\NovaSettings\NovaSettings;
 use Webid\CardActions\CardActions;
 use Webid\Cms\App\Nova\Menu\Menu;
 use Webid\Cms\App\Nova\Menu\MenuCustomItem;
-use Webid\Cms\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\App\Nova\Modules\Slideshow\Slide;
 use Webid\Cms\App\Nova\Modules\Slideshow\Slideshow;
 use Webid\Cms\App\Nova\Popin\Popin;
@@ -170,17 +169,20 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function getTemplateModuleResources(): array
     {
-        $items = [
-            Gallery::class,
-            Group::make([
-                'label' => __('Slideshow'),
-                'expanded' => false,
-                'resources' => [
-                    Slideshow::class,
-                    Slide::class,
-                ],
-            ]),
-        ];
+        $items = [];
+
+        foreach (DynamicResource::getSingleModuleResources() as $resource) {
+            $items[] = $resource['resource'];
+        }
+
+        $items[] = Group::make([
+            'label' => __('Slideshow'),
+            'expanded' => false,
+            'resources' => [
+                Slideshow::class,
+                Slide::class,
+            ],
+        ]);
 
         foreach (DynamicResource::getTemplateModuleGroupResources() as $resource) {
             $items[] = Group::make([

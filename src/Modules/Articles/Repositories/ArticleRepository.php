@@ -16,10 +16,21 @@ class ArticleRepository
     }
 
     /**
+     * @return Collection<Article>
+     */
+    public function getPublishedArticles(): Collection
+    {
+        return $this->model
+            ->published()
+            ->get();
+    }
+
+
+    /**
      * @param string $language
      * @return Collection<Article>
      */
-    public function getPublishedArticles(string $language): Collection
+    public function getPublishedArticlesForLang(string $language): Collection
     {
         return $this->model
             ->publishedForLang($language)
@@ -53,6 +64,17 @@ class ArticleRepository
         return $this->model
             ->where('slug', 'regexp', "\"$language\"[ ]*:[ ]*\"$slug(-[1-9])\"")
             ->orderBy('id', 'desc')
+            ->first();
+    }
+
+    /**
+     * @return Article|null
+     */
+    public function latestUpdatedPublishedArticle(): ?Article
+    {
+        return $this->model
+            ->published()
+            ->orderByDesc(Article::UPDATED_AT)
             ->first();
     }
 }

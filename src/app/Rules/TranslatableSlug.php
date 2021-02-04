@@ -30,6 +30,6 @@ class TranslatableSlug implements Rule
      */
     public function message()
     {
-        return 'The :attribute may only contain letters, numbers, dashes and underscores.';
+        return __('validation.alpha_dash');
     }
 }

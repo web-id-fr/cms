@@ -5,21 +5,19 @@ namespace Webid\Cms\Modules\Form\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
 class Form extends Model
 {
-    use HasTranslations, HasFactory;
+    use HasTranslations,
+        HasFactory,
+        HasStatusLabels;
 
     const _STATUS_PUBLISHED = 0;
     const _STATUS_DRAFT = 1;
 
     const _RECIPIENTS = 1;
     const _SERVICES = 2;
-
-    const TYPE_TO_NAME = [
-        self::_STATUS_PUBLISHED => 'published',
-        self::_STATUS_DRAFT => 'draft',
-    ];
 
     const TYPE_TO_SERVICE = [
         self::_RECIPIENTS => 'Recipients',

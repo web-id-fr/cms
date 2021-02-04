@@ -15,7 +15,7 @@
                     :id="field.name"
                     class="mt-4 w-full form-control form-input form-input-bordered py-3 min-h-textarea"
                     :class="errorClasses"
-                    :placeholder="field.name"
+                    :placeholder="extraAttributes.placeholder || field.name"
                     v-model="value[currentLocale]"
                     v-if="!field.singleLine && !field.trix"
             ></textarea>
@@ -36,7 +36,7 @@
                     :id="field.name"
                     class="mt-4 w-full form-control form-input form-input-bordered"
                     :class="errorClasses"
-                    :placeholder="field.name"
+                    :placeholder="extraAttributes.placeholder || field.name"
                     v-model="value[currentLocale]"
                     v-if="field.singleLine"
             />
@@ -77,11 +77,13 @@
             return {
                 locales: Object.keys(this.field.locales),
                 currentLocale: null,
+                extraAttributes: {}
             }
         },
 
         mounted() {
             this.currentLocale = document.querySelector('#select-language-translatable').value;
+            this.extraAttributes = this.field.extraAttributes || {};
             Nova.$on('change-language', (lang) => {
                 this.changeTab(lang);
             });

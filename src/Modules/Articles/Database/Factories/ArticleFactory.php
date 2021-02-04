@@ -33,9 +33,27 @@ class ArticleFactory extends Factory
             'extrait' => [
                 'fr' => $this->faker->text,
             ],
-            'content' => [
-                'fr' => $this->faker->text,
-            ],
+            'content' => json_encode([
+                [
+                    "key" => "2nRvHkFHn8pxGmYu",
+                    "layout" => "image",
+                    "attributes" => [
+                        "layout" => "image",
+                        "image" => "fake.png",
+                        "balise_alt" => [
+                            'fr' => $this->faker->text,
+                        ],
+                    ]
+                ],
+                [
+                    "key" => "tkBsQ7uCQMJCcRV6",
+                    "layout" => "video",
+                    "attributes" => [
+                        "layout" => "video",
+                        "video" => "fake.mp4"
+                    ]
+                ]
+            ]),
             'metatitle' => [],
             'metadescription' => [],
             'opengraph_title' => [],

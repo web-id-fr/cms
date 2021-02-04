@@ -470,6 +470,7 @@
     "galleries": "Galeries",
     "Status":  "Statut",
     "Published": "Publié",
+    "Draft": "Brouillon",
     "Gallery component": "Galerie",
     "Galleries component": "Galeries",
     "Placeholder": "Placeholder",
@@ -604,5 +605,19 @@
     "Articles": "Articles",
     ":resource root slug": "Slug de base des :resource",
     "Default value: :value": "Valeur par défaut : :value",
-    "This is the root slug that will be used for :resource pages: :url": "Il s'agit du slug qui sera utilisé comme racine pour les :resource : :url"
+    "This is the root slug that will be used for :resource pages: :url": "Il s'agit du slug qui sera utilisé comme racine pour les :resource : :url",
+    "Move up": "Remonter",
+    "Move down": "Redescendre",
+    "Text section": "Section texte",
+    "Text": "Texte",
+    "Video section": "Section vidéo",
+    "Video": "Vidéo",
+    "Text & video section": "Section texte & vidéo",
+    "Text position": "Position du texte",
+    "Add a section": "Ajouter une section",
+    "Image section": "Section image",
+    "Slideshow section": "Section slideshow",
+    "Text & image section": "Section texte & image",
+    "Left": "A gauche",
+    "Right": "A droite"
 }

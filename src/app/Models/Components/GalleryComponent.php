@@ -5,19 +5,16 @@ namespace Webid\Cms\App\Models\Components;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Webid\Cms\App\Models\Modules\Galleries\Gallery;
+use Webid\Cms\Modules\Galleries\Models\Gallery;
+use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
 class GalleryComponent extends Model
 {
-    use HasFactory;
+    use HasFactory,
+        HasStatusLabels;
 
     const _STATUS_PUBLISHED = 1;
     const _STATUS_DRAFT = 2;
-
-    const TYPE_TO_NAME = [
-        self::_STATUS_PUBLISHED => 'published',
-        self::_STATUS_DRAFT => 'draft',
-    ];
 
     /**
      * The table associated with the model.

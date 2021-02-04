@@ -22,18 +22,16 @@ use Webid\Cms\App\Nova\Components\GalleryComponent;
 use Webid\Cms\App\Nova\Components\NewsletterComponent;
 use Webid\Cms\App\Nova\Menu\Menu;
 use Webid\Cms\App\Nova\Menu\MenuCustomItem;
-use Webid\Cms\App\Nova\Modules\Galleries\Gallery;
 use Webid\Cms\App\Nova\Modules\Slideshow\Slide;
 use Webid\Cms\App\Nova\Modules\Slideshow\Slideshow;
 use Webid\Cms\App\Nova\Popin\Popin;
 use Webid\Cms\App\Nova\Template;
 use Webid\Cms\App\Observers\TemplateObserver;
+use Webid\Cms\App\Providers\ViewServiceProvider;
 use Webid\Cms\App\Services\DynamicResource;
-use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
-use Webid\Cms\App\Services\Galleries\GalleryLocalStorageService;
-use Webid\Cms\App\Services\Galleries\GalleryS3Service;
 use Webid\Cms\App\Services\LanguageService;
 use Webid\Cms\App\Services\MenuService;
+use Webid\Cms\App\Services\Sitemap\SitemapGenerator;
 
 class CmsServiceProvider extends ServiceProvider
 {
@@ -50,6 +48,7 @@ class CmsServiceProvider extends ServiceProvider
         }
 
         $this->app->singleton(DynamicResource::class);
+        $this->app->singleton(SitemapGenerator::class);
 
         $this->registerMenuDirective();
 
@@ -76,7 +75,6 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             Nova::resources([
                 Template::class,
-                Gallery::class,
                 GalleryComponent::class,
                 NewsletterComponent::class,
                 Popin::class,
@@ -95,14 +93,14 @@ class CmsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/config/cms.php', 'cms');
 
-        $this->bindGalleryServiceContract();
-
         Route::pattern('id', '[0-9]+');
         Route::pattern('lang', '(' . app(LanguageService::class)->getAllLanguagesAsRegex() . ')');
+
+        $this->app->register(ViewServiceProvider::class);
     }
 
     /**
@@ -224,24 +222,7 @@ class CmsServiceProvider extends ServiceProvider
         $router->middlewareGroup('ajax', [
             StartSession::class,
             'is-ajax',
-            VerifyCsrfToken::class
+            VerifyCsrfToken::class,
         ]);
-    }
-
-    /**
-     * @return void
-     */
-    protected function bindGalleryServiceContract(): void
-    {
-        if ('s3' == config('cms.filesystem_driver')) {
-            $galleryService = GalleryS3Service::class;
-        } else {
-            $galleryService = GalleryLocalStorageService::class;
-        }
-
-        $this->app->bind(
-            GalleryServiceContract::class,
-            $galleryService
-        );
     }
 }

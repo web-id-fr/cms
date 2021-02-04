@@ -45,8 +45,8 @@ jobs:
           composer install --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader
 
       # Tests that just need composer dependencies
-      - name: Running symfony security checker
-        run: ./vendor/bin/security-checker security:check
+      - name: Running security checker
+        run: ./bin/local-php-security-checker-linux
 
       - name: Running phpcs
         run: ./vendor/bin/phpcs --report=full

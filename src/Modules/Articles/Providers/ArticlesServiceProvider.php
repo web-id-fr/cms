@@ -33,8 +33,6 @@ class ArticlesServiceProvider extends ServiceProvider
 
         $this->registerMiddlewares($router);
 
-        $this->app->register(RouteServiceProvider::class);
-
         $this->loadMigrationsFrom(module_path(self::MODULE_NAME, 'Database/Migrations'));
 
         $this->app->booted(function () {
@@ -58,6 +56,12 @@ class ArticlesServiceProvider extends ServiceProvider
         ]);
 
         $this->addSettings();
+    }
+
+    public function register()
+    {
+        $this->app->register(RouteServiceProvider::class);
+        $this->app->register(SitemapServiceProvider::class);
     }
 
     /**

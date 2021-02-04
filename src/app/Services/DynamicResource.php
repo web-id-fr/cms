@@ -10,6 +10,9 @@ class DynamicResource
     /** @var array */
     private static $templateModuleGroupResources = [];
 
+    /** @var array  */
+    private static $singleModuleResources = [];
+
     /**
      * @param array $resource
      */
@@ -40,5 +43,21 @@ class DynamicResource
     public static function getTemplateModuleGroupResources(): array
     {
         return self::$templateModuleGroupResources;
+    }
+
+    /**
+     * @param array $resource
+     */
+    public static function pushSingleModuleResource(array $resource): void
+    {
+        array_push(self::$singleModuleResources, $resource);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getSingleModuleResources(): array
+    {
+        return self::$singleModuleResources;
     }
 }
