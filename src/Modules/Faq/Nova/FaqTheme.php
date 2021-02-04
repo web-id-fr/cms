@@ -6,15 +6,12 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Resource;
-use Webid\Cms\App\Nova\Traits\HasIconSvg;
 use Webid\Cms\Modules\Faq\Models\FaqTheme as FaqThemeModel;
 use Laravel\Nova\Fields\Select;
 use Webid\TranslatableTool\Translatable;
 
 class FaqTheme extends Resource
 {
-    use HasIconSvg;
-
     /**
      * The model the resource corresponds to.
      *
