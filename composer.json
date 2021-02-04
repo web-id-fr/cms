@@ -58,7 +58,8 @@
             "Webid\\CardActions\\App\\" : "src/nova-components/CardActions/src/app/",
             "Webid\\PageUrlItemField\\" : "src/nova-components/PageUrlItemField/src/",
             "Webid\\PreviewItemField\\" : "src/nova-components/PreviewItemField/src/",
-            "Webid\\ArticleCategoriesItemField\\" : "src/nova-components/ArticleCategoriesItemField/src/"
+            "Webid\\ArticleCategoriesItemField\\" : "src/nova-components/ArticleCategoriesItemField/src/",
+            "Webid\\ConfirmationEmailItemField\\" : "src/nova-components/ConfirmationEmailItemField/src/"
         },
         "files": [
             "src/app/helpers.php"
@@ -90,7 +91,8 @@
                 "Nwidart\\Modules\\LaravelModulesServiceProvider",
                 "Laravel\\Nova\\NovaServiceProvider",
                 "Webid\\PreviewItemField\\FieldServiceProvider",
-                "Webid\\ArticleCategoriesItemField\\FieldServiceProvider"
+                "Webid\\ArticleCategoriesItemField\\FieldServiceProvider",
+                "Webid\\ConfirmationEmailItemField\\FieldServiceProvider"
             ]
         }
     },

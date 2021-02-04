@@ -24,4 +24,14 @@ class ServiceRepository
     {
         return $this->model->all();
     }
+
+    /**
+     * @param int $id
+     *
+     * @return mixed
+     */
+    public function get(int $id)
+    {
+        return $this->model->find($id);
+    }
 }

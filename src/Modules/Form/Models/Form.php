@@ -45,6 +45,7 @@ class Form extends Model
         'title_service',
         'cta_name',
         'rgpd_mention',
+        'confirmation_email_name',
     ];
 
     /**

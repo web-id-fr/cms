@@ -20,6 +20,8 @@
   5. [Add images for components](#add-image-components)
 * [Extending functionalities](#extending-cms)
   1. [Create a new component](#create-new-component)
+* [Modules](#modules)
+  1. [Module form](#module-form)
 
 ---
 
@@ -191,3 +193,8 @@ public/cms/images/components/newsletter_component.png
 
 ---
 
+<a id="modules"></a>
+## Modules
+<a id="module-form"></a>
+### Module form
+#### 1. Add in your `.env` file the `SEND_EMAIL_CONFIRMATION` key, to send or not to send a confirmation email
