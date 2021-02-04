@@ -5,7 +5,7 @@ namespace Webid\GalleryItemField;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\Cms\App\Models\Components\GalleryComponent;
-use Webid\Cms\App\Repositories\Modules\Galleries\GalleryRepository;
+use Webid\Cms\Modules\Galleries\Repositories\GalleryRepository;
 
 class GalleryItemField extends Field
 {

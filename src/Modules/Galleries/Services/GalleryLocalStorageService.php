@@ -1,9 +1,9 @@
 <?php
 
-namespace Webid\Cms\App\Services\Galleries;
+namespace Webid\Cms\Modules\Galleries\Services;
 
 use Illuminate\Support\Facades\File;
-use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
+use Webid\Cms\Modules\Galleries\Services\Contracts\GalleryServiceContract;
 
 class GalleryLocalStorageService implements GalleryServiceContract
 {
@@ -15,9 +15,9 @@ class GalleryLocalStorageService implements GalleryServiceContract
     public function getGalleries(string $folder = ''): array
     {
         if (!empty($folder)) {
-            $galleriesPath = config('cms.gallery_path') . '/' . $folder;
+            $galleriesPath = config('galleries.gallery_path') . '/' . $folder;
         } else {
-            $galleriesPath = config('cms.gallery_path');
+            $galleriesPath = config('galleries.gallery_path');
         }
 
         $filesExist = File::exists($galleriesPath);

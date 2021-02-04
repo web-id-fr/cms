@@ -1,9 +1,9 @@
 <?php
 
-namespace Webid\Cms\App\Services\Galleries;
+namespace Webid\Cms\Modules\Galleries\Services;
 
 use Illuminate\Support\Facades\Storage;
-use Webid\Cms\App\Services\Galleries\Contracts\GalleryServiceContract;
+use Webid\Cms\Modules\Galleries\Services\Contracts\GalleryServiceContract;
 
 class GalleryS3Service implements GalleryServiceContract
 {
@@ -18,7 +18,7 @@ class GalleryS3Service implements GalleryServiceContract
             return $this->getGalleriesInFolder($folder);
         }
 
-        $galleriesPath = config('cms.gallery_path');
+        $galleriesPath = config('galleries.gallery_path');
         $filesExist =  Storage::disk('s3')->exists($galleriesPath);
 
         if (!$filesExist) {

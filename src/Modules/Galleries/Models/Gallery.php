@@ -1,7 +1,8 @@
 <?php
 
-namespace Webid\Cms\App\Models\Modules\Galleries;
+namespace Webid\Cms\Modules\Galleries\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
@@ -9,6 +10,7 @@ use Webid\Cms\App\Models\Traits\HasStatusLabels;
 class Gallery extends Model
 {
     use HasTranslations,
+        HasFactory,
         HasStatusLabels;
 
     const _STATUS_PUBLISHED = 1;
