@@ -14,13 +14,13 @@
         "php": "^7.4|^8.0",
         "laravel/framework": "^8.12",
         "laravel/nova": "~2.0|~3.0",
-        "whitecube/nova-flexible-content": "^0.1.15",
+        "whitecube/nova-flexible-content": "^0.2.0",
         "spatie/laravel-translatable": "^4.2",
         "infinety-es/nova-filemanager": "^2.6",
         "idf/nova-html-card": "^1.2",
         "digital-creative/collapsible-resource-manager": "^1.2",
         "digital-creative/conditional-container": "^1.2",
-        "eminiarts/nova-tabs": "^1.2",
+        "eminiarts/nova-tabs": "1.3.*",
         "epartment/nova-dependency-container": "^1.2",
         "maatwebsite/laravel-nova-excel": "^1.1",
         "tightenco/ziggy": "^0.9.3",
@@ -30,7 +30,8 @@
         "ext-json": "*",
         "spatie/laravel-sitemap": "^5.8",
         "nwidart/laravel-modules": "^8.0",
-        "optimistdigital/nova-settings": "^3.1"
+        "optimistdigital/nova-settings": "^3.1",
+        "symfony/polyfill-mbstring": "1.20.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5",
@@ -57,7 +58,8 @@
             "Webid\\CardActions\\App\\" : "src/nova-components/CardActions/src/app/",
             "Webid\\PageUrlItemField\\" : "src/nova-components/PageUrlItemField/src/",
             "Webid\\PreviewItemField\\" : "src/nova-components/PreviewItemField/src/",
-            "Webid\\ArticleCategoriesItemField\\" : "src/nova-components/ArticleCategoriesItemField/src/"
+            "Webid\\ArticleCategoriesItemField\\" : "src/nova-components/ArticleCategoriesItemField/src/",
+            "Webid\\ConfirmationEmailItemField\\" : "src/nova-components/ConfirmationEmailItemField/src/"
         },
         "files": [
             "src/app/helpers.php"
@@ -89,7 +91,8 @@
                 "Nwidart\\Modules\\LaravelModulesServiceProvider",
                 "Laravel\\Nova\\NovaServiceProvider",
                 "Webid\\PreviewItemField\\FieldServiceProvider",
-                "Webid\\ArticleCategoriesItemField\\FieldServiceProvider"
+                "Webid\\ArticleCategoriesItemField\\FieldServiceProvider",
+                "Webid\\ConfirmationEmailItemField\\FieldServiceProvider"
             ]
         }
     },

@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource;
 use Webid\Cms\App\Nova\Traits\HasIconSvg;
+use Webid\ConfirmationEmailItemField\ConfirmationEmailItemField;
 use Webid\FieldItemField\FieldItemField;
 use Webid\RecipientItemField\RecipientItemField;
 use Webid\ServiceItemField\ServiceItemField;
@@ -80,6 +81,11 @@ class Form extends Resource
 
             FieldItemField::make(__('Fields'), 'fields')
                 ->hideFromIndex(),
+
+            ConfirmationEmailItemField::make(__('Confirmation email field'), 'confirmation_email_name')
+                ->canSee(function ($request) {
+                    return config('form.send_email_confirmation');
+                }),
 
             Translatable::make(__('CTA name'), 'cta_name')
                 ->singleLine()

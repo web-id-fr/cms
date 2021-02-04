@@ -81,6 +81,7 @@ class MenuCustomItem extends Resource
 
             NovaDependencyContainer::make([
                 BelongsTo::make(__('Form'), 'form', Form::class)
+                    ->showCreateRelationButton()
                     ->nullable()
                     ->onlyOnForms(),
             ])->dependsOn('type_link', MenuCustomItemModel::_LINK_FORM),
