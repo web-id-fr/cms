@@ -2,7 +2,7 @@
 namespace Webid\Cms\Modules\Articles\Nova\Layouts;
 
 use Laravel\Nova\Fields\Select;
-use Webid\Cms\App\Repositories\Modules\Slideshow\SlideshowRepository;
+use Webid\Cms\Modules\Slideshow\Repositories\SlideshowRepository;
 use Whitecube\NovaFlexibleContent\Layouts\Layout;
 
 class SlideshowLayout extends Layout
