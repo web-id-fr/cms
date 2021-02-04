@@ -14,9 +14,11 @@ class PageUrlItemField extends Field
     public $component = 'PageUrlItemField';
 
     /**
-     * @param $name
-     * @param null $attribute
+     * @param string $name
+     * @param string|callable|null $attribute
      * @param callable|null $resolveCallback
+     *
+     * @return void
      */
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
     {

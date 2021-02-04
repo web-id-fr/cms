@@ -14,8 +14,8 @@ class Translatable extends Field
     public $component = 'translatable';
 
     /**
-     * @param $name
-     * @param null $attribute
+     * @param string $name
+     * @param string|callable|null $attribute
      * @param callable|null $resolveCallback
      *
      * @return void
