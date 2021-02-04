@@ -12,7 +12,6 @@ use Laravel\Nova\Nova;
 use OptimistDigital\NovaSettings\NovaSettings;
 use Webid\Cms\App\Rules\TranslatableSlug;
 use Webid\Cms\App\Services\DynamicResource;
-use Webid\Cms\App\Services\Sitemap\SitemapGenerator;
 use Webid\Cms\Modules\Articles\Helpers\SlugHelper;
 use Webid\Cms\Modules\Articles\Http\Middleware\CheckSlugsMatch;
 use Webid\Cms\Modules\Articles\Http\Middleware\SetDefaultSlugs;
