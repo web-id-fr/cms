@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Webid\Cms\App\Models\Modules\Slideshow\Slideshow;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
+use Whitecube\NovaFlexibleContent\Concerns\HasFlexible;
 
 /**
  * @property string $title
@@ -27,7 +29,10 @@ use Webid\Cms\App\Models\Traits\HasStatusLabels;
  */
 class Article extends Model
 {
-    use HasTranslations, HasFactory, HasStatusLabels;
+    use HasTranslations,
+        HasFactory,
+        HasStatusLabels,
+        HasFlexible;
 
     /**
      * @var string
@@ -62,7 +67,6 @@ class Article extends Model
         'slug',
         'article_image_alt',
         'extrait',
-        'content',
         'metatitle',
         'metadescription',
         'opengraph_title',
@@ -83,6 +87,14 @@ class Article extends Model
     public function categories()
     {
         return $this->belongsToMany(ArticleCategory::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function slideshows()
+    {
+        return $this->belongsToMany(Slideshow::class);
     }
 
     /**
@@ -109,5 +121,19 @@ class Article extends Model
         return $this
             ->scopePublished($query)
             ->where("slug->{$language}", '!=', '');
+    }
+
+    /**
+     * @param $value
+     *
+     * @return \Whitecube\NovaFlexibleContent\Layouts\Collection
+     */
+    public function getContentAttribute($value)
+    {
+        if (request()->is('nova-api*')) {
+            return $value;
+        }
+
+        return $this->toFlexible($value);
     }
 }

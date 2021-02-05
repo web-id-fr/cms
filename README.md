@@ -3,13 +3,15 @@
 ![](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
 ## Table of contents
+* [Requirements](#requirements)
 * [Installation](#installation)
   1. [Install the package](#install-the-package)
   2. [Publish files](#publish-files)
   3. [Install databases](#install-databases)
   4. [Add nova-components in composer](#add-nova-components)
   5. [Prepare routes](#prepare-routes)
-  6. [Configure sitemap.xml](#configure-sitemap)
+  6. [Link storage files](#6-link-storage-files)
+  7. [Configure sitemap.xml](#configure-sitemap)
 * [Customization](#customization)
   1. [Use cookies.js](#use-cookies-js)
   2. [Use form & popin form](#use-form-popin)
@@ -18,12 +20,19 @@
   5. [Add images for components](#add-image-components)
 * [Extending functionalities](#extending-cms)
   1. [Create a new component](#create-new-component)
+* [Modules](#modules)
+  1. [Module form](#module-form)
 
 ---
 
-<a id="installation"></a>
+## Requirements
+
+* PHP >= 7.4
+* Composer 2
+* MariaDB / MySQL
+
 ## Installation
-<a id="install-the-package"></a>
+
 ### 1. Install the package
 
 This package can be installed as a [Composer](https://getcomposer.org/) dependency.
@@ -108,8 +117,12 @@ Route::get('/', function () {
 });
  ```
 
+### 6. Link storage files
+
+Run command `php artisan storage:link`.
+
 <a id="configure-sitemap"></a>
-### 6. Configure sitemap.xml
+### 7. Configure sitemap.xml
 
 If you want to allow robots to access your sitemap, add this line in the `robots.txt` file :
 ```
@@ -152,23 +165,6 @@ To create the service provider, you can run :
 php artisan make:provider ViewServiceProvider
 ```
 
-Then in the `boot` method, you can add necessary shared variables
-```php
-use Illuminate\Support\Facades\View;
-
-public function boot()
-{
-    View::composer('*', function ($view) {
-        if (!request()->is('nova*')) {
-            $currentLangKey = request()->lang ?? config('app.locale');
-            $currentLang = config("translatable.locales.{$currentLangKey}");
-            
-            View::share('currentLang', $currentLang);
-        }
-    });
-}
-```
-
 ⚠ Don't forget to add the service provider in the file `config/app.php`.
 
 <a id="update-mail-template"></a>
@@ -194,3 +190,11 @@ public/cms/images/components/newsletter_component.png
 ##### 2. update `config\component.php` with the information of the new component and add the image of the component in `public/components/`
 ##### 3. update `App\Models\Template` with the information of the new component
 ##### 4. update `nova-components\ComponentField` with the information of the new component
+
+---
+
+<a id="modules"></a>
+## Modules
+<a id="module-form"></a>
+### Module form
+#### 1. Add in your `.env` file the `SEND_EMAIL_CONFIRMATION` key, to send or not to send a confirmation email

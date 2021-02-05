@@ -5,7 +5,7 @@ namespace Webid\GalleryItemField;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\Cms\App\Models\Components\GalleryComponent;
-use Webid\Cms\App\Repositories\Modules\Galleries\GalleryRepository;
+use Webid\Cms\Modules\Galleries\Repositories\GalleryRepository;
 
 class GalleryItemField extends Field
 {
@@ -22,11 +22,11 @@ class GalleryItemField extends Field
     /**
      * @param string $name
      * @param string|null $attribute
-     * @param mixed|null $resolveCallback
+     * @param callable|null $resolveCallback
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct(string $name, ?string $attribute = null, ?mixed $resolveCallback = null)
+    public function __construct(string $name, ?string $attribute = null, callable $resolveCallback = null)
     {
         $galleryRepository = app()->make(GalleryRepository::class);
 

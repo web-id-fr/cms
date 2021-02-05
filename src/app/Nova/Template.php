@@ -154,6 +154,7 @@ class Template extends Resource
 
             Translatable::make(__('Description'), 'metadescription')
                 ->trix()
+                ->asHtml()
                 ->rules('array')
                 ->hideFromIndex(),
 
@@ -165,6 +166,7 @@ class Template extends Resource
 
             Translatable::make(__('Description'), 'opengraph_description')
                 ->trix()
+                ->asHtml()
                 ->rules('array')
                 ->hideFromIndex(),
 
