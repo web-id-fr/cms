@@ -37,6 +37,26 @@ class FaqTheme extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Faq Themes');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Faq Theme');
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -47,17 +67,17 @@ class FaqTheme extends Resource
         return [
             ID::make()->sortable(),
 
-            Translatable::make('Title')
+            Translatable::make(__('Title'), 'title')
                 ->rules('required')
                 ->singleLine(),
 
-            Select::make('Status')
+            Select::make(__('Status'), 'status')
                 ->options(FaqThemeModel::statusLabels())
                 ->displayUsingLabels()
                 ->rules('required', 'integer')
                 ->sortable(),
 
-            Boolean::make('Published', function () {
+            Boolean::make(__('Published'), function () {
                 return $this->isPublished();
             })->onlyOnIndex(),
         ];

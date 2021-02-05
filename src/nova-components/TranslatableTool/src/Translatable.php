@@ -14,14 +14,13 @@ class Translatable extends Field
     public $component = 'translatable';
 
     /**
-     * Create a new field.
+     * @param string $name
+     * @param string|callable|null $attribute
+     * @param callable|null $resolveCallback
      *
-     * @param  string  $name
-     * @param  string|null  $attribute
-     * @param  mixed|null  $resolveCallback
      * @return void
      */
-    public function __construct($name, $attribute = null, $resolveCallback = null)
+    public function __construct($name, $attribute = null, callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
 
@@ -44,7 +43,7 @@ class Translatable extends Field
      */
     protected function resolveAttribute($resource, $attribute)
     {
-        if (method_exists($resource, 'getTranslations')) {
+        if (method_exists((object) $resource, 'getTranslations')) {
             return $resource->getTranslations($attribute);
         }
         return data_get($resource, $attribute);
