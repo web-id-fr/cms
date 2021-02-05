@@ -619,5 +619,11 @@
     "Slideshow section": "Section slideshow",
     "Text & image section": "Section texte & image",
     "Left": "A gauche",
-    "Right": "A droite"
+    "Right": "A droite",
+    "Question":  "Question",
+    "Answer": "Réponse",
+    "Order":  "Ordre",
+    "Theme": "Thème",
+    "Faq Themes": "thèmes",
+    "Faq Theme": "thème"
 }
