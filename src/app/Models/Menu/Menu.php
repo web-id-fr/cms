@@ -39,12 +39,33 @@ class Menu extends Model
     public $menu_items;
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function related()
+    {
+        return $this->hasMany(MenuItem::class)
+            ->with('menus')
+            ->orderBy('order');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(MenuItem::class, 'parent_id')
+            ->with('menus')
+            ->orderBy('order');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
     public function templates()
     {
         return $this->morphedByMany(Template::class, 'menuable')
             ->withPivot('order', 'parent_id', 'parent_type')
+            ->with( 'menus')
             ->orderBy('order');
     }
 
@@ -55,10 +76,11 @@ class Menu extends Model
     {
         return $this->morphedByMany(MenuCustomItem::class, 'menuable')
             ->withPivot('order', 'parent_id', 'parent_type')
+            ->with( 'menus')
             ->orderBy('order');
     }
 
-    public function chargeMenuItems()
+    public function chargeMenuItems(): void
     {
         $menuItems = collect();
         $templates = $this->templates;
@@ -130,6 +152,7 @@ class Menu extends Model
 
         return $children;
     }
+
     /**
      * Transforme l'attribut "zones" issu du scope en tableau s'il existe
      *

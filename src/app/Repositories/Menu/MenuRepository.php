@@ -2,12 +2,14 @@
 
 namespace Webid\Cms\App\Repositories\Menu;
 
-use Webid\Cms\App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 use Webid\Cms\App\Models\Menu\Menu;
 
-class MenuRepository extends BaseRepository
+class MenuRepository
 {
+    /** @var Menu */
+    protected $model;
+
     /**
      * MenuRepository constructor.
      *
@@ -15,7 +17,7 @@ class MenuRepository extends BaseRepository
      */
     public function __construct(Menu $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 
     /**
@@ -23,15 +25,14 @@ class MenuRepository extends BaseRepository
      */
     public function all()
     {
-        $models = $this->model
+        return $this->model
             ->withZones()
+            ->with(['related' => function($q) {
+                $q->whereHas('menus', function($q) {
+                    $q->where('parent_id', '=' , null);
+                });
+            }])
             ->get();
-
-        $models->each(function ($model) {
-            $model->chargeMenuItems();
-        });
-
-        return $models;
     }
 
     /**
@@ -43,10 +44,14 @@ class MenuRepository extends BaseRepository
      */
     public function find(int $id)
     {
-        $model = $this->model->find($id);
-        $model->chargeMenuItems();
-
-        return $model;
+        return $this->model
+            ->find($id)
+            ->with(['related' => function($q) {
+                $q->whereHas('menus', function($q) {
+                    $q->where('parent_id', '=' , null);
+                });
+            }])
+            ->first();
     }
 
     /**
