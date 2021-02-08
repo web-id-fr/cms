@@ -75,4 +75,13 @@ abstract class BaseTemplate extends Model
         return $this->morphToMany(Menu::class, 'menuable')
             ->withPivot('order', 'parent_id', 'parent_type');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function related()
+    {
+        return $this->hasMany(Component::class)
+            ->orderBy('order');
+    }
 }

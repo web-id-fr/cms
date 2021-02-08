@@ -6,8 +6,11 @@ use App\Models\Template;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
-class TemplateRepository extends BaseRepository
+class TemplateRepository
 {
+    /** @var Template */
+    protected $model;
+
     /**
      * TemplateRepository constructor.
      *
@@ -15,37 +18,31 @@ class TemplateRepository extends BaseRepository
      */
     public function __construct(Template $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
+     * @return mixed
      */
     public function getPublishedTemplates()
     {
-        $models = $this->model->all()
+        return $this->model
             ->where('status', Template::_STATUS_PUBLISHED)
-            ->load('menus');
-
-        $models->each(function ($model) {
-            $model->chargeComponents();
-        });
-
-        return $models;
+            ->with('related.components')
+            ->get();
     }
 
     /**
-     * @return Collection
+     *
+     * @return mixed
+     *
      */
     public function getSlugForHomepage()
     {
-        $model = $this->model->select('slug')
+        return $this->model->select('slug')
             ->where('homepage', true)
+            ->with('related.components')
             ->first();
-
-        $model->chargeComponents();
-
-        return $model;
     }
 
     /**
@@ -58,17 +55,32 @@ class TemplateRepository extends BaseRepository
     {
         $slug = strtolower($slug);
 
-        $model = $this->model
+        return $this->model
             ->where('slug', 'regexp', "\"$language\"[ ]*:[ ]*\"$slug\"")
             ->where('status', Template::_STATUS_PUBLISHED)
             ->where(function ($query) {
                 $query->whereNull('publish_at')->orWhere('publish_at', '<=', Carbon::now());
             })
             ->firstOrFail();
+    }
 
-        $model->chargeComponents();
+    /**
+     * @param string $slug
+     * @param string $language
+     *
+     * @return Template
+     */
+    public function getBySlugWithRelations(string $slug, string $language): Template
+    {
+        $slug = strtolower($slug);
 
-        return $model;
+        return $this->model
+            ->where('slug', 'regexp', "\"$language\"[ ]*:[ ]*\"$slug\"")
+            ->where('status', Template::_STATUS_PUBLISHED)
+            ->where(function ($query) {
+                $query->whereNull('publish_at')->orWhere('publish_at', '<=', Carbon::now());
+            })->with('related.components')
+            ->firstOrFail();
     }
 
     /**
@@ -80,12 +92,16 @@ class TemplateRepository extends BaseRepository
     public function getLastCorrespondingSlugWithNumber(string $slug, string $language)
     {
         $slug = strtolower($slug);
+
         return $this->model
             ->where('slug', 'regexp', "\"$language\"[ ]*:[ ]*\"$slug(-[1-9])\"")
             ->orderBy('id', 'desc')
             ->first();
     }
 
+    /**
+     * @return Collection
+     */
     public function getPublishedAndIndexedTemplates(): Collection
     {
         return $this->model
