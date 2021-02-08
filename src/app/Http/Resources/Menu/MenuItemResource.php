@@ -26,7 +26,9 @@ class MenuItemResource extends JsonResource
             // Champs exclusifs aux Custom items
             $this->mergeWhen(MenuCustomItem::class == $this->resource->menuable_type, [
                 $this->mergeWhen(MenuCustomItem::_LINK_FORM == $this->resource->menuable->type_link, [
-                    'form' => !empty($this->resource->menuable->form) ? FormResource::make($this->resource->menuable->form)->resolve() : [],
+                    'form' => !empty($this->resource->menuable->form)
+                        ? FormResource::make($this->resource->menuable->form)->resolve()
+                        : [],
                     'is_popin' => true,
                 ]),
                 $this->mergeWhen(MenuCustomItem::_LINK_URL == $this->resource->menuable->type_link, [
