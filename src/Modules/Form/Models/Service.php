@@ -18,6 +18,15 @@ class Service extends Model
     protected $table = 'services';
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = [
+        'recipients'
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
