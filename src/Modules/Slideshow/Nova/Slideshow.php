@@ -1,18 +1,21 @@
 <?php
 
-namespace Webid\Cms\App\Nova\Modules\Slideshow;
+namespace Webid\Cms\Modules\Slideshow\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Number;
+use Webid\Cms\App\Nova\Traits\HasIconSvg;
 use Webid\ImageItemField\ImageItemField;
 use Webid\TranslatableTool\Translatable;
-use Webid\Cms\App\Models\Modules\Slideshow\Slideshow as SlideshowModel;
+use Webid\Cms\Modules\Slideshow\Models\Slideshow as SlideshowModel;
 use Laravel\Nova\Resource;
 
 class Slideshow extends Resource
 {
+    use HasIconSvg;
+
     /**
      * The model the resource corresponds to.
      *
@@ -86,12 +89,11 @@ class Slideshow extends Resource
 
     /**
      * @return string
+     *
+     * @throws \Exception
      */
     public static function icon(): string
     {
-        return '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path fill="var(--sidebar-icon)" d="M7 19h10V4H7v15zm-5-2h4V6H2v11zM18 6v11h4V6h-4z"/>
-                    <path d="M0 0h24v24H0z" fill="none"/>
-                </svg>';
+        return self::svgIcon('slideshow', package_module_path('Slideshow/Resources/svg'));
     }
 }

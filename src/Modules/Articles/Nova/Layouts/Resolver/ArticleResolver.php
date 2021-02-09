@@ -3,8 +3,8 @@
 namespace Webid\Cms\Modules\Articles\Nova\Layouts\Resolver;
 
 use Illuminate\Support\Collection;
-use Webid\Cms\App\Http\Resources\Modules\Slideshow\SlideshowResource;
-use Webid\Cms\App\Repositories\Modules\Slideshow\SlideshowRepository;
+use Webid\Cms\Modules\Slideshow\Repositories\SlideshowRepository;
+use Webid\Cms\Modules\Slideshow\Resources\SlideshowResource;
 use Whitecube\NovaFlexibleContent\Value\ResolverInterface;
 
 class ArticleResolver implements ResolverInterface
