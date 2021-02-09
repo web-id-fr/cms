@@ -27,7 +27,7 @@ class TemplateResource extends JsonResource
             'opengraph_title' => $this->resource->opengraph_title,
             'opengraph_description' => $this->resource->opengraph_description,
             'opengraph_picture' => $this->resource->opengraph_picture,
-            'opengraph_title_alt' => $this->resource->opengraph_title_alt,
+            'opengraph_picture_alt' => $this->resource->opengraph_picture_alt,
             'indexation' => $this->getIndexationAndFollowValue($this->resource->indexation, $this->resource->follow),
             'meta_keywords' => $this->resource->meta_keywords,
             'items' => ComponentResource::collection($this->resource->component_items)->resolve(),

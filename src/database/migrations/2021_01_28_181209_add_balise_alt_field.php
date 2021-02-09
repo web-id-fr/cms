@@ -13,16 +13,12 @@ class AddBaliseAltField extends Migration
      */
     public function up()
     {
-        Schema::table('slides', function (Blueprint $table) {
-            $table->json('image_alt')->nullable();
-        });
-
         Schema::table('popins', function (Blueprint $table) {
             $table->json('image_alt')->nullable();
         });
 
         Schema::table('templates', function (Blueprint $table) {
-            $table->json('opengraph_title_alt')->nullable();
+            $table->json('opengraph_picture_alt')->nullable();
         });
     }
 
@@ -33,16 +29,12 @@ class AddBaliseAltField extends Migration
      */
     public function down()
     {
-        Schema::table('slides', function (Blueprint $table) {
-            $table->dropColumn('image_alt');
-        });
-
         Schema::table('popins', function (Blueprint $table) {
             $table->dropColumn('image_alt');
         });
 
         Schema::table('templates', function (Blueprint $table) {
-            $table->dropColumn('opengraph_title_alt');
+            $table->dropColumn('opengraph_picture_alt');
         });
     }
 }

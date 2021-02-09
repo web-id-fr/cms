@@ -625,5 +625,7 @@
     "Order":  "Ordre",
     "Theme": "Thème",
     "Faq Themes": "thèmes",
-    "Faq Theme": "thème"
+    "Faq Theme": "thème",
+    "Article image balise alt": "Balise alt pour l'image de l'article",
+    "Image balise alt": "Balise alt pour l'image"
 }
