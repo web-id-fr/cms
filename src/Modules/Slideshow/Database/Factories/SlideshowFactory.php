@@ -3,7 +3,6 @@
 namespace Webid\Cms\Modules\Slideshow\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Webid\Cms\Modules\Slideshow\Models\Slide;
 use Webid\Cms\Modules\Slideshow\Models\Slideshow;
 
 class SlideshowFactory extends Factory
