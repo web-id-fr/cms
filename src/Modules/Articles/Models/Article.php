@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-use Webid\Cms\App\Models\Modules\Slideshow\Slideshow;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
+use Webid\Cms\Modules\Slideshow\Models\Slideshow;
 use Whitecube\NovaFlexibleContent\Concerns\HasFlexible;
 
 /**

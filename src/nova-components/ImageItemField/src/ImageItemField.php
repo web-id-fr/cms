@@ -4,8 +4,8 @@ namespace Webid\ImageItemField;
 
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Webid\Cms\App\Models\Modules\Slideshow\Slideshow;
-use Webid\Cms\App\Repositories\Modules\Slideshow\SlideRepository;
+use Webid\Cms\Modules\Slideshow\Models\Slideshow;
+use Webid\Cms\Modules\Slideshow\Repositories\SlideRepository;
 
 class ImageItemField extends Field
 {
@@ -29,7 +29,9 @@ class ImageItemField extends Field
 
         $allSlide = $slideRepository->all();
         $allSlide->map(function ($slide) {
-            $slide->imageAsset = config('cms.image_path') . $slide->image;
+            if (!empty($slide->image)) {
+                $slide->imageAsset = config('cms.image_path') . $slide->image;
+            }
             return $slide;
         });
 

@@ -25,7 +25,6 @@
         "maatwebsite/laravel-nova-excel": "^1.1",
         "tightenco/ziggy": "^0.9.3",
         "spatie/laravel-varnish": "^2.8",
-        "optimistdigital/nova-multiselect-field": "^2.0",
         "spatie/laravel-honeypot": "^2.3",
         "ext-json": "*",
         "spatie/laravel-sitemap": "^5.8",
@@ -59,7 +58,8 @@
             "Webid\\PageUrlItemField\\" : "src/nova-components/PageUrlItemField/src/",
             "Webid\\PreviewItemField\\" : "src/nova-components/PreviewItemField/src/",
             "Webid\\ArticleCategoriesItemField\\" : "src/nova-components/ArticleCategoriesItemField/src/",
-            "Webid\\ConfirmationEmailItemField\\" : "src/nova-components/ConfirmationEmailItemField/src/"
+            "Webid\\ConfirmationEmailItemField\\" : "src/nova-components/ConfirmationEmailItemField/src/",
+            "Webid\\TemplateItemField\\" : "src/nova-components/TemplateItemField/src/"
         },
         "files": [
             "src/app/helpers.php"
@@ -92,7 +92,8 @@
                 "Laravel\\Nova\\NovaServiceProvider",
                 "Webid\\PreviewItemField\\FieldServiceProvider",
                 "Webid\\ArticleCategoriesItemField\\FieldServiceProvider",
-                "Webid\\ConfirmationEmailItemField\\FieldServiceProvider"
+                "Webid\\ConfirmationEmailItemField\\FieldServiceProvider",
+                "Webid\\TemplateItemField\\FieldServiceProvider"
             ]
         }
     },

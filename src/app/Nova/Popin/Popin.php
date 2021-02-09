@@ -3,7 +3,6 @@
 namespace  Webid\Cms\App\Nova\Popin;
 
 use Laravel\Nova\Resource;
-use OptimistDigital\MultiselectField\Multiselect;
 use Webid\Cms\App\Models\Popin\Popin as PopinModel;
 use \Eminiarts\Tabs\Tabs;
 use \Eminiarts\Tabs\TabsOnEdit;
@@ -13,7 +12,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Webid\Cms\App\Nova\Template;
+use Webid\TemplateItemField\TemplateItemField;
 use Webid\TranslatableTool\Translatable;
 use Infinety\Filemanager\FilemanagerField;
 
@@ -89,8 +88,7 @@ class Popin extends Resource
                 ->sortable()
                 ->rules('nullable', 'max:255'),
 
-            Multiselect::make(__('Templates'), 'templates')
-                ->belongsToMany(Template::class),
+            TemplateItemField::make(__('Templates')),
 
             Select::make(__('Status'), 'status')
                 ->options(PopinModel::statusLabels())

@@ -22,8 +22,6 @@ use Webid\Cms\App\Nova\Components\GalleryComponent;
 use Webid\Cms\App\Nova\Components\NewsletterComponent;
 use Webid\Cms\App\Nova\Menu\Menu;
 use Webid\Cms\App\Nova\Menu\MenuCustomItem;
-use Webid\Cms\App\Nova\Modules\Slideshow\Slide;
-use Webid\Cms\App\Nova\Modules\Slideshow\Slideshow;
 use Webid\Cms\App\Nova\Popin\Popin;
 use Webid\Cms\App\Nova\Template;
 use Webid\Cms\App\Observers\TemplateObserver;
@@ -78,8 +76,6 @@ class CmsServiceProvider extends ServiceProvider
                 GalleryComponent::class,
                 NewsletterComponent::class,
                 Popin::class,
-                Slideshow::class,
-                Slide::class,
                 Menu::class,
                 MenuCustomItem::class,
             ]);

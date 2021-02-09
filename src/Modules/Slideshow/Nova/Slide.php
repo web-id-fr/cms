@@ -1,12 +1,12 @@
 <?php
 
-namespace Webid\Cms\App\Nova\Modules\Slideshow;
+namespace Webid\Cms\Modules\Slideshow\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Infinety\Filemanager\FilemanagerField;
 use Webid\TranslatableTool\Translatable;
-use Webid\Cms\App\Models\Modules\Slideshow\Slide as SlideModel;
+use Webid\Cms\Modules\Slideshow\Models\Slide as SlideModel;
 use Laravel\Nova\Resource;
 
 class Slide extends Resource
