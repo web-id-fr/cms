@@ -4,7 +4,6 @@ namespace Webid\TemplateItemField;
 
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Webid\Cms\App\Models\Popin\Popin;
 use Webid\Cms\App\Repositories\TemplateRepository;
 
 class TemplateItemField extends Field
@@ -15,11 +14,6 @@ class TemplateItemField extends Field
      * @var string
      */
     public $component = 'TemplateItemField';
-
-    /**
-     * @var $relationModel
-     */
-    public $relationModel;
 
     /**
      * @param  string  $name
@@ -58,7 +52,9 @@ class TemplateItemField extends Field
             $fieldItemIds[] = $fieldItem['id'];
         });
 
-        app(get_class($model))::saved(function ($model) use ($fieldItemIds) {
+        $class = get_class($model);
+
+        $class::saved(function ($model) use ($fieldItemIds) {
             $model->templates()->sync($fieldItemIds);
         });
     }

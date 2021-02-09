@@ -18,11 +18,6 @@ class RecipientItemField extends Field
     public $component = 'RecipientItemField';
 
     /**
-     * @var $relationModel
-     */
-    public $relationModel;
-
-    /**
      * @param string $name
      * @param string|null $attribute
      * @param callable|null $resolveCallback

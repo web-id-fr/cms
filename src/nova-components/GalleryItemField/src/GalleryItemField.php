@@ -16,9 +16,6 @@ class GalleryItemField extends Field
      */
     public $component = 'GalleryItemField';
 
-    /** @var $relationModel */
-    public $relationModel;
-
     /**
      * @param string $name
      * @param string|null $attribute

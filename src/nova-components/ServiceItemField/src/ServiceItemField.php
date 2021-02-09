@@ -16,9 +16,6 @@ class ServiceItemField extends Field
      */
     public $component = 'ServiceItemField';
 
-    /** @var $relationModel */
-    public $relationModel;
-
     /**
      * @param string $name
      * @param string|null $attribute
