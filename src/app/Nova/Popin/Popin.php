@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Webid\Cms\App\Nova\Template;
+use Webid\TemplateItemField\TemplateItemField;
 use Webid\TranslatableTool\Translatable;
 use Infinety\Filemanager\FilemanagerField;
 
@@ -89,8 +90,7 @@ class Popin extends Resource
                 ->sortable()
                 ->rules('nullable', 'max:255'),
 
-            Multiselect::make(__('Templates'), 'templates')
-                ->belongsToMany(Template::class),
+            TemplateItemField::make(__('Templates')),
 
             Select::make(__('Status'), 'status')
                 ->options(PopinModel::statusLabels())

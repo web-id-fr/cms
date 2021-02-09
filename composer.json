@@ -59,7 +59,8 @@
             "Webid\\PageUrlItemField\\" : "src/nova-components/PageUrlItemField/src/",
             "Webid\\PreviewItemField\\" : "src/nova-components/PreviewItemField/src/",
             "Webid\\ArticleCategoriesItemField\\" : "src/nova-components/ArticleCategoriesItemField/src/",
-            "Webid\\ConfirmationEmailItemField\\" : "src/nova-components/ConfirmationEmailItemField/src/"
+            "Webid\\ConfirmationEmailItemField\\" : "src/nova-components/ConfirmationEmailItemField/src/",
+            "Webid\\TemplateItemField\\" : "src/nova-components/TemplateItemField/src/"
         },
         "files": [
             "src/app/helpers.php"
@@ -92,7 +93,8 @@
                 "Laravel\\Nova\\NovaServiceProvider",
                 "Webid\\PreviewItemField\\FieldServiceProvider",
                 "Webid\\ArticleCategoriesItemField\\FieldServiceProvider",
-                "Webid\\ConfirmationEmailItemField\\FieldServiceProvider"
+                "Webid\\ConfirmationEmailItemField\\FieldServiceProvider",
+                "Webid\\TemplateItemField\\FieldServiceProvider"
             ]
         }
     },
