@@ -20,6 +20,7 @@ class TemplateResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'menu_description' => $this->resource->menu_description,
             'slug' => $this->slug,
             'status' => $this->status,
             'meta_title' => $this->metatitle,

@@ -42,6 +42,7 @@ abstract class BaseTemplate extends Model
         'opengraph_picture',
         'publish_at',
         'homepage',
+        'menu_description',
     ];
 
     /**
@@ -56,6 +57,7 @@ abstract class BaseTemplate extends Model
         'metadescription',
         'opengraph_title',
         'opengraph_description',
+        'menu_description',
     ];
 
     /**

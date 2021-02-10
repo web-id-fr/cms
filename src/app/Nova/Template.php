@@ -96,6 +96,11 @@ class Template extends Resource
                 ->rules('required')
                 ->sortable(),
 
+            Translatable::make(__('Menu description'), 'menu_description')
+                ->help(__('This field is optional and allows you to add a short description below the title in the sub-menu.'))
+                ->singleLine()
+                ->sortable(),
+
             Translatable::make(__('Slug'), 'slug')
                 ->help(__('Please use only this type of slug "name-of-the-template"'))
                 ->singleLine()

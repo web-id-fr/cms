@@ -26,6 +26,7 @@ class MenuCustomItem extends Model
     public $translatable = [
         'title',
         'url',
+        'menu_description',
     ];
 
     /**
@@ -39,6 +40,7 @@ class MenuCustomItem extends Model
         'target',
         'type_link',
         'form_id',
+        'menu_description',
     ];
 
     /**
