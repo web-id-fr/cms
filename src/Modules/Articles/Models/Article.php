@@ -46,6 +46,7 @@ class Article extends Model
         'title',
         'slug',
         'article_image',
+        'article_image_alt',
         'status',
         'extrait',
         'content',
@@ -54,6 +55,7 @@ class Article extends Model
         'opengraph_title',
         'opengraph_description',
         'opengraph_picture',
+        'opengraph_picture_alt',
         'publish_at',
     ];
 
@@ -63,11 +65,13 @@ class Article extends Model
     public $translatable = [
         'title',
         'slug',
+        'article_image_alt',
         'extrait',
         'metatitle',
         'metadescription',
         'opengraph_title',
         'opengraph_description',
+        'opengraph_picture_alt',
     ];
 
     protected $casts = [

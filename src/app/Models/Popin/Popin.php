@@ -29,6 +29,7 @@ class Popin extends Model
         'title',
         'status',
         'image',
+        'image_alt',
         'description',
         'button_1_title',
         'button_1_url',
@@ -51,6 +52,7 @@ class Popin extends Model
         'button_1_url',
         'button_2_title',
         'button_2_url',
+        'image_alt',
     ];
 
     /**

@@ -20,6 +20,8 @@
     <div id="app">
         <div class="main_wrap" id="@yield('id_page')">
             @yield('content')
+
+            @include('popup')
         </div>
     </div>
 
