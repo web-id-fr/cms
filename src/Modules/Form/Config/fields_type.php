@@ -10,4 +10,5 @@ return [
     7 => 'textarea',
     8 => 'file',
     9 => 'date-time',
+    10 => 'radio',
 ];

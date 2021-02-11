@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Menu\Menu;
+use Webid\Cms\App\Models\Menu\MenuItem;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
 abstract class BaseTemplate extends Model
@@ -75,6 +76,26 @@ abstract class BaseTemplate extends Model
     public function menus()
     {
         return $this->morphToMany(Menu::class, 'menuable')
+            ->with('children')
             ->withPivot('order', 'parent_id', 'parent_type');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(MenuItem::class, 'parent_id')
+            ->with('menus')
+            ->orderBy('order');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function related()
+    {
+        return $this->hasMany(Component::class)
+            ->orderBy('order');
     }
 }

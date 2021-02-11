@@ -3,6 +3,7 @@
 namespace Webid\Cms\App\Http\Resources\Components;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Webid\Cms\App\Models\Components\NewsletterComponent;
 
 class NewsletterComponentResource extends JsonResource
 {
@@ -16,12 +17,12 @@ class NewsletterComponentResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'title' => $this->title,
-            'placeholder' => $this->placeholder,
-            'cta_name' => $this->cta_name,
-            'view' => config("components.$this->component_type.view"),
+            'id' => $this->resource->component->id,
+            'name' => $this->resource->component->name,
+            'title' => $this->resource->component->title,
+            'placeholder' => $this->resource->component->placeholder,
+            'cta_name' => $this->resource->component->cta_name,
+            'view' =>  config("components." . NewsletterComponent::class  .".view"),
         ];
     }
 }

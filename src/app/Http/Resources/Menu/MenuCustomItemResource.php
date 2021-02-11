@@ -17,22 +17,16 @@ class MenuCustomItemResource extends JsonResource
      */
     public function toArray($request)
     {
-        if ($this->form()->exists()) {
-            $form = FormResource::make($this->form)->resolve();
-        } else {
-            $form = null;
-        }
-
         return [
-            'id' => $this->id,
-            'title' => $this->title,
+            'id' => $this->resource->id,
+            'title' => $this->resource->title,
 
-            $this->mergeWhen(MenuCustomItemModel::_LINK_URL == $this->type_link, [
-                'url' => $this->url,
+            $this->mergeWhen(MenuCustomItemModel::_LINK_URL == $this->resource->type_link, [
+                'url' => $this->resource->url,
             ]),
 
-            $this->mergeWhen(MenuCustomItemModel::_LINK_FORM == $this->type_link, [
-                'form' => $form,
+            $this->mergeWhen(MenuCustomItemModel::_LINK_FORM == $this->resource->type_link, [
+                'form' => FormResource::make($this->whenLoaded('form'))->resolve(),
                 'is_popin' => true,
             ]),
         ];
