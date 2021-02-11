@@ -55,7 +55,7 @@ class TemplateController extends BaseController
         try {
             $slug = $this->templateRepository->getSlugForHomepage();
 
-            $data = TemplateResource::make($this->templateRepository->getBySlug(
+            $data = TemplateResource::make($this->templateRepository->getBySlugWithRelations(
                 $slug->slug,
                 app()->getLocale()
             ))->resolve();
@@ -103,7 +103,7 @@ class TemplateController extends BaseController
                 return redirect(route('home'), 301);
             }
 
-            $data = TemplateResource::make($this->templateRepository->getBySlug(
+            $data = TemplateResource::make($this->templateRepository->getBySlugWithRelations(
                 $request->slug,
                 app()->getLocale()
             ))->resolve();
