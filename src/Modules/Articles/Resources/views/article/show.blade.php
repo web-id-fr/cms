@@ -14,7 +14,7 @@
         Slug : {{ $article['slug'] }}
         Date de publication : {{ $article['publish_at'] }}
         ---
-        Image : <img width="150" src="{{ $article['image'] }}">
+        Image : <img width="150" src="{{ $article['image'] }}" alt="{{ $article['image_alt'] }}">
         Statut : {{ $article['status'] }}
         Extrait (HTML) : {!! $article['extrait'] !!}
         Contenu (HTML) :
@@ -29,7 +29,7 @@
         Meta description : {{ $article['metadescription'] }}
         Opengraph title : {{ $article['og_title'] }}
         Opengraph description : {{ $article['og_description'] }}
-        Opengraph picture : <img width="150" src="{{ $article['og_picture'] }}">
+        Opengraph picture : <img width="150" src="{{ $article['og_picture'] }}" alt="{{ $article['og_picture_alt'] }}">
         ---
         Categories : @foreach($article['categories'] as $category)
 @if(!empty($category['name'])) <a href="{{ route('articles.categories.show', ['category' => $category['name']]) }}">#{{ $category['name'] }}</a> @endif @endforeach

@@ -79,6 +79,17 @@ class MenuCustomItem extends Model
     public function menus()
     {
         return $this->morphToMany(Menu::class, 'menuable')
+            ->with('children')
             ->withPivot('order', 'parent_id', 'parent_type');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(MenuItem::class, 'parent_id')
+            ->with('menus')
+            ->orderBy('order');
     }
 }

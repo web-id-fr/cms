@@ -9,7 +9,7 @@ use Webid\Cms\App\Models\Components\NewsletterComponent;
 
 class Template extends BaseTemplate
 {
-    /** @var $components_item */
+    /** @var Collection */
     public $component_items;
 
     /**
@@ -49,13 +49,13 @@ class Template extends BaseTemplate
     }
 
     /**
-     * @param $items
-     * @param $model
-     * @param $components
+     * @param Collection $items
+     * @param string $model
+     * @param Collection $components
      *
-     * @return mixed
+     * @return Collection
      */
-    protected function mapItems($items, string $model, Collection &$components)
+    protected function mapItems(Collection $items, string $model, Collection &$components)
     {
         $items->each(function ($item) use (&$components, $model) {
             $item->component_type = $model;

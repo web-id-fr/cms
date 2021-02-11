@@ -626,6 +626,8 @@
     "Theme": "Thème",
     "Faq Themes": "thèmes",
     "Faq Theme": "thème",
+    "Article image balise alt": "Balise alt pour l'image de l'article",
+    "Image balise alt": "Balise alt pour l'image",
     "Menu description": "Description pour le menu",
     "This field is optional and allows you to add a short description below the title in the sub-menu." : "Ce champ est optionnel et permet d'ajouter une courte description en-dessous du titre dans le sous-menu."
 }

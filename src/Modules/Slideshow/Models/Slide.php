@@ -24,6 +24,7 @@ class Slide extends Model
         'url',
         'cta_name',
         'cta_url',
+        'image_alt',
     ];
 
     /**
@@ -35,6 +36,7 @@ class Slide extends Model
         'title',
         'description',
         'image',
+        'image_alt',
         'url',
         'cta_name',
         'cta_url',

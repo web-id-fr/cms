@@ -18,36 +18,32 @@ class MenuItemResource extends JsonResource
      */
     public function toArray($request)
     {
-        if (!empty($this->form)) {
-            $form = FormResource::make($this->form)->resolve();
-        } else {
-            $form = null;
-        }
-
         return [
             // Champs communs à tous les types
-            'id' => $this->id,
-            'title' => $this->title,
+            'id' => $this->resource->menuable->id,
+            'title' => $this->resource->menuable->title,
             'description' => $this->resource->menuable->menu_description,
 
             // Champs exclusifs aux Custom items
-            $this->mergeWhen(MenuCustomItem::class == $this->menuable_type, [
-                $this->mergeWhen(MenuCustomItem::_LINK_FORM == $this->type_link, [
-                    'form' => $form,
+            $this->mergeWhen(MenuCustomItem::class == $this->resource->menuable_type, [
+                $this->mergeWhen(MenuCustomItem::_LINK_FORM == $this->resource->menuable->type_link, [
+                    'form' => !empty($this->resource->menuable->form)
+                        ? FormResource::make($this->resource->menuable->form)->resolve()
+                        : [],
                     'is_popin' => true,
                 ]),
-                $this->mergeWhen(MenuCustomItem::_LINK_URL == $this->type_link, [
-                    'url' => $this->url,
-                    'target' => $this->target,
+                $this->mergeWhen(MenuCustomItem::_LINK_URL == $this->resource->menuable->type_link, [
+                    'url' => $this->resource->menuable->url,
+                    'target' => $this->resource->menuable->target,
                 ]),
             ]),
 
             // Champs exclusifs aux Pages
-            $this->mergeWhen(Template::class == $this->menuable_type, [
-                'slug' => $this->slug,
+            $this->mergeWhen(Template::class == $this->resource->menuable_type, [
+                'slug' => $this->resource->menuable->slug,
             ]),
 
-            'children' => MenuItemChildrenResource::collection($this->children)->resolve(),
+            'children' => MenuItemChildrenResource::collection($this->resource->menuable->children)->resolve(),
         ];
     }
 }

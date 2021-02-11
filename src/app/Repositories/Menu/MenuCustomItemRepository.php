@@ -3,10 +3,12 @@
 namespace Webid\Cms\App\Repositories\Menu;
 
 use Webid\Cms\App\Models\Menu\MenuCustomItem;
-use Webid\Cms\App\Repositories\BaseRepository;
 
-class MenuCustomItemRepository extends BaseRepository
+class MenuCustomItemRepository
 {
+    /** @var MenuCustomItem  */
+    protected $model;
+
     /**
      * MenuCustomItem constructor
      *
@@ -14,7 +16,7 @@ class MenuCustomItemRepository extends BaseRepository
      */
     public function __construct(MenuCustomItem $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 
     /**
@@ -22,7 +24,8 @@ class MenuCustomItemRepository extends BaseRepository
      */
     public function all()
     {
-        return $this->model->all()
-            ->load('menus');
+        return $this->model
+            ->with('form')
+            ->get();
     }
 }

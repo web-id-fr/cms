@@ -113,6 +113,10 @@ class Popin extends Resource
         return [
             FilemanagerField::make(__('Image')),
 
+            Translatable::make(__('Image balise alt'), 'image_alt')
+                ->singleLine()
+                ->hideFromIndex(),
+
             Translatable::make(__('Description'), 'description')
                 ->trix()
                 ->asHtml()

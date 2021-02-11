@@ -80,7 +80,8 @@ class Field extends Resource
                         Translatable::make(__('Item'))
                             ->singleLine(),
                     ])->button(__('Add option'))
-            ])->if('field_type = ' . array_search('select', config('fields_type'))),
+            ])->if('field_type = ' . array_search('select', config('fields_type')))
+                ->if('field_type = ' . array_search('radio', config('fields_type'))),
 
             ConditionalContainer::make([
                 Translatable::make(__('Date field title'), 'date_field_title')
@@ -115,7 +116,8 @@ class Field extends Resource
             ])->useAndOperator()
                 ->if('field_type != ' . array_search('select', config('fields_type')))
                 ->if('field_type != ' . array_search('file', config('fields_type')))
-                ->if('field_type != ' . array_search('date-time', config('fields_type'))),
+                ->if('field_type != ' . array_search('date-time', config('fields_type')))
+                ->if('field_type != ' . array_search('radio', config('fields_type'))),
 
             Boolean::make(__('Required'), 'required')
                 ->withMeta([

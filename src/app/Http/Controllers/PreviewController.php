@@ -21,7 +21,7 @@ class PreviewController extends BaseController
             foreach (data_get($data, 'components') as $component) {
                 $model = app($component['component_type'])::find($component['id']);
                 $resource = config('components.' . $component['component_type'] . '.resource');
-                $dataResource = $resource::make($model)->resolve();
+                $dataResource = $resource::make((object)['component' => $model])->resolve();
                 $dataResource['view'] = config("components." . data_get($component, 'component_type') . ".view");
                 $components[] = $dataResource;
             }
