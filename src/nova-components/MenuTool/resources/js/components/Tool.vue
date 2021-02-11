@@ -35,7 +35,7 @@
         methods: {
             getMenus() {
                 Nova.request().get('/ajax/menu').then((response) => {
-                    this.menus = response.data.data;
+                    this.menus = response.data;
 
                     _.forIn(this.menus, (item) => {
                         _.forIn(item.zones, (zone) => {

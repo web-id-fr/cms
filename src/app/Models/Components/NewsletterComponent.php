@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\App\Models\Components;
 
+use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -46,4 +47,13 @@ class NewsletterComponent extends Model
         'cta_name',
         'placeholder',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function templates()
+    {
+        return $this->morphToMany(Template::class, 'component')
+            ->withPivot('order');
+    }
 }
