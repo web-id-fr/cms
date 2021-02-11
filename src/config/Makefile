@@ -70,3 +70,7 @@ composer.lock:
 
 package-lock.json:
 	npm install
+
+# MODULES
+active_modules:
+	php artisan module:enable
