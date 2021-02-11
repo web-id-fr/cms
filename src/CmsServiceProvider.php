@@ -123,7 +123,7 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/config/Makefile' => base_path('Makefile'),
             __DIR__ . '/config/cms.php' => config_path('cms.php'),
             __DIR__ . '/config/varnish.php' => config_path('varnish.php'),
-            __DIR__ . '/config/phpstan.neon' => config_path('phpstan.php'),
+            __DIR__ . '/config/phpstan.neon' => base_path('phpstan.neon'),
         ], 'config');
     }
 
