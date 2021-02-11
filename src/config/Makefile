@@ -6,7 +6,7 @@ export $(shell sed 's/=.*//' .env)
 update: composer.lock package-lock.json public/js/vendor.js
 	make migrate
 
-install: .env vendor node_modules public/js/vendor.js public/storage
+install: .env vendor node_modules public/js/vendor.js public/storage active_modules
 	php artisan key:generate
 
 install_db:
