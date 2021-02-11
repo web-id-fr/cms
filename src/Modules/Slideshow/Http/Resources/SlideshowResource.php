@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Modules\Slideshow\Resources;
+namespace Webid\Cms\Modules\Slideshow\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
