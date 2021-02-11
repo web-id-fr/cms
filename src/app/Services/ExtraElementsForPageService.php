@@ -5,7 +5,7 @@ namespace App\Services;
 class ExtraElementsForPageService
 {
     /**
-     * @param $id_page
+     * @param int $id_page
      *
      * @return array
      */
