@@ -30,6 +30,7 @@ class TemplateResource extends JsonResource
             'indexation' => $this->getIndexationAndFollowValue($this->resource->indexation, $this->resource->follow),
             'meta_keywords' => $this->resource->meta_keywords,
             'items' => ComponentResource::collection($this->resource->related)->resolve(),
+            'menu_description' => $this->resource->menu_description,
         ];
     }
 

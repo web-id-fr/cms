@@ -22,6 +22,7 @@ class MenuItemChildrenResource extends JsonResource
             // Champs communs à tous les types
             'id' => $this->resource->menuable->id,
             'title' => $this->resource->menuable->title,
+            'description' => $this->resource->menuable->menu_description,
 
             // Champs exclusifs aux Custom items
             $this->mergeWhen(MenuCustomItem::class == $this->menuable_type, [

@@ -20,6 +20,7 @@ class MenuCustomItemResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->title,
+            'menu_description' => $this->resource->menu_description,
 
             $this->mergeWhen(MenuCustomItemModel::_LINK_URL == $this->resource->type_link, [
                 'url' => $this->resource->url,
