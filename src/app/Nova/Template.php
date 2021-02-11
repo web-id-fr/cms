@@ -97,7 +97,8 @@ class Template extends Resource
                 ->sortable(),
 
             Translatable::make(__('Menu description'), 'menu_description')
-                ->help(__('This field is optional and allows you to add a short description below the title in the sub-menu.'))
+                ->help(__('This field is optional and allows you to add a short description below the
+                title in the sub-menu.'))
                 ->singleLine()
                 ->sortable(),
 
