@@ -17,7 +17,7 @@ install_db:
 # TESTS
 testing:
 	./vendor/bin/phpcs --report=full
-	./vendor/bin/psalm
+	./vendor/bin/phpstan analyse --memory-limit=2G
 
 # lance un Code Sniffer
 cssee:
@@ -27,8 +27,8 @@ cssee:
 csfix:
 	./vendor/bin/phpcbf -w
 
-psalm:
-	./vendor/bin/psalm
+stan:
+	./vendor/bin/phpstan analyse --memory-limit=2G
 
 # COMMANDES ARTISAN
 migrate:
