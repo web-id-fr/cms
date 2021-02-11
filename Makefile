@@ -7,6 +7,12 @@ testing:
 	./vendor/bin/psalm
 	./vendor/bin/phpunit --no-coverage
 
+phpcs:
+	./vendor/bin/phpcs --report=full
+
+psalm:
+	./vendor/bin/psalm
+
 security:
 	./bin/local-php-security-checker-macos
 
