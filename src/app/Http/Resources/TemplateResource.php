@@ -3,7 +3,6 @@
 namespace Webid\Cms\App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use phpDocumentor\Reflection\Types\Boolean;
 use Webid\Cms\App\Http\Resources\Components\ComponentResource;
 
 class TemplateResource extends JsonResource
