@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Database\Seeders;
+namespace Database\Seeders;
 
 use App\Models\User;
 use Carbon\Carbon;

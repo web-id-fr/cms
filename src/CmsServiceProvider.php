@@ -58,6 +58,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishNovaComponents();
         $this->publishTranslations();
         $this->publishServices();
+        $this->publishSeeders();
 
         $this->registerAliasMiddleware($router);
 
@@ -197,6 +198,16 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/app/Services/ExtraElementsForPageService.php' =>
                 base_path('/app/Services/ExtraElementsForPageService.php'),
         ], 'services');
+    }
+
+    /**
+     * @return void
+     */
+    protected function publishSeeders(): void
+    {
+        $this->publishes([
+            __DIR__ . '/database/seeders/DatabaseSeeder.php' => database_path('seeders/DatabaseSeeder.php'),
+        ], 'seeders');
     }
 
     /**

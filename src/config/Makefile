@@ -13,7 +13,6 @@ install_db:
 	echo "CREATE DATABASE IF NOT EXISTS $(DB_DATABASE)" | mysql -u$(DB_USERNAME) -p$(DB_PASSWORD) -h$(DB_HOST)
 	echo "CREATE DATABASE IF NOT EXISTS $(DB_DATABASE_TEST)" | mysql -u$(DB_USERNAME_TEST) -p$(DB_PASSWORD_TEST) -h$(DB_HOST)
 	make fresh
-	php artisan db:seed --class="Webid\Cms\Database\Seeders\DatabaseSeeder"
 
 # TESTS
 testing:
