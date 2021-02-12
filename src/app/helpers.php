@@ -111,16 +111,18 @@ if (!function_exists('is_image')) {
     }
 }
 
-if (!function_exists('filemanager_full_url')) {
+if (!function_exists('media_full_url')) {
     /**
-     * Retourne l'URL complète d'un fichier qui est stocké dans le filemanager
+     * Retourne l'URL complète d'un fichier qui est stocké dans le filemanager ou dans le s3
      *
      * @param string $file_path
+     *
      * @return string
      */
-    function filemanager_full_url(string $file_path): string
+    function media_full_url(string $file_path): string
     {
         $file_path = ltrim($file_path, '/');
-        return \Illuminate\Support\Facades\URL::to("storage/{$file_path}");
+
+        return config('cms.image_path') . $file_path;
     }
 }
