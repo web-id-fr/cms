@@ -206,7 +206,7 @@ class CmsServiceProvider extends ServiceProvider
     protected function publishSeeders(): void
     {
         $this->publishes([
-            __DIR__ . '/database/seeders/DatabaseSeeder.php' => database_path('seeders/DatabaseSeeder.php'),
+            __DIR__ . '/../publish/database/seeders/DatabaseSeeder.php' => database_path('seeders/DatabaseSeeder.php'),
         ], 'seeders');
     }
 
