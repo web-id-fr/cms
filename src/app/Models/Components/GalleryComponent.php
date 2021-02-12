@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\App\Models\Components;
 
+use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -63,5 +64,14 @@ class GalleryComponent extends Model
         });
 
         $this->gallery_items = $galleryItems;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function templates()
+    {
+        return $this->morphToMany(Template::class, 'component')
+            ->withPivot('order');
     }
 }

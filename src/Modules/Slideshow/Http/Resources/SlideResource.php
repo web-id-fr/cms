@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Modules\Slideshow\Resources;
+namespace Webid\Cms\Modules\Slideshow\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,6 +22,7 @@ class SlideResource extends JsonResource
             'cta_url' => $this->resource->cta_url,
             'url' => $this->resource->url,
             'image' => $this->resource->image,
+            'image_alt' => $this->resource->image_alt,
         ];
     }
 }

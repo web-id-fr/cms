@@ -66,4 +66,13 @@ class Field extends Model
 
         return $this->toFlexible($value);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function forms()
+    {
+        return $this->morphToMany(Form::class, 'formable')
+            ->withPivot('order');
+    }
 }

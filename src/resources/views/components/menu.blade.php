@@ -41,7 +41,10 @@
                         @elseif(!empty($children['slug']))
                             @php $link_url = route('pageFromSlug', [ 'slug' => data_get($children, 'slug', '') ]); @endphp
                         @endif
-                        <div><a @if(current_url_is($link_url)) class="active" @endif href="{{ $link_url }}">{{ data_get($children, 'title', '') }}</a></div>
+                        <div>
+                            <a @if(current_url_is($link_url)) class="active" @endif href="{{ $link_url }}">{{ data_get($children, 'title', '') }}</a>
+                            {{ $children['description'] }}
+                        </div>
                     @endforeach
                 </div>
             @endif

@@ -16,9 +16,9 @@ class ConfirmationEmailItemField extends Field
     /**
      * @param string $name
      * @param string|null $attribute
-     * @param mixed|null $resolveCallback
+     * @param callable|null $resolveCallback
      */
-    public function __construct(string $name, ?string $attribute = null, ?mixed $resolveCallback = null)
+    public function __construct(string $name, ?string $attribute = null, callable $resolveCallback = null)
     {
         $this->withMeta([
             'fieldTypeEmail' => array_search('email', config('fields_type'))

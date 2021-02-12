@@ -6,7 +6,7 @@ export $(shell sed 's/=.*//' .env)
 update: composer.lock package-lock.json public/js/vendor.js
 	make migrate
 
-install: .env vendor node_modules public/js/vendor.js public/storage
+install: .env vendor node_modules public/js/vendor.js public/storage active_modules
 	php artisan key:generate
 
 install_db:
@@ -17,7 +17,7 @@ install_db:
 # TESTS
 testing:
 	./vendor/bin/phpcs --report=full
-	./vendor/bin/psalm
+	./vendor/bin/phpstan analyse --memory-limit=2G
 
 # lance un Code Sniffer
 cssee:
@@ -27,8 +27,8 @@ cssee:
 csfix:
 	./vendor/bin/phpcbf -w
 
-psalm:
-	./vendor/bin/psalm
+stan:
+	./vendor/bin/phpstan analyse --memory-limit=2G
 
 # COMMANDES ARTISAN
 migrate:
@@ -70,3 +70,7 @@ composer.lock:
 
 package-lock.json:
 	npm install
+
+# MODULES
+active_modules:
+	php artisan module:enable

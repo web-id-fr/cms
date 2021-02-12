@@ -16,10 +16,10 @@ class MenuResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'zones' => $this->zones,
-            'items' => MenuItemResource::collection($this->menu_items)->resolve(),
+            'id' => $this->resource->id,
+            'title' => $this->resource->title,
+            'zones' => $this->resource->zones,
+            'items' => MenuItemResource::collection($this->resource->related)->resolve(),
         ];
     }
 }
