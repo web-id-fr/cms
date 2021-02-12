@@ -19,6 +19,7 @@
     -->
     <file>app</file>
     <file>config</file>
+    <file>nova-components</file>
     <file>public</file>
     <file>resources</file>
     <file>routes</file>
