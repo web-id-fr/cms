@@ -3,6 +3,7 @@ includes:
 parameters:
     paths:
         - app
+        - nova-components
 
     level: 8
 

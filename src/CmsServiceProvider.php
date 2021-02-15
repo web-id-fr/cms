@@ -58,6 +58,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishNovaComponents();
         $this->publishTranslations();
         $this->publishServices();
+        $this->publishSeeders();
 
         $this->registerAliasMiddleware($router);
 
@@ -119,11 +120,11 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/config/translatable.php' => config_path('translatable.php'),
             __DIR__ . '/config/filemanager.php' => config_path('filemanager.php'),
             __DIR__ . '/config/components.php' => config_path('components.php'),
-            __DIR__ . '/config/phpcs.xml' => base_path('phpcs.xml'),
-            __DIR__ . '/config/Makefile' => base_path('Makefile'),
             __DIR__ . '/config/cms.php' => config_path('cms.php'),
             __DIR__ . '/config/varnish.php' => config_path('varnish.php'),
-            __DIR__ . '/config/phpstan.neon' => base_path('phpstan.neon'),
+            __DIR__ . '/../publish/Makefile' => base_path('Makefile'),
+            __DIR__ . '/../publish/phpcs.xml' => base_path('phpcs.xml'),
+            __DIR__ . '/../publish/phpstan.neon' => base_path('phpstan.neon'),
         ], 'config');
     }
 
@@ -197,6 +198,16 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__ . '/app/Services/ExtraElementsForPageService.php' =>
                 base_path('/app/Services/ExtraElementsForPageService.php'),
         ], 'services');
+    }
+
+    /**
+     * @return void
+     */
+    protected function publishSeeders(): void
+    {
+        $this->publishes([
+            __DIR__ . '/../publish/database/seeders/DatabaseSeeder.php' => database_path('seeders/DatabaseSeeder.php'),
+        ], 'seeders');
     }
 
     /**
