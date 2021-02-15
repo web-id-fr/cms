@@ -59,6 +59,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishTranslations();
         $this->publishServices();
         $this->publishSeeders();
+        $this->publishCommands();
 
         $this->registerAliasMiddleware($router);
 
@@ -208,6 +209,16 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../publish/database/seeders/DatabaseSeeder.php' => database_path('seeders/DatabaseSeeder.php'),
         ], 'seeders');
+    }
+
+    /**
+     * @return void
+     */
+    protected function publishCommands(): void
+    {
+        $this->publishes([
+            __DIR__ . '/../publish/app/Console' => app_path('Console'),
+        ], 'commands');
     }
 
     /**
