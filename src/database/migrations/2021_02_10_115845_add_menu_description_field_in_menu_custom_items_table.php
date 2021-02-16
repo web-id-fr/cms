@@ -14,7 +14,7 @@ class AddMenuDescriptionFieldInMenuCustomItemsTable extends Migration
     public function up()
     {
         Schema::table('menu_custom_items', function (Blueprint $table) {
-            $table->json('menu_description')->nullable();
+            $table->json('menu_description')->nullable(true);
         });
     }
 
@@ -26,7 +26,7 @@ class AddMenuDescriptionFieldInMenuCustomItemsTable extends Migration
     public function down()
     {
         Schema::table('menu_custom_items', function (Blueprint $table) {
-            $table->json('menu_description');
+            $table->json('menu_description')->nullable(false)->change();
         });
     }
 }
