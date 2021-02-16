@@ -44,6 +44,14 @@ jobs:
           composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
           composer install --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader
 
+      # Tests migrations
+      - name: Testing migrations
+        run: |
+          php artisan migrate
+          php artisan migrate:rollback
+        env:
+          DB_PORT: 32574
+
       # Tests that just need composer dependencies
       - name: Running security checker
         run: ./bin/local-php-security-checker-linux

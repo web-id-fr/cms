@@ -38,7 +38,7 @@ class NewsletterComponent extends Model
     ];
 
     /**
-     * The attributes that ar translatable.
+     * The attributes that are translatable.
      *
      * @var array
      */
