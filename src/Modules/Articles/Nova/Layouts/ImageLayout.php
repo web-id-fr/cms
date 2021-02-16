@@ -30,11 +30,11 @@ class ImageLayout extends Layout
     public function fields()
     {
         return [
-            FilemanagerField::make(__('Image'))
+            FilemanagerField::make(__('Image'), 'image')
                 ->filterBy('images')
                 ->displayAsImage(),
 
-            Translatable::make(__('Balise alt'))
+            Translatable::make(__('Balise alt'), 'balise_alt')
                 ->singleLine(),
         ];
     }
