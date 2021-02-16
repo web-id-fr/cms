@@ -49,6 +49,7 @@ jobs:
         run: |
           ./vendor/bin/testbench migrate:fresh
           ./vendor/bin/testbench migrate:rollback
+          ./vendor/bin/testbench migrate
         env:
           DB_PORT: 32574
 
