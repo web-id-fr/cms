@@ -3,10 +3,10 @@ include .env
 export $(shell sed 's/=.*//' .env)
 
 # INSTALLS
-update: composer.lock package-lock.json public/js/vendor.js
+update: composer.lock package-lock.json public/js/vendor.js modules_statuses.json
 	make migrate
 
-install: .env vendor node_modules public/js/vendor.js public/storage
+install: .env vendor node_modules public/js/vendor.js public/storage modules_statuses.json
 	php artisan key:generate
 
 install_db:
@@ -71,3 +71,5 @@ composer.lock:
 package-lock.json:
 	npm install
 
+modules_statuses.json:
+	php artisan active:modules

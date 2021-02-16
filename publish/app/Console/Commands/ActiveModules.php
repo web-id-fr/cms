@@ -40,9 +40,6 @@ class ActiveModules extends Command
             $this->call("module:enable", ['module' => $module]);
         }
 
-        $this->info(PHP_EOL . '[Exécution des migrations des modules]');
-        $this->call('migrate');
-
         $this->info(PHP_EOL . '[Publication des fichiers des modules]');
         foreach ($this->whitelist_module as $module) {
             $provider = "Webid\\Cms\\Modules\\{$module}\\Providers\\{$module}ServiceProvider";

@@ -7,7 +7,6 @@ use Eminiarts\Tabs\Tabs;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use OptimistDigital\NovaSettings\NovaSettings;
 use Webid\Cms\App\Rules\TranslatableSlug;
@@ -42,8 +41,10 @@ class ArticlesServiceProvider extends ServiceProvider
             ]);
         });
 
-        Nova::serving(function (ServingNova $event) {
+        Nova::serving(function () {
             ArticleModel::observe(ArticleObserver::class);
+
+            $this->addSettings();
         });
 
         DynamicResource::pushTopLevelResource([
@@ -54,8 +55,6 @@ class ArticlesServiceProvider extends ServiceProvider
                 NovaResource::make(ArticleCategory::class),
             ],
         ]);
-
-        $this->addSettings();
     }
 
     public function register()
