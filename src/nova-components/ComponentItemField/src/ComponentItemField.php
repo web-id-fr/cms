@@ -13,10 +13,10 @@ use Webid\Cms\App\Repositories\Components\NewsletterComponentRepository;
 
 class ComponentItemField extends Field
 {
-    /** @var $galleryComponentRepository  */
+    /** @var GalleryComponentRepository  */
     protected $galleryComponentRepository;
 
-    /** @var $newsletterComponentRepository  */
+    /** @var NewsletterComponentRepository  */
     protected $newsletterComponentRepository;
 
     /**
@@ -61,12 +61,12 @@ class ComponentItemField extends Field
     }
 
     /**
-     * @param $items
+     * @param Collection $items
      * @param string $model
      *
-     * @return mixed
+     * @return Collection
      */
-    protected function mapItems($items, string $model)
+    protected function mapItems(Collection $items, string $model)
     {
         return $items->each(function ($item) use ($model) {
             $item->component_type = $model;
@@ -77,13 +77,13 @@ class ComponentItemField extends Field
     }
 
     /**
-     * @param $publishComponent
+     * @param Collection $publishComponent
      * @param string $model
      * @param Collection $allComponents
      *
      * @return Collection
      */
-    protected function loadComponents($publishComponent, string $model, Collection $allComponents)
+    protected function loadComponents(Collection $publishComponent, string $model, Collection $allComponents)
     {
         $allPublishComponents = $this->mapItems($publishComponent, $model);
         $allPublishComponents->each(function ($component) use (&$allComponents) {
@@ -103,8 +103,8 @@ class ComponentItemField extends Field
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
-        $components = json_decode($request[$requestAttribute]);
-        $components = collect(json_decode(json_encode($components), true));
+        $components = $request[$requestAttribute];
+        $components = collect(json_decode($components, true));
 
         $galleryComponentIds = [];
         $newsletterComponentIds = [];

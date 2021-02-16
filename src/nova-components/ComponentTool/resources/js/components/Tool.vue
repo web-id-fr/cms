@@ -7,7 +7,7 @@
                 <a :href="component.nova">
                     <div class="min-h-full flex flex-col text-center">
                         <div class="m-4">
-                            <h3>{{ component.title }}</h3>
+                            <h3>{{ __(component.title) }}</h3>
                         </div>
                         <div class="h-64">
                             <img :src="component.image">
