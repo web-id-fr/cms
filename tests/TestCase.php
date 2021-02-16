@@ -6,7 +6,7 @@ use App\Providers\NovaServiceProvider;
 use DigitalCreative\ConditionalContainer\ConditionalContainerServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Application;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
@@ -25,7 +25,7 @@ use Webid\Cms\Tests\Helpers\Traits\PerformsAjaxRequests;
 
 class TestCase extends OrchestraTestCase
 {
-    use RefreshDatabase,
+    use DatabaseTransactions,
         NovaAssertions,
         PerformsAjaxRequests,
         CustomAssertions;

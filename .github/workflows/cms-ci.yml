@@ -42,7 +42,16 @@ jobs:
       - name: Installing PHP dependencies
         run: |
           composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
-          composer install --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader
+          composer install --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader
+
+      # Tests migrations
+      - name: Testing migrations
+        run: |
+          ./vendor/bin/testbench migrate:fresh
+          ./vendor/bin/testbench migrate:rollback
+          ./vendor/bin/testbench migrate
+        env:
+          DB_PORT: 32574
 
       # Tests that just need composer dependencies
       - name: Running security checker
