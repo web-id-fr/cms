@@ -29,6 +29,6 @@ class CreateFormablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('field_form');
+        Schema::dropIfExists('formables');
     }
 }
