@@ -8,14 +8,14 @@
                     {!! data_get($form, 'description') !!}
                 </div>
                 @if(data_get($form, 'services'))
-                    @component("forms.fields.services" , [
+                    @component("form::fields.services" , [
                         'services' => data_get($form, 'services'),
                         'title' => data_get($form, 'title_service')
                     ])
                     @endcomponent
                 @endif
                 @foreach(data_get($form, 'fields') as $field)
-                    @component("forms.fields." . data_get($field, 'field_type') , [
+                    @component("form::fields." . data_get($field, 'field_type') , [
                         'field' => $field,
                     ])
                     @endcomponent
