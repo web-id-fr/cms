@@ -184,7 +184,7 @@ class Menu extends Model
 
         return $query->select(
             "$table.*",
-            DB::raw("GROUP_CONCAT(menus_zones.zone_id SEPARATOR '" . static::GROUP_BY_DELIMITER . "') as zones")
-        )->leftJoin('menus_zones', "$table.id", '=', 'menus_zones.menu_id')->groupBy("$table.id");
+            DB::raw("menus_zones.zone_id as zones")
+        )->leftJoin('menus_zones', "$table.id", '=', 'menus_zones.menu_id');
     }
 }
