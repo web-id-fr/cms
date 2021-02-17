@@ -29,7 +29,7 @@ class VideoLayout extends Layout
     public function fields()
     {
         return [
-            FilemanagerField::make(__('Video'))
+            FilemanagerField::make(__('Video'), 'video')
                 ->filterBy('videos')
                 ->displayAsImage(),
         ];

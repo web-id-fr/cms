@@ -31,17 +31,17 @@ class TextVideoLayout extends Layout
     public function fields()
     {
         return [
-            Translatable::make(__('Text'))
+            Translatable::make(__('Text'), 'text')
                 ->trix()
                 ->asHtml(),
 
-            Select::make(__('Text position'))
+            Select::make(__('Text position'), 'text_position')
                 ->options([
                     'left' => __('Left'),
                     'right' => __('Right')
                 ]),
 
-            FilemanagerField::make(__('Video'))
+            FilemanagerField::make(__('Video'), 'video')
                 ->filterBy('videos')
                 ->displayAsImage(),
         ];

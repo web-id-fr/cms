@@ -29,7 +29,7 @@ class TextLayout extends Layout
     public function fields()
     {
         return [
-            Translatable::make(__('Text'))
+            Translatable::make(__('Text'), 'text')
                 ->trix()
                 ->asHtml(),
         ];
