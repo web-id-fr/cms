@@ -34,7 +34,7 @@ class ArticleResource extends JsonResource
                 : null,
             'og_picture_alt' => $this->resource->opengraph_picture_alt,
             'publish_at' => $this->resource->publish_at,
-            'categories' => ArticleCategoryResource::collection($this->whenLoaded('categories')),
+            'categories' => ArticleCategoryResource::collection($this->whenLoaded('categories'))->resolve(),
         ];
     }
 }
