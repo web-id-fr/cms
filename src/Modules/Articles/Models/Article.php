@@ -42,6 +42,13 @@ class Article extends Model
     /**
      * @var array
      */
+    protected $with = [
+        "categories"
+    ];
+
+    /**
+     * @var array
+     */
     protected $fillable = [
         'title',
         'slug',
