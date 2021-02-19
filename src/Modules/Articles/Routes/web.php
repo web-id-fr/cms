@@ -16,6 +16,6 @@ Route::group([
     'as' => 'articles.',
 ], function () {
     Route::get('/', [ArticleController::class, 'index'])->name('index');
-    Route::get('/{categories_slug}/{category}', [ArticleCategoryController::class, 'show'])->name('categories.show');
-    Route::get('/{slug}', [ArticleController::class, 'show'])->name('show');
+    Route::get('/{categories_slug}/{category}', [ArticleCategoryController::class, 'show'])->name('categories.show')->fallback();
+    Route::get('/{slug}', [ArticleController::class, 'show'])->name('show')->fallback();
 });
