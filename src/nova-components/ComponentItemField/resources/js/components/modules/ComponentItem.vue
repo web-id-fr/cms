@@ -34,7 +34,7 @@
                         </svg>
                     </td>
                     <td v-on:click="select(component)">
-                        {{ component.name }}
+                        {{ __(component.name) }}
                     </td>
                     <td class="td-fit text-right pr-6 align-middle">
                         <div class="inline-flex items-center">
