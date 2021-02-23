@@ -15,15 +15,11 @@ use Webid\Cms\Modules\Form\Http\Controllers\CsrfController;
 |
 */
 
-Route::group([
-    'middleware' => ['web']
-], function () {
-    Route::get('/csrf', [CsrfController::class, 'index'])->name('csrf.index');
-});
+Route::get('/csrf', [CsrfController::class, 'index'])->name('csrf.index');
 
 Route::group([
     'prefix' => '{lang}/form',
-    'middleware' => ['web', 'anti-spam', 'language', 'check-language-exist']
+    'middleware' => ['anti-spam', 'language', 'check-language-exist']
 ], function () {
     Route::post('/send', [FormController::class, 'handle'])->name('send.form');
 });

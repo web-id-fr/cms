@@ -29,7 +29,6 @@
         "ext-json": "*",
         "spatie/laravel-sitemap": "^5.8",
         "nwidart/laravel-modules": "^8.0",
-        "optimistdigital/nova-settings": "^3.1",
         "symfony/polyfill-mbstring": "1.20.*"
     },
     "require-dev": {

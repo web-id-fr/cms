@@ -8,7 +8,6 @@ use Webid\Cms\App\Services\LanguageService;
 use Webid\Cms\App\Services\Sitemap\SitemapGenerator;
 use Webid\Cms\App\Services\Sitemap\SitemapUrl;
 use Webid\Cms\App\Services\Sitemap\SitemapUrlAlternate;
-use Webid\Cms\Modules\Articles\Helpers\SlugHelper;
 use Webid\Cms\Modules\Articles\Repositories\ArticleCategoryRepository;
 use Webid\Cms\Modules\Articles\Repositories\ArticleRepository;
 
@@ -63,7 +62,7 @@ class SitemapServiceProvider extends ServiceProvider
         $alternates = [];
 
         foreach ($usedLangs as $lang) {
-            $path = route('articles.index', ['lang' => $lang, 'articles_slug' => SlugHelper::articleSlug($lang)]);
+            $path = route('articles.index', ['lang' => $lang]);
             $latestUpdatedArticle = $this->articleRepository->latestUpdatedPublishedArticle();
 
             $urls[] = new SitemapUrl(
@@ -100,7 +99,6 @@ class SitemapServiceProvider extends ServiceProvider
 
                 $path = route('articles.show', [
                     'lang' => $lang,
-                    'articles_slug' => SlugHelper::articleSlug($lang),
                     'slug' => $slugs[$lang],
                 ]);
 
@@ -139,8 +137,6 @@ class SitemapServiceProvider extends ServiceProvider
 
                 $path = route('articles.categories.show', [
                     'lang' => $lang,
-                    'articles_slug' => SlugHelper::articleSlug($lang),
-                    'categories_slug' => SlugHelper::articleCategorySlug($lang),
                     'category' => $names[$lang],
                 ]);
 

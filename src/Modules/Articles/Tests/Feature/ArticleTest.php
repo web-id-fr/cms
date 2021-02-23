@@ -4,8 +4,6 @@ namespace Webid\Cms\Modules\Articles\Tests\Feature;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\URL;
-use OptimistDigital\NovaSettings\NovaSettings;
 use Webid\Cms\Modules\Articles\Models\Article;
 use Webid\Cms\Modules\Articles\Tests\ArticlesTestCase;
 use Webid\Cms\Modules\Articles\Tests\Helpers\ArticleCreator;
@@ -18,26 +16,6 @@ class ArticleTest extends ArticlesTestCase
 
     const ROUTE_INDEX = 'articles.index';
     const ROUTE_SHOW = 'articles.show';
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        URL::defaults([
-            'articles_slug' => config('articles.default_paths.articles'),
-            'categories_slug' => config('articles.default_paths.categories'),
-        ]);
-    }
-
-    /** @test */
-    public function article_routes_contains_blog_path()
-    {
-        $path = rtrim(config('articles.default_paths.articles'), '/');
-
-        $this->assertNotEmpty($path);
-        $this->assertStringContainsString($path, route(self::ROUTE_INDEX, ['lang' => 'fr']));
-        $this->assertStringContainsString($path, route(self::ROUTE_INDEX, ['lang' => 'fr', 'slug' => 'aaa']));
-    }
 
     /** @test */
     public function we_can_access_articles_list()
@@ -107,27 +85,6 @@ class ArticleTest extends ArticlesTestCase
         $this->createPublishedArticle(['slug' => ['fr' => 'mon-super-article']]);
 
         $this->get(route(self::ROUTE_SHOW, ['slug' => 'mon-super-article', 'lang' => 'en']))
-            ->assertNotFound();
-    }
-
-    /** @test */
-    public function route_lang_and_route_articles_root_slug_must_match()
-    {
-        // On vérifie que ça fonctionne avec la valeur par défaut
-        $this->get(route(self::ROUTE_INDEX, ['lang' => 'fr', 'articles_slug' => config('articles.default_paths.articles')]))
-            ->assertSuccessful();
-
-        NovaSettings::setSettingValue('articles_root_slug', json_encode([
-            'fr' => 'le-blog',
-            'en' => 'the-blog',
-        ]));
-
-        // On vérifie que ça fonctionne avec la nouvelle valeur en config
-        $this->get(route(self::ROUTE_INDEX, ['lang' => 'fr', 'articles_slug' => 'le-blog']))
-            ->assertSuccessful();
-
-        // On vérifie qu'on ne peut pas utiliser une langue et le slug d'une autre langue
-        $this->get(route(self::ROUTE_INDEX, ['lang' => 'fr', 'articles_slug' => 'the-blog']))
             ->assertNotFound();
     }
 

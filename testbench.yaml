@@ -13,4 +13,3 @@ providers:
   - Spatie\Sitemap\SitemapServiceProvider
   - Nwidart\Modules\LaravelModulesServiceProvider
   - DigitalCreative\ConditionalContainer\ConditionalContainerServiceProvider
-  - OptimistDigital\NovaSettings\NovaSettingsServiceProvider

@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Gate;
 use Infinety\Filemanager\FilemanagerTool;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
-use OptimistDigital\NovaSettings\NovaSettings;
 use Webid\CardActions\CardActions;
 use Webid\Cms\App\Nova\Menu\Menu;
 use Webid\Cms\App\Nova\Menu\MenuCustomItem;
@@ -86,7 +85,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new ComponentTool(),
             new MenuTool(),
             new CollapsibleResourceManager($this->collapsibleResourceItems()),
-            new NovaSettings(),
         ];
     }
 
