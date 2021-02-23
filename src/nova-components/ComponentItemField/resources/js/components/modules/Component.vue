@@ -8,7 +8,7 @@
                 <template>
                     <img :src="component[0]['component_image']" class="image-component" :alt="name">
                     <div class="h-1/6 w-full text-center text-xs border-t border-30 bg-50 flex p-1 items-center justify-center absolute text-name">
-                        {{ name }}
+                        {{ __(name) }}
                     </div>
                 </template>
             </div>
