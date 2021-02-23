@@ -3,7 +3,6 @@
 namespace Webid\Cms\Modules\Articles\Tests\Feature;
 
 use Carbon\Carbon;
-use OptimistDigital\NovaSettings\NovaSettings;
 use Webid\Cms\Modules\Articles\Models\Article;
 use Webid\Cms\Modules\Articles\Tests\ArticlesTestCase;
 use Webid\Cms\Modules\Articles\Tests\Helpers\ArticleCategoryCreator;
@@ -22,15 +21,6 @@ class SitemapTest extends ArticlesTestCase
 
         Carbon::setTestNow("2020-01-01");
 
-        NovaSettings::setSettingValue(
-            'articles_root_slug',
-            json_encode(['fr' => 'blog', 'en' => 'articles'])
-        );
-        NovaSettings::setSettingValue(
-            'articles_categories_root_slug',
-            json_encode(['fr' => 'cat', 'en' => 'tags'])
-        );
-
         $this->createLanguage(['name' => 'Français', 'flag' => 'fr']);
         $this->createLanguage(['name' => 'English', 'flag' => 'en']);
     }
@@ -40,9 +30,9 @@ class SitemapTest extends ArticlesTestCase
     {
         $xml = $this->generateSitemap();
 
-        $this->assertStringContainsString('<loc>https://localhost/fr/blog</loc>', $xml);
+        $this->assertStringContainsString('<loc>https://localhost/fr/articles</loc>', $xml);
         $this->assertStringContainsString('<loc>https://localhost/en/articles</loc>', $xml);
-        $this->assertStringContainsStringTimes($xml, '<xhtml:link rel="alternate" hreflang="fr" href="https://localhost/fr/blog" />', 2);
+        $this->assertStringContainsStringTimes($xml, '<xhtml:link rel="alternate" hreflang="fr" href="https://localhost/fr/articles" />', 2);
         $this->assertStringContainsStringTimes($xml, '<xhtml:link rel="alternate" hreflang="en" href="https://localhost/en/articles" />', 2);
     }
 
@@ -54,15 +44,15 @@ class SitemapTest extends ArticlesTestCase
 
         $xml = $this->generateSitemap();
 
-        $this->assertStringContainsString('<loc>https://localhost/fr/blog/titre-article</loc>', $xml);
+        $this->assertStringContainsString('<loc>https://localhost/fr/articles/titre-article</loc>', $xml);
         $this->assertStringContainsString('<loc>https://localhost/en/articles/article-title</loc>', $xml);
-        $this->assertStringContainsStringTimes($xml, '<xhtml:link rel="alternate" hreflang="fr" href="https://localhost/fr/blog/titre-article" />', 2);
+        $this->assertStringContainsStringTimes($xml, '<xhtml:link rel="alternate" hreflang="fr" href="https://localhost/fr/articles/titre-article" />', 2);
         $this->assertStringContainsStringTimes($xml, '<xhtml:link rel="alternate" hreflang="en" href="https://localhost/en/articles/article-title" />', 2);
 
-        $this->assertStringContainsString('<loc>https://localhost/fr/blog/cat/nom-categorie</loc>', $xml);
-        $this->assertStringContainsString('<loc>https://localhost/en/articles/tags/category-name</loc>', $xml);
-        $this->assertStringContainsStringTimes($xml, '<xhtml:link rel="alternate" hreflang="fr" href="https://localhost/fr/blog/cat/nom-categorie" />', 2);
-        $this->assertStringContainsStringTimes($xml, '<xhtml:link rel="alternate" hreflang="en" href="https://localhost/en/articles/tags/category-name" />', 2);
+        $this->assertStringContainsString('<loc>https://localhost/fr/articles/categories/nom-categorie</loc>', $xml);
+        $this->assertStringContainsString('<loc>https://localhost/en/articles/categories/category-name</loc>', $xml);
+        $this->assertStringContainsStringTimes($xml, '<xhtml:link rel="alternate" hreflang="fr" href="https://localhost/fr/articles/categories/nom-categorie" />', 2);
+        $this->assertStringContainsStringTimes($xml, '<xhtml:link rel="alternate" hreflang="en" href="https://localhost/en/articles/categories/category-name" />', 2);
     }
 
     /** @test */
@@ -81,10 +71,10 @@ class SitemapTest extends ArticlesTestCase
 
         $xml = $this->generateSitemap();
 
-        $this->assertStringNotContainsString('<loc>https://localhost/fr/blog/pas-encore-publie</loc>', $xml);
-        $this->assertStringNotContainsString('<loc>https://localhost/fr/blog/non-publie</loc>', $xml);
-        $this->assertStringNotContainsString('<xhtml:link rel="alternate" hreflang="fr" href="https://localhost/fr/blog/pas-encore-publie" />', $xml);
-        $this->assertStringNotContainsString('<xhtml:link rel="alternate" hreflang="fr" href="https://localhost/fr/blog/non-publie" />', $xml);
+        $this->assertStringNotContainsString('<loc>https://localhost/fr/articles/pas-encore-publie</loc>', $xml);
+        $this->assertStringNotContainsString('<loc>https://localhost/fr/articles/non-publie</loc>', $xml);
+        $this->assertStringNotContainsString('<xhtml:link rel="alternate" hreflang="fr" href="https://localhost/fr/articles/pas-encore-publie" />', $xml);
+        $this->assertStringNotContainsString('<xhtml:link rel="alternate" hreflang="fr" href="https://localhost/fr/articles/non-publie" />', $xml);
 
         $this->assertStringNotContainsString('<loc>https://localhost/en/articles/tags/nom-categorie</loc>', $xml);
         $this->assertStringNotContainsString('<xhtml:link rel="alternate" hreflang="en" href="https://localhost/en/articles/tags/nom-categorie" />', $xml);

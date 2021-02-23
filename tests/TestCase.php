@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Laravel\Nova\NovaCoreServiceProvider;
 use Nwidart\Modules\LaravelModulesServiceProvider;
-use OptimistDigital\NovaSettings\NovaSettings;
-use OptimistDigital\NovaSettings\NovaSettingsServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Spatie\Sitemap\SitemapServiceProvider;
 use Webid\Cms\App\Providers\TestServiceProvider;
@@ -33,8 +31,6 @@ class TestCase extends OrchestraTestCase
     public function setUp(): void
     {
         parent::setUp();
-
-        NovaSettings::clearFields();
 
         Factory::guessFactoryNamesUsing(function (string $modelName) {
             // Charge les factories depuis les nova-components
@@ -70,7 +66,6 @@ class TestCase extends OrchestraTestCase
             SitemapServiceProvider::class,
             LaravelModulesServiceProvider::class,
             ConditionalContainerServiceProvider::class,
-            NovaSettingsServiceProvider::class,
         ];
     }
 
