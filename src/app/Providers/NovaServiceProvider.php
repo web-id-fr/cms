@@ -24,6 +24,22 @@ use Webid\MenuTool\MenuTool;
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
     /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        parent::register();
+
+        Nova::report(function ($exception) {
+            if (app()->bound('sentry')) {
+                app('sentry')->captureException($exception);
+            }
+        });
+    }
+
+    /**
      * Register the Nova routes.
      *
      * @return void
