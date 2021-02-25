@@ -22,19 +22,20 @@ class FormFactory extends Factory
     public function definition()
     {
         return [
-            "name" => $this->faker->title,
+            "name" => $this->faker->words(3, true),
             "title" => [
-                'fr' => $this->faker->title,
+                'fr' => $this->faker->words(3, true),
             ],
             "description" => [
                 'fr' => $this->faker->paragraph,
             ],
             "cta_name" => [
-                'fr' => $this->faker->paragraph,
+                'fr' => $this->faker->words(2, true),
             ],
             'status' => Form::_STATUS_PUBLISHED,
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
+            'recipient_type' => array_rand(Form::TYPE_TO_SERVICE),
         ];
     }
 }

@@ -21,11 +21,14 @@ class FieldFactory extends Factory
      */
     public function definition()
     {
+        $field_type = array_rand(config('fields_type'));
+        $field_name = "Champ " . config('fields_type')[$field_type] . " : " . $this->faker->unique()->words(3, true);
+
         return [
-            "field_name" => $this->faker->name,
-            "field_type" => 2,
+            "field_name" => $field_name,
+            "field_type" => $field_type,
             "placeholder" => [
-                'fr' => $this->faker->title,
+                'fr' => $field_name,
             ],
             "required" => rand(0, 1),
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
