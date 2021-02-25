@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\Modules\Form\Providers;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Laravel\Nova\Events\ServingNova;
@@ -125,6 +126,10 @@ class FormServiceProvider extends ServiceProvider
             $this->moduleNameLower . '-module',
             $this->moduleNameLower . '-module-views'
         ]);
+
+        $this->loadViewsFrom(array_merge(array_map(function ($path) {
+            return $path . "/modules/{$this->moduleNameLower}";
+        }, Config::get('view.paths')), [$sourcePath]), $this->moduleNameLower);
     }
 
     public function publishTranslations(): void

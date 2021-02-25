@@ -1,8 +1,9 @@
+import $ from "jquery";
 import {zipObject} from 'lodash';
-import {axiosPost, formError, formSuccess } from "./helpers";
+import {axiosPost, formError, formSuccess} from "./helpers";
 import axios from "axios";
 import Lang from 'lang.js/dist/lang.min';
-import messages from '../lang/modules/form/dropzone-traduction';
+import messages from '../lang/dropzone-traduction';
 import Dropzone from 'dropzone/dist/min/dropzone.min';
 
 Dropzone.autoDiscover = false;  // MUST BE JUST AFTER THE IMPORT !
@@ -26,7 +27,6 @@ export function extractDataFromForm($form) {
 }
 
 $(() => {
-    let $dropzone = $(".dropzone");
     let textRemoveFile = lang.get('dropzone.delete-files');
     let textCancelUpload = lang.get('dropzone.dictCancelUpload');
     let textFallbackMessage = lang.get('dropzone.dictFallbackMessage');
@@ -56,101 +56,109 @@ $(() => {
         }
     }
 
-    $dropzone.dropzone({
-        paramName: "file",
-        // Prevents Dropzone from uploading dropped files immediately
-        autoProcessQueue: false,
-        uploadMultiple: true,
-        addRemoveLinks: true,
-        parallelUploads: 100,
-        dictRemoveFile: textRemoveFile,
-        dictCancelUpload: textCancelUpload,
-        dictFallbackMessage: textFallbackMessage,
-        dictFallbackText: textFallbackText,
-        dictFileTooBig: textFileTooBig,
-        dictInvalidFileType: textInvalidFileType,
-        dictResponseError: textResponseError,
-        dictCancelUploadConfirmation: textCancelUploadConfirmation,
-        dictMaxFilesExceeded: textMaxFilesExceeded,
-        url: route('send.form', currentLang),
-        maxFiles: $dropzone.data("maxFiles"),
-        error: function (file, errorMessage, xhr) {
-            // Calls the function form_error
-            formError(errorMessage, $dropzone.closest("form"));
-            // Allow file to be reuploaded !
-            file.status = Dropzone.QUEUED;
-        },
+    $('.dropzone').not(".dz-clickable").each(function () {
+        let dropzone_id = $(this).attr('id');
+        let dropzone = $(this);
 
-        init: function () {
-            var totalsize = 0.0;
-            let myDropzone = this;
+        dropzone.dropzone({
+            paramName: "file",
+            // Prevents Dropzone from uploading dropped files immediately
+            autoProcessQueue: false,
+            uploadMultiple: true,
+            addRemoveLinks: true,
+            parallelUploads: 100,
+            dictRemoveFile: textRemoveFile,
+            dictCancelUpload: textCancelUpload,
+            dictFallbackMessage: textFallbackMessage,
+            dictFallbackText: textFallbackText,
+            dictFileTooBig: textFileTooBig,
+            dictInvalidFileType: textInvalidFileType,
+            dictResponseError: textResponseError,
+            dictCancelUploadConfirmation: textCancelUploadConfirmation,
+            dictMaxFilesExceeded: textMaxFilesExceeded,
+            url: route('send.form', currentLang),
+            maxFiles: dropzone.data("maxFiles"),
+            error: function (file, errorMessage, xhr) {
+                // Calls the function form_error
+                formError(errorMessage, dropzone.closest("form"));
+                // Allow file to be reuploaded !
+                file.status = Dropzone.QUEUED;
+            },
 
-            // Change the button to actually tell Dropzone to process the queue.
-            $(".submit_form").click(function (e) {
-                // Make sure that the form isn't actually being sent.
-                e.preventDefault();
-                e.stopPropagation();
+            init: function () {
+                let totalsize = 0.0;
+                let myDropzone = this;
+                let btn_form = $('#' + dropzone_id).closest('.form-group').find(".submit_form");
 
-                let form = $(this);
-                let data = extractDataFromForm(form.closest("form"));
+                btn_form.click(function (e) {
+                    // Make sure that the form isn't actually being sent.
+                    e.preventDefault();
+                    e.stopPropagation();
 
-                // Checks that at least one file is uploaded
-                if (myDropzone.files.length > 0) {
-                    myDropzone.processQueue();
-                } else {
-                    // If dropzone has no files store item without images
-                    axios.defaults.headers.common['Cache-Control'] = 'no-cache';
-                    axiosPost(route('send.form', currentLang), data).then(() => {
-                        $("form").trigger('reset');
-                        formSuccess(form);
-                    }).catch((data) => {
-                        // Calls the function form_error
-                        formError(data.response.data, form);
-                    });
-                }
-            });
+                    let form = $(this);
+                    let data = extractDataFromForm(form.closest("form"));
 
-            // On sending via dropzone append token and form values
-            myDropzone.on("sending", function (file, xhr, formData) {
-                $dropzone.closest("form").find(":input:not(:button)").each(function () {
-                    formData.append($(this).attr("name"), $(this).val());
+                    // Checks that at least one file is uploaded
+                    if (myDropzone.files.length > 0) {
+                        myDropzone.processQueue();
+                    } else {
+                        // If dropzone has no files store item without images
+                        axios.defaults.headers.common['Cache-Control'] = 'no-cache';
+                        axiosPost(route('send.form', currentLang), data).then(() => {
+                            $("form").trigger('reset');
+                            formSuccess(form);
+                        }).catch((data) => {
+                            // Calls the function form_error
+                            formError(data.response.data, form);
+                        });
+                    }
                 });
-                formData.append("_token", $("meta[name=csrf-token]").attr("content"));
-            });
 
-            myDropzone.on("addedfile", function (file) {
-                // increment total size when we add a file
-                totalsize += file.size;
-                if (parseFloat((totalsize / 1000000).toFixed(2)) > maxTotalSize && !isButtonSubmitDisabled()) {
-                    toggleButtonSubmit();
-                    toggleErrorText();
-                }
-            });
+                // On sending via dropzone append token and form values
+                myDropzone.on("sending", function (file, xhr, formData) {
+                    dropzone.closest("form").find(":input:not(:button)").each(function () {
+                        formData.append($(this).attr("name"), $(this).val());
+                    });
+                    formData.append("_token", $("meta[name=csrf-token]").attr("content"));
+                });
 
-            myDropzone.on("removedfile", function (file) {
-                // decrement total size when we remove a file
-                totalsize -= file.size;
-                if (parseFloat((totalsize / 1000000).toFixed(2)) <= maxTotalSize && isButtonSubmitDisabled()) {
-                    toggleButtonSubmit();
-                    toggleErrorText();
-                }
-            });
+                myDropzone.on("addedfile", function (file) {
+                    // increment total size when we add a file
+                    totalsize += file.size;
+                    if (parseFloat((totalsize / 1000000).toFixed(2)) > maxTotalSize && !isButtonSubmitDisabled()) {
+                        toggleButtonSubmit();
+                        toggleErrorText();
+                    }
+                });
 
-            myDropzone.on("successmultiple", function () {
-                $("form").trigger('reset');
-                this.removeAllFiles(true);
-            })
-        }
+                myDropzone.on("removedfile", function (file) {
+                    // decrement total size when we remove a file
+                    totalsize -= file.size;
+                    if (parseFloat((totalsize / 1000000).toFixed(2)) <= maxTotalSize && isButtonSubmitDisabled()) {
+                        toggleButtonSubmit();
+                        toggleErrorText();
+                    }
+                });
+
+                myDropzone.on("successmultiple", function () {
+                    let form = $("form");
+                    form.trigger('reset');
+                    formSuccess(form);
+                    this.removeAllFiles(true);
+                })
+            }
+        });
     });
 
-    $(".submit_form").click(function (e) {
+    $('.submit_form').click(function (e) {
         e.preventDefault();
         e.stopPropagation();
+
         let form = $(this);
+        let dropzone = form.closest('.form-group').find('.dropzone');
 
-        if (!form.closest('.form-group').find('.dropzone').length) {
+        if (!dropzone.length) {
             let data = extractDataFromForm(form.closest("form"));
-
             axios.defaults.headers.common['Cache-Control'] = 'no-cache';
             axiosPost(route('send.form', currentLang), data).then(() => {
                 $("form").trigger('reset');
