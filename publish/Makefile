@@ -8,6 +8,7 @@ update: composer.lock package-lock.json public/js/vendor.js modules_statuses.jso
 
 install: .env vendor node_modules public/js/vendor.js public/storage modules_statuses.json
 	php artisan key:generate
+	php artisan storage:link
 
 install_db:
 	echo "CREATE DATABASE IF NOT EXISTS $(DB_DATABASE)" | mysql -u$(DB_USERNAME) -p$(DB_PASSWORD) -h$(DB_HOST)
