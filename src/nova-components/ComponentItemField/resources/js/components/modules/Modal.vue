@@ -125,7 +125,8 @@
 
                 if (this.search) {
                     for (const [key, value] of Object.entries(this.components)) {
-                        if (key.toLowerCase().includes(this.search.toLowerCase())) {
+                        let title = this.__(key);
+                        if (title.toLowerCase().includes(this.search.toLowerCase())) {
                             filtered[key] = value;
                         }
                     }
