@@ -22,8 +22,8 @@ class FaqThemeFactory extends Factory
     public function definition()
     {
         return [
-            'title' =>  [
-                'fr' => $this->faker->title,
+            'title' => [
+                'fr' => $this->faker->words(3, true),
             ],
             'status' => FaqTheme::_STATUS_PUBLISHED,
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
