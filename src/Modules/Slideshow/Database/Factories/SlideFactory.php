@@ -22,22 +22,25 @@ class SlideFactory extends Factory
     public function definition()
     {
         return [
-            'title' =>  [
-                'fr' => $this->faker->title,
+            'title' => [
+                'fr' => $this->faker->words(3, true),
             ],
-            'description' =>  [
+            'description' => [
                 'fr' => $this->faker->paragraph,
             ],
-            'cta_name' =>  [
-                'fr' => $this->faker->name,
+            'cta_name' => [
+                'fr' => $this->faker->words(3, true),
             ],
-            'cta_url' =>  [
+            'cta_url' => [
                 'fr' => $this->faker->url,
             ],
-            'url' =>  [
+            'url' => [
                 'fr' => $this->faker->url,
             ],
             'image' => "fake.png",
+            'image_alt' => [
+                'fr' => 'image alt',
+            ],
         ];
     }
 }
