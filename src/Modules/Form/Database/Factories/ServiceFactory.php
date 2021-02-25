@@ -23,7 +23,7 @@ class ServiceFactory extends Factory
     {
         return [
             "name" => [
-                'fr' => $this->faker->title,
+                'fr' => "Service " . $this->faker->unique()->words(3, true),
             ],
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s'),
