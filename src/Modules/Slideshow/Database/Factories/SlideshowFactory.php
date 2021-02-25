@@ -22,8 +22,8 @@ class SlideshowFactory extends Factory
     public function definition()
     {
         return [
-            'title' =>[
-                'fr' => $this->faker->title,
+            'title' => [
+                'fr' => $this->faker->words(3, true),
             ],
             'js_controls' => true,
             'js_animate_auto' => true,
