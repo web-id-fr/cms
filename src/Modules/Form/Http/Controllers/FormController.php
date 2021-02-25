@@ -47,7 +47,7 @@ class FormController extends BaseController
 
         $files = !empty($request->file) ? $request->file : null;
 
-        $fields = $request->except(['valid_from', 'form_id', 'file']);
+        $fields = $request->except(['valid_from', 'form_id', 'file', 'Confirmation_email_name']);
 
         Mail::to($to ?? config('mail.from.address'))->send(new SendForm($fields, $files));
 

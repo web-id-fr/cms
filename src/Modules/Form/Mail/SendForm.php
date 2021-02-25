@@ -33,7 +33,7 @@ class SendForm extends Mailable
      */
     public function build()
     {
-        $mailPath = "modules.form.mail.form";
+        $mailPath = "form::mail.form";
 
         $message =  $this->from(config('mail.from.address'), config('mail.from.name'))
             ->view($mailPath)

@@ -49,7 +49,7 @@ class FormRequest extends BaseRequest
             return $fields_rules;
         }
 
-        foreach ($form->field_items as $field) {
+        foreach ($form->related as $field) {
             if (get_class($field) == Field::class) {
                 $field_type = config("fields_type.$field->field_type");
                 if (array_key_exists($field_type, config("fields_type_validation"))) {
