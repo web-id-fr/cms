@@ -9,6 +9,17 @@ class SendConfirmationContact extends Mailable
 {
     use SerializesModels;
 
+    /** @var array */
+    protected $mailData;
+
+    /**
+     * @param array $mailData
+     */
+    public function __construct(array $mailData)
+    {
+        $this->mailData = $mailData;
+    }
+
     /**
      * Build the message.
      *
@@ -17,9 +28,19 @@ class SendConfirmationContact extends Mailable
     public function build()
     {
         $mailPath = "form::mail.confirmation_contact";
+        $file = $this->mailData['pdf'] ?? '';
+        $text = $this->mailData['content_email'] ?? 'Merci de nous avoir contactés, nous traitons votre demande.';
 
-        return $this->from(config('mail.from.address'), config('mail.from.name'))
+        $message = $this->from(config('mail.from.address'), config('mail.from.name'))
             ->view($mailPath)
-            ->subject(config('app.name') . ' - Merci de nous avoir contactés');
+            ->with([
+                "text" => $text,
+            ])->subject(config('app.name') . ' - Merci de nous avoir contactés');
+
+        if (!empty($file)) {
+            $message->attach($file);
+        }
+
+        return $message;
     }
 }
