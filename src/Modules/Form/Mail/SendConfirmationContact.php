@@ -28,19 +28,11 @@ class SendConfirmationContact extends Mailable
     public function build()
     {
         $mailPath = "form::mail.confirmation_contact";
-        $file = $this->mailData['pdf'] ?? '';
-        $text = $this->mailData['content_email'] ?? 'Merci de nous avoir contactés, nous traitons votre demande.';
 
-        $message = $this->from(config('mail.from.address'), config('mail.from.name'))
+        return $this->from(config('mail.from.address'), config('mail.from.name'))
             ->view($mailPath)
             ->with([
-                "text" => $text,
+                "text" => "Merci de nous avoir contactés, nous traitons votre demande.",
             ])->subject(config('app.name') . ' - Merci de nous avoir contactés');
-
-        if (!empty($file)) {
-            $message->attach($file);
-        }
-
-        return $message;
     }
 }

@@ -94,6 +94,7 @@ class FormServiceProvider extends ServiceProvider
             $sourcePath . '/dropzone.php' => config_path('dropzone.php'),
             $sourcePath . '/fields_type.php' => config_path('fields_type.php'),
             $sourcePath . '/fields_type_validation.php' => config_path('fields_type_validation.php'),
+            $sourcePath . '/form.php' => config_path('form.php'),
         ], [
             $this->moduleNameLower . '-module',
             $this->moduleNameLower . '-module-config'
