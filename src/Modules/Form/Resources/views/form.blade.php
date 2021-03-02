@@ -22,6 +22,9 @@
                 @endforeach
                 <input type="hidden" name="form_id" value="{{ data_get($form, 'id') }}">
                 <input type="hidden" name="confirmation_email_name" value="{{ data_get($form, 'confirmation_email_name') }}">
+                @if(!empty($form_extra))
+                    <input type="hidden" name="extra" value="{{ json_encode($form_extra) }}">
+                @endif
             </div>
             <button type="submit"
                     class="button button_bg_black fullwidth submit_desktop submit_form">{{ data_get($form, 'cta_name') }}</button>
