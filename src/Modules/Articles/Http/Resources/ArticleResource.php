@@ -18,9 +18,7 @@ class ArticleResource extends JsonResource
         return [
             'title' => $this->resource->title,
             'slug' => $this->resource->slug,
-            'image' => isset($this->resource->article_image)
-                ? media_full_url($this->resource->article_image)
-                : null,
+            'image' => media_full_url($this->resource->article_image),
             'image_alt' => $this->resource->article_image_alt,
             'status' => Article::statusLabels()[$this->resource->status],
             'extrait' => $this->resource->extrait,
@@ -29,9 +27,7 @@ class ArticleResource extends JsonResource
             'metadescription' => $this->resource->metadescription,
             'og_title' => $this->resource->opengraph_title,
             'og_description' => $this->resource->opengraph_description,
-            'og_picture' => isset($this->resource->opengraph_picture)
-                ? media_full_url($this->resource->opengraph_picture)
-                : null,
+            'og_picture' => media_full_url($this->resource->opengraph_picture),
             'og_picture_alt' => $this->resource->opengraph_picture_alt,
             'publish_at' => $this->resource->publish_at,
             'categories' => ArticleCategoryResource::collection($this->whenLoaded('categories'))->resolve(),

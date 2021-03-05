@@ -21,9 +21,7 @@ class SlideResource extends JsonResource
             'cta_name' => $this->resource->cta_name,
             'cta_url' => $this->resource->cta_url,
             'url' => $this->resource->url,
-            'image' => isset($this->resource->image)
-                ? media_full_url($this->resource->image)
-                : null,
+            'image' => media_full_url($this->resource->image),
             'image_alt' => $this->resource->image_alt,
         ];
     }
