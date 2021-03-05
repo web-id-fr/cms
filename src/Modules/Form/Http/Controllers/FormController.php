@@ -2,7 +2,6 @@
 
 namespace Webid\Cms\Modules\Form\Http\Controllers;
 
-use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Mail;
 use Webid\Cms\App\Http\Controllers\BaseController;
 use Webid\Cms\Modules\Form\Http\Requests\FormRequest;

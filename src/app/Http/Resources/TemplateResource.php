@@ -25,9 +25,7 @@ class TemplateResource extends JsonResource
             'meta_description' => $this->resource->metadescription,
             'opengraph_title' => $this->resource->opengraph_title,
             'opengraph_description' => $this->resource->opengraph_description,
-            'opengraph_picture' => isset($this->resource->opengraph_picture)
-                ? media_full_url($this->resource->opengraph_picture)
-                : null,
+            'opengraph_picture' => media_full_url($this->resource->opengraph_picture),
             'opengraph_picture_alt' => $this->resource->opengraph_picture_alt,
             'indexation' => $this->getIndexationAndFollowValue($this->resource->indexation, $this->resource->follow),
             'meta_keywords' => $this->resource->meta_keywords,

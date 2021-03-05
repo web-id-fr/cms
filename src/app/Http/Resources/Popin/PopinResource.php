@@ -19,9 +19,7 @@ class PopinResource extends JsonResource
             'id' => $this->resource->id,
             'title' => $this->resource->title,
             'status' => $this->resource->status,
-            'image' => isset($this->resource->image)
-                ? media_full_url($this->resource->image)
-                : null,
+            'image' => media_full_url($this->resource->image),
             'image_alt' => $this->resource->image_alt,
             'description' => $this->resource->description,
             'button_1_title' => $this->resource->button_1_title,
