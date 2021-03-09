@@ -5,7 +5,7 @@ namespace Webid\Cms\Modules\Form\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-use Whitecube\NovaFlexibleContent\Concerns\HasFlexible;
+use Webid\Cms\App\Models\Traits\HasFlexible;
 
 class Field extends Model
 {
@@ -60,10 +60,6 @@ class Field extends Model
      */
     public function getFieldOptionsAttribute($value)
     {
-        if (request()->is('nova-api*')) {
-            return $value;
-        }
-
         return $this->toFlexible($value);
     }
 
