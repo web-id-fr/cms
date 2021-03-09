@@ -40,6 +40,7 @@ class ArticleFactory extends Factory
                     "attributes" => [
                         "layout" => "image",
                         "image" => "fake.png",
+                        "full_image" => "https://www.fake.png",
                         "balise_alt" => [
                             'fr' => $this->faker->text,
                         ],
@@ -50,10 +51,19 @@ class ArticleFactory extends Factory
                     "layout" => "video",
                     "attributes" => [
                         "layout" => "video",
-                        "video" => "fake.mp4"
+                        "video" => "fake.mp4",
+                        "full_video" => "https://www.fake.mp4"
                     ]
                 ]
             ]),
+            'article_type' => array_rand(Article::availableArticleTypes()),
+            'quotation' => [
+                'fr' => $this->faker->text,
+            ],
+            'author' => [
+                'fr' => $this->faker->name,
+            ],
+            'not_display_in_list' => false,
             'metatitle' => [],
             'metadescription' => [],
             'opengraph_title' => [],

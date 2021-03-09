@@ -626,5 +626,14 @@
     "Article image balise alt": "Balise alt pour l'image de l'article",
     "Image balise alt": "Balise alt pour l'image",
     "Menu description": "Description pour le menu",
-    "This field is optional and allows you to add a short description below the title in the sub-menu." : "Ce champ est optionnel et permet d'ajouter une courte description en-dessous du titre dans le sous-menu."
+    "This field is optional and allows you to add a short description below the title in the sub-menu." : "Ce champ est optionnel et permet d'ajouter une courte description en-dessous du titre dans le sous-menu.",
+    "Article type": "Type d'article",
+    "Quotation": "Citation",
+    "Author": "Auteur",
+    "Not display in list": "Ne pas afficher dans la liste",
+    "Normal": "Normal",
+    "Press": "Presse",
+    "Button media section": "Section bouton média",
+    "Button url section": "Section bouton url",
+    "Media": "Média"
 }

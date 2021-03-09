@@ -12,9 +12,6 @@ class ArticleResource extends JsonResource
 
     public function toArray($request)
     {
-        /** @var \Whitecube\NovaFlexibleContent\Layouts\Collection $flexibleContent */
-        $flexibleContent = $this->resource->content;
-
         return [
             'title' => $this->resource->title,
             'slug' => $this->resource->slug,
@@ -22,7 +19,10 @@ class ArticleResource extends JsonResource
             'image_alt' => $this->resource->article_image_alt,
             'status' => Article::statusLabels()[$this->resource->status],
             'extrait' => $this->resource->extrait,
-            'content' => $flexibleContent->toArray(),
+            'content' => $this->resource->content->toArray(),
+            'article_type' => $this->resource->article_type,
+            'quotation' => $this->resource->quotation,
+            'author' => $this->resource->author,
             'metatitle' => $this->resource->metatitle,
             'metadescription' => $this->resource->metadescription,
             'og_title' => $this->resource->opengraph_title,

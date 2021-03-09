@@ -1,2 +1,2 @@
 Layout : video
-Video : {{ $data['video'] }}
+Video : {{ $data['full_video'] }}

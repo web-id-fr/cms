@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Resource;
 use Webid\ArticleCategoriesItemField\ArticleCategoriesItemField;
@@ -98,7 +99,22 @@ class Article extends Resource
                 ->singleLine()
                 ->rules('array', new TranslatableMax(100), new TranslatableSlug()),
 
+            FilemanagerField::make(__('Article image'), 'article_image')
+                ->rules('required')
+                ->hideFromIndex()
+                ->displayAsImage(),
+
+            Translatable::make(__('Article image balise alt'), 'article_image_alt')
+                ->singleLine()
+                ->hideFromIndex(),
+
             ArticleCategoriesItemField::make(__('Categories'), 'categories'),
+
+            Number::make(__('Order'), 'order')
+                ->min(0)->step(1),
+
+            Boolean::make(__('Not display in list'), 'not_display_in_list')
+                ->hideFromIndex(),
 
             Select::make(__('Status'), 'status')
                 ->options(ArticleModel::statusLabels())
@@ -123,23 +139,29 @@ class Article extends Resource
     protected function contentFields(): array
     {
         return [
-            FilemanagerField::make(__('Article image'), 'article_image')
-                ->rules('required')
-                ->hideFromIndex()
-                ->displayAsImage(),
-
-            Translatable::make(__('Article image balise alt'), 'article_image_alt')
-                ->singleLine()
-                ->hideFromIndex(),
-
-            Flexible::make(__('Content'), 'content')
-                ->preset(ArticlePreset::class)
+            Select::make(__('Article type'), 'article_type')
+                ->options(ArticleModel::availableArticleTypes())
+                ->displayUsingLabels()
+                ->rules('integer', 'required')
                 ->hideFromIndex(),
 
             Translatable::make(__('Excerpt'), 'extrait')
                 ->trix()
                 ->asHtml()
                 ->rules('array')
+                ->hideFromIndex(),
+
+            Flexible::make(__('Content'), 'content')
+                ->preset(ArticlePreset::class)
+                ->hideFromIndex(),
+
+            Translatable::make(__('Quotation'), 'quotation')
+                ->trix()
+                ->asHtml()
+                ->hideFromIndex(),
+
+            Translatable::make(__('Author'), 'author')
+                ->singleLine()
                 ->hideFromIndex(),
         ];
     }

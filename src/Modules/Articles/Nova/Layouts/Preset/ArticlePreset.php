@@ -1,6 +1,8 @@
 <?php
 namespace Webid\Cms\Modules\Articles\Nova\Layouts\Preset;
 
+use Webid\Cms\Modules\Articles\Nova\Layouts\MediaLayout;
+use Webid\Cms\Modules\Articles\Nova\Layouts\UrlLayout;
 use Webid\Cms\Modules\Articles\Nova\Layouts\Resolver\ArticleResolver;
 use Webid\Cms\Modules\Articles\Nova\Layouts\ImageLayout;
 use Webid\Cms\Modules\Articles\Nova\Layouts\SlideshowLayout;
@@ -29,6 +31,8 @@ class ArticlePreset extends Preset
         $field->addLayout(ImageLayout::class);
         $field->addLayout(VideoLayout::class);
         $field->addLayout(SlideshowLayout::class);
+        $field->addLayout(MediaLayout::class);
+        $field->addLayout(UrlLayout::class);
 
         $field->resolver(ArticleResolver::class);
     }
