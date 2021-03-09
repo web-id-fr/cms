@@ -4,15 +4,16 @@ namespace Webid\Cms\Modules\Newsletter\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
+use Webid\Cms\App\Nova\Components\NewsletterComponent;
 use Webid\Cms\App\Services\DynamicResource;
 use Webid\Cms\Modules\Newsletter\Nova\Newsletter;
 
 class NewsletterServiceProvider extends ServiceProvider
 {
-    /** @var string  */
+    /** @var string */
     protected $moduleName = 'Newsletter';
 
-    /** @var string  */
+    /** @var string */
     protected $moduleNameLower = 'newsletter';
 
     public function boot(): void
@@ -23,7 +24,8 @@ class NewsletterServiceProvider extends ServiceProvider
 
         $this->app->booted(function () {
             Nova::resources([
-                Newsletter::class
+                NewsletterComponent::class,
+                Newsletter::class,
             ]);
         });
 
@@ -45,10 +47,10 @@ class NewsletterServiceProvider extends ServiceProvider
         $sourcePath = module_path($this->moduleName, 'Resources/views');
 
         $this->publishes([
-            $sourcePath => $viewPath
+            $sourcePath => $viewPath,
         ], [
             $this->moduleNameLower . '-module',
-            $this->moduleNameLower . '-module-views'
+            $this->moduleNameLower . '-module-views',
         ]);
     }
 
@@ -58,10 +60,10 @@ class NewsletterServiceProvider extends ServiceProvider
         $sourcePath = module_path($this->moduleName, 'Resources/dist/js');
 
         $this->publishes([
-            $sourcePath => $viewPath
+            $sourcePath => $viewPath,
         ], [
-            $this->moduleNameLower .'-module',
-            $this->moduleNameLower . '-module-js'
+            $this->moduleNameLower . '-module',
+            $this->moduleNameLower . '-module-js',
         ]);
     }
 }

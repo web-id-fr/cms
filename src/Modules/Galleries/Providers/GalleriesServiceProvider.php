@@ -5,18 +5,19 @@ namespace Webid\Cms\Modules\Galleries\Providers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
+use Webid\Cms\App\Nova\Components\GalleryComponent;
 use Webid\Cms\App\Services\DynamicResource;
+use Webid\Cms\Modules\Galleries\Nova\Gallery;
 use Webid\Cms\Modules\Galleries\Services\Contracts\GalleryServiceContract;
 use Webid\Cms\Modules\Galleries\Services\GalleryLocalStorageService;
 use Webid\Cms\Modules\Galleries\Services\GalleryS3Service;
-use Webid\Cms\Modules\Galleries\Nova\Gallery;
 
 class GalleriesServiceProvider extends ServiceProvider
 {
-    /** @var string  */
+    /** @var string */
     protected $moduleName = 'Galleries';
 
-    /** @var string  */
+    /** @var string */
     protected $moduleNameLower = 'galleries';
 
     /**
@@ -29,12 +30,13 @@ class GalleriesServiceProvider extends ServiceProvider
 
         $this->app->booted(function () {
             Nova::resources([
-                Gallery::class
+                GalleryComponent::class,
+                Gallery::class,
             ]);
         });
 
         DynamicResource::pushSingleModuleResource([
-            'resource' => Gallery::class
+            'resource' => Gallery::class,
         ]);
     }
 
@@ -44,7 +46,7 @@ class GalleriesServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->bindGalleryServiceContract();
-        
+
         Storage::disk('public')->makeDirectory("/Galeries");
     }
 
@@ -76,7 +78,7 @@ class GalleriesServiceProvider extends ServiceProvider
             $sourcePath . '/galleries.php' => config_path('galleries.php'),
         ], [
             $this->moduleNameLower . '-module',
-            $this->moduleNameLower . '-module-config'
+            $this->moduleNameLower . '-module-config',
         ]);
     }
 }
