@@ -18,8 +18,6 @@ use Spatie\Varnish\Middleware\CacheWithVarnish;
 use Webid\Cms\App\Http\Middleware\CheckLanguageExist;
 use Webid\Cms\App\Http\Middleware\IsAjax;
 use Webid\Cms\App\Http\Middleware\Language;
-use Webid\Cms\App\Nova\Components\GalleryComponent;
-use Webid\Cms\App\Nova\Components\NewsletterComponent;
 use Webid\Cms\App\Nova\Menu\Menu;
 use Webid\Cms\App\Nova\Menu\MenuCustomItem;
 use Webid\Cms\App\Nova\Popin\Popin;
@@ -75,8 +73,6 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             Nova::resources([
                 Template::class,
-                GalleryComponent::class,
-                NewsletterComponent::class,
                 Popin::class,
                 Menu::class,
                 MenuCustomItem::class,
