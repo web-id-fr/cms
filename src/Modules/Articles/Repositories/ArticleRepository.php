@@ -22,6 +22,19 @@ class ArticleRepository
     {
         return $this->model
             ->published()
+            ->orderBy('order')
+            ->get();
+    }
+
+    /**
+     * @return Collection<Article>
+     */
+    public function getPublishedAndAllowOnListArticles(): Collection
+    {
+        return $this->model
+            ->published()
+            ->where('not_display_in_list', false)
+            ->orderBy('order')
             ->get();
     }
 
@@ -76,5 +89,29 @@ class ArticleRepository
             ->published()
             ->orderByDesc(Article::UPDATED_AT)
             ->first();
+    }
+
+    /**
+     * @return Collection<Article>
+     */
+    public function getPublishedPressArticles(): Collection
+    {
+        return $this->model
+            ->published()
+            ->where('article_type', Article::_TYPE_PRESS)
+            ->orderBy('order')
+            ->get();
+    }
+
+    /**
+     * @return Collection<Article>
+     */
+    public function getPublishedNormalArticles(): Collection
+    {
+        return $this->model
+            ->published()
+            ->where('article_type', Article::_TYPE_NORMAL)
+            ->orderBy('order')
+            ->get();
     }
 }

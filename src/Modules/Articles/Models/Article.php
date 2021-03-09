@@ -7,26 +7,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Webid\Cms\App\Models\Traits\HasFlexible;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
 use Webid\Cms\Modules\Slideshow\Models\Slideshow;
-use Whitecube\NovaFlexibleContent\Concerns\HasFlexible;
 
-/**
- * @property string $title
- * @property string $slug
- * @property string $article_image
- * @property integer $status
- * @property string $extrait
- * @property string $content
- * @property string $metatitle
- * @property string $metadescription
- * @property string $opengraph_title
- * @property string $opengraph_description
- * @property string $opengraph_picture
- * @property Carbon $publish_at
- * @method Builder published()
- * @method Builder publishedForLang(string $language)
- */
 class Article extends Model
 {
     use HasTranslations,
@@ -64,6 +48,11 @@ class Article extends Model
         'opengraph_picture',
         'opengraph_picture_alt',
         'publish_at',
+        'order',
+        'not_display_in_list',
+        'article_type',
+        'quotation',
+        'author',
     ];
 
     /**
@@ -79,6 +68,8 @@ class Article extends Model
         'opengraph_title',
         'opengraph_description',
         'opengraph_picture_alt',
+        'quotation',
+        'author',
     ];
 
     protected $casts = [
@@ -87,6 +78,8 @@ class Article extends Model
 
     const _STATUS_PUBLISHED = 0;
     const _STATUS_DRAFT = 1;
+    const _TYPE_PRESS = 0;
+    const _TYPE_NORMAL = 1;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -137,10 +130,17 @@ class Article extends Model
      */
     public function getContentAttribute($value)
     {
-        if (request()->is('nova-api*')) {
-            return $value;
-        }
-
         return $this->toFlexible($value);
+    }
+
+    /**
+     * @return array
+     */
+    public static function availableArticleTypes(): array
+    {
+        return [
+            self::_TYPE_NORMAL => __('Normal'),
+            self::_TYPE_PRESS => __('Press'),
+        ];
     }
 }
