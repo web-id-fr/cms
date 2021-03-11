@@ -77,7 +77,7 @@ class Field extends Resource
             ConditionalContainer::make([
                 Flexible::make(__('Field items'), 'field_options')
                     ->addLayout(__('Item section'), 'option', [
-                        Translatable::make(__('Item'))
+                        Translatable::make(__('Item'), 'item')
                             ->singleLine(),
                     ])->button(__('Add option'))
             ])->if('field_type = ' . array_search('select', config('fields_type')))
@@ -105,7 +105,7 @@ class Field extends Resource
 
                 Flexible::make(__('Duration items'), 'field_options')
                     ->addLayout(__('Item section'), 'option', [
-                        Translatable::make('Item')
+                        Translatable::make(__('Item'), 'item')
                             ->singleLine(),
                     ])->button(__('Add item'))
             ])->if('field_type = ' . array_search('date-time', config('fields_type'))),
