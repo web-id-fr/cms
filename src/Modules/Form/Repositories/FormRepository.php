@@ -41,13 +41,13 @@ class FormRepository
     public function find(int $id)
     {
         return $this->model
-            ->find($id)
             ->with([
                 'fields',
                 'titleFields',
                 'recipients',
                 'services',
                 'related.formables'
-            ])->first();
+            ])
+            ->find($id);
     }
 }
