@@ -3,13 +3,15 @@
 namespace Webid\Cms\App\Models\Menu;
 
 use App\Models\Template;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Spatie\Translatable\HasTranslations;
 
 class Menu extends Model
 {
-    use HasTranslations;
+    use HasTranslations,
+        HasFactory;
 
     /** Le séparateur utilisé dans la clause GROUP_BY du scope withZones() */
     protected const GROUP_BY_DELIMITER = '|||';
