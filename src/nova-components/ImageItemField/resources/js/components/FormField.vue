@@ -145,7 +145,31 @@
                 } else {
                     return title[this.currentLocale];
                 }
-            }
+            },
+
+            moveUp(slide) {
+                let findIndex = _.findIndex(this.selected, slide);
+
+                if (findIndex <= 0) return;
+
+                this.selected.splice(findIndex - 1, 0, this.selected.splice(findIndex, 1)[0]);
+            },
+
+            moveDown(slide) {
+                let findIndex = _.findIndex(this.selected, slide);
+
+                if (findIndex < 0 || findIndex >= this.selected.length - 1) return;
+
+                this.selected.splice(findIndex + 1, 0, this.selected.splice(findIndex, 1)[0]);
+            },
+
+            deselectComponents(slide) {
+                const findIndex = _.findIndex(this.selected, slide);
+
+                if (findIndex >= 0) {
+                    this.selected.splice(findIndex, 1);
+                }
+            },
         },
 
         watch: {
