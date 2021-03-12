@@ -23,7 +23,7 @@
                 <input type="hidden" name="form_id" value="{{ data_get($form, 'id') }}">
                 <input type="hidden" name="confirmation_email_name" value="{{ data_get($form, 'confirmation_email_name') }}">
                 @if(!empty($form_extra))
-                    <input type="hidden" name="extra" value="{{ $form_extra }}">
+                    <input type="hidden" name="extra" value="{{ encrypt($form_extra) }}">
                 @endif
             </div>
             <button type="submit"
