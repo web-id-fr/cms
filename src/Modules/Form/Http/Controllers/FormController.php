@@ -2,6 +2,9 @@
 
 namespace Webid\Cms\Modules\Form\Http\Controllers;
 
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Webid\Cms\App\Http\Controllers\BaseController;
 use Webid\Cms\Modules\Form\Http\Requests\FormRequest;
@@ -36,7 +39,9 @@ class FormController extends BaseController
     /**
      * @param FormRequest $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
+     *
+     * @throws DecryptException
      */
     protected function handle(FormRequest $request)
     {
@@ -57,9 +62,12 @@ class FormController extends BaseController
         if (config('form.send_email_confirmation') && !empty($request->confirmation_email_name)) {
             $field = $request->confirmation_email_name;
             $email = $request->$field;
-            $extra = json_decode($request->extra, true) ?? [];
 
-            Mail::to($email)->send(new $this->sendConfirmationContact($extra));
+            if (!empty($request->extra)) {
+                $extra = Crypt::decrypt($request->extra);
+            }
+
+            Mail::to($email)->send(new $this->sendConfirmationContact($extra ?? []));
         }
 
         return response()->json([
