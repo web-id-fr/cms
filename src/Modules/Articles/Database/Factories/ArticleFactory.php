@@ -44,7 +44,7 @@ class ArticleFactory extends Factory
                         "balise_alt" => [
                             'fr' => $this->faker->text,
                         ],
-                    ]
+                    ],
                 ],
                 [
                     "key" => "tkBsQ7uCQMJCcRV6",
@@ -52,9 +52,19 @@ class ArticleFactory extends Factory
                     "attributes" => [
                         "layout" => "video",
                         "video" => "fake.mp4",
-                        "full_video" => "https://www.fake.mp4"
-                    ]
-                ]
+                        "full_video" => "https://www.fake.mp4",
+                    ],
+                ],
+                [
+                    'key' => 'tkBsQ7uC0MJCcRV6',
+                    'layout' => 'text',
+                    'attributes' => [
+                        "layout" => 'text',
+                        'text' => [
+                            'fr' => '<p>Lorem ipsum dolor sit amet ...</p>',
+                        ],
+                    ],
+                ],
             ]),
             'article_type' => array_rand(Article::availableArticleTypes()),
             'quotation' => [
