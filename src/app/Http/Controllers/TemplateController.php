@@ -148,4 +148,18 @@ class TemplateController extends BaseController
     {
         return redirect($this->languageService->getFromBrowser());
     }
+
+    /**
+     * @param string $slug
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function rootPageWithSlug(string $slug)
+    {
+        if (!array_key_exists($slug, config('translatable.locales'))) {
+            return redirect($this->languageService->getFromBrowser() . "/" . $slug);
+        }
+
+        return $this->rootPage();
+    }
 }

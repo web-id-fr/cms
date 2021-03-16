@@ -19,6 +19,9 @@ use Webid\Cms\App\Http\Controllers\TemplateController;
 Route::group(['middleware' => 'cacheable'], function () {
     // Redirect homepage without lang
     Route::get('/', [TemplateController::class, 'rootPage']);
+    Route::get('/{slug}', [TemplateController::class, 'rootPageWithSlug'])
+        ->where(['slug' => '(?!' . trim(config('nova.path'), '/') . '|ajax|api)([^\/]+)'])
+        ->fallback();
 
     Route::group([
         'prefix' => '{lang}',
