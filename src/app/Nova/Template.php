@@ -165,6 +165,10 @@ class Template extends Resource
                 ->rules('array')
                 ->hideFromIndex(),
 
+            Translatable::make(__('Keywords'), 'meta_keywords')
+                ->rules('array')
+                ->hideFromIndex(),
+
             Heading::make('Open graph'),
 
             Translatable::make(__('Title'), 'opengraph_title')
