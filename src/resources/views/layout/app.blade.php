@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ data_get($meta, 'title') }}</title>
     <meta name="description" content="{{ strip_tags(data_get($meta, 'description', '')) }}">
+    <meta name="keywords" content="{{ strip_tags(data_get($meta, 'keywords', '')) }}">
     <meta property="og:title" content="{{ strip_tags(data_get($meta, 'og_title', '')) }}">
     <meta property="og:type" content="{{ data_get($meta, 'type', 'website') }}">
     <meta property="og:url" content="{{ url()->current() }}">
