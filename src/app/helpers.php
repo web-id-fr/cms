@@ -107,7 +107,7 @@ if (!function_exists('is_image')) {
      */
     function is_image($filename)
     {
-        return !!preg_match('/^.*\.(jpg|png|gif|jpeg|tiff|)$/i', $filename);
+        return !!preg_match('/^.*\.(jpg|png|gif|jpeg|tiff|svg)$/i', $filename);
     }
 }
 
