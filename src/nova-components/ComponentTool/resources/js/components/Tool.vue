@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="w-1/3 py-4 px-8" v-for="component in filteredFiles" :key="component.title">
-                <a :href="component.nova">
+                <a :href="component.nova" class="no-underline dim text-primary font-bold">
                     <div class="min-h-full flex flex-col text-center">
                         <div class="m-4">
                             <h3>{{ __(component.title) }}</h3>
