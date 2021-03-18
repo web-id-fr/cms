@@ -17,6 +17,7 @@ class FormResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
+            'name' => $this->resource->name,
             'title' => $this->resource->title,
             'description' => $this->resource->description,
             'title_service' => $this->resource->title_service,
