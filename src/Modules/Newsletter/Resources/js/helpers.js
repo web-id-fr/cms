@@ -1,3 +1,4 @@
+import $ from "jquery";
 import axios from 'axios';
 
 //INIT AXIOS
