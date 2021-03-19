@@ -5,10 +5,10 @@
                 <div class="option-container">
                     <input type="radio"
                            name="{{ data_get($field, 'field_name') }}"
-                           id="{{ data_get($field, 'field_name') . '-' . $loop->index }}"
+                           id="{{ str_slug(data_get($field, 'field_name') . '-' . $loop->index) }}"
                            value="{{ data_get($option, "option.$currentLangKey") }}"
                            @if( data_get($field, 'required')) required @endif>
-                    <label for="{{ data_get($field, 'field_name') . '-' . $loop->index }}" class="input-label">
+                    <label for="{{ str_slug(data_get($field, 'field_name') . '-' . $loop->index) }}" class="input-label">
                         {{ data_get($option, "item.$currentLangKey") }}
                     </label>
                 </div>
