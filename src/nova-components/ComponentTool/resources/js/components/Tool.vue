@@ -10,7 +10,8 @@
                         <path fill-rule="nonzero" d="M14.32 12.906l5.387 5.387a1 1 0 0 1-1.414 1.414l-5.387-5.387a8 8 0 1 1 1.414-1.414zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
                     </svg>
                     <input v-on:input="searchItems" v-model="search" type="search" :placeholder="this.__('Search')"
-                           class="pl-search form-control form-input form-input-bordered w-full">
+                           class="pl-search form-control form-input form-input-bordered w-full"
+                           ref="search-components" autofocus>
                 </div>
             </div>
             <div class="w-1/3 py-4 px-8" v-for="component in filteredFiles" :key="component.title">
@@ -33,6 +34,7 @@
     export default {
         mounted() {
             this.getComponents();
+            this.$refs['search-components'].focus();
         },
 
         data: () => ({
