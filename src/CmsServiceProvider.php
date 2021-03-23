@@ -3,6 +3,7 @@
 namespace Webid\Cms;
 
 use App\Models\Template as TemplateModel;
+use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Routing\Router;
@@ -237,6 +238,7 @@ class CmsServiceProvider extends ServiceProvider
             StartSession::class,
             'is-ajax',
             VerifyCsrfToken::class,
+            EncryptCookies::class,
         ]);
     }
 }
