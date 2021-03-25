@@ -20,6 +20,12 @@ class MenuService
     /** @var MenuRepository */
     private $menuRepository;
 
+    /** @var array<mixed> */
+    private $menus = [];
+
+    /** @var array<mixed> */
+    private $allMenus = [];
+
     /**
      * MenuService constructor.
      *
@@ -53,26 +59,30 @@ class MenuService
      */
     public function getMenus()
     {
+        if (!empty($this->allMenus)) {
+            return $this->allMenus;
+        }
+
         try {
             $menus = MenuResource::collection($this->menuRepository->all())->resolve();
         } catch (\Exception $exception) {
             $menus = [];
         }
 
-        $result = [];
+        $this->allMenus = [];
 
         foreach ($menus as $menu) {
             $zones = data_get($menu, 'zones', []);
 
             if (!empty($zones)) {
                 foreach ($zones as $zone) {
-                    $result[$zone]['title'] = data_get($menu, 'title', []);
-                    $result[$zone]['zones'] = data_get($menu, 'items', []);
+                    $this->allMenus[$zone]['title'] = data_get($menu, 'title', []);
+                    $this->allMenus[$zone]['zones'] = data_get($menu, 'items', []);
                 }
             }
         }
 
-        return $result;
+        return $this->allMenus;
     }
 
     /**
@@ -141,6 +151,10 @@ class MenuService
      */
     public function showMenu($expression): string
     {
+        if (isset($this->menus[$expression])) {
+            return $this->menus[$expression];
+        }
+
         try {
             $menu = new Menu($expression);
             $menusData = data_get($this->getMenus(), $menu->menuID, []);
@@ -154,7 +168,9 @@ class MenuService
             $options = $data = [];
         }
 
-        return $this->getHtmlForZone('components/menu', $data, $options);
+        $this->menus[$expression] = $this->getHtmlForZone('components/menu', $data, $options);
+
+        return $this->menus[$expression];
     }
 
     /**

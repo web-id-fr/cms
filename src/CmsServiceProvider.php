@@ -45,6 +45,7 @@ class CmsServiceProvider extends ServiceProvider
         }
 
         $this->app->singleton(DynamicResource::class);
+        $this->app->singleton(MenuService::class);
         $this->app->singleton(SitemapGenerator::class);
 
         $this->registerMenuDirective();

@@ -19,7 +19,7 @@ class MenuResource extends JsonResource
             'id' => $this->resource->id,
             'title' => $this->resource->title,
             'zones' => $this->resource->zones,
-            'items' => MenuItemResource::collection($this->resource->related)->resolve(),
+            'items' => MenuItemResource::collection($this->whenLoaded('related'))->resolve(),
         ];
     }
 }
