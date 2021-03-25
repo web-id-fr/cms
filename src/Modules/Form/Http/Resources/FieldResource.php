@@ -21,7 +21,9 @@ class FieldResource extends JsonResource
 
         return [
             $this->mergeWhen(Field::class == $this->formable_type, [
-                'field_options' => $this->resource->formable->field_options->toArray() ?? [],
+                'field_options' => !empty($this->resource->formable->field_options)
+                    ? $this->resource->formable->field_options->toArray()
+                    : [],
                 'field_name' => $this->resource->formable->field_name ?? '',
                 'field_type' => $field_type,
                 'placeholder' => $this->resource->formable->placeholder ?? '',
