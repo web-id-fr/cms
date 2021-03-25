@@ -28,9 +28,10 @@ class MenuRepository
         return $this->model
             ->withZones()
             ->with(['related' => function ($q) {
-                $q->whereHas('menus', function ($q) {
-                    $q->where('parent_id', '=', null);
-                });
+                $q->with('menus.children')
+                    ->whereHas('menus', function ($q) {
+                        $q->where('parent_id', '=', null);
+                    });
             }])
             ->get();
     }
