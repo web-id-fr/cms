@@ -10,6 +10,7 @@
 
 @section('content')
     <pre>
+        Type : {{ $article['article_type'] }}
         Titre : {{ $article['title'] }}
         Slug : {{ $article['slug'] }}
         Date de publication : {{ $article['publish_at'] }}

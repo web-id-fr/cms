@@ -12,6 +12,12 @@ class ArticleResource extends JsonResource
 
     public function toArray($request)
     {
+        $available_types = [
+            Article::_TYPE_PRESS => "press",
+            Article::_TYPE_NORMAL => "normal",
+            Article::_TYPE_CITATION => "citation",
+        ];
+
         return [
             'title' => $this->resource->title,
             'slug' => $this->resource->slug,
@@ -20,7 +26,7 @@ class ArticleResource extends JsonResource
             'status' => Article::statusLabels()[$this->resource->status],
             'extrait' => $this->resource->extrait,
             'content' => $this->resource->content->toArray(),
-            'article_type' => $this->resource->article_type,
+            'article_type' => $available_types[$this->resource->article_type],
             'quotation' => $this->resource->quotation,
             'author' => $this->resource->author,
             'metatitle' => $this->resource->metatitle,
