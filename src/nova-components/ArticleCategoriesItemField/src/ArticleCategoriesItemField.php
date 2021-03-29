@@ -34,10 +34,10 @@ class ArticleCategoriesItemField extends Field
     }
 
     /**
-     * @param  NovaRequest  $request
-     * @param  string  $requestAttribute
-     * @param  object  $model
-     * @param  string  $attribute
+     * @param  NovaRequest $request
+     * @param  string $requestAttribute
+     * @param  object $model
+     * @param  string $attribute
      *
      * @return mixed
      */
@@ -76,5 +76,19 @@ class ArticleCategoriesItemField extends Field
         if ($valueInArray) {
             $this->value = $valueInArray;
         }
+    }
+
+    /**
+     * @param bool $isSingle
+     *
+     * @return ArticleCategoriesItemField
+     */
+    public function single(bool $isSingle)
+    {
+        if ($isSingle) {
+            return $this->withMeta(['limit' => 1]);
+        }
+
+        return $this->withMeta(['limit' => 100]);
     }
 }
