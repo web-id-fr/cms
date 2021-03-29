@@ -108,7 +108,8 @@ class Article extends Resource
                 ->singleLine()
                 ->hideFromIndex(),
 
-            ArticleCategoriesItemField::make(__('Categories'), 'categories'),
+            ArticleCategoriesItemField::make(__('Categories'), 'categories')
+                ->single(config('articles.single_category')),
 
             Number::make(__('Order'), 'order')
                 ->min(0)->step(1),

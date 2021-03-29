@@ -19,6 +19,7 @@ class ArticlesServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->publishConfig();
         $this->registerAndPublishViews();
 
         $this->loadMigrationsFrom(module_path(self::MODULE_NAME, 'Database/Migrations'));
@@ -69,5 +70,21 @@ class ArticlesServiceProvider extends ServiceProvider
         $this->loadViewsFrom(array_merge(array_map(function ($path) use ($moduleAlias) {
             return $path . "/modules/{$moduleAlias}";
         }, Config::get('view.paths')), [$sourcePath]), $moduleAlias);
+    }
+
+    /**
+     * @return void
+     */
+    protected function publishConfig(): void
+    {
+        $moduleAlias = self::MODULE_ALIAS;
+        $sourcePath = module_path(self::MODULE_NAME, 'Config');
+
+        $this->publishes([
+            $sourcePath . '/articles.php' => config_path('articles.php'),
+        ], [
+            "{$moduleAlias}-module",
+            "{$moduleAlias}-module-config",
+        ]);
     }
 }

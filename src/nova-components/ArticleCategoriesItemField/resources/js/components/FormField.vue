@@ -14,6 +14,7 @@
                         :close-on-select="false"
                         :clear-on-select="false"
                         :taggable="true"
+                        :max="field.limit"
                     ></multiselect>
                 </div>
             </div>
