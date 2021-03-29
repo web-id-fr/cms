@@ -32,7 +32,8 @@
         Opengraph description : {{ $article['og_description'] }}
         Opengraph picture : <img width="150" src="{{ $article['og_picture'] }}" alt="{{ $article['og_picture_alt'] }}">
         ---
-        Categories : @foreach($article['categories'] as $category)@endforeach
+                Categories : @foreach($article['categories'] as $category)
+            @if(!empty($category['name'])) <a href="{{ route('articles.categories.show', ['category' => $category['name']]) }}">#{{ $category['name'] }}</a> @endif @endforeach
 
         Articles en relations :
         @foreach($article['related'] as $article_related)
@@ -52,7 +53,8 @@
                 ])
                 @endcomponent
             @endforeach
-            Categories : @foreach($article['categories'] as $category)@endforeach
+            Categories : @foreach($article['categories'] as $category)
+                @if(!empty($category['name'])) <a href="{{ route('articles.categories.show', ['category' => $category['name']]) }}">#{{ $category['name'] }}</a> @endif @endforeach
         @endforeach
         @if(!empty($category['name']))
             <a href="{{ route('articles.categories.show', ['category' => $category['name']]) }}">#{{ $category['name'] }}</a>
