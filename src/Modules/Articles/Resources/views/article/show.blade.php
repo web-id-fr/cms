@@ -53,7 +53,7 @@
                 ])
                 @endcomponent
             @endforeach
-            Categories : @foreach($article['categories'] as $category)
+            Categories : @foreach($article_related['categories'] as $category)
                 @if(!empty($category['name'])) <a href="{{ route('articles.categories.show', ['category' => $category['name']]) }}">#{{ $category['name'] }}</a> @endif @endforeach
         @endforeach
     </pre>
