@@ -21,6 +21,7 @@ class ArticlesServiceProvider extends ServiceProvider
     {
         $this->publishConfig();
         $this->registerAndPublishViews();
+        $this->registerConfig();
 
         $this->loadMigrationsFrom(module_path(self::MODULE_NAME, 'Database/Migrations'));
 
@@ -86,5 +87,16 @@ class ArticlesServiceProvider extends ServiceProvider
             "{$moduleAlias}-module",
             "{$moduleAlias}-module-config",
         ]);
+    }
+
+    protected function registerConfig(): void
+    {
+        $moduleAlias = self::MODULE_ALIAS;
+        $sourcePath = module_path(self::MODULE_NAME, 'Config');
+
+        $this->mergeConfigFrom(
+            $sourcePath . '/articles.php',
+            $moduleAlias
+        );
     }
 }
