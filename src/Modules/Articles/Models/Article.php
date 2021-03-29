@@ -82,6 +82,12 @@ class Article extends Model
     const _TYPE_NORMAL = 1;
     const _TYPE_CITATION = 2;
 
+    public $available_types = [
+        self::_TYPE_PRESS => "press",
+        self::_TYPE_NORMAL => "normal",
+        self::_TYPE_CITATION => "citation",
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -144,5 +150,13 @@ class Article extends Model
             self::_TYPE_PRESS => __('Press'),
             self::_TYPE_CITATION => __('Citation'),
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getArticleTypeSlug(): string
+    {
+        return $this->available_types[$this->article_type];
     }
 }

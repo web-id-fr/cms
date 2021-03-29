@@ -13,12 +13,6 @@ class ArticleResource extends JsonResource
 
     public function toArray($request)
     {
-        $available_types = [
-            Article::_TYPE_PRESS => "press",
-            Article::_TYPE_NORMAL => "normal",
-            Article::_TYPE_CITATION => "citation",
-        ];
-
         $related_articles = app(ArticleRepository::class)
             ->getXRelatedArticles($this->resource, config('articles.limit_related_articles'));
 
@@ -30,7 +24,7 @@ class ArticleResource extends JsonResource
             'status' => Article::statusLabels()[$this->resource->status],
             'extrait' => $this->resource->extrait,
             'content' => $this->resource->content->toArray(),
-            'article_type' => $available_types[$this->resource->article_type],
+            'article_type' => $this->getArticleTypeSlug(),
             'quotation' => $this->resource->quotation,
             'author' => $this->resource->author,
             'metatitle' => $this->resource->metatitle,
