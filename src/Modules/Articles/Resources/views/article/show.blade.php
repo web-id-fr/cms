@@ -19,7 +19,7 @@
         Statut : {{ $article['status'] }}
         Extrait (HTML) : {!! $article['extrait'] !!}
         Contenu (HTML) :
-       @foreach($article['content'] ?? [] as $content)
+        @foreach($article['content'] ?? [] as $content)
             @component('articles::content.' . $content['layout'], [
                 'data' => $content
             ])
@@ -32,7 +32,30 @@
         Opengraph description : {{ $article['og_description'] }}
         Opengraph picture : <img width="150" src="{{ $article['og_picture'] }}" alt="{{ $article['og_picture_alt'] }}">
         ---
-        Categories : @foreach($article['categories'] as $category)
-@if(!empty($category['name'])) <a href="{{ route('articles.categories.show', ['category' => $category['name']]) }}">#{{ $category['name'] }}</a> @endif @endforeach
+        Categories : @foreach($article['categories'] as $category)@endforeach
+
+        Articles en relations :
+        @foreach($articles['related'] as $article_related)
+            Type : {{ $article_related['article_type'] }}
+            Titre : {{ $article_related['title'] }}
+            Slug : {{ $article_related['slug'] }}
+            Date de publication : {{ $article_related['publish_at'] }}
+            ---
+            Image : <img width="150" src="{{ $article_related['image'] }}"
+                         alt="{{ $article_related['image_alt'] }}">
+            Statut : {{ $article_related['status'] }}
+            Extrait (HTML) : {!! $article_related['extrait'] !!}
+            Contenu (HTML) :
+            @foreach($article_related['content'] ?? [] as $content)
+                @component('articles::content.' . $content['layout'], [
+                    'data' => $content
+                ])
+                @endcomponent
+            @endforeach
+            Categories : @foreach($article['categories'] as $category)@endforeach
+        @endforeach
+        @if(!empty($category['name']))
+            <a href="{{ route('articles.categories.show', ['category' => $category['name']]) }}">#{{ $category['name'] }}</a>
+        @endif
     </pre>
 @endsection

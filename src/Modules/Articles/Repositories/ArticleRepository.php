@@ -114,4 +114,22 @@ class ArticleRepository
             ->orderBy('order')
             ->get();
     }
+
+    /**
+     * @param Article $article
+     * @param int $limit
+     *
+     * @return Collection<Article>
+     */
+    public function getXRelatedArticles(Article $article, int $limit): Collection
+    {
+        return $this->model
+            ->whereHas('categories', function ($query) use ($article) {
+                $query->whereIn('id', $article->categories->pluck('id'));
+            })
+            ->where('id', '!=', $article->id)
+            ->orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->get();
+    }
 }

@@ -4,9 +4,8 @@ namespace Webid\Cms\Modules\Articles\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webid\Cms\Modules\Articles\Models\Article;
-use Webid\Cms\Modules\Articles\Repositories\ArticleRepository;
 
-class ArticleResource extends JsonResource
+class RelatedArticleResource extends JsonResource
 {
     /** @var Article */
     public $resource;
@@ -19,9 +18,6 @@ class ArticleResource extends JsonResource
             Article::_TYPE_CITATION => "citation",
         ];
 
-        $related_articles = app(ArticleRepository::class)
-            ->getXRelatedArticles($this->resource, config('articles.limit_related_articles'));
-
         return [
             'title' => $this->resource->title,
             'slug' => $this->resource->slug,
@@ -33,15 +29,8 @@ class ArticleResource extends JsonResource
             'article_type' => $available_types[$this->resource->article_type],
             'quotation' => $this->resource->quotation,
             'author' => $this->resource->author,
-            'metatitle' => $this->resource->metatitle,
-            'metadescription' => $this->resource->metadescription,
-            'og_title' => $this->resource->opengraph_title,
-            'og_description' => $this->resource->opengraph_description,
-            'og_picture' => media_full_url($this->resource->opengraph_picture),
-            'og_picture_alt' => $this->resource->opengraph_picture_alt,
             'publish_at' => $this->resource->publish_at,
             'categories' => ArticleCategoryResource::collection($this->whenLoaded('categories'))->resolve(),
-            'related' => RelatedArticleResource::collection($related_articles)->resolve(),
         ];
     }
 }
