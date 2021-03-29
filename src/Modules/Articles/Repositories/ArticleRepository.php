@@ -124,6 +124,7 @@ class ArticleRepository
     public function getXRelatedArticles(Article $article, int $limit): Collection
     {
         return $this->model
+            ->published()
             ->whereHas('categories', function ($query) use ($article) {
                 $query->whereIn('id', $article->categories->pluck('id'));
             })
