@@ -35,7 +35,7 @@
         Categories : @foreach($article['categories'] as $category)@endforeach
 
         Articles en relations :
-        @foreach($articles['related'] as $article_related)
+        @foreach($article['related'] as $article_related)
             Type : {{ $article_related['article_type'] }}
             Titre : {{ $article_related['title'] }}
             Slug : {{ $article_related['slug'] }}
