@@ -29,7 +29,7 @@ class ArticleRepository
     /**
      * @return Collection<Article>
      */
-    public function getPublishedAndAllowOnListArticles(): Collection
+    public function getPublishedAndAllowedOnListArticles(): Collection
     {
         return $this->model
             ->published()
@@ -38,9 +38,27 @@ class ArticleRepository
             ->get();
     }
 
+    /**
+     * @param string $lang
+     * @param string $categoryName
+     *
+     * @return Collection<Article>
+     */
+    public function getPublishedAndAllowedOnListArticlesByCategory(string $lang, string $categoryName): Collection
+    {
+        return $this->model
+            ->published()
+            ->where('not_display_in_list', false)
+            ->whereHas('categories', function ($query) use ($lang, $categoryName) {
+                $query->whereJsonContains("name->{$lang}", $categoryName);
+            })
+            ->orderBy('order')
+            ->get();
+    }
 
     /**
      * @param string $language
+     *
      * @return Collection<Article>
      */
     public function getPublishedArticlesForLang(string $language): Collection
@@ -53,6 +71,7 @@ class ArticleRepository
     /**
      * @param string $slug
      * @param string $language
+     *
      * @return Article
      */
     public function getBySlug(string $slug, string $language): Article
@@ -69,6 +88,7 @@ class ArticleRepository
     /**
      * @param string $slug
      * @param string $language
+     *
      * @return Article|null
      */
     public function getLastCorrespondingSlugWithNumber(string $slug, string $language): ?Article
