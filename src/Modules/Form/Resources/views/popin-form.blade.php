@@ -33,6 +33,12 @@
                         <button type="submit"
                                 class="button button_bg_black fullwidth submit_desktop submit_form">{{ data_get($form, 'cta_name') }}</button>
                     </div>
+                    <div class="alert-success hide">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" height="24px" width="24px" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                        </svg>
+                        {{ __('template.form.success_message') }}
+                    </div>
                     <div class="mentions pad_popin">
                         {!! data_get($form, 'rgpd_mention') !!}
                     </div>
