@@ -56,11 +56,12 @@ $(() => {
         }
     }
 
+
     $('.dropzone').not(".dz-clickable").each(function () {
         let dropzone_id = $(this).attr('id');
-        let dropzone = $(this);
+        let dropzone_form = $(this);
 
-        dropzone.dropzone({
+        new Dropzone('div#' + dropzone_id, {
             paramName: "file",
             // Prevents Dropzone from uploading dropped files immediately
             autoProcessQueue: false,
@@ -76,11 +77,11 @@ $(() => {
             dictResponseError: textResponseError,
             dictCancelUploadConfirmation: textCancelUploadConfirmation,
             dictMaxFilesExceeded: textMaxFilesExceeded,
-            url: route('send.form', currentLang),
-            maxFiles: dropzone.data("maxFiles"),
+            url: route('send.form', currentLang).url(), // need to be changed on ziggy package update
+            maxFiles: dropzone_form.data("maxFiles"),
             error: function (file, errorMessage, xhr) {
                 // Calls the function form_error
-                formError(errorMessage, dropzone.closest("form"));
+                formError(errorMessage, dropzone_form.closest("form"));
                 // Allow file to be reuploaded !
                 file.status = Dropzone.QUEUED;
             },
@@ -116,7 +117,7 @@ $(() => {
 
                 // On sending via dropzone append token and form values
                 myDropzone.on("sending", function (file, xhr, formData) {
-                    dropzone.closest("form").find(":input:not(:button)").each(function () {
+                    dropzone_form.closest("form").find(":input:not(:button)").each(function () {
                         formData.append($(this).attr("name"), $(this).val());
                     });
                     formData.append("_token", $("meta[name=csrf-token]").attr("content"));
