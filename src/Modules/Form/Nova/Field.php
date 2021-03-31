@@ -74,6 +74,9 @@ class Field extends Resource
                 ->help(__('Please use only this type of name "name-of-the-field"'))
                 ->rules('required'),
 
+            Translatable::make(__('Label'), 'label')
+                ->singleLine(),
+
             ConditionalContainer::make([
                 Flexible::make(__('Field items'), 'field_options')
                     ->addLayout(__('Item section'), 'option', [

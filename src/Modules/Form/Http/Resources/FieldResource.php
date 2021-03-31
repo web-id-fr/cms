@@ -27,6 +27,7 @@ class FieldResource extends JsonResource
                 'field_name' => $this->resource->formable->field_name ?? '',
                 'field_type' => $field_type,
                 'placeholder' => $this->resource->formable->placeholder ?? '',
+                'label' => $this->resource->formable->label ?? '',
                 'required' => $this->resource->formable->required ?? '',
                 'date_field_title' => $this->resource->formable->date_field_title ?? '',
                 'date_field_placeholder' => $this->resource->formable->date_field_placeholder ?? '',
