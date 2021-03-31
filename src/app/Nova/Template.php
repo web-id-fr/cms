@@ -101,6 +101,7 @@ class Template extends Resource
                     'This field is optional and allows you to add a short description below the title in the sub-menu.'
                 ))
                 ->singleLine()
+                ->hideFromIndex()
                 ->sortable(),
 
             Translatable::make(__('Slug'), 'slug')
