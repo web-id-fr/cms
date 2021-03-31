@@ -68,14 +68,20 @@ class ArticleResolver implements ResolverInterface
 
             if (!empty($attributes['media'])) {
                 $attributes['full_media'] = media_full_url($attributes['media']);
+            } else {
+                $attributes['full_media'] = "";
             }
 
             if (!empty($attributes['video'])) {
                 $attributes['full_video'] = media_full_url($attributes['video']);
+            } else {
+                $attributes['full_video'] = "";
             }
 
             if (!empty($attributes['image'])) {
                 $attributes['full_image'] = media_full_url($attributes['image']);
+            } else {
+                $attributes['full_image'] = "";
             }
 
             $attributes['layout'] = $group->name();
