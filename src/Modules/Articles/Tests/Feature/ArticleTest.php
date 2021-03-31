@@ -14,24 +14,7 @@ class ArticleTest extends ArticlesTestCase
     use TestsNovaResource,
         ArticleCreator;
 
-    const ROUTE_INDEX = 'articles.index';
     const ROUTE_SHOW = 'articles.show';
-
-    /** @test */
-    public function we_can_access_articles_list()
-    {
-        $this->createArticle(['status' => Article::_STATUS_DRAFT]);
-        $this->createPublishedArticle(['slug' => ['fr' => 'le-slug']]);
-        $this->createPublishedArticle(['slug' => ['en' => 'dat-slug']]);
-
-        $response = $this->get(route(self::ROUTE_INDEX, ['lang' => 'fr']))
-            ->assertViewIs('articles::article.index');
-
-        $viewData = $response->viewData('articles');
-
-        $this->assertCount(1, $viewData);
-        $this->assertEquals('le-slug', $viewData[0]['slug']);
-    }
 
     /** @test */
     public function we_can_access_single_article()

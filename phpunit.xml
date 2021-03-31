@@ -22,9 +22,16 @@
             <directory suffix=".php">./src</directory>
             <exclude>
                 <directory>./src/config</directory>
+                <directory>./src/database</directory>
+                <directory>./src/resources</directory>
                 <directory>./src/routes</directory>
+                <directory>./src/Modules/*/Config</directory>
+                <directory>./src/Modules/*/Database</directory>
+                <directory>./src/Modules/*/Resources</directory>
                 <directory>./src/Modules/*/Routes</directory>
+                <directory>./src/nova-components/*/resources</directory>
                 <directory>./src/nova-components/*/routes</directory>
+                <directory>./src/nova-components/*/vendor</directory>
             </exclude>
         </whitelist>
     </filter>
