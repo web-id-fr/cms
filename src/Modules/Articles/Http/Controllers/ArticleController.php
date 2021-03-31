@@ -10,24 +10,11 @@ use Webid\Cms\Modules\Articles\Repositories\ArticleRepository;
 
 class ArticleController extends BaseController
 {
-    /** @var ArticleRepository */
-    private $repository;
+    private ArticleRepository $repository;
 
     public function __construct(ArticleRepository $repository)
     {
         $this->repository = $repository;
-    }
-
-    /**
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function index()
-    {
-        $articles = $this->repository->getPublishedArticlesForLang(app()->getLocale());
-
-        return View::make('articles::article.index', [
-            'articles' => $this->resourceToArray(ArticleResource::collection($articles)),
-        ]);
     }
 
     /**

@@ -19,6 +19,7 @@ use Spatie\Varnish\Middleware\CacheWithVarnish;
 use Webid\Cms\App\Http\Middleware\CheckLanguageExist;
 use Webid\Cms\App\Http\Middleware\IsAjax;
 use Webid\Cms\App\Http\Middleware\Language;
+use Webid\Cms\App\Http\Middleware\RedirectToHomepage;
 use Webid\Cms\App\Nova\Menu\Menu;
 use Webid\Cms\App\Nova\Menu\MenuCustomItem;
 use Webid\Cms\App\Nova\Popin\Popin;
@@ -232,6 +233,7 @@ class CmsServiceProvider extends ServiceProvider
         $router->aliasMiddleware('check-language-exist', CheckLanguageExist::class);
         $router->aliasMiddleware('cacheable', CacheWithVarnish::class);
         $router->aliasMiddleware('is-ajax', IsAjax::class);
+        $router->aliasMiddleware('redirect-to-homepage', RedirectToHomepage::class);
 
         // Create middleware groups
         $router->middlewareGroup('pages', []);
