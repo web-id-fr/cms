@@ -13,27 +13,12 @@ use Webid\Cms\App\Services\TemplateService;
 
 class TemplateController extends BaseController
 {
-    /** @var TemplateRepository */
-    protected $templateRepository;
+    protected TemplateRepository $templateRepository;
+    protected PopinRepository $popinRepository;
+    protected LanguageService $languageService;
+    protected TemplateService $templateService;
+    protected array $extraElementsForPage;
 
-    /** @var PopinRepository  */
-    protected $popinRepository;
-
-    /** @var LanguageService  */
-    protected $languageService;
-
-    /** @var TemplateService */
-    protected $templateService;
-
-    /** @var array */
-    protected $extraElementsForPage;
-
-    /**
-     * @param TemplateRepository $templateRepository
-     * @param PopinRepository $popinRepository
-     * @param LanguageService $languageService
-     * @param TemplateService $templateService
-     */
     public function __construct(
         TemplateRepository $templateRepository,
         PopinRepository $popinRepository,
@@ -48,17 +33,20 @@ class TemplateController extends BaseController
     }
 
     /**
+     * @param Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|null
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
             $slug = $this->templateRepository->getSlugForHomepage();
-
-            $data = TemplateResource::make($this->templateRepository->getBySlugWithRelations(
+            $template = $this->templateRepository->getBySlugWithRelations(
                 $slug->slug,
                 app()->getLocale()
-            ))->resolve();
+            );
+
+            $data = TemplateResource::make($template)->resolve();
 
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
@@ -78,6 +66,7 @@ class TemplateController extends BaseController
                 'og_description' => data_get($data, 'opengraph_description'),
                 'indexation' => data_get($data, 'indexation'),
                 'keywords' => data_get($data, 'meta_keywords'),
+                'canonical' => $this->templateService->getCanonicalUrlFor($template, $request->query()),
             ];
 
             return view('template', [
@@ -124,6 +113,7 @@ class TemplateController extends BaseController
                 'og_description' => data_get($data, 'opengraph_description'),
                 'indexation' => data_get($data, 'indexation'),
                 'keywords' => data_get($data, 'meta_keywords'),
+                'canonical' => $this->templateService->getCanonicalUrlFor($template, $request->query()),
             ];
 
             return view('template', [

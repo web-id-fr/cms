@@ -13,6 +13,9 @@
     <meta property="og:type" content="{{ data_get($meta, 'type', 'website') }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:description" content="{{ strip_tags(data_get($meta, 'og_description', '')) }}">
+    @if(!empty($meta['canonical']))
+        <link rel="canonical" href="{{ $meta['canonical'] }}"/>
+    @endif
     <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('cms/css/override_nova.css') }}" />
     @yield('assets')

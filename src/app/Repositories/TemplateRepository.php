@@ -113,4 +113,20 @@ class TemplateRepository
             ->where('indexation', true)
             ->get();
     }
+
+    /**
+     * @return Collection<Template>
+     */
+    public function getPublicPagesContainingArticlesLists(): Collection
+    {
+        return $this->model
+            ->where('status', Template::_STATUS_PUBLISHED)
+            ->where(function ($query) {
+                $query->orWhere('publish_at', '<', now())
+                    ->orWhereNull('publish_at');
+            })
+            ->where('indexation', true)
+            ->where('contains_articles_list', true)
+            ->get();
+    }
 }
