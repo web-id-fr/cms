@@ -50,15 +50,16 @@ class FormRequest extends BaseRequest
         }
 
         foreach ($form->related as $field) {
-            if (get_class($field) == Field::class) {
-                $field_type = config("fields_type.$field->field_type");
+            if ($field->formable_type == Field::class) {
+                $field_type = $field->formable->field_type;
+                $field_type = config("fields_type.$field_type");
                 if (array_key_exists($field_type, config("fields_type_validation"))) {
-                    if ($field->required) {
+                    if ($field->formable->required) {
                         $rules = config("fields_type_validation.$field_type") . '|required';
                     } else {
                         $rules = 'nullable|' . config("fields_type_validation.$field_type");
                     }
-                    $fields_rules[$field->field_name] = $rules;
+                    $fields_rules[$field->formable->field_name] = $rules;
                 }
             }
         }
