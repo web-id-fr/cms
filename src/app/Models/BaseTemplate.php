@@ -46,6 +46,7 @@ abstract class BaseTemplate extends Model
         'publish_at',
         'homepage',
         'menu_description',
+        'contains_articles_list',
     ];
 
     /**
@@ -101,5 +102,15 @@ abstract class BaseTemplate extends Model
     {
         return $this->hasMany(Component::class)
             ->orderBy('order');
+    }
+
+    public function isHomepage(): bool
+    {
+        return boolval($this->homepage);
+    }
+
+    public function containsArticlesList(): bool
+    {
+        return boolval($this->contains_articles_list);
     }
 }

@@ -4,6 +4,7 @@ namespace Webid\Cms\App\Services;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Arr;
+use Webid\Cms\App\Models\BaseTemplate;
 use Webid\Cms\App\Repositories\TemplateRepository;
 
 class TemplateService
@@ -67,5 +68,27 @@ class TemplateService
         } catch (ModelNotFoundException $exception) {
             return '';
         }
+    }
+
+    /**
+     * @param BaseTemplate $template
+     * @param array $queryParams
+     * @return string
+     */
+    public function getCanonicalUrlFor(BaseTemplate $template, array $queryParams): string
+    {
+        $routeParams = [];
+        $routename = 'home';
+
+        if (!$template->isHomepage()) {
+            $routename = 'pageFromSlug';
+            $routeParams['slug'] = $template->slug;
+        }
+
+        if ($template->containsArticlesList() && isset($queryParams['category'])) {
+            $routeParams['category'] = $queryParams['category'];
+        }
+
+        return route($routename, $routeParams);
     }
 }
