@@ -60,7 +60,7 @@ $(() => {
         let dropzone_id = $(this).attr('id');
         let dropzone = $(this);
 
-        dropzone.dropzone({
+        new Dropzone('div#' + dropzone_id, {
             paramName: "file",
             // Prevents Dropzone from uploading dropped files immediately
             autoProcessQueue: false,
@@ -76,7 +76,7 @@ $(() => {
             dictResponseError: textResponseError,
             dictCancelUploadConfirmation: textCancelUploadConfirmation,
             dictMaxFilesExceeded: textMaxFilesExceeded,
-            url: route('send.form', currentLang),
+            url: route('send.form', currentLang).url(),  // need to be changed on ziggy package update
             maxFiles: dropzone.data("maxFiles"),
             error: function (file, errorMessage, xhr) {
                 // Calls the function form_error
