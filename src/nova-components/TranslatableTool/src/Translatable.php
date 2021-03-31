@@ -110,4 +110,12 @@ class Translatable extends Field
     {
         return $this->withMeta(['truncate' => true]);
     }
+
+    /**
+     * @return Translatable
+     */
+    public function shortenText(): self
+    {
+        return $this->withMeta(['shortenText' => true]);
+    }
 }

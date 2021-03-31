@@ -91,12 +91,14 @@ class Article extends Resource
 
             Translatable::make(__('Title'), 'title')
                 ->singleLine()
+                ->shortenText()
                 ->rules('required')
                 ->sortable(),
 
             Translatable::make(__('Slug'), 'slug')
                 ->help(__('Please use only this type of slug "name-of-the-template"'))
                 ->singleLine()
+                ->hideFromIndex()
                 ->rules('array', new TranslatableMax(100), new TranslatableSlug()),
 
             FilemanagerField::make(__('Article image'), 'article_image')
