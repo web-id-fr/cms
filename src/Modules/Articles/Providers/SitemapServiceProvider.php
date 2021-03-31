@@ -86,7 +86,6 @@ class SitemapServiceProvider extends ServiceProvider
                     $url->setAlternates($alternates[$article_id]);
                 }
             }
-
         }
 
         return Arr::flatten($urls);
