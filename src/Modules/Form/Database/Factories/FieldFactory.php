@@ -27,6 +27,9 @@ class FieldFactory extends Factory
         return [
             "field_name" => $field_name,
             "field_type" => $field_type,
+            "label" => [
+                'fr' => $field_name,
+            ],
             "placeholder" => [
                 'fr' => $field_name,
             ],

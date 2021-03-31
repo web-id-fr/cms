@@ -36,6 +36,7 @@ class Field extends Model
         'duration_field_title',
         'field_name_time',
         'field_name_duration',
+        'label',
     ];
 
     /**
@@ -51,6 +52,7 @@ class Field extends Model
         'time_field_title',
         'time_field_placeholder',
         'duration_field_title',
+        'label',
     ];
 
     /**
