@@ -30,6 +30,7 @@ Route::group(['middleware' => 'cacheable'], function () {
         // Laisser cette règle en dernier, elle risque "d'attraper" toutes les routes !
         Route::get('{slug}', [TemplateController::class, 'show'])
             ->where(['slug' => '(?!' . trim(config('nova.path'), '/') . '|ajax|api)([^\/]+)'])
+            ->middleware('redirect-to-homepage')
             ->name('pageFromSlug')
             ->fallback();
     });

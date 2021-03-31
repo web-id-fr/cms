@@ -99,14 +99,12 @@ class TemplateController extends BaseController
     public function show(Request $request)
     {
         try {
-            if ($this->templateService->getHomepageSlug() == $request->slug) {
-                return redirect(route('home'), 301);
-            }
-
-            $data = TemplateResource::make($this->templateRepository->getBySlugWithRelations(
+            $template = $this->templateRepository->getBySlugWithRelations(
                 $request->slug,
                 app()->getLocale()
-            ))->resolve();
+            );
+
+            $data = TemplateResource::make($template)->resolve();
 
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
