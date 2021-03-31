@@ -2,35 +2,36 @@
 
 namespace Webid\Cms\Modules\Articles\Providers;
 
-use Carbon\Carbon;
+use App\Models\Template;
+use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
+use Webid\Cms\App\Repositories\TemplateRepository;
 use Webid\Cms\App\Services\LanguageService;
 use Webid\Cms\App\Services\Sitemap\SitemapGenerator;
 use Webid\Cms\App\Services\Sitemap\SitemapUrl;
 use Webid\Cms\App\Services\Sitemap\SitemapUrlAlternate;
+use Webid\Cms\Modules\Articles\Models\ArticleCategory;
 use Webid\Cms\Modules\Articles\Repositories\ArticleCategoryRepository;
 use Webid\Cms\Modules\Articles\Repositories\ArticleRepository;
 
 class SitemapServiceProvider extends ServiceProvider
 {
-    /** @var SitemapGenerator */
     protected SitemapGenerator $sitemap;
-
-    /** @var ArticleRepository */
     protected ArticleRepository $articleRepository;
-
-    /** @var ArticleCategoryRepository */
     protected ArticleCategoryRepository $categoryRepository;
+    protected TemplateRepository $templateRepository;
 
     public function boot(
         SitemapGenerator $sitemap,
         ArticleRepository $articleRepository,
         ArticleCategoryRepository $categoryRepository,
-        LanguageService $languageService
+        LanguageService $languageService,
+        TemplateRepository $templateRepository
     ) {
         $this->sitemap = $sitemap;
         $this->articleRepository = $articleRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->templateRepository = $templateRepository;
 
         $this->sitemap->addCallback(function () use ($languageService) {
             return $this->registerSitemapableUrls(
@@ -46,7 +47,6 @@ class SitemapServiceProvider extends ServiceProvider
     protected function registerSitemapableUrls(array $usedLangs): array
     {
         return array_merge(
-            $this->registerArticlesIndex($usedLangs),
             $this->registerArticlesPages($usedLangs),
             $this->registerCategoriesPages($usedLangs)
         );
@@ -56,41 +56,13 @@ class SitemapServiceProvider extends ServiceProvider
      * @param string[] $usedLangs
      * @return array
      */
-    private function registerArticlesIndex(array $usedLangs): array
+    private function registerArticlesPages(array $usedLangs): array
     {
         $urls = [];
         $alternates = [];
 
-        foreach ($usedLangs as $lang) {
-            $path = route('articles.index', ['lang' => $lang]);
-            $latestUpdatedArticle = $this->articleRepository->latestUpdatedPublishedArticle();
-
-            $urls[] = new SitemapUrl(
-                $path,
-                $latestUpdatedArticle->updated_at ?? Carbon::now()
-            );
-            $alternates[] = new SitemapUrlAlternate($lang, $path);
-        }
-
-        foreach ($urls as $url) {
-            $url->setAlternates($alternates);
-        }
-
-        return $urls;
-    }
-
-    /**
-     * @param string[] $usedLangs
-     * @return array
-     */
-    private function registerArticlesPages(array $usedLangs): array
-    {
-        $urls = [];
-
         foreach ($this->articleRepository->getPublishedArticles() as $article) {
             $slugs = $article->getTranslations('slug');
-
-            $alternates = [];
 
             foreach ($usedLangs as $lang) {
                 if (!isset($slugs[$lang])) {
@@ -102,19 +74,22 @@ class SitemapServiceProvider extends ServiceProvider
                     'slug' => $slugs[$lang],
                 ]);
 
-                $urls[] = new SitemapUrl(
+                $urls[$article->id][] = new SitemapUrl(
                     $path,
                     $article->updated_at
                 );
-                $alternates[] = new SitemapUrlAlternate($lang, $path);
+                $alternates[$article->id][] = new SitemapUrlAlternate($lang, $path);
             }
 
-            foreach ($urls as $url) {
-                $url->setAlternates($alternates);
+            foreach ($urls as $article_id => $urls_for_article) {
+                foreach ($urls_for_article as $url) {
+                    $url->setAlternates($alternates[$article_id]);
+                }
             }
+
         }
 
-        return $urls;
+        return Arr::flatten($urls);
     }
 
     /**
@@ -125,31 +100,61 @@ class SitemapServiceProvider extends ServiceProvider
     {
         $urls = [];
 
-        foreach ($this->categoryRepository->all() as $category) {
-            $names = $category->getTranslations('name');
+        $pagesContainingArticlesLists = $this->templateRepository->getPublicPagesContainingArticlesLists();
 
-            $alternates = [];
+        foreach ($pagesContainingArticlesLists as $page) {
+            foreach ($this->categoryRepository->all() as $category) {
+                $urls = array_merge(
+                    $urls,
+                    $this->generateUrlsForPageAndCategory($usedLangs, $page, $category)
+                );
+            }
+        }
 
-            foreach ($usedLangs as $lang) {
-                if (!isset($names[$lang])) {
-                    continue;
-                }
+        return $urls;
+    }
 
-                $path = route('articles.categories.show', [
+    /**
+     * @param array $usedLangs
+     * @param Template $page
+     * @param ArticleCategory $category
+     * @return array
+     */
+    private function generateUrlsForPageAndCategory(array $usedLangs, Template $page, ArticleCategory $category): array
+    {
+        $urls = [];
+        $alternates = [];
+
+        $slugs = $page->getTranslations('slug');
+        $names = $category->getTranslations('name');
+
+        foreach ($usedLangs as $lang) {
+            if (!isset($names[$lang]) || !isset($slugs[$lang])) {
+                continue;
+            }
+
+            if ($page->isHomepage()) {
+                $path = route('home', [
                     'lang' => $lang,
                     'category' => $names[$lang],
                 ]);
-
-                $urls[] = new SitemapUrl(
-                    $path,
-                    $category->updated_at
-                );
-                $alternates[] = new SitemapUrlAlternate($lang, $path);
+            } else {
+                $path = route('pageFromSlug', [
+                    'lang' => $lang,
+                    'slug' => $slugs[$lang],
+                    'category' => $names[$lang],
+                ]);
             }
 
-            foreach ($urls as $url) {
-                $url->setAlternates($alternates);
-            }
+            $urls[] = new SitemapUrl(
+                $path,
+                $category->updated_at
+            );
+            $alternates[] = new SitemapUrlAlternate($lang, $path);
+        }
+
+        foreach ($urls as $url) {
+            $url->setAlternates($alternates);
         }
 
         return $urls;
