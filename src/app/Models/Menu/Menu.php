@@ -56,6 +56,7 @@ class Menu extends Model
     public function children()
     {
         return $this->hasMany(MenuItem::class, 'parent_id')
+            ->where('parent_type', Menu::class)
             ->with('menus')
             ->orderBy('order');
     }
