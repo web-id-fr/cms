@@ -76,7 +76,7 @@ $(() => {
             dictResponseError: textResponseError,
             dictCancelUploadConfirmation: textCancelUploadConfirmation,
             dictMaxFilesExceeded: textMaxFilesExceeded,
-            url: route('send.form', currentLang).url(),  // need to be changed on ziggy package update
+            url: route('send.form', currentLang).url(),
             maxFiles: dropzone.data("maxFiles"),
             error: function (file, errorMessage, xhr) {
                 // Calls the function form_error
