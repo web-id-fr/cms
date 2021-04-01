@@ -89,6 +89,7 @@ class MenuCustomItem extends Model
     public function children()
     {
         return $this->hasMany(MenuItem::class, 'parent_id')
+            ->where('parent_type', MenuCustomItem::class)
             ->with('menus')
             ->orderBy('order');
     }
