@@ -25,7 +25,7 @@
         "maatwebsite/laravel-nova-excel": "^1.1",
         "tightenco/ziggy": "^0.9.3",
         "spatie/laravel-varnish": "^2.8",
-        "spatie/laravel-honeypot": "^2.3",
+        "spatie/laravel-honeypot": "^3.0",
         "ext-json": "*",
         "spatie/laravel-sitemap": "^5.8",
         "nwidart/laravel-modules": "^8.0",
