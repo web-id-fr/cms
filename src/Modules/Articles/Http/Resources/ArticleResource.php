@@ -34,6 +34,7 @@ class ArticleResource extends JsonResource
             'og_picture' => media_full_url($this->resource->opengraph_picture),
             'og_picture_alt' => $this->resource->opengraph_picture_alt,
             'publish_at' => $this->resource->publish_at,
+            'created_at' => $this->resource->created_at,
             'categories' => ArticleCategoryResource::collection($this->whenLoaded('categories'))->resolve(),
             'related' => [
                 "articles" => RelatedArticleResource::collection($related_articles)->resolve()
