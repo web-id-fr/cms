@@ -49,5 +49,5 @@
 </div>
 
 @section('scripts')
-    <script type="text/javascript" src="{{ asset('js/send_form_popin.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/send_form.js') }}"></script>
 @endsection
