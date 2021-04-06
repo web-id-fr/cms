@@ -24,6 +24,14 @@ class ArticleCategoryRepository
     }
 
     /**
+     * @return Collection<ArticleCategory>
+     */
+    public function getCategoriesWithArticles(): Collection
+    {
+        return $this->model->whereHas('articles')->get();
+    }
+
+    /**
      * @param string $categoryName
      * @param string $language
      * @return ArticleCategory
