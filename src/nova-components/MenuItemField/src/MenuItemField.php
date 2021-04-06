@@ -38,7 +38,7 @@ class MenuItemField extends Field
         $allMenuCustomItems = $menuCustomItemRepository->all();
         $children = $this->getChildren($allMenuCustomItems, $children);
         $allMenuCustomItems = $this->mapItems($allMenuCustomItems, $children, MenuCustomItem::class);
-        foreach($allMenuCustomItems as $customItem) {
+        foreach ($allMenuCustomItems as $customItem) {
             $allItems->push($customItem);
         }
 
@@ -46,7 +46,7 @@ class MenuItemField extends Field
         $allTemplates = $templateRepository->getPublishedTemplates();
         $children = $this->getChildren($allTemplates, $children);
         $allTemplates = $this->mapItems($allTemplates, $children, Template::class);
-        foreach($allTemplates as $template) {
+        foreach ($allTemplates as $template) {
             $allItems->push($template);
         }
 
