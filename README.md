@@ -14,7 +14,7 @@
   7. [Configure sitemap.xml](#configure-sitemap)
 * [Customization](#customization)
   1. [Use cookies.js](#use-cookies-js)
-  2. [Use form & popin form](#use-form-popin)
+  2. [Use form](#use-form-popin)
   3. [Internationalization](#language-front)
   4. [Update email template](#update-mail-template)
   5. [Add images for components](#add-image-components)
@@ -142,16 +142,16 @@ Sitemap: https://www.your-domain.com/sitemap.xml
 ###### To use the cookies popin, just fill the ``resources/views/warning_cookies.blade.php`` view, include it in ``resources/views/template.blade.php`` with the js ``public/cms/js/cookies.js``
 
 <a id="use-form-popin"></a>
-### Use form & popin form
+### Use form
 #### js
-do not modify the files `send_form.js` !
+do not modify the file `send_form.js` !
 Edit the `helper.js` file with the form front information to display errors and the success message.
 Added to `package.json` :
 ```bash
 "dropzone": "^5.7.0",
 "lang.js": "^1.1.14"
 ```
-And add in the `webpack.mix` file the `send_form_js` files. The file are already linked in the front.
+In the `webpack.mix` file, add the `send_form_js` file. The file is already linked in the front.
 #### front-end
 You can change the form frontend but DO NOT TOUCH the `submit_form` class for sending forms.
 
