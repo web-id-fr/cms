@@ -19,7 +19,7 @@
 
                 <div class="flex flex-col mt-3">
                     <div class="justify-content-between row">
-                        <nested-test class="col-8" v-model="selected" />
+                        <nested-rows class="col-8" v-model="selected" />
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
 
 <script>
     import {FormField, HandlesValidationErrors} from 'laravel-nova';
-    import NestedTest from "./nested-test.vue";
+    import NestedRows from "./nested-rows.vue";
     import Multiselect from 'vue-multiselect'
     import draggable from 'vuedraggable';
     import {map} from 'lodash';
@@ -42,7 +42,7 @@
         components: {
             Multiselect,
             draggable,
-            NestedTest,
+            NestedRows,
         },
 
         data() {

@@ -8,15 +8,17 @@
         @input="emitter"
     >
         <div class="item-group" :key="el.id" v-for="el in realValue">
-            <div class="item shadow-md p-3 my-2"><font-awesome-icon class="icons" icon="bars"/>{{ selectFirstTitle(el.title) }}</div>
-            <nested-test class="item-sub" :list="el.children" />
+            <div class="item shadow-md p-3 my-2"><font-awesome-icon class="icons" icon="bars"/>
+              {{ selectFirstTitle(el.title) }}
+            </div>
+            <nested-rows class="item-sub" :list="mapChildren(el)" />
         </div>
     </draggable>
 </template>
 
 <script>
     import draggable from "vuedraggable";
-
+    import {map} from "lodash";
     import {library} from '@fortawesome/fontawesome-svg-core';
     import {faBars} from '@fortawesome/free-solid-svg-icons';
     import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
@@ -24,7 +26,7 @@
     library.add(faBars);
 
     export default {
-        name: "nested-test",
+        name: "nested-rows",
 
         components: {
             draggable,
@@ -61,6 +63,16 @@
                 } else {
                     return title[this.currentLocale];
                 }
+            },
+
+            mapChildren(el) {
+                return map(el.children, (item) => {
+                    if (item.menuable) {
+                        return item.menuable;
+                    }
+
+                    return item;
+                });
             }
         },
 
