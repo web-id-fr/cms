@@ -3,6 +3,7 @@
 namespace Webid\MenuItemField;
 
 use App\Models\Template;
+use Illuminate\Support\Collection;
 use Webid\Cms\App\Models\Menu\Menu;
 use Webid\Cms\App\Repositories\Menu\MenuCustomItemRepository;
 use Webid\Cms\App\Repositories\TemplateRepository;
@@ -30,26 +31,26 @@ class MenuItemField extends Field
     {
         $menuCustomItemRepository = app()->make(MenuCustomItemRepository::class);
         $templateRepository = app()->make(TemplateRepository::class);
-        $allItem = collect();
+        $allItems = collect();
         $children = [];
 
         // MENU-CUSTOM-ITEM
-        $allMenuCustomItem = $menuCustomItemRepository->all();
-        $children = $this->getChildren($allMenuCustomItem, $children);
-        $allMenuCustomItem = $this->mapItems($allMenuCustomItem, $children, MenuCustomItem::class);
-        $allMenuCustomItem->each(function ($template) use (&$allItem) {
-            $allItem->push($template);
-        });
+        $allMenuCustomItems = $menuCustomItemRepository->all();
+        $children = $this->getChildren($allMenuCustomItems, $children);
+        $allMenuCustomItems = $this->mapItems($allMenuCustomItems, $children, MenuCustomItem::class);
+        foreach($allMenuCustomItems as $customItem) {
+            $allItems->push($customItem);
+        }
 
         // TEMPLATE
-        $allTemplate = $templateRepository->getPublishedTemplates();
-        $children = $this->getChildren($allTemplate, $children);
-        $allTemplate = $this->mapItems($allTemplate, $children, Template::class);
-        $allTemplate->each(function ($template) use (&$allItem) {
-            $allItem->push($template);
-        });
+        $allTemplates = $templateRepository->getPublishedTemplates();
+        $children = $this->getChildren($allTemplates, $children);
+        $allTemplates = $this->mapItems($allTemplates, $children, Template::class);
+        foreach($allTemplates as $template) {
+            $allItems->push($template);
+        }
 
-        $this->withMeta(['items' => $allItem]);
+        $this->withMeta(['items' => $allItems]);
         parent::__construct($name, $attribute, $resolveCallback);
     }
 
@@ -129,12 +130,12 @@ class MenuItemField extends Field
     }
 
     /**
-     * @param $items
-     * @param $children
+     * @param Collection $items
+     * @param array $children
      *
-     * @return mixed
+     * @return array
      */
-    protected function getChildren($items, array $children)
+    protected function getChildren(Collection $items, array $children): array
     {
         foreach ($items as $template) {
             foreach ($template->menus as $menu) {
@@ -149,13 +150,13 @@ class MenuItemField extends Field
     }
 
     /**
-     * @param $items
-     * @param $children
-     * @param $model
+     * @param Collection $items
+     * @param array $children
+     * @param string $model
      *
-     * @return mixed
+     * @return Collection
      */
-    protected function mapItems($items, $children, string $model)
+    protected function mapItems(Collection $items, array $children, string $model): Collection
     {
         return $items->map(function ($item) use ($children, $model) {
             if (!empty($children)
