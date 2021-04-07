@@ -91,6 +91,7 @@ abstract class BaseTemplate extends Model
     public function children()
     {
         return $this->hasMany(MenuItem::class, 'parent_id')
+            ->where('parent_type', static::class)
             ->with('menus')
             ->orderBy('order');
     }
