@@ -2,13 +2,14 @@
 
 namespace Webid\Cms\App\Models\Menu;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use \Spatie\Translatable\HasTranslations;
 use Webid\Cms\Modules\Form\Models\Form;
 
 class MenuCustomItem extends Model
 {
-    use HasTranslations;
+    use HasTranslations, HasFactory;
 
     const _STATUS_SELF = '_SELF';
     const _STATUS_BLANK = '_BLANK';
