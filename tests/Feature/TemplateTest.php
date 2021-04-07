@@ -42,6 +42,8 @@ class TemplateTest extends TestCase
             'slug' => [
                 'fr' => 'slug-homepage',
             ],
+            'follow' => true,
+            'indexation' => true,
         ]);
 
         $this->get(route(self::_ROUTE_PAGE, ['lang' => 'fr', 'slug' => 'slug-homepage']))
@@ -79,7 +81,12 @@ class TemplateTest extends TestCase
     {
         $this->createHomepageTemplate();
         $component = $this->createNewsletterComponent();
-        $template = $this->createTemplate(['homepage' => false, 'slug' => ['fr' => 'mon-slug']]);
+        $template = $this->createTemplate([
+            'homepage' => false,
+            'follow' => false,
+            'indexation' => false,
+            'slug' => ['fr' => 'mon-slug'],
+        ]);
 
         $template->newsletterComponents()->attach($component->getKey(), ['order' => 1]);
 
