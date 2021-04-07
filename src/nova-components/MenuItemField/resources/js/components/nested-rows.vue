@@ -18,7 +18,7 @@
 
 <script>
     import draggable from "vuedraggable";
-    import {map} from "lodash";
+    import {mapChildren} from "../helpers";
     import {library} from '@fortawesome/fontawesome-svg-core';
     import {faBars} from '@fortawesome/free-solid-svg-icons';
     import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
@@ -66,13 +66,7 @@
             },
 
             mapChildren(el) {
-                return map(el.children, (item) => {
-                    if (item.menuable) {
-                        return item.menuable;
-                    }
-
-                    return item;
-                });
+                return mapChildren(el);
             }
         },
 

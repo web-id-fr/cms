@@ -33,6 +33,7 @@
     import Multiselect from 'vue-multiselect'
     import draggable from 'vuedraggable';
     import {map} from 'lodash';
+    import {mapChildren} from "../helpers";
 
     export default {
         mixins: [FormField, HandlesValidationErrors],
@@ -110,7 +111,7 @@
                     return {
                         id: item.id,
                         menuable_type: item.menuable_type,
-                        children: item.children
+                        children: mapChildren(item)
                     };
                 });
                 this.handleChange(JSON.stringify(ids));
