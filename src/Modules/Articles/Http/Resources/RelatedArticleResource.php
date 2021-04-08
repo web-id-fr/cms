@@ -21,7 +21,6 @@ class RelatedArticleResource extends JsonResource
             'extrait' => $this->resource->extrait,
             'content' => $this->resource->content->toArray(),
             'article_type' => $this->getArticleTypeSlug(),
-            'quotation' => $this->resource->quotation,
             'author' => $this->resource->author,
             'publish_at' => $this->resource->publish_at,
             'categories' => ArticleCategoryResource::collection($this->whenLoaded('categories'))->resolve(),

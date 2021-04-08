@@ -158,11 +158,6 @@ class Article extends Resource
                 ->preset(ArticlePreset::class)
                 ->hideFromIndex(),
 
-            Translatable::make(__('Quotation'), 'quotation')
-                ->trix()
-                ->asHtml()
-                ->hideFromIndex(),
-
             Translatable::make(__('Author'), 'author')
                 ->singleLine()
                 ->hideFromIndex(),
