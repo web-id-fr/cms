@@ -51,7 +51,6 @@ class Article extends Model
         'order',
         'not_display_in_list',
         'article_type',
-        'quotation',
         'author',
     ];
 
@@ -68,7 +67,6 @@ class Article extends Model
         'opengraph_title',
         'opengraph_description',
         'opengraph_picture_alt',
-        'quotation',
         'author',
     ];
 
@@ -80,12 +78,10 @@ class Article extends Model
     const _STATUS_DRAFT = 1;
     const _TYPE_PRESS = 0;
     const _TYPE_NORMAL = 1;
-    const _TYPE_CITATION = 2;
 
     public $available_types = [
         self::_TYPE_PRESS => "press",
         self::_TYPE_NORMAL => "normal",
-        self::_TYPE_CITATION => "citation",
     ];
 
     /**
@@ -148,7 +144,6 @@ class Article extends Model
         return [
             self::_TYPE_NORMAL => __('Normal'),
             self::_TYPE_PRESS => __('Press'),
-            self::_TYPE_CITATION => __('Citation'),
         ];
     }
 

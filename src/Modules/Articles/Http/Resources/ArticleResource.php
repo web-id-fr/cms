@@ -25,7 +25,6 @@ class ArticleResource extends JsonResource
             'extrait' => $this->resource->extrait,
             'content' => $this->resource->content->toArray(),
             'article_type' => $this->getArticleTypeSlug(),
-            'quotation' => $this->resource->quotation,
             'author' => $this->resource->author,
             'metatitle' => $this->resource->metatitle,
             'metadescription' => $this->resource->metadescription,

@@ -67,9 +67,6 @@ class ArticleFactory extends Factory
                 ],
             ]),
             'article_type' => array_rand(Article::availableArticleTypes()),
-            'quotation' => [
-                'fr' => $this->faker->text,
-            ],
             'author' => [
                 'fr' => $this->faker->name,
             ],
