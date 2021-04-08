@@ -77,7 +77,7 @@ if (!function_exists('has_zone_menu')) {
      */
     function has_zone_menu($zone): bool
     {
-        $menus =  app()->make(\Webid\Cms\App\Repositories\Menu\MenuRepository::class);
+        $menus = app()->make(\Webid\Cms\App\Repositories\Menu\MenuRepository::class);
 
         return $menus->menuZoneExist($zone);
     }
@@ -129,5 +129,12 @@ if (!function_exists('media_full_url')) {
         $file_path = ltrim($file_path, '/');
 
         return config('cms.image_path') . $file_path;
+    }
+}
+
+if (!function_exists('arrayKeysAreLocales')) {
+    function arrayKeysAreLocales(array $parameter): bool
+    {
+        return !empty(array_intersect_key(config('translatable.locales'), $parameter));
     }
 }
