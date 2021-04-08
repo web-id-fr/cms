@@ -39,9 +39,7 @@ class FormController extends BaseController
 
     /**
      * @param FormRequest $request
-     *
      * @return JsonResponse
-     *
      * @throws DecryptException
      */
     protected function handle(FormRequest $request)
@@ -65,7 +63,7 @@ class FormController extends BaseController
             $email = $request->$field;
 
             if (!empty($request->extra)) {
-                $extra = Crypt::decrypt($request->extra);
+                $extra = $this->decryptExtraParameters($request->extra);
             }
 
             Mail::to($email)->send(new $this->sendConfirmationContact($extra ?? []));
@@ -74,5 +72,23 @@ class FormController extends BaseController
         return response()->json([
             'errors' => false,
         ]);
+    }
+
+    /**
+     * @param string $extraParametersEncrypted
+     * @return array
+     * @throws DecryptException
+     */
+    private function decryptExtraParameters(string $extraParametersEncrypted): array
+    {
+        $extraParameters = Crypt::decrypt($extraParametersEncrypted);
+
+        return array_map(function ($parameter) {
+            if (is_array($parameter) && arrayKeysAreLocales($parameter)) {
+                return $parameter[app()->getLocale()] ?? '';
+            }
+
+            return $parameter;
+        }, $extraParameters);
     }
 }
