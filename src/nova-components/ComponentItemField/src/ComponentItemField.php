@@ -3,22 +3,14 @@
 namespace Webid\ComponentItemField;
 
 use App\Models\Template;
-use Illuminate\Support\Collection;
+use App\Services\ComponentsService;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\Cms\App\Models\Components\GalleryComponent;
 use Webid\Cms\App\Models\Components\NewsletterComponent;
-use Webid\Cms\App\Repositories\Components\GalleryComponentRepository;
-use Webid\Cms\App\Repositories\Components\NewsletterComponentRepository;
 
 class ComponentItemField extends Field
 {
-    /** @var GalleryComponentRepository  */
-    protected $galleryComponentRepository;
-
-    /** @var NewsletterComponentRepository  */
-    protected $newsletterComponentRepository;
-
     /**
      * The field's component.
      *
@@ -33,64 +25,13 @@ class ComponentItemField extends Field
      */
     public function __construct(string $name, ?string $attribute = null, callable $resolveCallback = null)
     {
-        $this->galleryComponentRepository = app(GalleryComponentRepository::class);
-        $this->newsletterComponentRepository = app(NewsletterComponentRepository::class);
-        $components = collect();
-        $allGalleriesComponents = collect();
-        $allNewsletterComponents = collect();
-
-        $this->loadComponents(
-            $this->galleryComponentRepository->getPublishedComponents(),
-            GalleryComponent::class,
-            $allGalleriesComponents
-        );
-        $this->loadComponents(
-            $this->newsletterComponentRepository->getPublishedComponents(),
-            NewsletterComponent::class,
-            $allNewsletterComponents
-        );
-
-        $components[config('components.' . GalleryComponent::class . '.title')] = $allGalleriesComponents;
-        $components[config('components.' . NewsletterComponent::class . '.title')] = $allNewsletterComponents;
+        $componentsService = app(ComponentsService::class);
 
         $this->withMeta([
-            'items' => $components,
+            'items' => $componentsService->getAllComponents(),
         ]);
 
         parent::__construct($name, $attribute, $resolveCallback);
-    }
-
-    /**
-     * @param Collection $items
-     * @param string $model
-     *
-     * @return Collection
-     */
-    protected function mapItems(Collection $items, string $model)
-    {
-        return $items->each(function ($item) use ($model) {
-            $item->component_type = $model;
-            $item->component_nova = config("components.$model.nova");
-            $item->component_image = asset(config("components.$model.image"));
-            return $item;
-        });
-    }
-
-    /**
-     * @param Collection $publishComponent
-     * @param string $model
-     * @param Collection $allComponents
-     *
-     * @return Collection
-     */
-    protected function loadComponents(Collection $publishComponent, string $model, Collection $allComponents)
-    {
-        $allPublishComponents = $this->mapItems($publishComponent, $model);
-        $allPublishComponents->each(function ($component) use (&$allComponents) {
-            $allComponents->push($component);
-        });
-
-        return $allComponents;
     }
 
     /**
@@ -124,6 +65,7 @@ class ComponentItemField extends Field
             $galleryComponentIds,
             $newsletterComponentIds
         ) {
+            /** @var Template $model */
             $model->galleryComponents()->sync($galleryComponentIds);
             $model->newsletterComponents()->sync($newsletterComponentIds);
         });
