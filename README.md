@@ -189,7 +189,8 @@ public/cms/images/components/newsletter_component.png
 ##### 1. create Models, migration, repositories, Nova, Resource for the new component (register all elements in a Components folder)
 ##### 2. update `config\component.php` with the information of the new component and add the image of the component in `public/components/`
 ##### 3. update `App\Models\Template` with the information of the new component
-##### 4. update `nova-components\ComponentField` with the information of the new component
+##### 4. update `Services\ComponentsService.php` with the information of the new component
+##### 5. update `nova-components\ComponentField` with the information of the new component
 
 ---
 
