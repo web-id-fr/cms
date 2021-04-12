@@ -144,7 +144,7 @@ class CmsServiceProvider extends ServiceProvider
     protected function publishProvider(): void
     {
         $this->publishes([
-            __DIR__ . '/../publish/app/Providers/NovaServiceProvider.php'
+            __DIR__ . '/app/Providers/NovaServiceProvider.php'
             => base_path('/app/Providers/NovaServiceProvider.php'),
         ], 'providers');
     }
