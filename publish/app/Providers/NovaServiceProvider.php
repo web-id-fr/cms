@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Nova\User;
+use App\Services\ComponentsService;
 use DigitalCreative\CollapsibleResourceManager\CollapsibleResourceManager;
 use DigitalCreative\CollapsibleResourceManager\Resources\Group;
 use DigitalCreative\CollapsibleResourceManager\Resources\InternalLink;
@@ -23,6 +24,17 @@ use Webid\MenuTool\MenuTool;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
+    public function boot()
+    {
+        parent::boot();
+
+        Nova::serving(function () {
+            Nova::copyDefaultDashboardCards();
+        });
+
+        $this->app->singleton(ComponentsService::class);
+    }
+
     /**
      * Register any application services.
      *
