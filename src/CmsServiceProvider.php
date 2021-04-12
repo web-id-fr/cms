@@ -144,7 +144,8 @@ class CmsServiceProvider extends ServiceProvider
     protected function publishProvider(): void
     {
         $this->publishes([
-            __DIR__ . '/app/Providers/NovaServiceProvider.php' => base_path('/app/Providers/NovaServiceProvider.php'),
+            __DIR__ . '/../publish/app/Providers/NovaServiceProvider.php'
+            => base_path('/app/Providers/NovaServiceProvider.php'),
         ], 'providers');
     }
 
@@ -195,8 +196,10 @@ class CmsServiceProvider extends ServiceProvider
     protected function publishServices(): void
     {
         $this->publishes([
-            __DIR__ . '/app/Services/ExtraElementsForPageService.php' =>
+            __DIR__ . '/../publish/app/Services/ExtraElementsForPageService.php' =>
                 base_path('/app/Services/ExtraElementsForPageService.php'),
+            __DIR__ . '/../publish/app/Services/ComponentsService.php' =>
+                base_path('/app/Services/ComponentsService.php'),
         ], 'services');
     }
 
