@@ -10,8 +10,8 @@ use Webid\Cms\App\Repositories\Components\NewsletterComponentRepository;
 
 class ComponentsService
 {
-    /** @var array<mixed> */
-    private $allComponents = [];
+    /** @var Collection */
+    private $allComponents;
 
     /** @var GalleryComponentRepository */
     private $galleryComponentRepository;
@@ -19,13 +19,13 @@ class ComponentsService
     /** @var NewsletterComponentRepository */
     private $newsletterComponentRepository;
 
-    public function getAllComponents()
+    public function getAllComponents(): Collection
     {
         if (!empty($this->allComponents)) {
             return $this->allComponents;
         }
 
-        $this->allComponents = [];
+        $this->allComponents = collect();
 
         $this->galleryComponentRepository = app(GalleryComponentRepository::class);
         $this->newsletterComponentRepository = app(NewsletterComponentRepository::class);
