@@ -23,7 +23,7 @@
         </DuplicateClass>
         <UndefinedClass>
             <errorLevel type="suppress">
-                <file name="src/app/Providers/NovaServiceProvider.php"/>
+                <file name="publish/app/Providers/NovaServiceProvider.php"/>
             </errorLevel>
         </UndefinedClass>
         <PropertyNotSetInConstructor errorLevel="suppress"/>
