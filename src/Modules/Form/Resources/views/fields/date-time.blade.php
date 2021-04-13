@@ -13,18 +13,16 @@
     </div>
     <div class="duration">
         <div class="title">{{ data_get($field, 'duration_field_title') }}</div>
-        <div class="select_custom">
-            @if(!empty($field['field_options']))
-                <select name="{{ data_get($field, 'field_name_duration') }}"
-                        id="select_duration"
-                        @if( data_get($field, 'required')) required @endif>
-                    @foreach(data_get($field, 'field_options') as $option)
-                        @if(!empty(data_get($option, "item.$currentLangKey")))
-                            <option value="{{ data_get($option, "item.$currentLangKey") }}"> {{ data_get($option, "item.$currentLangKey") }}</option>
-                        @endif
-                    @endforeach
-                </select>
-            @endif
-        </div>
+        @if(!empty($field['field_options']))
+            <select name="{{ data_get($field, 'field_name_duration') }}"
+                    id="select_duration"
+                    @if( data_get($field, 'required')) required @endif>
+                @foreach(data_get($field, 'field_options') as $option)
+                    @if(!empty(data_get($option, "item.$currentLangKey")))
+                        <option value="{{ data_get($option, "item.$currentLangKey") }}"> {{ data_get($option, "item.$currentLangKey") }}</option>
+                    @endif
+                @endforeach
+            </select>
+        @endif
     </div>
 </div>

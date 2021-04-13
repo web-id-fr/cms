@@ -1,21 +1,19 @@
-<div class="line_form">
-    @if( data_get($field, 'label'))
-        <label class="input-label">
-            {{ data_get($field, 'label', '') }}
-            <span>
-               @if( data_get($field, 'required')) * @endif
-            </span>
-        </label>
-    @endif
-    <div class="select_custom">
-        @if(!empty(data_get($field, 'field_options')))
-            <select name="{{ data_get($field, 'field_name') }}" @if( data_get($field, 'required')) required @endif>
+<div class="line_form input-container input-container--select">
+    <label class="input-label" for="{{ form_field_id($field, $id_form) }}">
+        {{ data_get($field, 'label', '') }}
+        @if( data_get($field, 'required')) * @endif
+    </label>
+    @if(!empty(data_get($field, 'field_options')))
+        <select id="{{ form_field_id($field, $id_form) }}" name="{{ data_get($field, 'field_name') }}" @if( data_get($field, 'required')) required @endif>
+            @if(!empty(data_get($field, 'field_options')))
                 @foreach(data_get($field, 'field_options') as $option)
-                    @if(!empty(data_get($option, "option.$currentLangKey")))
-                        <option value="{{ data_get($option, "option.$currentLangKey") }}"> {{ data_get($option, "option.$currentLangKey") }}</option>
+                    @if(!empty(data_get($option, "item.$currentLangKey")))
+                        <option value="{{ data_get($option, "item.$currentLangKey") }}">
+                            {{ data_get($option, "item.$currentLangKey") }}
+                        </option>
                     @endif
                 @endforeach
-            </select>
-        @endif
-    </div>
+            @endif
+        </select>
+    @endif
 </div>

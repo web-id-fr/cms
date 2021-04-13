@@ -20,6 +20,7 @@
                         @foreach(data_get($form, 'fields') as $field)
                             @component("form::fields." . data_get($field, 'field_type') , [
                                 'field' => $field,
+                                'id_form' => $data_popin
                             ])
                             @endcomponent
                         @endforeach
