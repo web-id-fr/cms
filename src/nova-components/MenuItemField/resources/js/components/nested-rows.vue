@@ -110,7 +110,7 @@
         margin: 5px;
     }
     .item-sub {
-        margin: 0 0 0 1rem;
+        margin: 0 0 0 3rem;
     }
     .icons {
         margin-right: 20px;
