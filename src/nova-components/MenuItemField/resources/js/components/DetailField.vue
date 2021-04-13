@@ -5,13 +5,12 @@
                 <div class="flex flex-col mt-3">
                     <div class="justify-content-between row">
                         <div class="item-group" :key="el.id" v-for="el in field.value">
-                            <div class="item shadow-md p-3 my-2"><font-awesome-icon class="icons" icon="bars"/>
+                            <div class="item shadow-md p-3 my-2">
                                 {{ selectFirstTitle(el.title) }}
                             </div>
                             <div v-if="mapChildren(el)" class="item-container item-sub">
                                 <div class="item-group" :key="submenu.id" v-for="submenu in mapChildren(el)">
                                     <div class="item shadow-md p-3 my-2">
-                                        <font-awesome-icon class="icons" icon="bars"/>
                                         {{ selectFirstTitle(submenu.title) }}
                                     </div>
                                 </div>
@@ -26,18 +25,9 @@
 
 <script>
     import {mapChildren} from "../helpers";
-    import {library} from '@fortawesome/fontawesome-svg-core';
-    import {faBars} from '@fortawesome/free-solid-svg-icons';
-    import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
-
-    library.add(faBars);
 
     export default {
         props: ['resource', 'resourceName', 'resourceId', 'field'],
-
-        components: {
-            'font-awesome-icon': FontAwesomeIcon,
-        },
 
         data() {
             return {
@@ -88,8 +78,5 @@
     }
     .item-sub {
         margin: 0 0 0 3rem;
-    }
-    .icons {
-        margin-right: 20px;
     }
 </style>
