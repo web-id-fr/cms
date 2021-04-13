@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Str;
+
 if (!function_exists('package_base_path')) {
     /**
      * Retourne le chemin en partant de la racine du package
@@ -136,5 +138,38 @@ if (!function_exists('arrayKeysAreLocales')) {
     function arrayKeysAreLocales(array $parameter): bool
     {
         return !empty(array_intersect_key(config('translatable.locales'), $parameter));
+    }
+}
+
+if (!function_exists('str_slug')) {
+    /**
+     * @param string $url
+     *
+     * @return string
+     */
+    function str_slug(string $url): string
+    {
+        return Str::slug($url);
+    }
+}
+
+if (!function_exists('form_field_id')) {
+    /**
+     * @param array $field
+     * @param string $idForm
+     *
+     * @return string
+     */
+    function form_field_id(array $field, string $idForm): string
+    {
+        $seed = array_sum(array_map(function ($char) {
+            return ord($char);
+        }, str_split($field['field_name'], 1)));
+
+        mt_srand((int)$seed);
+        $rand = substr(str_shuffle('abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789'), 0, 8);
+
+        $parts = [$rand, $field['field_name']];
+        return Str::slug($idForm . '-' . implode('-', $parts));
     }
 }
