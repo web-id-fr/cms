@@ -60,7 +60,7 @@ class Menu extends Resource
                 ->rules('required'),
 
             MenuItemField::make(__('Menu'), 'menu_item')
-                ->onlyOnForms(),
+                ->hideFromIndex(),
         ];
     }
 
