@@ -167,9 +167,9 @@ if (!function_exists('form_field_id')) {
         }, str_split($field['field_name'], 1)));
 
         mt_srand((int)$seed);
-        $rand = substr(str_shuffle('abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789'), 0, 8);
 
-        $parts = [$rand, $field['field_name']];
-        return Str::slug($idForm . '-' . implode('-', $parts));
+        return Str::slug($idForm . '-' . implode('-', [
+                $field['field_name']
+            ]));
     }
 }
