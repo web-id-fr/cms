@@ -1,6 +1,6 @@
 <template>
     <modal v-if="active">
-        <div class="bg-white rounded-lg shadow-lg overflow-auto overscroll-auto" style="width: 70vw;height: 70vh">
+        <div class="bg-white rounded-lg shadow-lg overflow-auto" style="width: 70vw;height: 70vh">
             <div class="flex flex-wrap border-b border-70">
                 <div class="w-3/4 px-4 py-3 ">
                     {{ __("Menu items") }}
