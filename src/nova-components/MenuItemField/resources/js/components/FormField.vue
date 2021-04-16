@@ -2,24 +2,38 @@
     <default-field :field="field" :errors="errors">
         <template slot="field">
             <div class="flex flex-col">
+                <Modal
+                    ref="modal"
+                    :menus="options"
+                    :active="activeModal"
+                    v-on:closeModal="closeModal"
+                    v-on:selectMenuItems="selectMenuItems"
+                    :search="search"
+                    :selected="selected"
+                />
+
                 <div class="flex flex-col">
-                    <multiselect
-                        v-model="selected"
-                        :options="field.items"
-                        placeholder="Search an item"
-                        label="title"
-                        :custom-label="customLabel"
-                        track-by="title"
-                        :multiple="true"
-                        :close-on-select="false"
-                        :clear-on-select="false"
-                        :taggable="true"
-                    ></multiselect>
+                    <button @click.prevent="showModalCreator($event)"
+                            class="btn btn-default btn-primary block m-3 w-1/2 mx-auto">
+                        <svg class="mx-1 align-middle" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                             viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        {{ __("Add a menu item") }}
+                    </button>
                 </div>
+
+                <multiselect v-model="selected"/>
 
                 <div class="flex flex-col mt-3">
                     <div class="justify-content-between row">
-                        <nested-rows class="col-8" v-model="selected" />
+                        <nested-rows
+                            v-on:selectMenuItems="selectMenuItems"
+                            class="col-8"
+                            v-model="selected"
+                        />
                     </div>
                 </div>
             </div>
@@ -30,10 +44,11 @@
 <script>
     import {FormField, HandlesValidationErrors} from 'laravel-nova';
     import NestedRows from "./nested-rows.vue";
+    import Modal from './modules/Modal';
     import Multiselect from 'vue-multiselect'
     import draggable from 'vuedraggable';
     import {map} from 'lodash';
-    import {mapChildren} from "../helpers";
+    import {mapChildren, successToast, errorToast} from "../helpers";
 
     export default {
         mixins: [FormField, HandlesValidationErrors],
@@ -44,16 +59,17 @@
             Multiselect,
             draggable,
             NestedRows,
+            Modal: Modal,
         },
 
         data() {
             return {
                 selected: [],
+                options: [],
                 currentLocale: null,
+                activeModal: false,
             }
         },
-
-        computed: {},
 
         mounted() {
             this.currentLocale = document.querySelector('#select-language-translatable').value;
@@ -63,7 +79,6 @@
         },
 
         methods: {
-
             /**
              * Fill the given FormData object with the field's internal value.
              */
@@ -77,6 +92,14 @@
             setInitialValue() {
                 this.value = this.field.value || '';
                 this.selected = this.value || [];
+                this.options = this.field.items || [];
+            },
+
+            changeMenuItems(newMenuItems) {
+                this.value = newMenuItems;
+                if (this.field) {
+                    Nova.$emit(this.field.attribute + '-change', this.value);
+                }
             },
 
             /**
@@ -86,36 +109,58 @@
                 this.value = value;
             },
 
-            customLabel ({ title }) {
-                return this.selectFirstTitle(title);
+            closeModal() {
+                this.activeModal = false;
             },
 
-            selectFirstTitle(title) {
-                if(!title[this.currentLocale]) {
-                    if(title[this.currentLocale + 1]) {
-                        return title[this.currentLocale + 1];
-                    } else if(title[this.currentLocale - 1]) {
-                        return title[this.currentLocale -1];
-                    } else {
-                        return title[Object.keys(title)[0]];
-                    }
-                } else {
-                    return title[this.currentLocale];
+            showModalCreator(e) {
+                this.stopDefaultActions(e);
+                this.activeModal = true;
+            },
+
+            stopDefaultActions(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            },
+
+            selectMenuItems(menuItem) {
+                const findIndex = _.findIndex(this.selected, menuItem);
+
+                if (findIndex >= 0) {
+                    this.selected.splice(findIndex, 1);
+                    errorToast(this.__('The menu item has been removed to the list'));
+                    return;
                 }
-            }
+
+                if (this.selected.indexOf(menuItem) === -1) {
+                    for (const [key, value] of Object.entries(this.selected)) {
+                       if (_.findIndex(value.children, menuItem) >= 0) {
+                           value.children.splice(_.findIndex(value.children, menuItem), 1);
+                          return;
+                       }
+                    }
+
+                    this.selected.push(menuItem);
+                    successToast(this.__('The menu item has been added to the list'));
+                }
+            },
         },
 
         watch: {
-            selected: function(val) {
-                let ids = map(val, (item) => {
-                    return {
-                        id: item.id,
-                        menuable_type: item.menuable_type,
-                        children: mapChildren(item)
-                    };
-                });
-                this.handleChange(JSON.stringify(ids));
-            }
+            selected: {
+                handler: function (val, oldVal) {
+                    this.changeMenuItems(val);
+                    let ids = map(val, (item) => {
+                        return {
+                            id: item.id,
+                            menuable_type: item.menuable_type,
+                            children: mapChildren(item)
+                        };
+                    });
+                    this.handleChange(JSON.stringify(ids));
+                },
+                deep: true
+            },
         }
     }
 </script>
