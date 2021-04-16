@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-wrap overscroll-y-contain">
+    <div class="flex flex-wrap">
         <table class="table custom-table w-full table-auto">
             <thead>
             <tr>
@@ -63,15 +63,20 @@
         },
 
         computed: {
-            isSelected(){
+            isSelected() {
                 return menuItem => {
-                    if (_.findIndex(this.selected, menuItem)) {
-                        return true;
-                    }
+                    let selected = this.selected.findIndex(function (elem) {
+                        return (_.isEqual(elem.title, menuItem.title) && _.isEqual(elem.menuable_type, menuItem.menuable_type));
+                    });
 
-                    if (_.findIndex(this.selected, menuItem) === -1) {
+                    if (selected >= 0) {
+                        return true;
+                    } else {
                         for (const [key, value] of Object.entries(this.selected)) {
-                            if (_.findIndex(value.children, menuItem) >= 0) {
+                            if (_.findIndex(value.children, {
+                                'title': menuItem.title,
+                                'menuable_type': menuItem.menuable_type
+                            }) >= 0) {
                                 return true;
                             }
                         }
