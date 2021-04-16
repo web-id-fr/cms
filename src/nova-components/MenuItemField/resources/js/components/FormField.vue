@@ -126,18 +126,24 @@
             selectMenuItems(menuItem) {
                 const findIndex = _.findIndex(this.selected, menuItem);
 
-                if (findIndex >= 0) {
+                let selected = this.selected.findIndex(function (elem) {
+                    return (_.isEqual(elem.title, menuItem.title) && _.isEqual(elem.menuable_type, menuItem.menuable_type));
+                });
+
+                if (selected >= 0) {
                     this.selected.splice(findIndex, 1);
                     errorToast(this.__('The menu item has been removed to the list'));
                     return;
-                }
-
-                if (this.selected.indexOf(menuItem) === -1) {
+                } else {
                     for (const [key, value] of Object.entries(this.selected)) {
-                       if (_.findIndex(value.children, menuItem) >= 0) {
-                           value.children.splice(_.findIndex(value.children, menuItem), 1);
-                          return;
-                       }
+                        if (_.findIndex(value.children, {
+                            'title': menuItem.title,
+                            'menuable_type': menuItem.menuable_type
+                        }) >= 0) {
+                            value.children.splice(_.findIndex(value.children, menuItem), 1);
+                            errorToast(this.__('The menu item has been removed to the list'));
+                            return;
+                        }
                     }
 
                     this.selected.push(menuItem);
