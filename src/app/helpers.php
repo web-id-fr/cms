@@ -162,7 +162,7 @@ if (!function_exists('form_field_id')) {
      */
     function form_field_id(array $field, string $idForm): string
     {
-        if (!isset($field['field_name']) {
+        if (!isset($field['field_name'])) {
             throw new \InvalidArgumentException("The field_name is missing.");
         }
         
