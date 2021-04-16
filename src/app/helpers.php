@@ -162,14 +162,10 @@ if (!function_exists('form_field_id')) {
      */
     function form_field_id(array $field, string $idForm): string
     {
-        $seed = array_sum(array_map(function ($char) {
-            return ord($char);
-        }, str_split($field['field_name'], 1)));
-
-        mt_srand((int)$seed);
-
-        return Str::slug($idForm . '-' . implode('-', [
-                $field['field_name']
-            ]));
+        if (!isset($field['field_name']) {
+            throw new \InvalidArgumentException("The field_name is missing.");
+        }
+        
+        return Str::slug($idForm . '-' . $field['field_name']);
     }
 }
