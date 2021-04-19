@@ -27,7 +27,7 @@
                     </svg>
                 </td>
                 <td v-on:click="select(menuItem)">
-                    {{ selectFirstTitle(menuItem.title) }}
+                    {{ getFirstTitle(menuItem.title) }}
                 </td>
             </tr>
             </tbody>
@@ -36,6 +36,8 @@
 </template>
 
 <script>
+    import {selectFirstTitle} from "../../helpers";
+
     export default {
         props: {
             menuItems: {
@@ -88,22 +90,12 @@
         },
 
         methods: {
-            select(menuItem) {
-                this.$emit('selectMenuItem', menuItem);
+            getFirstTitle(title) {
+                return selectFirstTitle(title, this.currentLocale);
             },
 
-            selectFirstTitle(title) {
-                if (!title[this.currentLocale]) {
-                    if (title[this.currentLocale + 1]) {
-                        return title[this.currentLocale + 1];
-                    } else if (title[this.currentLocale - 1]) {
-                        return title[this.currentLocale - 1];
-                    } else {
-                        return title[Object.keys(title)[0]];
-                    }
-                } else {
-                    return title[this.currentLocale];
-                }
+            select(menuItem) {
+                this.$emit('selectMenuItem', menuItem);
             },
         },
     };

@@ -6,7 +6,7 @@
                     <div class="item">
                         <div class="item-title flex min-h-full w-full border border-60 rounded">
                             <span>
-                                {{ selectFirstTitle(el.title) }}
+                                {{ getFirstTitle(el.title) }}
                             </span>
                         </div>
                     </div>
@@ -15,7 +15,7 @@
                             <div class="item">
                                 <div class="item-title flex min-h-full w-full border border-60 rounded">
                                     <span>
-                                        {{ selectFirstTitle(submenu.title) }}
+                                        {{ getFirstTitle(submenu.title) }}
                                     </span>
                                 </div>
                             </div>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import {mapChildren} from "../helpers";
+    import {mapChildren, selectFirstTitle} from "../helpers";
 
     export default {
         props: ['resource', 'resourceName', 'resourceId', 'field'],
@@ -51,18 +51,8 @@
                 this.$emit("input", value);
             },
 
-            selectFirstTitle(title) {
-                if (!title[this.currentLocale]) {
-                    if (title[this.currentLocale + 1]) {
-                        return title[this.currentLocale + 1];
-                    } else if (title[this.currentLocale - 1]) {
-                        return title[this.currentLocale - 1];
-                    } else {
-                        return title[Object.keys(title)[0]];
-                    }
-                } else {
-                    return title[this.currentLocale];
-                }
+            getFirstTitle(title) {
+                return selectFirstTitle(title, this.currentLocale);
             },
 
             mapChildren(el) {
