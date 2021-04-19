@@ -12,7 +12,7 @@
                 <div class="item-title flex min-h-full w-full border-t border-l border-b border-60 rounded-l">
                     <span>
                         <font-awesome-icon class="icons" icon="bars"/>
-                        {{ selectFirstTitle(el.title) }}
+                        {{ getFirstTitle(el.title) }}
                     </span>
                 </div>
                 <div class="item-button z-10 bg-white border-t border-60 border rounded-r-lg h-auto pin-l pin-t self-start w-8">
@@ -36,7 +36,7 @@
 
 <script>
     import draggable from "vuedraggable";
-    import {mapChildren} from "../helpers";
+    import {mapChildren, selectFirstTitle} from "../helpers";
     import {library} from '@fortawesome/fontawesome-svg-core';
     import {faBars} from '@fortawesome/free-solid-svg-icons';
     import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
@@ -82,18 +82,8 @@
                 this.$emit("input", value);
             },
 
-            selectFirstTitle(title) {
-                if (!title[this.currentLocale]) {
-                    if (title[this.currentLocale + 1]) {
-                        return title[this.currentLocale + 1];
-                    } else if (title[this.currentLocale - 1]) {
-                        return title[this.currentLocale - 1];
-                    } else {
-                        return title[Object.keys(title)[0]];
-                    }
-                } else {
-                    return title[this.currentLocale];
-                }
+            getFirstTitle(title) {
+                return selectFirstTitle(title, this.currentLocale);
             },
 
             mapChildren(el) {

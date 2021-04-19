@@ -54,3 +54,17 @@ export function errorToast(message, defaultMessage = 'An unexpected error occure
         }
     });
 }
+
+export function selectFirstTitle(title, local) {
+    if (!title[local]) {
+        if (title[local + 1]) {
+            return title[local + 1];
+        } else if (title[local - 1]) {
+            return title[local - 1];
+        } else {
+            return title[Object.keys(title)[0]];
+        }
+    } else {
+        return title[local];
+    }
+}
