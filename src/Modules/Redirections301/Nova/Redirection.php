@@ -3,12 +3,11 @@
 namespace Webid\Cms\Modules\Redirections301\Nova;
 
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource;
 use Webid\Cms\App\Nova\Traits\HasIconSvg;
-use Webid\Cms\App\Rules\IsUrlPath;
 use Webid\Cms\Modules\Redirections301\Models\Redirection as RedirectionModel;
+use Webid\Cms\Modules\Redirections301\Rules\RedirectionRules;
 
 class Redirection extends Resource
 {
@@ -31,19 +30,12 @@ class Redirection extends Resource
             Text::make(__('Source'), 'source_url')
                 ->placeholder(__('/my-source-url'))
                 ->help(__("Accepts only paths, no complete URL. Must start with a / ."))
-                ->rules([
-                    'required',
-                    Rule::unique($this->model()->getTable(), 'source_url')->ignore($this->model()->getKey()),
-                    new IsUrlPath,
-                ]),
+                ->rules(RedirectionRules::sourceUrlRules($this->model()->getKey())),
 
             Text::make(__('Destination'), 'destination_url')
                 ->placeholder(__('/my-destination-url'))
                 ->help(__("Accepts only paths, no complete URL. Must start with a / ."))
-                ->rules([
-                    'required',
-                    new IsUrlPath,
-                ]),
+                ->rules(RedirectionRules::destinationUrlRules()),
         ];
     }
 

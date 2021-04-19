@@ -6,8 +6,7 @@ use Webid\Cms\Modules\Redirections301\Models\Redirection;
 
 class RedirectionRepository
 {
-    /** @var Redirection */
-    private $model;
+    private Redirection $model;
 
     public function __construct(Redirection $model)
     {
@@ -19,5 +18,13 @@ class RedirectionRepository
         return $this->model
             ->where('source_url', 'REGEXP', "/?{$path}/?")
             ->first();
+    }
+
+    public function create(string $from, string $to): Redirection
+    {
+        return $this->model->create([
+            'source_url' => $from,
+            'destination_url' => $to,
+        ]);
     }
 }

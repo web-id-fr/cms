@@ -1,0 +1,136 @@
+<?php
+
+namespace Webid\Cms\Modules\Redirections301\Console;
+
+use Exception;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use SplFileInfo;
+use Throwable;
+use Webid\Cms\Modules\Redirections301\Repositories\RedirectionRepository;
+use Webid\Cms\Modules\Redirections301\Rules\RedirectionRules;
+
+class ImportRedirections extends Command
+{
+    const ERROR_FILE_INVALID = 1;
+    const ERROR_FOPEN = 2;
+    const ERROR_CREATE = 3;
+
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'redirections:import {filepath}';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Import a list of redirections in database, for a given CSV file.';
+
+    private RedirectionRepository $redirectionRepository;
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->redirectionRepository = app(RedirectionRepository::class);
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle(): int
+    {
+        $filepath = $this->argument('filepath');
+
+        if (!$this->isValidFilePath($filepath)) {
+            $this->error("Le fichier '{$filepath}' doit être un fichier CSV et être accessible en lecture.");
+            return self::ERROR_FILE_INVALID;
+        }
+
+        $fileHandle = fopen($filepath, 'r');
+
+        if ($fileHandle === false) {
+            $this->error("Une erreur est survenue lors de la tentative d'ouverture du fichier '{$filepath}'.");
+            return self::ERROR_FOPEN;
+        }
+
+        DB::beginTransaction();
+        try {
+            $this->importLines($fileHandle);
+        } catch (Throwable $exception) {
+            DB::rollBack();
+            $this->error($exception->getMessage());
+            return self::ERROR_CREATE;
+        }
+        DB::commit();
+
+        $this->line("Les redirections ont été importées avec succès !");
+
+        return 0;
+    }
+
+    /**
+     * @param string $filepath
+     * @return bool
+     */
+    private function isValidFilePath(string $filepath): bool
+    {
+        $file = new SplFileInfo($filepath);
+
+        $fileExists = $file->isFile();
+        $fileIsReadable = $file->isReadable();
+        $fileIsCsv = $file->getExtension() === 'csv';
+
+        return $fileExists && $fileIsReadable && $fileIsCsv;
+    }
+
+    /**
+     * @param resource $fileHandle
+     * @throws Throwable
+     */
+    private function importLines($fileHandle): void
+    {
+        $currentLine = 0;
+
+        while (($row = fgetcsv($fileHandle)) !== false) {
+            $currentLine++;
+
+            if ($currentLine == 1) {
+                continue;
+            }
+
+            $from = parse_url($row[0])['path'] ?? '';
+            $to = parse_url($row[1])['path'] ?? '';
+
+            if (empty($from) || empty($to)) {
+                continue;
+            }
+
+            $validator = Validator::make([
+                'from' => $from,
+                'to' => $to,
+            ], [
+                'from' => RedirectionRules::sourceUrlRules(),
+                'to' => RedirectionRules::destinationUrlRules(),
+            ]);
+
+            if ($validator->fails()) {
+                throw new Exception("Ligne {$currentLine}, erreurs : " . implode(' ', $validator->errors()->all()));
+            }
+
+            $this->redirectionRepository->create($from, $to);
+        }
+    }
+}
