@@ -6,6 +6,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
 use Webid\Cms\App\Services\DynamicResource;
+use Webid\Cms\Modules\Redirections301\Console\ImportRedirections;
 use Webid\Cms\Modules\Redirections301\Http\Middleware\RedirectOldLinks;
 use Webid\Cms\Modules\Redirections301\Nova\Redirection;
 
@@ -34,6 +35,10 @@ class Redirections301ServiceProvider extends ServiceProvider
             'label' => __('Redirections'),
             'badge' => null,
             'linkTo' => Redirection::class,
+        ]);
+
+        $this->commands([
+            ImportRedirections::class,
         ]);
     }
 }
