@@ -55,14 +55,14 @@ class ImportRedirections extends Command
         $filepath = $this->argument('filepath');
 
         if (!$this->isValidFilePath($filepath)) {
-            $this->error("Le fichier '{$filepath}' doit être un fichier CSV et être accessible en lecture.");
+            $this->error("The file '{$filepath}' must be a CSV file and must be readable.");
             return self::ERROR_FILE_INVALID;
         }
 
         $fileHandle = fopen($filepath, 'r');
 
         if ($fileHandle === false) {
-            $this->error("Une erreur est survenue lors de la tentative d'ouverture du fichier '{$filepath}'.");
+            $this->error("An error has occurred while trying to open the file '{$filepath}'.");
             return self::ERROR_FOPEN;
         }
 
@@ -76,7 +76,7 @@ class ImportRedirections extends Command
         }
         DB::commit();
 
-        $this->line("Les redirections ont été importées avec succès !");
+        $this->line("All redirections were imported successfully!");
 
         return 0;
     }
@@ -127,7 +127,7 @@ class ImportRedirections extends Command
             ]);
 
             if ($validator->fails()) {
-                throw new Exception("Ligne {$currentLine}, erreurs : " . implode(' ', $validator->errors()->all()));
+                throw new Exception("Line {$currentLine}, errors: " . implode(' ', $validator->errors()->all()));
             }
 
             $this->redirectionRepository->create($from, $to);
