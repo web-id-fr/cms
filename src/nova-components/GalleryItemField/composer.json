@@ -1,5 +1,5 @@
 {
-    "name": "webid/GalleryItemField",
+    "name": "webid/gallery-item-field",
     "description": "A Laravel Nova field.",
     "keywords": [
         "laravel",
