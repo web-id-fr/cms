@@ -13,7 +13,7 @@ class IsUrlPath implements Rule
      */
     public function passes($attribute, $value)
     {
-        return boolval(preg_match('/^(\/[^\/]+)+\/?$/i', $value));
+        return boolval(preg_match('/^(\/|(\/[^\/]+)+\/?)$/i', $value));
     }
 
     /**
