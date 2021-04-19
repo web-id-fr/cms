@@ -24,6 +24,7 @@ class IsUrlPathTest extends TestCase
     private function successfulValues(): array
     {
         return [
+            '/',
             '/toto',
             '/toto/',
             '/12',
