@@ -8,6 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Webid\Cms\App\Http\Controllers\BaseController;
+use Webid\Cms\Modules\Form\Events\FormSent;
 use Webid\Cms\Modules\Form\Http\Requests\FormRequest;
 use Webid\Cms\Modules\Form\Mail\SendForm;
 use Webid\Cms\Modules\Form\Repositories\FormRepository;
@@ -57,6 +58,8 @@ class FormController extends BaseController
         $fields = Arr::except($request->post(), ['valid_from', 'form_id', 'file', 'confirmation_email_name', 'extra']);
 
         Mail::to($to ?? config('mail.from.address'))->send(new SendForm($fields, $files));
+
+        event(new FormSent($fields, $files));
 
         if (config('form.send_email_confirmation') && !empty($request->confirmation_email_name)) {
             $field = $request->confirmation_email_name;
