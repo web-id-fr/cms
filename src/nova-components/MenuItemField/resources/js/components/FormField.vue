@@ -131,6 +131,13 @@
                 });
 
                 if (selected >= 0) {
+                    this.options.filter(function (currentElement) {
+                        if (_.isEqual(currentElement.title, menuItem.title) && _.isEqual(currentElement.menuable_type, menuItem.menuable_type)) {
+                            currentElement.children = [];
+                            return currentElement;
+                        }
+                    });
+
                     this.selected.splice(findIndex, 1);
                     errorToast(this.__('The menu item has been removed to the list'));
                     return;
