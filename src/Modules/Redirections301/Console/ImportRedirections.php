@@ -111,8 +111,8 @@ class ImportRedirections extends Command
                 continue;
             }
 
-            $from = parse_url($row[0])['path'] ?? '';
-            $to = parse_url($row[1])['path'] ?? '';
+            $from = parse_url($row[0], PHP_URL_PATH) ?? '';
+            $to = parse_url($row[1], PHP_URL_PATH) ?? '';
 
             if (empty($from) || empty($to)) {
                 continue;
