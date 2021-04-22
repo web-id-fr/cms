@@ -118,4 +118,12 @@ class Translatable extends Field
     {
         return $this->withMeta(['shortenText' => true]);
     }
+
+    /**
+     * @return Translatable
+     */
+    public function showRefresh(): self
+    {
+        return $this->withMeta(['showRefresh' => true]);
+    }
 }
