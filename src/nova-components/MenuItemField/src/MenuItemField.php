@@ -32,20 +32,17 @@ class MenuItemField extends Field
         $menuCustomItemRepository = app()->make(MenuCustomItemRepository::class);
         $templateRepository = app()->make(TemplateRepository::class);
         $allItems = collect();
-        $children = [];
 
         // MENU-CUSTOM-ITEM
-        $allMenuCustomItems = $menuCustomItemRepository->all();
-        $children = $this->getChildren($allMenuCustomItems, $children);
-        $allMenuCustomItems = $this->mapItems($allMenuCustomItems, $children, MenuCustomItem::class);
+        $allMenuCustomItems = $menuCustomItemRepository->allWithoutChildren();
+        $allMenuCustomItems = $this->mapItems($allMenuCustomItems, MenuCustomItem::class);
         foreach ($allMenuCustomItems as $customItem) {
             $allItems->push($customItem);
         }
 
         // TEMPLATE
         $allTemplates = $templateRepository->getPublishedTemplates();
-        $children = $this->getChildren($allTemplates, $children);
-        $allTemplates = $this->mapItems($allTemplates, $children, Template::class);
+        $allTemplates = $this->mapItems($allTemplates, Template::class);
         foreach ($allTemplates as $template) {
             $allItems->push($template);
         }
@@ -131,43 +128,14 @@ class MenuItemField extends Field
 
     /**
      * @param Collection $items
-     * @param array $children
-     *
-     * @return array
-     */
-    protected function getChildren(Collection $items, array $children): array
-    {
-        foreach ($items as $template) {
-            foreach ($template->menus as $menu) {
-                if (!empty($menu->pivot->parent_id)) {
-                    $pivot = $menu->pivot;
-                    $children[$pivot->menu_id][$pivot->parent_id . "-" . $pivot->parent_type][] = $template;
-                }
-            }
-        }
-
-        return $children;
-    }
-
-    /**
-     * @param Collection $items
-     * @param array $children
      * @param string $model
      *
      * @return Collection
      */
-    protected function mapItems(Collection $items, array $children, string $model): Collection
+    protected function mapItems(Collection $items, string $model): Collection
     {
-        return $items->map(function ($item) use ($children, $model) {
-            if (!empty($children)
-                && request()->route('resourceId')
-                && array_key_exists(request()->route('resourceId'), $children)
-                && array_key_exists($item->id . "-" . $model, $children[request()->route('resourceId')])
-            ) {
-                $item->children = $children[request()->route('resourceId')][$item->id . "-" . $model];
-            } else {
-                $item->children = [];
-            }
+        return $items->map(function ($item) use ($model) {
+            $item->children = [];
             $item->menuable_type = $model;
 
             return $item;
