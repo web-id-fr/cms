@@ -3,7 +3,6 @@
 namespace Webid\Cms\Modules\Redirections301\Tests\Feature;
 
 use Illuminate\Database\Eloquent\Model;
-use Webid\Cms\Modules\Redirections301\Models\Redirection;
 use Webid\Cms\Modules\Redirections301\Tests\Helpers\RedirectionCreator;
 use Webid\Cms\Modules\Redirections301\Tests\Redirections301TestCase;
 use Webid\Cms\Tests\Helpers\Traits\DummyUserCreator;
