@@ -44,11 +44,6 @@ class MenuCustomItem extends Model
         'menu_description',
     ];
 
-    protected $with = [
-        'form',
-        'children'
-    ];
-
     /**
      * @return array
      */
