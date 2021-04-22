@@ -32,6 +32,7 @@ class QuotationLayout extends Layout
     {
         return [
             Translatable::make(__('Quotation'), 'quotation')
+                ->showRefresh()
                 ->trix()
                 ->asHtml(),
         ];
