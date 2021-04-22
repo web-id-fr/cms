@@ -130,7 +130,7 @@ if (!function_exists('media_full_url')) {
 
         $file_path = ltrim($file_path, '/');
 
-        return config('cms.image_path') . $file_path;
+        return config('cms.image_path') . rawurlencode($file_path);
     }
 }
 
