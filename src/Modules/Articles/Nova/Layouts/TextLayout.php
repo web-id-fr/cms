@@ -30,6 +30,7 @@ class TextLayout extends Layout
     {
         return [
             Translatable::make(__('Text'), 'text')
+                ->showRefresh()
                 ->trix()
                 ->asHtml(),
         ];
