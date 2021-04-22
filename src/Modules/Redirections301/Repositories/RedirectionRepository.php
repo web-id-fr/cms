@@ -16,7 +16,7 @@ class RedirectionRepository
     public function findBySourcePath(string $path): ?Redirection
     {
         return $this->model
-            ->where('source_url', 'REGEXP', "/?{$path}/?")
+            ->where('source_url', 'REGEXP', "^/{$path}/?$")
             ->first();
     }
 
