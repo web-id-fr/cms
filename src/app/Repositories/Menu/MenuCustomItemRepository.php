@@ -25,7 +25,16 @@ class MenuCustomItemRepository
     public function all()
     {
         return $this->model
-            ->with('form')
+            ->with(['form', 'children'])
             ->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|MenuCustomItem[]
+     */
+    public function allWithoutChildren()
+    {
+        return $this->model
+            ->all();
     }
 }
