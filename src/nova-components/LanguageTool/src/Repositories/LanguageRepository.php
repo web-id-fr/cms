@@ -40,5 +40,4 @@ class LanguageRepository
         return $this->model
             ->all();
     }
-
 }
