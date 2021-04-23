@@ -74,6 +74,7 @@
     import Multiselect from 'vue-multiselect';
     import draggable from 'vuedraggable';
     import {map} from 'lodash';
+    import {successToast, errorToast} from '../helpers'
 
     import Modal from './modules/Modal';
 
@@ -159,11 +160,13 @@
 
                 if (findIndex >= 0) {
                     this.selected.splice(findIndex, 1);
+                    errorToast(this.__('The component has been removed to the list'));
                     return;
                 }
 
                 if (this.selected.indexOf(component) === -1) {
                     this.selected.push(component);
+                    successToast(this.__('The component has been added to the list'));
                 }
             },
         },
