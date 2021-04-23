@@ -37,10 +37,6 @@ class Menu extends Model
         'title',
     ];
 
-    protected $with = [
-        'children'
-    ];
-
     /** @var $menu_items */
     public $menu_items;
 
