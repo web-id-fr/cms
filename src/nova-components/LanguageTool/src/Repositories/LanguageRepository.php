@@ -31,4 +31,14 @@ class LanguageRepository
     {
         return $this->model->create($data);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|Language[]
+     */
+    public function all()
+    {
+        return $this->model
+            ->all();
+    }
+
 }
