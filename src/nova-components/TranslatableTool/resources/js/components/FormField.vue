@@ -28,7 +28,7 @@
                         placeholder=""
                         @change="handleChange"
                 />
-                <button class="p-2 text-xs flex" v-if="field.showRefresh" @click.prevent="refresh">
+                <button class="p-2 text-xs flex items-center" v-if="field.showRefresh" @click.prevent="refresh">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="11" height="11" class="fill-current align-middle"><path d="M6 18.7V21a1 1 0 0 1-2 0v-5a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H7.1A7 7 0 0 0 19 12a1 1 0 1 1 2 0 9 9 0 0 1-15 6.7zM18 5.3V3a1 1 0 0 1 2 0v5a1 1 0 0 1-1 1h-5a1 1 0 0 1 0-2h2.9A7 7 0 0 0 5 12a1 1 0 1 1-2 0 9 9 0 0 1 15-6.7z"></path></svg>
                     <span class="pl-1">{{ __('Refresh') }}</span>
                 </button>
