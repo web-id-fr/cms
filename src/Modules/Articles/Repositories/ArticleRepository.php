@@ -35,6 +35,7 @@ class ArticleRepository
             ->published()
             ->where('not_display_in_list', false)
             ->orderBy('order')
+            ->orderByRaw('CASE WHEN publish_at IS NULL THEN created_at ELSE publish_at END DESC')
             ->get();
     }
 
@@ -53,6 +54,7 @@ class ArticleRepository
                 $query->whereJsonContains("name->{$lang}", $categoryName);
             })
             ->orderBy('order')
+            ->orderByRaw('CASE WHEN publish_at IS NULL THEN created_at ELSE publish_at END DESC')
             ->get();
     }
 
