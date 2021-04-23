@@ -160,7 +160,7 @@
 
                 if (findIndex >= 0) {
                     this.selected.splice(findIndex, 1);
-                    errorToast(this.__('The component has been removed to the list'));
+                    errorToast(this.__('The component has been removed from the list'));
                     return;
                 }
 
