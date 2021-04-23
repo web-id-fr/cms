@@ -20,6 +20,7 @@
         "@fortawesome/vue-fontawesome": "^0.1.9",
         "vue": "^2.5.0",
         "vue-multiselect": "^2.1.4",
+        "vue-toasted": "^1.1.28",
         "vuedraggable": "^2.20.0"
     }
 }
