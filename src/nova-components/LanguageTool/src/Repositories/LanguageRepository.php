@@ -2,12 +2,14 @@
 
 namespace Webid\LanguageTool\Repositories;
 
-use Webid\Cms\App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 use Webid\LanguageTool\Models\Language;
 
-class LanguageRepository extends BaseRepository
+class LanguageRepository
 {
+    /** @var Language */
+    protected $model;
+
     /**
      * LanguageRepository constructor.
      *
@@ -15,7 +17,7 @@ class LanguageRepository extends BaseRepository
      */
     public function __construct(Language $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 
     /**

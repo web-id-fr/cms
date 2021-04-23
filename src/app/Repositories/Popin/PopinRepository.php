@@ -3,18 +3,20 @@
 namespace Webid\Cms\App\Repositories\Popin;
 
 use Webid\Cms\App\Models\Popin\Popin;
-use Webid\Cms\App\Repositories\BaseRepository;
 
-class PopinRepository extends BaseRepository
+class PopinRepository
 {
+    /** @var Popin */
+    protected $model;
+
     /**
-     * MenuRepository constructor.
+     * PopinRepository constructor.
      *
      * @param Popin $model
      */
     public function __construct(Popin $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 
     /**

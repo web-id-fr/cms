@@ -17,7 +17,6 @@
         <DuplicateClass>
             <errorLevel type="suppress">
                 <file name="src/app/Models/Menu/Menu.php"/>
-                <file name="src/app/Repositories/BaseRepository.php"/>
                 <file name="src/app/Repositories/Menu/MenuRepository.php"/>
             </errorLevel>
         </DuplicateClass>
