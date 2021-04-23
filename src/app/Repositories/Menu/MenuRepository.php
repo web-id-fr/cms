@@ -30,7 +30,7 @@ class MenuRepository
             ->with(['related' => function ($q) {
                 $q->with('menus.children')
                     ->whereHas('menus', function ($q) {
-                        $q->where('parent_id', '=', null);
+                        $q->whereNull('parent_id');
                     });
             }])
             ->get();
@@ -58,7 +58,7 @@ class MenuRepository
     /**
      * Attache un Menu à une zone
      *
-     * @param int    $menuID
+     * @param int $menuID
      * @param string $zoneID
      *
      * @return bool
