@@ -3,10 +3,11 @@
 namespace Webid\Cms\App\Repositories\Components;
 
 use Webid\Cms\App\Models\Components\NewsletterComponent;
-use Webid\Cms\App\Repositories\BaseRepository;
 
-class NewsletterComponentRepository extends BaseRepository
+class NewsletterComponentRepository
 {
+    /** @var NewsletterComponent */
+    protected $model;
     /**
      * Component1Repository constructor.
      *
@@ -14,7 +15,7 @@ class NewsletterComponentRepository extends BaseRepository
      */
     public function __construct(NewsletterComponent $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 
     /**

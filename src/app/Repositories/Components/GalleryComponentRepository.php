@@ -3,18 +3,18 @@
 namespace Webid\Cms\App\Repositories\Components;
 
 use Webid\Cms\App\Models\Components\GalleryComponent;
-use Webid\Cms\App\Repositories\BaseRepository;
 
-class GalleryComponentRepository extends BaseRepository
+class GalleryComponentRepository
 {
+    /** @var GalleryComponent */
+    protected $model;
+
     /**
-     * Component1Repository constructor.
-     *
      * @param GalleryComponent $model
      */
     public function __construct(GalleryComponent $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 
     /**
