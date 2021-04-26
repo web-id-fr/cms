@@ -63,6 +63,9 @@ jobs:
       - name: Running psalm
         run: ./vendor/bin/psalm
 
+      - name: Running phpstan
+        run: ./vendor/bin/phpstan analyse -c phpstan.neon
+
       - name: Running phpunit
         run: ./vendor/bin/phpunit --no-coverage
         env:
