@@ -4,6 +4,7 @@ namespace Webid\Cms\App\Models\Menu;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Webid\Cms\App\Models\Contracts\Menuable;
 
 /**
  * Class MenuItem
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property string $menuable_type
  * @property int $menu_id
+ * @property Menuable $menuable
  */
 class MenuItem extends Model
 {

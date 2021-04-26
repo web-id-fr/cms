@@ -5,10 +5,9 @@ namespace Webid\Cms\App\Models\Menu;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Illuminate\Support\Collection;
-use \Spatie\Translatable\HasTranslations;
+use Spatie\Translatable\HasTranslations;
+use Webid\Cms\App\Models\Contracts\Menuable;
+use Webid\Cms\App\Models\Traits\HasMenus;
 use Webid\Cms\Modules\Form\Models\Form;
 
 /**
@@ -23,9 +22,9 @@ use Webid\Cms\Modules\Form\Models\Form;
  * @property string|null $url
  * @property string $target
  */
-class MenuCustomItem extends Model
+class MenuCustomItem extends Model implements Menuable
 {
-    use HasTranslations, HasFactory;
+    use HasTranslations, HasFactory, HasMenus;
 
     const _STATUS_SELF = '_SELF';
     const _STATUS_BLANK = '_BLANK';
@@ -88,31 +87,5 @@ class MenuCustomItem extends Model
     public function form()
     {
         return $this->belongsTo(Form::class);
-    }
-
-    /**
-     * @return MorphToMany
-     */
-    public function menus()
-    {
-        return $this->morphToMany(Menu::class, 'menuable')
-            ->with('children')
-            ->withPivot('order', 'parent_id', 'parent_type');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function children()
-    {
-        return $this->hasMany(MenuItem::class, 'parent_id')
-            ->where('parent_type', MenuCustomItem::class)
-            ->with('menus')
-            ->orderBy('order');
-    }
-
-    public function childrenForMenu(int $menu_id): Collection
-    {
-        return $this->children()->getQuery()->where('menu_id', $menu_id)->get();
     }
 }

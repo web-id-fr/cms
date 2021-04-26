@@ -4,10 +4,9 @@ namespace Webid\Cms\App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Spatie\Translatable\HasTranslations;
-use Webid\Cms\App\Models\Menu\Menu;
-use Webid\Cms\App\Models\Menu\MenuItem;
+use Webid\Cms\App\Models\Contracts\Menuable;
+use Webid\Cms\App\Models\Traits\HasMenus;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
 /**
@@ -19,11 +18,12 @@ use Webid\Cms\App\Models\Traits\HasStatusLabels;
  * @property string $title
  * @property string $slug
  */
-abstract class BaseTemplate extends Model
+abstract class BaseTemplate extends Model implements Menuable
 {
     use HasTranslations,
         HasFactory,
-        HasStatusLabels;
+        HasStatusLabels,
+        HasMenus;
 
     const _STATUS_PUBLISHED = 0;
     const _STATUS_DRAFT = 1;
@@ -84,32 +84,6 @@ abstract class BaseTemplate extends Model
     protected $casts = [
         'publish_at' => 'datetime',
     ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
-     */
-    public function menus()
-    {
-        return $this->morphToMany(Menu::class, 'menuable')
-            ->with('children')
-            ->withPivot('order', 'parent_id', 'parent_type');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function children()
-    {
-        return $this->hasMany(MenuItem::class, 'parent_id')
-            ->where('parent_type', static::class)
-            ->with('menus')
-            ->orderBy('order');
-    }
-
-    public function childrenForMenu(int $menu_id): Collection
-    {
-        return $this->children()->getQuery()->where('menu_id', $menu_id)->get();
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
