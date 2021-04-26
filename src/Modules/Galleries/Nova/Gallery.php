@@ -120,9 +120,9 @@ class Gallery extends Resource
     /**
      * @return bool
      */
-    public function isPublished()
+    public function isPublished(): bool
     {
-        return $this->status == GalleryModel::_STATUS_PUBLISHED;
+        return $this->resource->status == GalleryModel::_STATUS_PUBLISHED;
     }
 
     /**

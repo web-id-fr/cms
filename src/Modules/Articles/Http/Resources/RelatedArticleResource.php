@@ -20,7 +20,7 @@ class RelatedArticleResource extends JsonResource
             'status' => Article::statusLabels()[$this->resource->status],
             'extrait' => $this->resource->extrait,
             'content' => $this->resource->content->toArray(),
-            'article_type' => $this->getArticleTypeSlug(),
+            'article_type' => $this->resource->getArticleTypeSlug(),
             'author' => $this->resource->author,
             'publish_at' => $this->resource->publish_at,
             'created_at' => $this->resource->created_at,

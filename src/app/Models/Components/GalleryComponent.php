@@ -9,6 +9,13 @@ use Illuminate\Support\Collection;
 use Webid\Cms\Modules\Galleries\Models\Gallery;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
+/**
+ * Class GalleryComponent
+ *
+ * @package Webid\Cms\App\Models\Components
+ *
+ * @property Collection<Gallery>|null $galleries
+ */
 class GalleryComponent extends Model
 {
     use HasFactory,

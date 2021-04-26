@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
+/**
+ * Class Language
+ *
+ * @package Webid\LanguageTool\Models
+ *
+ * @property string $flag
+ * @property string $name
+ */
 class Language extends Model
 {
     use HasFactory;
@@ -41,8 +49,6 @@ class Language extends Model
     ];
 
     /**
-     * Retourne le drapeau à utiliser pour une langue donnée
-     *
      * @param string $local
      *
      * @return mixed
@@ -53,8 +59,6 @@ class Language extends Model
     }
 
     /**
-     * Override save
-     *
      * @param array $options
      *
      * @return bool
@@ -75,8 +79,6 @@ class Language extends Model
     }
 
     /**
-     * Return local of given flag
-     *
      * @param String $flag
      *
      * @return mixed

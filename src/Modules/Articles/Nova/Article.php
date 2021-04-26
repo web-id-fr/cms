@@ -225,9 +225,9 @@ class Article extends Resource
     /**
      * @return bool
      */
-    public function isPublished()
+    public function isPublished(): bool
     {
-        return $this->status == ArticleModel::_STATUS_PUBLISHED
-            && ($this->publish_at <= Carbon::now() || $this->publish_at == null);
+        return $this->resource->status == ArticleModel::_STATUS_PUBLISHED
+            && ($this->resource->publish_at <= Carbon::now() || $this->resource->publish_at == null);
     }
 }
