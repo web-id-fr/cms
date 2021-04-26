@@ -4,6 +4,7 @@ namespace Webid\Cms\App\Models\Menu;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use \Spatie\Translatable\HasTranslations;
 use Webid\Cms\Modules\Form\Models\Form;
 
@@ -93,5 +94,10 @@ class MenuCustomItem extends Model
             ->where('parent_type', MenuCustomItem::class)
             ->with('menus')
             ->orderBy('order');
+    }
+
+    public function childrenForMenu(int $menu_id): Collection
+    {
+        return $this->children()->getQuery()->where('menu_id', $menu_id)->get();
     }
 }
