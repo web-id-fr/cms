@@ -4,6 +4,7 @@ namespace Webid\Cms\App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Menu\Menu;
 use Webid\Cms\App\Models\Menu\MenuItem;
@@ -94,6 +95,11 @@ abstract class BaseTemplate extends Model
             ->where('parent_type', static::class)
             ->with('menus')
             ->orderBy('order');
+    }
+
+    public function childrenForMenu(int $menu_id): Collection
+    {
+        return $this->children()->getQuery()->where('menu_id', $menu_id)->get();
     }
 
     /**
