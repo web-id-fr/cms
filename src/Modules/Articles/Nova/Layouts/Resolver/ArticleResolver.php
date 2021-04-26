@@ -54,7 +54,7 @@ class ArticleResolver implements ResolverInterface
             if ($group->name() === 'slideshow') {
                 $slideshowId = $group->slideshow_select;
 
-                $class::saved(function ($model) use ($group, $slideshowId) {
+                $class::saved(function ($model) use ($slideshowId) {
                     $model->slideshows()->sync($slideshowId);
                 });
 

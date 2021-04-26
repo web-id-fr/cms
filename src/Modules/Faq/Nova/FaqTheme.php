@@ -84,14 +84,10 @@ class FaqTheme extends Resource
     }
 
     /**
-     * Si le status est publié  : VERT
-     *
-     * Si ce n'est pas le cas ROUGE
-     *
      * @return bool
      */
-    public function isPublished()
+    public function isPublished(): bool
     {
-        return $this->status == FaqThemeModel::_STATUS_PUBLISHED;
+        return $this->resource->status == FaqThemeModel::_STATUS_PUBLISHED;
     }
 }
