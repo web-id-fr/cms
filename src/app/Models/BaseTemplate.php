@@ -10,6 +10,15 @@ use Webid\Cms\App\Models\Menu\Menu;
 use Webid\Cms\App\Models\Menu\MenuItem;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
+/**
+ * Class BaseTemplate
+ *
+ * @package Webid\Cms\App\Models
+ *
+ * @property int $id
+ * @property string $title
+ * @property string $slug
+ */
 abstract class BaseTemplate extends Model
 {
     use HasTranslations,

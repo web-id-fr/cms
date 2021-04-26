@@ -5,6 +5,9 @@ namespace Webid\Cms\App\Models\Menu;
 use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Spatie\Translatable\HasTranslations;
 
@@ -37,11 +40,11 @@ class Menu extends Model
         'title',
     ];
 
-    /** @var $menu_items */
+    /** @var Collection */
     public $menu_items;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function items()
     {
@@ -51,7 +54,7 @@ class Menu extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function children()
     {
@@ -62,7 +65,7 @@ class Menu extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     * @return MorphToMany
      */
     public function templates()
     {
@@ -73,7 +76,7 @@ class Menu extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     * @return MorphToMany
      */
     public function menuCustomItems()
     {
@@ -93,8 +96,8 @@ class Menu extends Model
         $children = $this->getChildren($templates, $children);
         $children = $this->getChildren($customItems, $children);
 
-        $this->mapItems($templates, $children, Template::class, $menuItems);
-        $this->mapItems($customItems, $children, MenuCustomItem::class, $menuItems);
+        $menuItems = $this->mapItems($templates, $children, Template::class, $menuItems);
+        $menuItems = $this->mapItems($customItems, $children, MenuCustomItem::class, $menuItems);
 
         $menuItems = $menuItems->sortBy(function ($item) {
             return $item->pivot->order;
@@ -111,14 +114,14 @@ class Menu extends Model
     }
 
     /**
-     * @param $items
-     * @param $children
-     * @param $model
-     * @param $menuItems
+     * @param Collection $items
+     * @param array $children
+     * @param string $model
+     * @param Collection $menuItems
      *
-     * @return mixed
+     * @return Collection
      */
-    protected function mapItems($items, $children, $model, &$menuItems)
+    protected function mapItems(Collection $items, array $children, string $model, Collection $menuItems)
     {
         $items->each(function ($item) use ($children, &$menuItems, $model) {
             if (!empty($children)
@@ -137,12 +140,12 @@ class Menu extends Model
     }
 
     /**
-     * @param $items
-     * @param $children
+     * @param Collection $items
+     * @param array $children
      *
-     * @return mixed
+     * @return array
      */
-    protected function getChildren($items, $children)
+    protected function getChildren(Collection $items, array $children)
     {
         foreach ($items as $item) {
             foreach ($item->menus as $menu) {

@@ -4,10 +4,25 @@ namespace Webid\Cms\App\Models\Menu;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Collection;
 use \Spatie\Translatable\HasTranslations;
 use Webid\Cms\Modules\Form\Models\Form;
 
+/**
+ * Class MenuCustomItem
+ *
+ * @package Webid\Cms\App\Models\Menu
+ *
+ * @property int $id
+ * @property string $title
+ * @property int $type_link
+ * @property Form|null $form
+ * @property string|null $url
+ * @property string $target
+ */
 class MenuCustomItem extends Model
 {
     use HasTranslations, HasFactory;
@@ -68,7 +83,7 @@ class MenuCustomItem extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function form()
     {
@@ -76,7 +91,7 @@ class MenuCustomItem extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     * @return MorphToMany
      */
     public function menus()
     {
@@ -86,7 +101,7 @@ class MenuCustomItem extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function children()
     {
