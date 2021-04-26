@@ -7,12 +7,9 @@ use Webid\Cms\App\Models\Menu\Menu;
 
 class MenuRepository
 {
-    /** @var Menu */
-    protected $model;
+    protected Menu $model;
 
     /**
-     * MenuRepository constructor.
-     *
      * @param Menu $model
      */
     public function __construct(Menu $model)
@@ -27,18 +24,16 @@ class MenuRepository
     {
         return $this->model
             ->withZones()
-            ->with(['related' => function ($q) {
-                $q->with('menus.children')
-                    ->whereHas('menus', function ($q) {
-                        $q->whereNull('parent_id');
+            ->with(['items' => function ($query) {
+                $query->with('menus.children')
+                    ->whereHas('menus', function ($query) {
+                        $query->whereNull('parent_id');
                     });
             }])
             ->get();
     }
 
     /**
-     * Retourne le Menu par l'id
-     *
      * @param int $id
      *
      * @return mixed
@@ -47,17 +42,15 @@ class MenuRepository
     {
         return $this->model
             ->find($id)
-            ->with(['related' => function ($q) {
-                $q->whereHas('menus', function ($q) {
-                    $q->where('parent_id', '=', null);
+            ->with(['items' => function ($query) {
+                $query->whereHas('menus', function ($query) {
+                    $query->whereNull('parent_id');
                 });
             }])
             ->first();
     }
 
     /**
-     * Attache un Menu à une zone
-     *
      * @param int $menuID
      * @param string $zoneID
      *
@@ -77,8 +70,6 @@ class MenuRepository
     }
 
     /**
-     * Détache le Menu d'une zone
-     *
      * @param string $zoneID
      *
      * @return bool
@@ -97,8 +88,6 @@ class MenuRepository
     }
 
     /**
-     * Vérivie que le Menu d'une zone existe
-     *
      * @param string $zoneID
      *
      * @return bool

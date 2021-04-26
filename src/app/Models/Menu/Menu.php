@@ -43,7 +43,7 @@ class Menu extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function related()
+    public function items()
     {
         return $this->hasMany(MenuItem::class)
             ->with('menus')
