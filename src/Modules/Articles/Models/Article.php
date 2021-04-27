@@ -11,6 +11,13 @@ use Webid\Cms\App\Models\Traits\HasFlexible;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
 use Webid\Cms\Modules\Slideshow\Models\Slideshow;
 
+/**
+ * Class Article
+ *
+ * @package Webid\Cms\Modules\Articles\Models
+ *
+ * @property int $article_type
+ */
 class Article extends Model
 {
     use HasTranslations,

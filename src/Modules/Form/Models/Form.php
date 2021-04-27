@@ -4,9 +4,18 @@ namespace Webid\Cms\Modules\Form\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
+/**
+ * Class Form
+ *
+ * @package Webid\Cms\Modules\Form\Models
+ *
+ * @property Collection $fields
+ * @property Collection $titleFields
+ */
 class Form extends Model
 {
     use HasTranslations,

@@ -25,7 +25,7 @@ class MenuItemChildrenResource extends JsonResource
             'description' => $this->resource->menuable->menu_description,
 
             // Champs exclusifs aux Custom items
-            $this->mergeWhen(MenuCustomItem::class == $this->menuable_type, [
+            $this->mergeWhen(MenuCustomItem::class == $this->resource->menuable_type, [
                 $this->mergeWhen(MenuCustomItem::_LINK_FORM == $this->resource->menuable->type_link, [
                     'form' => !empty($this->resource->menuable->form)
                         ? FormResource::make($this->resource->menuable->form)->resolve()
@@ -39,7 +39,7 @@ class MenuItemChildrenResource extends JsonResource
             ]),
 
             // Champs exclusifs aux Pages
-            $this->mergeWhen(Template::class == $this->menuable_type, [
+            $this->mergeWhen(Template::class == $this->resource->menuable_type, [
                 'slug' => $this->resource->menuable->slug,
             ]),
         ];

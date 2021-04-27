@@ -17,10 +17,10 @@ class FieldResource extends JsonResource
      */
     public function toArray($request)
     {
-        $field_type = config("fields_type." . $this->formable->field_type);
+        $field_type = config("fields_type." . $this->resource->formable->field_type);
 
         return [
-            $this->mergeWhen(Field::class == $this->formable_type, [
+            $this->mergeWhen(Field::class == $this->resource->formable_type, [
                 'field_options' => !empty($this->resource->formable->field_options)
                     ? $this->resource->formable->field_options->toArray()
                     : [],
@@ -37,7 +37,7 @@ class FieldResource extends JsonResource
                 'field_name_time' => $this->resource->formable->field_name_time ?? '',
                 'field_name_duration' => $this->resource->formable->field_name_duration ?? '',
             ]),
-            $this->mergeWhen(TitleField::class == $this->formable_type, [
+            $this->mergeWhen(TitleField::class == $this->resource->formable_type, [
                 'title' => $this->resource->formable->title ?? '',
                 'field_type' => 'legende'
             ]),

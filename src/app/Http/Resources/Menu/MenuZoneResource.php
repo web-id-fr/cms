@@ -16,8 +16,8 @@ class MenuZoneResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'menuID' => $this->menuID,
-            'label' => $this->label,
+            'menuID' => $this->resource->menuID,
+            'label' => $this->resource->label,
         ];
     }
 }

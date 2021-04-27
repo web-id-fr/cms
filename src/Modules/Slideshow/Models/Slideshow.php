@@ -4,11 +4,22 @@ namespace Webid\Cms\Modules\Slideshow\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * Class Slideshow
+ *
+ * @package Webid\Cms\Modules\Slideshow\Models
+ *
+ * @property Collection $slides
+ */
 class Slideshow extends Model
 {
     use HasTranslations, HasFactory;
+
+    public Collection $slide_items;
 
     /** @var string  */
     protected $table = 'slideshows';
@@ -44,7 +55,7 @@ class Slideshow extends Model
     ];
 
     /**
-     * @return mixed
+     * @return BelongsToMany
      */
     public function slides()
     {
@@ -68,9 +79,6 @@ class Slideshow extends Model
             $this->attributes['js_speed'] = $value * 1000;
         }
     }
-
-    /** @var $recipient_items */
-    public $slide_items;
 
     public function chargeSlideItems(): void
     {

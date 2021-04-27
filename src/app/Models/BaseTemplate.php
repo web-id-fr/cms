@@ -17,6 +17,8 @@ use Webid\Cms\App\Models\Traits\HasStatusLabels;
  * @property int $id
  * @property string $title
  * @property string $slug
+ * @property int|bool $homepage
+ * @property int|bool $contains_articles_list
  */
 abstract class BaseTemplate extends Model implements Menuable
 {
