@@ -27,6 +27,8 @@ trait HasMenus
 
     public function childrenForMenu(int $menu_id): Collection
     {
-        return $this->children()->where('menu_id', $menu_id)->get();
+        return $this->children->filter(function ($item) use ($menu_id) {
+            return $item->menu_id == $menu_id;
+        });
     }
 }
