@@ -11,6 +11,14 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * Class Menu
+ *
+ * @package Webid\Cms\App\Models\Menu
+ *
+ * @property Collection $templates
+ * @property Collection $menuCustomItems
+ */
 class Menu extends Model
 {
     use HasTranslations,

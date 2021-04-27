@@ -16,7 +16,7 @@ class ComponentResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'component' => config("components.$this->component_type.resource")::make($this)->resolve()
+            'component' => config("components.{$this->resource->component_type}.resource")::make($this)->resolve()
         ];
     }
 }

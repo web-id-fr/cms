@@ -221,17 +221,11 @@ class Template extends Resource
     }
 
     /**
-     * Si le status est publié et que la date de début est avant maintenant : VERT
-     * OU
-     * Si le status est publié et que la date de début est vide : VERT
-     *
-     * Si ce n'est pas le cas ROUGE
-     *
      * @return bool
      */
-    public function isPublished()
+    public function isPublished(): bool
     {
-        return $this->status == TemplateModel::_STATUS_PUBLISHED
-            && ($this->publish_at <= Carbon::now() || $this->publish_at == null);
+        return $this->resource->status == TemplateModel::_STATUS_PUBLISHED
+            && ($this->resource->publish_at <= Carbon::now() || $this->resource->publish_at == null);
     }
 }
