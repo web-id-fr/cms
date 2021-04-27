@@ -12,6 +12,13 @@ use Webid\Cms\Tests\TestCase;
 
 class MenuServiceTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        DB::enableQueryLog();
+    }
+
     /** @test */
     public function test_menus_are_generated_well()
     {
@@ -78,6 +85,8 @@ class MenuServiceTest extends TestCase
         // Chaque élément "parent" n'a qu'un seul élément "enfant"
         $this->assertCount(1, $generated_menus['test']['zones'][0]['children']);
         $this->assertCount(1, $generated_menus['test']['zones'][1]['children']);
+
+        $this->assertMaxSqlQueries(29);
     }
 
     /** @test */
@@ -167,5 +176,18 @@ class MenuServiceTest extends TestCase
 
         $this->assertCount(1, $generated_menus['test 2']['zones'][0]['children']);
         $this->assertEquals(2, $generated_menus['test 2']['zones'][0]['children'][0]['id']);
+
+        $this->assertMaxSqlQueries(16);
+    }
+
+    private function assertMaxSqlQueries(int $max): void
+    {
+        $count = count(DB::getQueryLog());
+
+        $this->assertLessThanOrEqual(
+            $max,
+            $count,
+            "Le nombre de requêtes SQL a augmenté ! Il est de {$count} alors qu'il devrait être de {$max} au maximum."
+        );
     }
 }
