@@ -8,6 +8,14 @@ use Illuminate\Support\Collection;
 use Webid\Cms\App\Models\Menu\Menu;
 use Webid\Cms\App\Models\Menu\MenuItem;
 
+/**
+ * Trait HasMenus
+ *
+ * @package Webid\Cms\App\Models\Traits
+ *
+ * @property Collection $menus
+ * @property Collection $children
+ */
 trait HasMenus
 {
     public function menus(): MorphToMany
