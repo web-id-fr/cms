@@ -51,13 +51,14 @@ class FormController extends BaseController
         } else {
             $form = $this->formRepository->find($request->form_id);
             $to = $form->recipients->pluck("email");
+            $form_name = $form->name;
         }
 
         $files = !empty($request->file) ? $request->file : null;
 
         $fields = Arr::except($request->post(), ['valid_from', 'form_id', 'file', 'confirmation_email_name', 'extra']);
 
-        Mail::to($to ?? config('mail.from.address'))->send(new SendForm($fields, $files));
+        Mail::to($to ?? config('mail.from.address'))->send(new SendForm($form_name ?? '', $fields, $files));
 
         event(new FormSent($fields, $files));
 
