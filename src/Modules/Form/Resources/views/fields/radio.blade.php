@@ -13,11 +13,11 @@
                 <div class="option-container">
                     <input type="radio"
                            name="{{ data_get($field, 'field_name') }}"
-                           id="{{ str_slug($id_form . '-' . data_get($option, "option.$currentLangKey") . '-' . $loop->index) }}"
-                           value="{{ data_get($option, "option.$currentLangKey") }}"
+                           id="{{ str_slug($id_form . '-' . data_get($option, "item.$currentLangKey") . '-' . $loop->index) }}"
+                           value="{{ data_get($option, "item.$currentLangKey") }}"
                            @if( data_get($field, 'required')) required @endif>
                     <label
-                            for="{{ str_slug($id_form . '-' . data_get($option, "option.$currentLangKey") . '-' . $loop->index) }}"
+                            for="{{ str_slug($id_form . '-' . data_get($option, "item.$currentLangKey") . '-' . $loop->index) }}"
                             class="input-label">
                         {{ data_get($option, "item.$currentLangKey") }}
                     </label>
