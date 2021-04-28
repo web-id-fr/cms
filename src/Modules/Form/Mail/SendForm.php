@@ -9,42 +9,34 @@ class SendForm extends Mailable
 {
     use SerializesModels;
 
-    //stock les données qui seront affichées sur le mail
-    protected $mailData;
+    protected string $formSubject;
+    protected array $mailData;
+    protected ?array $files;
 
-    /** @var $files */
-    protected $files;
-
-    /**
-     * Create a new message instance
-     *
-     * @param array $mailData
-     */
-    public function __construct(array $mailData, $files)
+    public function __construct(string $subject, array $mailData, ?array $files)
     {
+        $this->formSubject = empty($subject)
+            ? 'Demande de contact'
+            : $subject;
         $this->mailData = $mailData;
         $this->files = $files;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
+    public function build(): self
     {
         $mailPath = "form::mail.form";
 
-        $message =  $this->from(config('mail.from.address'), config('mail.from.name'))
+        $message = $this->from(config('mail.from.address'), config('mail.from.name'))
             ->view($mailPath)
             ->with([
                 "mail" => $this->mailData,
-            ])->subject('Demande de contact');
+            ])
+            ->subject($this->formSubject);
 
         if (isset($this->files)) {
             foreach ($this->files as $file) {
                 $message->attach($file, [
-                    'as' => $file->getClientOriginalName()
+                    'as' => $file->getClientOriginalName(),
                 ]);
             }
         }
