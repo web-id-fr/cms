@@ -15,8 +15,8 @@ class CreateTemplatesTable extends Migration
     {
         Schema::create('templates', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->json('title');
-            $table->json('slug')->nullable();
+            $table->string('title');
+            $table->string('slug')->nullable();
             $table->boolean('indexation')->default(0);
             $table->integer('status');
             $table->boolean('homepage')->default(false);

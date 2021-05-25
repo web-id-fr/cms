@@ -14,7 +14,7 @@ class AddPlaceholderFieldForNewslettersComponentTable extends Migration
     public function up()
     {
         Schema::table('newsletters_component', function(Blueprint $table) {
-            $table->json('placeholder')->nullable();
+            $table->string('placeholder')->nullable();
         });
     }
 

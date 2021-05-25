@@ -14,7 +14,7 @@ class AddMetaKeywordsFieldInTemplatesTable extends Migration
     public function up()
     {
         Schema::table('templates', function (Blueprint $table) {
-            $table->json('meta_keywords')->nullable();
+            $table->string('meta_keywords')->nullable();
         });
     }
 

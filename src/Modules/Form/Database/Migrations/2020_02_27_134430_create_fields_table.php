@@ -15,10 +15,10 @@ class CreateFieldsTable extends Migration
     {
         Schema::create('fields', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->json('field_options')->nullable();
+            $table->string('field_options')->nullable();
             $table->string('field_name')->unique();
             $table->string('field_type');
-            $table->json('placeholder')->nullable();
+            $table->string('placeholder')->nullable();
             $table->boolean('required')->default(false);
             $table->timestamps();
         });

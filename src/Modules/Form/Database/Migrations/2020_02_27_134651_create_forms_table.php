@@ -15,11 +15,11 @@ class CreateFormsTable extends Migration
     {
         Schema::create('forms', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->json('title');
-            $table->json('description')->nullable();
+            $table->string('title');
+            $table->string('description')->nullable();
             $table->integer('status');
             $table->integer('recipient_type');
-            $table->json('title_service')->nullable();
+            $table->string('title_service')->nullable();
             $table->timestamps();
         });
     }

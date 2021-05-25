@@ -15,7 +15,7 @@ class CreateTitleFieldsTable extends Migration
     {
         Schema::create('title_fields', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->json('title');
+            $table->string('title');
             $table->timestamps();
         });
     }

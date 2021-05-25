@@ -14,7 +14,7 @@ class AddLabelFieldsInFieldsTable extends Migration
     public function up()
     {
         Schema::table('fields', function (Blueprint $table) {
-            $table->json('label')->nullable();
+            $table->string('label')->nullable();
         });
     }
 

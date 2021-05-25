@@ -15,11 +15,11 @@ class CreateSlidesTable extends Migration
     {
         Schema::create('slides', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->json('title')->nullable();
-            $table->json('description')->nullable();
-            $table->json('url')->nullable();
-            $table->json('cta_name')->nullable();
-            $table->json('cta_url')->nullable();
+            $table->string('title')->nullable();
+            $table->string('description')->nullable();
+            $table->string('url')->nullable();
+            $table->string('cta_name')->nullable();
+            $table->string('cta_url')->nullable();
             $table->string('image');
             $table->timestamps();
         });
