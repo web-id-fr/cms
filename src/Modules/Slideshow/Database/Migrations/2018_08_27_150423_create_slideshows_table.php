@@ -15,7 +15,7 @@ class CreateSlideshowsTable extends Migration
     {
         Schema::create('slideshows', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->json('title')->nullable();
+            $table->string('title')->nullable();
             $table->boolean('js_controls')->default(false);
             $table->boolean('js_animate_auto')->default(false);
             $table->integer('js_speed')->default(5000);

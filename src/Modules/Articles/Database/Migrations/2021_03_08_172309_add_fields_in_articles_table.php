@@ -17,8 +17,8 @@ class AddFieldsInArticlesTable extends Migration
             $table->integer('order')->nullable();
             $table->boolean('not_display_in_list')->default(false);
             $table->integer('article_type');
-            $table->json('quotation')->nullable();
-            $table->json('author')->nullable();
+            $table->string('quotation')->nullable();
+            $table->string('author')->nullable();
         });
     }
 

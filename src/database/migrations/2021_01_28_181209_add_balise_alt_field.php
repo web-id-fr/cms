@@ -14,11 +14,11 @@ class AddBaliseAltField extends Migration
     public function up()
     {
         Schema::table('popins', function (Blueprint $table) {
-            $table->json('image_alt')->nullable();
+            $table->string('image_alt')->nullable();
         });
 
         Schema::table('templates', function (Blueprint $table) {
-            $table->json('opengraph_picture_alt')->nullable();
+            $table->string('opengraph_picture_alt')->nullable();
         });
     }
 

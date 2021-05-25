@@ -14,8 +14,8 @@ class AddBaliseAltFieldsInArticlesTable extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->json('article_image_alt')->nullable();
-            $table->json('opengraph_picture_alt')->nullable();
+            $table->string('article_image_alt')->nullable();
+            $table->string('opengraph_picture_alt')->nullable();
         });
     }
 

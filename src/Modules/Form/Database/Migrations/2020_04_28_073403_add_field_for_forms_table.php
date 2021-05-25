@@ -14,9 +14,9 @@ class AddFieldForFormsTable extends Migration
     public function up()
     {
         Schema::table('forms', function(Blueprint $table) {
-            $table->json('cta_name');
-            $table->json('rgpd_mention')->nullable();
-            $table->json('description')->nullable()->change();
+            $table->string('cta_name');
+            $table->string('rgpd_mention')->nullable();
+            $table->string('description')->nullable()->change();
         });
     }
 
@@ -30,7 +30,7 @@ class AddFieldForFormsTable extends Migration
         Schema::table('forms', function (Blueprint $table) {
             $table->dropColumn('cta_name');
             $table->dropColumn('rgpd_mention');
-            $table->json('description')->nullable(false)->change();
+            $table->string('description')->nullable(false)->change();
         });
     }
 }
