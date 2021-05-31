@@ -16,8 +16,8 @@ class CreateNewslettersComponentTable extends Migration
         Schema::create('newsletters_component', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('title')->nullable();
-            $table->string('cta_name')->nullable();
+            $table->longText('title')->nullable();
+            $table->longText('cta_name')->nullable();
             $table->integer('status');
             $table->timestamps();
         });

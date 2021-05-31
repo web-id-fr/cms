@@ -15,7 +15,7 @@ class AddNullableToImageFieldInSlidesTable extends Migration
     {
         Schema::table('slides', function (Blueprint $table) {
             $table->string('image')->nullable()->change();
-            $table->string('image_alt')->nullable();
+            $table->longText('image_alt')->nullable();
         });
     }
 

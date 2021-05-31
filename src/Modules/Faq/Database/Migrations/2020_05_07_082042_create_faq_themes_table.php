@@ -15,7 +15,7 @@ class CreateFaqThemesTable extends Migration
     {
         Schema::create('faq_themes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
+            $table->longText('title');
             $table->integer('status');
             $table->timestamps();
         });

@@ -14,11 +14,11 @@ class AddFieldForDateTimeFieldsInFieldsTable extends Migration
     public function up()
     {
         Schema::table('fields', function (Blueprint $table) {
-            $table->string('date_field_title')->nullable();
-            $table->string('date_field_placeholder')->nullable();
-            $table->string('time_field_title')->nullable();
-            $table->string('time_field_placeholder')->nullable();
-            $table->string('duration_field_title')->nullable();
+            $table->longText('date_field_title')->nullable();
+            $table->longText('date_field_placeholder')->nullable();
+            $table->longText('time_field_title')->nullable();
+            $table->longText('time_field_placeholder')->nullable();
+            $table->longText('duration_field_title')->nullable();
             $table->string('field_name_time')->nullable();
             $table->string('field_name_duration')->nullable();
         });
