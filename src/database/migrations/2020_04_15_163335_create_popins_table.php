@@ -15,16 +15,16 @@ class CreatePopinsTable extends Migration
     {
         Schema::create('popins', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title')->nullable();
+            $table->longText('title')->nullable();
             $table->boolean('status')->nullable();
             $table->text('image')->nullable();
             $table->longText('description')->nullable();
-            $table->string('button_1_title')->nullable();
-            $table->string('button_1_url')->nullable();
+            $table->longText('button_1_title')->nullable();
+            $table->longText('button_1_url')->nullable();
             $table->boolean('display_second_button')->nullable();
             $table->boolean('display_call_to_action')->nullable();
-            $table->string('button_2_title')->nullable();
-            $table->string('button_2_url')->nullable();
+            $table->longText('button_2_title')->nullable();
+            $table->longText('button_2_url')->nullable();
             $table->text('type')->nullable();
             $table->text('button_name')->nullable();
             $table->integer('delay')->nullable();

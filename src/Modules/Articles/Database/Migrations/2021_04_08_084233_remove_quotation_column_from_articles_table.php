@@ -26,7 +26,7 @@ class RemoveQuotationColumnFromArticlesTable extends Migration
     public function down()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->string('quotation')->nullable();
+            $table->longText('quotation')->nullable();
         });
     }
 }
