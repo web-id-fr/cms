@@ -23,6 +23,7 @@ class RelatedArticleResource extends JsonResource
             'article_type' => $this->getArticleTypeSlug(),
             'author' => $this->resource->author,
             'publish_at' => $this->resource->publish_at,
+            'created_at' => $this->resource->created_at,
             'categories' => ArticleCategoryResource::collection($this->whenLoaded('categories'))->resolve(),
         ];
     }
