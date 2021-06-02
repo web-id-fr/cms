@@ -53,17 +53,17 @@ class FieldItemField extends Field
     }
 
     /**
-     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
-     * @param $requestAttribute
-     * @param $model
-     * @param $attribute
+     * @param NovaRequest $request
+     * @param string $requestAttribute
+     * @param object $model
+     * @param string $attribute
      *
      * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
-        $fieldItems = json_decode($request[$requestAttribute]);
-        $fieldItems = collect(json_decode(json_encode($fieldItems), true));
+        $fieldItems = $request[$requestAttribute];
+        $fieldItems = collect(json_decode($fieldItems, true));
 
         $fieldItemIds = [];
         $titleFieldItemIds = [];

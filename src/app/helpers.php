@@ -71,13 +71,13 @@ if (!function_exists('str_unslug')) {
 
 if (!function_exists('has_zone_menu')) {
     /**
-     * Vérifie si l'id de menu donné existe en bdd
-     *
-     * @param $zone
+     * @param string $zone
      *
      * @return bool
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    function has_zone_menu($zone): bool
+    function has_zone_menu(string $zone): bool
     {
         $menus = app()->make(\Webid\Cms\App\Repositories\Menu\MenuRepository::class);
 
@@ -89,11 +89,11 @@ if (!function_exists('is_video')) {
     /**
      * Détermine si le fichier dont le nom est passé en paramètre est une vidéo
      *
-     * @param $filename
+     * @param string $filename
      *
      * @return bool
      */
-    function is_video($filename)
+    function is_video(string $filename)
     {
         return !!preg_match('/^.*\.(mp4|mov)$/i', $filename);
     }
@@ -103,11 +103,11 @@ if (!function_exists('is_image')) {
     /**
      * Détermine si le fichier dont le nom est passé en paramètre est une image
      *
-     * @param $filename
+     * @param string $filename
      *
      * @return bool
      */
-    function is_image($filename)
+    function is_image(string $filename)
     {
         return !!preg_match('/^.*\.(jpg|png|gif|jpeg|tiff|svg)$/i', $filename);
     }

@@ -14,7 +14,7 @@ class VideoLayout extends Layout
     protected $name = 'video';
 
     /**
-     * @return string|null
+     * @return array|string|null
      */
     public function title()
     {

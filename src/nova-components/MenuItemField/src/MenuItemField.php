@@ -52,17 +52,17 @@ class MenuItemField extends Field
     }
 
     /**
-     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
-     * @param $requestAttribute
-     * @param $model
-     * @param $attribute
+     * @param NovaRequest $request
+     * @param string $requestAttribute
+     * @param object $model
+     * @param string $attribute
      *
      * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
-        $menuItems = json_decode($request[$requestAttribute]);
-        $menuItems = collect(json_decode(json_encode($menuItems), true));
+        $menuItems = $request[$requestAttribute];
+        $menuItems = collect(json_decode($menuItems, true));
 
         $menuItemTemplateIds = [];
         $menuItemCustomIds = [];
@@ -108,7 +108,7 @@ class MenuItemField extends Field
     }
 
     /**
-     * @param $resource
+     * @param mixed $resource
      * @param null $attribute
      */
     public function resolve($resource, $attribute = null)

@@ -232,13 +232,13 @@ class MenuService
     /**
      * Traite les données à afficher pour une zone de contenu donnée, et retourne le résultat à afficher en HTML
      *
-     * @param string $contentType
+     * @param view-string|null $contentType
      * @param array  $data
      * @param array  $options
      *
      * @return mixed|string
      */
-    public function getHtmlForZone(string $contentType, array $data, array $options = [])
+    public function getHtmlForZone($contentType, array $data, array $options = [])
     {
         try {
             return view(strtolower($contentType))

@@ -3,16 +3,18 @@
 namespace Webid\Cms\Modules\Articles\Nova\Layouts\Resolver;
 
 use Illuminate\Support\Collection;
+use Webid\Cms\Modules\Articles\Models\Article;
 use Webid\Cms\Modules\Slideshow\Repositories\SlideshowRepository;
 use Webid\Cms\Modules\Slideshow\Http\Resources\SlideshowResource;
 use Whitecube\NovaFlexibleContent\Value\ResolverInterface;
+use Whitecube\NovaFlexibleContent\Layouts\Collection as layoutsCollection;
 
 class ArticleResolver implements ResolverInterface
 {
     /**
-     * @param $model
-     * @param $attribute
-     * @param $layouts
+     * @param Article $model
+     * @param string $attribute
+     * @param layoutsCollection $layouts
      *
      * @return mixed
      */
@@ -38,9 +40,9 @@ class ArticleResolver implements ResolverInterface
     }
 
     /**
-     * @param $model
-     * @param $attribute
-     * @param $value
+     * @param Article $model
+     * @param string $attribute
+     * @param Collection $value
      *
      * @return mixed
      */
@@ -95,8 +97,8 @@ class ArticleResolver implements ResolverInterface
     }
 
     /**
-     * @param $resource
-     * @param $attribute
+     * @param Article $resource
+     * @param string $attribute
      *
      * @return array
      */

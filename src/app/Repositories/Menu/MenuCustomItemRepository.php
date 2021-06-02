@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\App\Repositories\Menu;
 
+use Illuminate\Support\Collection;
 use Webid\Cms\App\Models\Menu\MenuCustomItem;
 
 class MenuCustomItemRepository
@@ -20,7 +21,7 @@ class MenuCustomItemRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
+     * @return Collection<MenuCustomItem>
      */
     public function all()
     {

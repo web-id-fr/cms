@@ -32,6 +32,7 @@ class LanguageService
      */
     public function getBrowserDefault()
     {
+        /** @var string $browserLanguage */
         $browserLanguage = request()->server('HTTP_ACCEPT_LANGUAGE');
 
         return substr($browserLanguage, 0, 2) ?: '';

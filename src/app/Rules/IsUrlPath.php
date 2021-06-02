@@ -17,7 +17,7 @@ class IsUrlPath implements Rule
     }
 
     /**
-     * @return string
+     * @return array|string|null
      */
     public function message()
     {

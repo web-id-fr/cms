@@ -52,7 +52,7 @@ class Translatable extends Field
     /**
      * Set the locales to display / edit.
      *
-     * @param  array  $locales
+     * @param array $locales
      * @return $this
      */
     public function locales(array $locales)
@@ -63,10 +63,10 @@ class Translatable extends Field
     /**
      * Set the locale to display on index.
      *
-     * @param  string $locale
+     * @param string $locale
      * @return $this
      */
-    public function indexLocale($locale)
+    public function indexLocale(string $locale)
     {
         return $this->withMeta(['indexLocale' => $locale]);
     }

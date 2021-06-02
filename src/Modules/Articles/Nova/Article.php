@@ -27,6 +27,9 @@ class Article extends Resource
 {
     use TabsOnEdit, HasIconSvg;
 
+    /** @var ArticleModel */
+    public $resource;
+
     /**
      * The model the resource corresponds to.
      *
@@ -51,7 +54,7 @@ class Article extends Resource
     ];
 
     /**
-     * @return string
+     * @return array|string|null
      */
     public static function label()
     {

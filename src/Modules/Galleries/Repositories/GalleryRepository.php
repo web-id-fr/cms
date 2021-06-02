@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\Modules\Galleries\Repositories;
 
+use Illuminate\Support\Collection;
 use Webid\Cms\Modules\Galleries\Models\Gallery;
 
 class GalleryRepository
@@ -20,7 +21,7 @@ class GalleryRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
+     * @return Collection<Gallery>
      */
     public function getPublishedGalleries()
     {

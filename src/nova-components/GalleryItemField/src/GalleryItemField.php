@@ -38,17 +38,17 @@ class GalleryItemField extends Field
     }
 
     /**
-     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
-     * @param $requestAttribute
-     * @param $model
-     * @param $attribute
+     * @param NovaRequest $request
+     * @param string $requestAttribute
+     * @param object $model
+     * @param string $attribute
      *
      * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
-        $galleryItems = json_decode($request[$requestAttribute]);
-        $galleryItems = collect(json_decode(json_encode($galleryItems), true));
+        $galleryItems = $request[$requestAttribute];
+        $galleryItems = collect(json_decode($galleryItems, true));
 
         $GalleryItemIds = [];
 

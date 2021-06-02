@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\App\Repositories\Components;
 
+use Illuminate\Support\Collection;
 use Webid\Cms\App\Models\Components\NewsletterComponent;
 
 class NewsletterComponentRepository
@@ -19,7 +20,7 @@ class NewsletterComponentRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
+     * @return Collection<NewsletterComponent>
      */
     public function getPublishedComponents()
     {

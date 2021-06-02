@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\App\Repositories\Components;
 
+use Illuminate\Support\Collection;
 use Webid\Cms\App\Models\Components\GalleryComponent;
 
 class GalleryComponentRepository
@@ -18,7 +19,7 @@ class GalleryComponentRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
+     * @return Collection<GalleryComponent>
      */
     public function getPublishedComponents()
     {

@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\App\Repositories\Popin;
 
+use Illuminate\Support\Collection;
 use Webid\Cms\App\Models\Popin\Popin;
 
 class PopinRepository
@@ -20,7 +21,7 @@ class PopinRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
+     * @return Collection<Popin>
      */
     public function getPublishedPopins()
     {

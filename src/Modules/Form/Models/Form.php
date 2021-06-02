@@ -33,6 +33,9 @@ class Form extends Model
         self::_SERVICES => 'Services'
     ];
 
+    /** @var Collection $field_items */
+    public $field_items;
+
     /**
      * The table associated with the model.
      *
@@ -128,9 +131,6 @@ class Form extends Model
             ->withPivot('order')
             ->orderBy('order');
     }
-
-    /** @var $field_items */
-    public $field_items;
 
     /**
      * @return void

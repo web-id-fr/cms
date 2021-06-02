@@ -50,8 +50,8 @@ class ImageItemField extends Field
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
-        $slideItems = json_decode($request[$requestAttribute]);
-        $slideItems = collect(json_decode(json_encode($slideItems), true));
+        $slideItems = $request[$requestAttribute];
+        $slideItems = collect(json_decode($slideItems, true));
 
         $slideItemIds = [];
 

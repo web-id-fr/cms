@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\Modules\Faq\Repositories;
 
+use Illuminate\Support\Collection;
 use Webid\Cms\Modules\Faq\Models\FaqTheme;
 
 class FaqThemeRepository
@@ -20,7 +21,7 @@ class FaqThemeRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
+     * @return Collection<FaqTheme>
      */
     public function getPublishedFaqThemes()
     {

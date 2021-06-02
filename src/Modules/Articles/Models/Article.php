@@ -17,6 +17,10 @@ use Webid\Cms\Modules\Slideshow\Models\Slideshow;
  * @package Webid\Cms\Modules\Articles\Models
  *
  * @property int $article_type
+ * @property int $status
+ * @property string $publish_at
+ * @property DateTime $updated_at
+ * @property array $slug
  */
 class Article extends Model
 {
@@ -87,6 +91,7 @@ class Article extends Model
     const _TYPE_NORMAL = 1;
     const _TYPE_CITATION = 2;
 
+    /** @var array  */
     public $available_types = [
         self::_TYPE_PRESS => "press",
         self::_TYPE_NORMAL => "normal",
@@ -136,7 +141,7 @@ class Article extends Model
     }
 
     /**
-     * @param $value
+     * @param string $value
      *
      * @return \Whitecube\NovaFlexibleContent\Layouts\Collection
      */
