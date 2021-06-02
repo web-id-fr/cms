@@ -16,7 +16,7 @@ class QuotationLayout extends Layout
     protected $name = 'quotation';
 
     /**
-     * @return string|null
+     * @return array|string|null
      */
     public function title()
     {

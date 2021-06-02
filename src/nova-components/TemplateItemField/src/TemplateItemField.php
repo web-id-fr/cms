@@ -16,15 +16,13 @@ class TemplateItemField extends Field
     public $component = 'TemplateItemField';
 
     /**
-     * @param  string  $name
-     * @param  string|callable|null  $attribute
-     * @param  callable|null  $resolveCallback
-     *
-     * @return void
+     * @param string $name
+     * @param string|null $attribute
+     * @param callable|null $resolveCallback
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct($name, $attribute = null, callable $resolveCallback = null)
+    public function __construct(string $name, ?string $attribute = null, callable $resolveCallback = null)
     {
         $templateRepository = app()->make(TemplateRepository::class);
 
@@ -36,15 +34,17 @@ class TemplateItemField extends Field
     }
 
     /**
-     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
-     * @param $requestAttribute
-     * @param $model
-     * @param $attribute
+     * @param NovaRequest $request
+     * @param string $requestAttribute
+     * @param object $model
+     * @param string $attribute
+     *
+     * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
-        $fieldItems = json_decode($request[$requestAttribute]);
-        $fieldItems = collect(json_decode(json_encode($fieldItems), true));
+        $fieldItems = $request[$requestAttribute];
+        $fieldItems = collect(json_decode($fieldItems, true));
 
         $fieldItemIds = [];
 

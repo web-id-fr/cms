@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\Modules\Newsletter\Repositories;
 
+use Illuminate\Support\Collection;
 use Webid\Cms\Modules\Newsletter\Models\Newsletter;
 
 class NewsletterRepository
@@ -21,9 +22,10 @@ class NewsletterRepository
 
     /**
      * @param array $data
-     * @return boolean
+     *
+     * @return Collection<Newsletter>
      */
-    public function store(Array $data)
+    public function store(array $data)
     {
         return $this->model->create($data);
     }

@@ -17,7 +17,7 @@ class ArticlesServiceProvider extends ServiceProvider
     const MODULE_NAME = 'Articles';
     const MODULE_ALIAS = 'articles';
 
-    public function boot()
+    public function boot(): void
     {
         $this->publishConfig();
         $this->registerAndPublishViews();

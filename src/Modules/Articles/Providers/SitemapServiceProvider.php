@@ -21,6 +21,14 @@ class SitemapServiceProvider extends ServiceProvider
     protected ArticleCategoryRepository $categoryRepository;
     protected TemplateRepository $templateRepository;
 
+    /**
+     * @param SitemapGenerator $sitemap
+     * @param ArticleRepository $articleRepository
+     * @param ArticleCategoryRepository $categoryRepository
+     * @param LanguageService $languageService
+     * @param TemplateRepository $templateRepository
+     * @return void
+     */
     public function boot(
         SitemapGenerator $sitemap,
         ArticleRepository $articleRepository,

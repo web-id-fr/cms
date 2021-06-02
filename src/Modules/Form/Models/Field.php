@@ -56,7 +56,7 @@ class Field extends Model
     ];
 
     /**
-     * @param $value
+     * @param string $value
      *
      * @return \Whitecube\NovaFlexibleContent\Layouts\Collection
      */

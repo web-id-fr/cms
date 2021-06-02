@@ -23,10 +23,9 @@ class TranslatableSlug implements Rule
         }
         return $pass;
     }
+
     /**
-     * Get the validation error message.
-     *
-     * @return string
+     * @return array|string|null
      */
     public function message()
     {

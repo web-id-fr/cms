@@ -16,6 +16,9 @@ class Gallery extends Resource
 {
     use HasIconSvg;
 
+    /** @var GalleryModel $resource */
+    public $resource;
+
     /**
      * The model the resource corresponds to.
      *
@@ -40,9 +43,7 @@ class Gallery extends Resource
     ];
 
     /**
-     * Get the displayable label of the resource.
-     *
-     * @return string
+     * @return array|string|null
      */
     public static function label()
     {
@@ -50,7 +51,7 @@ class Gallery extends Resource
     }
 
     /**
-     * @return string
+     * @return array|string|null
      */
     public static function singularLabel()
     {

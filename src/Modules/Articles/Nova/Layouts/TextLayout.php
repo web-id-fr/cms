@@ -14,7 +14,7 @@ class TextLayout extends Layout
     protected $name = 'text';
 
     /**
-     * @return string|null
+     * @return array|string|null
      */
     public function title()
     {

@@ -27,7 +27,7 @@ class LanguageRepository
      *
      * @return Model
      */
-    public function store(Array $data): Model
+    public function store(array $data): Model
     {
         return $this->model->create($data);
     }
@@ -39,5 +39,15 @@ class LanguageRepository
     {
         return $this->model
             ->all();
+    }
+
+    /**
+     * @param Model $language
+     *
+     * @return bool|null
+     */
+    public function delete(Model $language)
+    {
+        return $language->delete();
     }
 }

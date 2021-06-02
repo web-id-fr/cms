@@ -43,8 +43,8 @@ class ArticleCategoriesItemField extends Field
      */
     protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
-        $articleCategoryItems = json_decode($request[$requestAttribute]);
-        $articleCategoryItems = collect(json_decode(json_encode($articleCategoryItems), true));
+        $articleCategoryItems = $request[$requestAttribute];
+        $articleCategoryItems = collect(json_decode($articleCategoryItems, true));
 
         $articleCategoryItemIds = [];
 

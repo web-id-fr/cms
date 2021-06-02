@@ -1,11 +1,27 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
 parameters:
-	level: 1
+	level: 8
 	paths:
 		- src
 	excludePaths:
 	    - src/nova-components/*/vendor/*
+	    - src/Modules/*/Database/*
+	    - src/Modules/*/Resources/*
+	    - src/Modules/*/Tests/*
+	    - src/Modules/*/vendor/*
 	ignoreErrors:
 	    - '#Class App\\Nova\\User not found\.#'
+	    - '#Parameter \#1 \$text of method Laravel\\Nova\\Fields\\Field::help\(\) expects string, array\|string\|null given\.#'
+	    - '#Parameter \#1 \$name of class Eminiarts\\Tabs\\Tabs constructor expects string, array\|string\|null given\.#'
+	    - '#Parameter \#1 \$label of method Whitecube\\NovaFlexibleContent\\Flexible::button\(\) expects string, array\|string\|null given#'
 	    -
 	        message: '#Access to an undefined property App\\Models\\Template\:\:\$[a-zA-Z0-9]+Components\.#'
 	        path: src/app/Models/Template.php
+	    -
+	        message: '#Possibly invalid array key type array\|string\|null\.#'
+	        paths:
+	            - src/Modules/*/Nova/*.php
+	            - src/app/Nova/Template.php
+	checkMissingIterableValueType: false
+

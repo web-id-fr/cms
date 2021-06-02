@@ -38,17 +38,17 @@ class ServiceItemField extends Field
     }
 
     /**
-     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
-     * @param $requestAttribute
-     * @param $model
-     * @param $attribute
+     * @param NovaRequest $request
+     * @param string $requestAttribute
+     * @param object $model
+     * @param string $attribute
      *
      * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
-        $serviceItems = json_decode($request[$requestAttribute]);
-        $serviceItems = collect(json_decode(json_encode($serviceItems), true));
+        $serviceItems = $request[$requestAttribute];
+        $serviceItems = collect(json_decode($serviceItems, true));
 
         $serviceItemIds = [];
 

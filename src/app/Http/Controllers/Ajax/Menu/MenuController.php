@@ -28,11 +28,11 @@ class MenuController extends BaseController
     }
 
     /**
-     * @param $id
+     * @param int $id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(int $id)
     {
         return response()->json(MenuResource::make($this->menuRepository->find($id)));
     }

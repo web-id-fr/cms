@@ -16,7 +16,7 @@ class TextImageLayout extends Layout
     protected $name = 'text-image';
 
     /**
-     * @return string|null
+     * @return array|string|null
      */
     public function title()
     {

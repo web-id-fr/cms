@@ -15,7 +15,7 @@ class ImageLayout extends Layout
     protected $name = 'image';
 
     /**
-     * @return string|null
+     * @return array|string|null
      */
     public function title()
     {

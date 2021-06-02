@@ -16,7 +16,7 @@ class TextVideoLayout extends Layout
     protected $name = 'text-video';
 
     /**
-     * @return string|null
+     * @return array|string|null
      */
     public function title()
     {

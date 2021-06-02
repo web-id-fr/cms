@@ -11,7 +11,7 @@ class SlideshowLayout extends Layout
     protected $name = 'slideshow';
 
     /**
-     * @return string|null
+     * @return array|string|null
      */
     public function title()
     {

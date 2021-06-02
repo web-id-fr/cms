@@ -24,6 +24,7 @@ class SendForm extends Mailable
 
     public function build(): self
     {
+        /** @var view-string $mailPath */
         $mailPath = "form::mail.form";
 
         $message = $this->from(config('mail.from.address'), config('mail.from.name'))

@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\App\Repositories\Menu;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Webid\Cms\App\Models\Menu\Menu;
 
@@ -18,7 +19,7 @@ class MenuRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
+     * @return Collection<Menu>
      */
     public function all()
     {
@@ -40,14 +41,19 @@ class MenuRepository
      */
     public function find(int $id)
     {
-        return $this->model
+        $menu = $this->model
             ->find($id)
-            ->with(['items' => function ($query) {
+            ->first();
+
+        if ($menu) {
+            return $menu->with(['items' => function ($query) {
                 $query->whereHas('menus', function ($query) {
                     $query->whereNull('parent_id');
                 });
-            }])
-            ->first();
+            }]);
+        }
+
+        return $menu;
     }
 
     /**

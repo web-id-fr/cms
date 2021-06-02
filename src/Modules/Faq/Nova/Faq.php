@@ -18,6 +18,9 @@ class Faq extends Resource
 {
     use HasIconSvg;
 
+    /** @var FaqModel */
+    public $resource;
+
     /**
      * The model the resource corresponds to.
      *

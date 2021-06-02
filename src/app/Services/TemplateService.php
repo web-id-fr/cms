@@ -38,6 +38,10 @@ class TemplateService
             $data = $template->getTranslations('slug');
             $data = array_intersect_key($data, $allowed_locales);
 
+            /**
+             * @var string $locale
+             * @var string $locale_name
+             */
             foreach ($allowed_locales as $locale => $locale_name) {
                 if (!Arr::has($data, $locale)) {
                     Arr::set($data, $locale, '');

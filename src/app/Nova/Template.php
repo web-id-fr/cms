@@ -25,6 +25,9 @@ class Template extends Resource
 {
     use TabsOnEdit;
 
+    /** @var TemplateModel $resource */
+    public $resource;
+
     /**
      * The model the resource corresponds to.
      *
@@ -49,9 +52,7 @@ class Template extends Resource
     ];
 
     /**
-     * Get the displayable label of the resource.
-     *
-     * @return string
+     * @return array|string|null
      */
     public static function label()
     {

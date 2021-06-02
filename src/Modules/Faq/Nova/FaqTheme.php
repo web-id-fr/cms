@@ -12,6 +12,9 @@ use Webid\TranslatableTool\Translatable;
 
 class FaqTheme extends Resource
 {
+    /** @var FaqThemeModel */
+    public $resource;
+
     /**
      * The model the resource corresponds to.
      *
@@ -37,9 +40,7 @@ class FaqTheme extends Resource
     ];
 
     /**
-     * Get the displayable label of the resource.
-     *
-     * @return string
+     * @return array|string|null
      */
     public static function label()
     {
@@ -47,9 +48,7 @@ class FaqTheme extends Resource
     }
 
     /**
-     * Get the displayable singular label of the resource.
-     *
-     * @return string
+     * @return array|string|null
      */
     public static function singularLabel()
     {
