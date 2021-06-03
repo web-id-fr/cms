@@ -8,7 +8,7 @@ use Webid\Cms\App\Models\Menu\Menu;
 
 class MenuRepository
 {
-protected Menu $model;
+    protected Menu $model;
 
     /**
      * @param Menu $model
