@@ -8,7 +8,7 @@ use Webid\Cms\App\Models\Menu\Menu;
 
 class MenuRepository
 {
-    protected Menu $model;
+protected Menu $model;
 
     /**
      * @param Menu $model
@@ -46,7 +46,7 @@ class MenuRepository
             ->find($id);
 
         if ($menu) {
-             $menu->with(['items' => function ($query) {
+            $menu->with(['items' => function ($query) {
                 $query->whereHas('menus', function ($query) {
                     $query->whereNull('parent_id');
                 });

@@ -4,15 +4,11 @@
 testing:
 	./bin/local-php-security-checker-macos
 	./vendor/bin/phpcs --report=full
-	./vendor/bin/psalm
 	./vendor/bin/phpstan analyse -c phpstan.neon
 	./vendor/bin/phpunit --no-coverage
 
 phpcs:
 	./vendor/bin/phpcs --report=full
-
-psalm:
-	./vendor/bin/psalm
 
 stan:
 	./vendor/bin/phpstan analyse -c phpstan.neon
