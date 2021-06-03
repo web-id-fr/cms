@@ -16,9 +16,11 @@ use Webid\Cms\App\Models\Traits\HasStatusLabels;
  *
  * @property int $id
  * @property string $title
- * @property string $slug
+ * @property array $slug
  * @property int|bool $homepage
+ * @property int $status
  * @property int|bool $contains_articles_list
+ * @property \DateTime $publish_at
  */
 abstract class BaseTemplate extends Model implements Menuable
 {

@@ -14,6 +14,9 @@ use Webid\GalleryItemField\GalleryItemField;
 
 class GalleryComponent extends Resource
 {
+    /** @var GalleryComponentModel $resource */
+    public $resource;
+
     /**
      * The model the resource corresponds to.
      *

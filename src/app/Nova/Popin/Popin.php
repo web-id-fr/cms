@@ -20,6 +20,9 @@ class Popin extends Resource
 {
     use TabsOnEdit;
 
+    /** @var PopinModel */
+    public $resource;
+
     /**
      * The model the resource corresponds to.
      *
@@ -45,9 +48,7 @@ class Popin extends Resource
     ];
 
     /**
-     * Get the displayable label of the resource.
-     *
-     * @return string
+     * @return array|string|null
      */
     public static function label()
     {

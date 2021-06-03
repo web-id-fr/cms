@@ -34,7 +34,7 @@ class TitleField extends Resource
     ];
 
     /**
-     * @return string
+     * @return array|string|null
      */
     public static function label()
     {
@@ -42,7 +42,7 @@ class TitleField extends Resource
     }
 
     /**
-     * @return string
+     * @return array|string|null
      */
     public static function singularLabel()
     {

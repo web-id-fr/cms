@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
+/**
+ * Class NewsletterComponent
+ * @package Webid\Cms\App\Models\Components
+ * @property int $status
+ */
 class NewsletterComponent extends Model
 {
     use HasTranslations,

@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
+/**
+ * Class Gallery
+ * @package Webid\Cms\Modules\Galleries\Models
+ * @property int $status
+ */
 class Gallery extends Model
 {
     use HasTranslations,

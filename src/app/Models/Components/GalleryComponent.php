@@ -11,10 +11,8 @@ use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
 /**
  * Class GalleryComponent
- *
  * @package Webid\Cms\App\Models\Components
- *
- * @property Collection<Gallery>|null $galleries
+ * @property int $status
  */
 class GalleryComponent extends Model
 {

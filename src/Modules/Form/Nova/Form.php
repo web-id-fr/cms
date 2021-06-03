@@ -22,6 +22,9 @@ class Form extends Resource
 {
     use HasDependencies, HasIconSvg;
 
+    /** @var FormModel $resource */
+    public $resource;
+
     /**
      * The model the resource corresponds to.
      *
@@ -46,9 +49,7 @@ class Form extends Resource
     ];
 
     /**
-     * Get the displayable label of the resource.
-     *
-     * @return string
+     * @return array|string|null
      */
     public static function label()
     {

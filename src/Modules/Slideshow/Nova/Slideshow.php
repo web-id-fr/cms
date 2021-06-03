@@ -40,9 +40,7 @@ class Slideshow extends Resource
     ];
 
     /**
-     * Get the displayable label of the resource.
-     *
-     * @return string
+     * @return array|string|null
      */
     public static function label()
     {

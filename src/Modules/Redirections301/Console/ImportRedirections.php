@@ -48,10 +48,11 @@ class ImportRedirections extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return int
      */
     public function handle(): int
     {
+        /** @var string $filepath */
         $filepath = $this->argument('filepath');
 
         if (!$this->isValidFilePath($filepath)) {
@@ -103,8 +104,10 @@ class ImportRedirections extends Command
     private function importLines($fileHandle): void
     {
         $currentLine = 0;
+        /** @var array $row */
+        $row = fgetcsv($fileHandle);
 
-        while (($row = fgetcsv($fileHandle)) !== false) {
+        while ($row !== false) {
             $currentLine++;
 
             if ($currentLine == 1) {

@@ -2,6 +2,7 @@
 
 namespace Webid\PageUrlItemField;
 
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Fields\Field;
 
 class PageUrlItemField extends Field
@@ -37,8 +38,8 @@ class PageUrlItemField extends Field
     /**
      * Resolve the given attribute from the given resource.
      *
-     * @param  mixed  $resource
-     * @param  string  $attribute
+     * @param Model $resource
+     * @param string $attribute
      * @return mixed
      */
     protected function resolveAttribute($resource, $attribute)

@@ -26,6 +26,7 @@ class GalleryLocalStorageService implements GalleryServiceContract
             return [];
         }
 
+        /** @var array $galleries */
         $galleries = scandir($galleriesPath);
         $galleries = array_diff($galleries, ['.', '..']);
 

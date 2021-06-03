@@ -21,6 +21,7 @@ use Webid\Cms\Modules\Form\Models\Form;
  * @property Form|null $form
  * @property string|null $url
  * @property string $target
+ * @property string $slug
  */
 class MenuCustomItem extends Model implements Menuable
 {

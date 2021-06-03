@@ -222,7 +222,9 @@ class Article extends Resource
      */
     public static function icon(): string
     {
-        return self::svgIcon('articles', package_module_path('Articles/Resources/svg'));
+        /** @var string $svg */
+        $svg = package_module_path('Articles/Resources/svg');
+        return self::svgIcon('articles', $svg);
     }
 
     /**

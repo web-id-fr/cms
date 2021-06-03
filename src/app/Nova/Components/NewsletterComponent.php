@@ -14,6 +14,9 @@ use Webid\TranslatableTool\Translatable;
 
 class NewsletterComponent extends Resource
 {
+    /** @var NewsletterComponentModel $resource */
+    public $resource;
+
     /**
      * The model the resource corresponds to.
      *

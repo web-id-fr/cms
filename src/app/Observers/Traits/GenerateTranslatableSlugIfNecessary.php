@@ -3,10 +3,13 @@
 namespace Webid\Cms\App\Observers\Traits;
 
 use Illuminate\Support\Str;
+use Webid\Cms\App\Repositories\TemplateRepository;
 use Webid\Cms\App\Services\LanguageService;
+use Webid\Cms\Modules\Articles\Repositories\ArticleRepository;
 
 trait GenerateTranslatableSlugIfNecessary
 {
+    /** @var TemplateRepository|ArticleRepository $repository */
     protected $repository;
 
     /**
@@ -49,6 +52,10 @@ trait GenerateTranslatableSlugIfNecessary
         $CheckSlugs = array_diff_assoc($allSlug, $originalSlug);
 
         // Vérification si les slugs sont uniques
+        /**
+         * @var string $language
+         * @var string $slug
+         */
         foreach ($CheckSlugs as $language => $slug) {
             if ($slug) {
                 try {
@@ -59,7 +66,7 @@ trait GenerateTranslatableSlugIfNecessary
                         foreach (json_decode($slugExisting->attributes['slug'], true) as $temp_language => $temp_slug) {
                             if ($language == $temp_language) {
                                 $number = explode('-', $temp_slug);
-                                $newId = $number[1] + $count;
+                                $newId = intval($number[1]) + $count;
                                 $allSlug[$language] = $slug . '-' . $newId;
                             }
                         }
