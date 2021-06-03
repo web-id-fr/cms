@@ -60,9 +60,6 @@ jobs:
       - name: Running phpcs
         run: ./vendor/bin/phpcs --report=full
 
-      - name: Running psalm
-        run: ./vendor/bin/psalm
-
       - name: Running phpstan
         run: ./vendor/bin/phpstan analyse -c phpstan.neon
 
