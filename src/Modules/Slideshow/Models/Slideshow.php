@@ -76,7 +76,7 @@ class Slideshow extends Model
         if (!$value) {
             $this->attributes['js_speed'] = 5000;
         } else {
-            $this->attributes['js_speed'] = $value * 1000;
+            $this->attributes['js_speed'] = intval($value) * 1000;
         }
     }
 

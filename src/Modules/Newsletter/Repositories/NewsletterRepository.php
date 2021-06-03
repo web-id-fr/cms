@@ -23,7 +23,7 @@ class NewsletterRepository
     /**
      * @param array $data
      *
-     * @return Collection<Newsletter>
+     * @return Newsletter
      */
     public function store(array $data)
     {

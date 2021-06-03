@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\Modules\Slideshow\Repositories;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Webid\Cms\Modules\Slideshow\Models\Slideshow;
 
@@ -33,13 +34,18 @@ class SlideshowRepository
     /**
      * @param int $id
      *
-     * @return mixed
+     * @return Model|null
      */
     public function find(int $id)
     {
-        return $this->model
-            ->find($id)
-            ->with('slides')
-            ->first();
+        /** @var Model|null $slideshow */
+        $slideshow = $this->model
+            ->find($id);
+
+        if ($slideshow) {
+            $slideshow->with('slides');
+        }
+
+        return $slideshow;
     }
 }

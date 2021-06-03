@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Spatie\Translatable\HasTranslations;
@@ -170,7 +171,7 @@ class Menu extends Model
     /**
      * Transforme l'attribut "zones" issu du scope en tableau s'il existe
      *
-     * @param $zones
+     * @param string|array $zones
      *
      * @return array
      */
@@ -184,15 +185,19 @@ class Menu extends Model
             $zones = array_filter($zones);
         }
 
+        if (!is_array($zones)) {
+            return [];
+        }
+
         return $zones;
     }
 
     /**
-     * @param $query
+     * @param Builder $query
      *
-     * @return mixed
+     * @return Builder
      */
-    public function scopeWithZones($query)
+    public function scopeWithZones(Builder $query)
     {
         $table = $this->getTable();
 

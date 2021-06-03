@@ -22,6 +22,7 @@ class MenuItemResource extends JsonResource
      */
     public function toArray($request)
     {
+        /** @var MenuCustomItem $menuable */
         $menuable = $this->resource->menuable;
         $children = $menuable->childrenForMenu($this->resource->menu_id);
 

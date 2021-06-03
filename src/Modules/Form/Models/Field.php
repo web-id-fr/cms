@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Traits\HasFlexible;
 
+/**
+ * Class Field
+ * @package Webid\Cms\Modules\Form\Models
+ * @property string $field_name.
+ */
 class Field extends Model
 {
     use HasTranslations, HasFlexible, HasFactory;

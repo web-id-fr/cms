@@ -34,7 +34,7 @@ class GalleryS3Service implements GalleryServiceContract
     /**
      * @param string $folder
      *
-     * @return array|\Illuminate\Contracts\Filesystem\Filesystem
+     * @return array
      */
     protected function getGalleriesInFolder(string $folder)
     {

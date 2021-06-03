@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
+/**
+ * Class Popin
+ * @package Webid\Cms\App\Models\Popin
+ * @property int $status
+ */
 class Popin extends Model
 {
     use HasTranslations,
@@ -45,6 +50,7 @@ class Popin extends Model
         'max_display',
     ];
 
+    /** @var array  */
     public $translatable = [
         'title',
         'description',

@@ -15,6 +15,7 @@ use Webid\Cms\App\Models\Traits\HasStatusLabels;
  *
  * @property Collection $fields
  * @property Collection $titleFields
+ * @property int $status
  */
 class Form extends Model
 {

@@ -57,6 +57,9 @@ class TemplateController extends BaseController
                 info($e);
             }
 
+            /** @var array $queryParams */
+            $queryParams = $request->query();
+
             $meta = [
                 'title' => data_get($data, 'meta_title'),
                 'type' => 'realisations',
@@ -66,7 +69,7 @@ class TemplateController extends BaseController
                 'og_description' => data_get($data, 'opengraph_description'),
                 'indexation' => data_get($data, 'indexation'),
                 'keywords' => data_get($data, 'meta_keywords'),
-                'canonical' => $this->templateService->getCanonicalUrlFor($template, $request->query()),
+                'canonical' => $this->templateService->getCanonicalUrlFor($template, $queryParams),
             ];
 
             return view('template', [
@@ -104,6 +107,9 @@ class TemplateController extends BaseController
                 info($e);
             }
 
+            /** @var array $queryParams */
+            $queryParams = $request->query();
+
             $meta = [
                 'title' => data_get($data, 'meta_title'),
                 'type' => 'realisations',
@@ -113,7 +119,7 @@ class TemplateController extends BaseController
                 'og_description' => data_get($data, 'opengraph_description'),
                 'indexation' => data_get($data, 'indexation'),
                 'keywords' => data_get($data, 'meta_keywords'),
-                'canonical' => $this->templateService->getCanonicalUrlFor($template, $request->query()),
+                'canonical' => $this->templateService->getCanonicalUrlFor($template, $queryParams),
             ];
 
             return view('template', [

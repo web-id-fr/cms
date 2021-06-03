@@ -37,16 +37,16 @@ class MenuRepository
     /**
      * @param int $id
      *
-     * @return mixed
+     * @return Menu|null
      */
     public function find(int $id)
     {
+        /** @var Menu|null $menu */
         $menu = $this->model
-            ->find($id)
-            ->first();
+            ->find($id);
 
         if ($menu) {
-            return $menu->with(['items' => function ($query) {
+             $menu->with(['items' => function ($query) {
                 $query->whereHas('menus', function ($query) {
                     $query->whereNull('parent_id');
                 });

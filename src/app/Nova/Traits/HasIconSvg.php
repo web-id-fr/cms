@@ -7,10 +7,10 @@ trait HasIconSvg
     /**
      * @param string $iconName
      * @param string|null $iconPath
-     * @return string
+     * @return string|false
      * @throws \Exception
      */
-    protected static function svgIcon(string $iconName, string $iconPath = null): string
+    protected static function svgIcon(string $iconName, string $iconPath = null)
     {
         if (empty($iconPath)) {
             $iconPath = resource_path('views/svg');

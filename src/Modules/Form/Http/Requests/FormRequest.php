@@ -43,7 +43,9 @@ class FormRequest extends BaseRequest
         $fields_rules = [];
 
         if ($this->request->get('form_id')) {
-            $form = $this->formRepository->find($this->request->get('form_id'));
+            /** @var int $id */
+            $id = intval($this->request->get('form_id'));
+            $form = $this->formRepository->find($id);
         } else {
             $fields_rules['form_id'] = 'integer|required';
             return $fields_rules;

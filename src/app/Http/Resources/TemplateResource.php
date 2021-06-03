@@ -35,8 +35,8 @@ class TemplateResource extends JsonResource
     }
 
     /**
-     * @param $indexation
-     * @param $follow
+     * @param int|bool $indexation
+     * @param int|bool $follow
      *
      * @return string
      */

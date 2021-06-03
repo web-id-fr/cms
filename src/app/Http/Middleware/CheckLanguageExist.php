@@ -14,8 +14,10 @@ class CheckLanguageExist
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!array_key_exists($request->route('lang'), config('translatable.locales'))) {
-            abort('404');
+        /** @var string $lang */
+        $lang = $request->route('lang');
+        if (!array_key_exists($lang, config('translatable.locales'))) {
+            abort(404);
         }
 
         return $next($request);

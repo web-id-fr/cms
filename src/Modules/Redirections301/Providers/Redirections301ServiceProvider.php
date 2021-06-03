@@ -15,7 +15,7 @@ class Redirections301ServiceProvider extends ServiceProvider
     const MODULE_NAME = 'Redirections301';
     const MODULE_ALIAS = 'redirections-301';
 
-    public function boot(Router $router)
+    public function boot(Router $router): void
     {
         $this->mergeConfigFrom(
             module_path(self::MODULE_NAME, 'Config/config.php'),

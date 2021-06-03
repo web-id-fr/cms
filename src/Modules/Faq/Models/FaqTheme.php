@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
+/**
+ * Class FaqTheme
+ * @package Webid\Cms\Modules\Faq\Models
+ * @property int $status
+ */
 class FaqTheme extends Model
 {
     use HasTranslations, HasStatusLabels, HasFactory;

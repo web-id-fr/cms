@@ -42,6 +42,7 @@ if (!function_exists('current_url_is')) {
     function current_url_is(string $urlToCompare): bool
     {
         // On récupère uniquement le path de l'url à comparer
+        /** @var string $urlPath */
         $urlPath = parse_url($urlToCompare, PHP_URL_PATH) ?? '';
         $urlPath = trim($urlPath, '/');
 
@@ -60,6 +61,7 @@ if (!function_exists('str_unslug')) {
     function str_unslug(string $string): string
     {
         // Supprime les séparateurs
+        /** @var string $string */
         $string = preg_replace('/[-_.]/', ' ', $string);
 
         // Met les majuscules

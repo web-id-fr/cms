@@ -19,7 +19,9 @@ class CardActionsApiController extends BaseController
      */
     public function flushVarnish(Request $request)
     {
-        $host = isset(parse_url(config('app.url'))['host']) ? parse_url(config('app.url'))['host'] : null;
+        /** @var string[] */
+        $url = parse_url(config('app.url'));
+        $host = isset($url['host']) ? $url['host'] : "";
         $varnish = new VarnishCustom();
         $varnish->flush($host);
         return response()->json([

@@ -106,6 +106,7 @@ class CmsServiceProvider extends ServiceProvider
     protected function registerMenuDirective(): void
     {
         Blade::directive('menu', function ($expression) {
+            /** @var string $expression */
             $expression = str_replace("'", "\'", $expression);
             return "<?php echo app('" . MenuService::class . "')->showMenu('{$expression}'); ?>";
         });

@@ -43,7 +43,7 @@ class Menu
         if (empty($zoneParams[0]) || !is_string($zoneParams[0])) {
             throw new MissingParameterException("The @menu first attribute is missing or invalid.");
         }
-        if (!empty($zoneParams[1]) && !is_string($zoneParams[1])) {
+        if (isset($zoneParams[1]) && !is_string($zoneParams[1])) {
             throw new InvalidArgumentException("The @menu second attribute is invalid.");
         }
 

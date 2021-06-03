@@ -30,7 +30,8 @@ class NewsletterController extends BaseController
         $data = $request->validated();
         $data['lang'] = App::getLocale();
         $this->newsletterRepository->store($data);
-
-        return $this->jsonSuccess(__('template.newsletter_validation'));
+        /** @var string $message */
+        $message = __('template.newsletter_validation');
+        return $this->jsonSuccess($message);
     }
 }
