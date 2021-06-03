@@ -21,10 +21,10 @@ class CreateTemplatesTable extends Migration
             $table->integer('status');
             $table->boolean('homepage')->default(false);
             // SEO
-            $table->string('metatitle')->nullable();
-            $table->string('metadescription')->nullable();
-            $table->string('opengraph_title')->nullable();
-            $table->string('opengraph_description')->nullable();
+            $table->longText('metatitle')->nullable();
+            $table->longText('metadescription')->nullable();
+            $table->longText('opengraph_title')->nullable();
+            $table->longText('opengraph_description')->nullable();
             $table->string('opengraph_picture')->nullable();
             $table->dateTime('publish_at')->nullable();
             $table->timestamps();
