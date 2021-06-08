@@ -11,7 +11,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string $name
  * @property Collection<Article> $articles
  * @property \DateTime $publish_at
- * @property \DateTime $updated_at.
+ * @property \DateTime $updated_at
  */
 class ArticleCategory extends Model
 {

@@ -18,7 +18,7 @@ use Webid\Cms\Modules\Slideshow\Models\Slideshow;
  *
  * @property int $article_type
  * @property int $status
- * @property string $publish_at
+ * @property \DateTime $publish_at
  * @property \DateTime $updated_at
  * @property array $slug
  */

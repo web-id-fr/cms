@@ -10,7 +10,7 @@ use Webid\Cms\App\Models\Traits\HasFlexible;
 /**
  * Class Field
  * @package Webid\Cms\Modules\Form\Models
- * @property string $field_name.
+ * @property string $field_name
  */
 class Field extends Model
 {
