@@ -11,6 +11,7 @@ use Webid\Cms\App\Nova\Traits\HasIconSvg;
 use Webid\Cms\Modules\Galleries\Services\Contracts\GalleryServiceContract;
 use Webid\Cms\Modules\Galleries\Models\Gallery as GalleryModel;
 use Webid\TranslatableTool\Translatable;
+use function Safe\array_combine;
 
 class Gallery extends Resource
 {

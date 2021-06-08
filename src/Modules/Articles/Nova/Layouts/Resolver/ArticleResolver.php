@@ -8,11 +8,12 @@ use Webid\Cms\Modules\Slideshow\Repositories\SlideshowRepository;
 use Webid\Cms\Modules\Slideshow\Http\Resources\SlideshowResource;
 use Whitecube\NovaFlexibleContent\Value\ResolverInterface;
 use Whitecube\NovaFlexibleContent\Layouts\Collection as layoutsCollection;
+use function Safe\json_decode;
 
 class ArticleResolver implements ResolverInterface
 {
     /**
-     * @param Article $model
+     * @param article $model
      * @param string $attribute
      * @param layoutsCollection $layouts
      *

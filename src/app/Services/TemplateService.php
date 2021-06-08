@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Arr;
 use Webid\Cms\App\Models\BaseTemplate;
 use Webid\Cms\App\Repositories\TemplateRepository;
+use function Safe\ksort;
 
 class TemplateService
 {
@@ -29,6 +30,8 @@ class TemplateService
      * @param string $slug
      *
      * @return array
+     *
+     * @throws \Safe\Exceptions\ArrayException
      */
     public function getUrlsForPage(string $slug): array
     {

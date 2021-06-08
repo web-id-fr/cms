@@ -9,6 +9,7 @@ use Webid\Cms\Modules\Form\Models\TitleField;
 use Webid\Cms\Modules\Form\Repositories\FieldRepository;
 use Webid\Cms\Modules\Form\Repositories\TitleFieldRepository;
 use Webid\Cms\Modules\Form\Models\Field as FieldModel;
+use function Safe\json_decode;
 
 class FieldItemField extends Field
 {
@@ -58,7 +59,9 @@ class FieldItemField extends Field
      * @param object $model
      * @param string $attribute
      *
-     * @return void
+     * @return mixed|void
+     *
+     * @throws \Safe\Exceptions\JsonException
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {

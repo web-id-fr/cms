@@ -1,5 +1,6 @@
 includes:
     - ./vendor/nunomaduro/larastan/extension.neon
+    - ./vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
 parameters:
 	level: 8
 	paths:
@@ -19,7 +20,6 @@ parameters:
 	    - '#Parameter \#1 \$view of function view expects view\-string\|null, string given\.#'
 	    - '#Method Webid\\Cms\\App\\Nova\\Components\\.*::singularLabel\(\) should return string but returns array\|string\|null\.#'
 	    - '#Method Webid\\Cms\\App\\Nova\\Components\\.*::label\(\) should return string but returns array\|string\|null\.#'
-	    - '#Method Webid\\Cms\\Modules\\.*\\Nova\\.*::icon\(\) should return string but returns string\|false\.#'
 	    - '#Parameter \#1 \$text of method Laravel\\Nova\\Fields\\Field::placeholder\(\) expects string, array\|string\|null given#'
 	    -
 	        message: '#Possibly invalid array key type array\|string\|null\.#'

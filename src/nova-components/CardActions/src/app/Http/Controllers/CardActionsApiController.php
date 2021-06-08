@@ -5,6 +5,7 @@ namespace Webid\CardActions\App\Http\Controllers;
 use Illuminate\Http\Request;
 use Webid\Cms\App\Classes\VarnishCustom;
 use Webid\Cms\App\Http\Controllers\BaseController;
+use function Safe\parse_url;
 
 /**
  * Class CardActionsApiController
@@ -14,8 +15,11 @@ use Webid\Cms\App\Http\Controllers\BaseController;
 class CardActionsApiController extends BaseController
 {
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
+     *
+     * @throws \Safe\Exceptions\UrlException
      */
     public function flushVarnish(Request $request)
     {

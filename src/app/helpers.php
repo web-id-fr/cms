@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Str;
+use function Safe\parse_url;
+use function Safe\preg_replace;
+use function Safe\preg_match;
 
 if (!function_exists('package_base_path')) {
     /**
@@ -38,6 +41,8 @@ if (!function_exists('current_url_is')) {
      * @param string $urlToCompare
      *
      * @return bool
+     *
+     * @throws \Safe\Exceptions\UrlException
      */
     function current_url_is(string $urlToCompare): bool
     {
@@ -57,6 +62,8 @@ if (!function_exists('str_unslug')) {
      * @param string $string
      *
      * @return string
+     *
+     * @throws \Safe\Exceptions\PcreException
      */
     function str_unslug(string $string): string
     {
@@ -94,6 +101,8 @@ if (!function_exists('is_video')) {
      * @param string $filename
      *
      * @return bool
+     *
+     * @throws \Safe\Exceptions\PcreException
      */
     function is_video(string $filename)
     {
@@ -108,6 +117,8 @@ if (!function_exists('is_image')) {
      * @param string $filename
      *
      * @return bool
+     *
+     * @throws \Safe\Exceptions\PcreException
      */
     function is_image(string $filename)
     {

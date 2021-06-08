@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Webid\Cms\App\Repositories\TemplateRepository;
 use Webid\Cms\App\Services\LanguageService;
 use Webid\Cms\Modules\Articles\Repositories\ArticleRepository;
+use function Safe\json_decode;
 
 trait GenerateTranslatableSlugIfNecessary
 {
