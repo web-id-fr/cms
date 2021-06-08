@@ -4,6 +4,7 @@ namespace Webid\Cms\Database\Factories;
 
 use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use function Safe\date;
 
 class TemplateFactory extends Factory
 {
@@ -15,9 +16,9 @@ class TemplateFactory extends Factory
     protected $model = Template::class;
 
     /**
-     * Define the model's default state.
-     *
      * @return array
+     *
+     * @throws \Safe\Exceptions\DatetimeException
      */
     public function definition()
     {

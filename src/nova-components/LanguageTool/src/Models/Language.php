@@ -5,6 +5,7 @@ namespace Webid\LanguageTool\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use function Safe\array_flip;
 
 /**
  * Class Language
@@ -82,6 +83,8 @@ class Language extends Model
      * @param String $flag
      *
      * @return mixed
+     *
+     * @throws \Safe\Exceptions\ArrayException
      */
     public static function getLocalByFlag(String $flag)
     {

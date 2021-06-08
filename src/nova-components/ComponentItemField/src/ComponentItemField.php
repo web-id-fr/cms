@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\Cms\App\Models\Components\GalleryComponent;
 use Webid\Cms\App\Models\Components\NewsletterComponent;
+use function Safe\json_decode;
 
 class ComponentItemField extends Field
 {
@@ -40,7 +41,9 @@ class ComponentItemField extends Field
      * @param object $model
      * @param string $attribute
      *
-     * @return void
+     * @return mixed|void
+     *
+     * @throws \Safe\Exceptions\JsonException
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {

@@ -6,6 +6,7 @@ use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\Cms\App\Models\Components\GalleryComponent;
 use Webid\Cms\Modules\Galleries\Repositories\GalleryRepository;
+use function Safe\json_decode;
 
 class GalleryItemField extends Field
 {
@@ -43,7 +44,9 @@ class GalleryItemField extends Field
      * @param object $model
      * @param string $attribute
      *
-     * @return void
+     * @return mixed|void
+     *
+     * @throws \Safe\Exceptions\JsonException
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {

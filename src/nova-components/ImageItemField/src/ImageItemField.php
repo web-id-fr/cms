@@ -6,6 +6,7 @@ use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\Cms\Modules\Slideshow\Models\Slideshow;
 use Webid\Cms\Modules\Slideshow\Repositories\SlideRepository;
+use function Safe\json_decode;
 
 class ImageItemField extends Field
 {
@@ -46,7 +47,9 @@ class ImageItemField extends Field
      * @param object $model
      * @param string $attribute
      *
-     * @return void
+     * @return mixed|void
+     *
+     * @throws \Safe\Exceptions\JsonException
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {

@@ -4,6 +4,7 @@ namespace Webid\Cms\App\Services;
 
 use Webid\LanguageTool\Models\Language;
 use Webid\LanguageTool\Repositories\LanguageRepository;
+use function Safe\substr;
 
 class LanguageService
 {
@@ -26,9 +27,9 @@ class LanguageService
     }
 
     /**
-     * Retourne le slug du language par défaut du navigateur
-     *
      * @return string
+     *
+     * @throws \Safe\Exceptions\StringsException
      */
     public function getBrowserDefault()
     {
@@ -39,9 +40,9 @@ class LanguageService
     }
 
     /**
-     * Définit le language à partir du navigateur de l'utilisateur
+     * @return \Illuminate\Config\Repository|mixed|string
      *
-     * @return bool|\Illuminate\Config\Repository|mixed|string
+     * @throws \Safe\Exceptions\StringsException
      */
     public function getFromBrowser()
     {

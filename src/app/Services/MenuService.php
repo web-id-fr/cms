@@ -11,6 +11,8 @@ use Webid\Cms\App\Exceptions\Templates\TemplateNotFoundException;
 use Webid\Cms\App\Http\Resources\Menu\MenuResource;
 use Webid\Cms\App\Repositories\Menu\MenuRepository;
 use Webid\Cms\App\Services\MenuBladeDirective\Menu;
+use function Safe\preg_match_all;
+use function Safe\scandir;
 
 class MenuService
 {
@@ -119,6 +121,7 @@ class MenuService
      *
      * @throws MissingParameterException
      * @throws TemplateNotFoundException
+     * @throws \Safe\Exceptions\PcreException
      */
     protected function getMenusZonesInTemplate(string $filepath)
     {
@@ -176,12 +179,14 @@ class MenuService
     /**
      * Cherche de façon récursive tous les templates *.blade.php dans un dossier donné
      *
-     * @param string     $currentFolder  Le nom du dossier actuel
-     * @param Collection $foundTemplates La liste des templates trouvés (passée par référence)
-     * @param int        $depth          La profondeur actuelle, utilisée pour éviter de boucler indéfiniment
+     * @param string $currentFolder
+     * @param Collection|null $foundTemplates
+     * @param int $depth
      *
      * @return Collection
+     *
      * @throws DepthExceededException
+     * @throws \Safe\Exceptions\DirException
      */
     protected function findTemplatesRecursively(
         string $currentFolder,
@@ -232,13 +237,13 @@ class MenuService
     /**
      * Traite les données à afficher pour une zone de contenu donnée, et retourne le résultat à afficher en HTML
      *
-     * @param string|null $contentType
+     * @param string $contentType
      * @param array  $data
      * @param array  $options
      *
      * @return mixed|string
      */
-    public function getHtmlForZone($contentType, array $data, array $options = [])
+    public function getHtmlForZone(string $contentType, array $data, array $options = [])
     {
         try {
             /** @var view-string|null $view */

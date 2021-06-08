@@ -5,6 +5,7 @@ namespace Webid\TemplateItemField;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\Cms\App\Repositories\TemplateRepository;
+use function Safe\json_decode;
 
 class TemplateItemField extends Field
 {
@@ -39,7 +40,9 @@ class TemplateItemField extends Field
      * @param object $model
      * @param string $attribute
      *
-     * @return void
+     * @return mixed|void
+     *
+     * @throws \Safe\Exceptions\JsonException
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
