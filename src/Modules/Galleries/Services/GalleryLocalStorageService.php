@@ -4,7 +4,6 @@ namespace Webid\Cms\Modules\Galleries\Services;
 
 use Illuminate\Support\Facades\File;
 use Webid\Cms\Modules\Galleries\Services\Contracts\GalleryServiceContract;
-use function Safe\scandir;
 
 class GalleryLocalStorageService implements GalleryServiceContract
 {
@@ -12,8 +11,6 @@ class GalleryLocalStorageService implements GalleryServiceContract
      * @param string $folder
      *
      * @return array
-     *
-     * @throws \Safe\Exceptions\DirException
      */
     public function getGalleries(string $folder = ''): array
     {

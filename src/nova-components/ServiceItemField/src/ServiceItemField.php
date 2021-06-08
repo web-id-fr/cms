@@ -6,7 +6,6 @@ use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\Cms\Modules\Form\Models\Form;
 use Webid\Cms\Modules\Form\Repositories\ServiceRepository;
-use function Safe\json_decode;
 
 class ServiceItemField extends Field
 {
@@ -44,9 +43,7 @@ class ServiceItemField extends Field
      * @param object $model
      * @param string $attribute
      *
-     * @return mixed|void
-     *
-     * @throws \Safe\Exceptions\JsonException
+     * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {

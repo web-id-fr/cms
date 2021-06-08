@@ -3,17 +3,15 @@
 namespace Webid\Cms\App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use function Safe\preg_match;
 
 class TranslatableSlug implements Rule
 {
     /**
-     * @param string $attribute
-     * @param mixed $value
+     * Determine if the validation rule passes.
      *
+     * @param  string  $attribute
+     * @param  mixed  $value
      * @return bool
-     *
-     * @throws \Safe\Exceptions\PcreException
      */
     public function passes($attribute, $value)
     {
