@@ -27,7 +27,6 @@ class SendConfirmationContact extends Mailable
      */
     public function build()
     {
-        /** @var view-string $mailPath */
         $mailPath = "form::mail.confirmation_contact";
 
         return $this->from(config('mail.from.address'), config('mail.from.name'))

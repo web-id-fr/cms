@@ -21,6 +21,7 @@ parameters:
 	    - '#Method Webid\\Cms\\App\\Nova\\Components\\.*::singularLabel\(\) should return string but returns array\|string\|null\.#'
 	    - '#Method Webid\\Cms\\App\\Nova\\Components\\.*::label\(\) should return string but returns array\|string\|null\.#'
 	    - '#Parameter \#1 \$text of method Laravel\\Nova\\Fields\\Field::placeholder\(\) expects string, array\|string\|null given#'
+	    - '#Parameter \#1 \$view of method Illuminate\\Mail\\Mailable::view\(\) expects view-string, string given\.#'
 	    -
 	        message: '#Possibly invalid array key type array\|string\|null\.#'
 	        paths:
