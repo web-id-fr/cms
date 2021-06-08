@@ -246,7 +246,6 @@ class MenuService
     public function getHtmlForZone(string $contentType, array $data, array $options = [])
     {
         try {
-            /** @var view-string|null $view */
             $view = !empty($contentType) ? strtolower($contentType) : $contentType;
             return view($view)
                 ->with($data)
