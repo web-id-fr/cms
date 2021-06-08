@@ -20,7 +20,19 @@ use Webid\Cms\Modules\Slideshow\Models\Slideshow;
  * @property int $status
  * @property \DateTime $publish_at
  * @property \DateTime $updated_at
+ * @property \DateTime $created_at
  * @property array $slug
+ * @property string $title
+ * @property string $article_image
+ * @property string $article_image_alt
+ * @property string $extrait
+ * @property string $author
+ * @property string $metatitle
+ * @property string $metadescription
+ * @property string $opengraph_title
+ * @property string $opengraph_description
+ * @property string $opengraph_picture
+ * @property string $opengraph_picture_alt
  */
 class Article extends Model
 {

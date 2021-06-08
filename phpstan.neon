@@ -9,7 +9,6 @@ parameters:
 	    - src/nova-components/*/vendor/*
 	    - src/nova-components/*/tests/*
 	    - src/Modules/*/Database/*
-	    - src/Modules/*/Resources/*
 	    - src/Modules/*/Tests/*
 	    - src/Modules/*/vendor/*
 	ignoreErrors:
