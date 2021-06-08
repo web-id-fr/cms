@@ -64,7 +64,7 @@ class ImportRedirections extends Command
 
         $fileHandle = fopen($filepath, 'r');
 
-        if ($fileHandle === false) {
+        if ($fileHandle == false) {
             $this->error("An error has occurred while trying to open the file '{$filepath}'.");
             return self::ERROR_FOPEN;
         }
