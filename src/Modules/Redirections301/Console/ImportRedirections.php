@@ -10,8 +10,6 @@ use SplFileInfo;
 use Throwable;
 use Webid\Cms\Modules\Redirections301\Repositories\RedirectionRepository;
 use Webid\Cms\Modules\Redirections301\Rules\RedirectionRules;
-use function Safe\fopen;
-use function Safe\parse_url;
 
 class ImportRedirections extends Command
 {
@@ -48,9 +46,9 @@ class ImportRedirections extends Command
     }
 
     /**
-     * @return int
+     * Execute the console command.
      *
-     * @throws \Safe\Exceptions\FilesystemException
+     * @return int
      */
     public function handle(): int
     {

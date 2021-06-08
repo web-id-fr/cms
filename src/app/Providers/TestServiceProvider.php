@@ -3,7 +3,6 @@
 namespace Webid\Cms\App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use function Safe\mkdir;
 
 class TestServiceProvider extends ServiceProvider
 {

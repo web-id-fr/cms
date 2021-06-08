@@ -4,7 +4,6 @@ namespace Webid\Cms\App\Models\Traits;
 
 use Illuminate\Support\Collection as BaseCollection;
 use Whitecube\NovaFlexibleContent\Concerns\HasFlexible as HasFlexibleBase;
-use function Safe\json_decode;
 
 trait HasFlexible
 {
@@ -31,8 +30,6 @@ trait HasFlexible
      * @param mixed $value
      *
      * @return array|null
-     *
-     * @throws \Safe\Exceptions\JsonException
      */
     protected function getFlexibleArrayFromValue($value): ?array
     {

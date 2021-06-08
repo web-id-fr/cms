@@ -6,7 +6,6 @@ use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Webid\Cms\Modules\Articles\Models\Article;
 use Webid\Cms\Modules\Articles\Repositories\ArticleCategoryRepository;
-use function Safe\json_decode;
 
 class ArticleCategoriesItemField extends Field
 {
@@ -35,14 +34,12 @@ class ArticleCategoriesItemField extends Field
     }
 
     /**
-     * @param NovaRequest $request
-     * @param string $requestAttribute
-     * @param object $model
-     * @param string $attribute
+     * @param  NovaRequest $request
+     * @param  string $requestAttribute
+     * @param  object $model
+     * @param  string $attribute
      *
-     * @return mixed|void
-     *
-     * @throws \Safe\Exceptions\JsonException
+     * @return mixed
      */
     protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {

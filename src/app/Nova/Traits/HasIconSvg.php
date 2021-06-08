@@ -2,18 +2,15 @@
 
 namespace Webid\Cms\App\Nova\Traits;
 
-use function Safe\file_get_contents;
-use function Safe\json_decode;
-
 trait HasIconSvg
 {
     /**
      * @param string $iconName
      * @param string|null $iconPath
-     * @return string
+     * @return string|false
      * @throws \Exception
      */
-    protected static function svgIcon(string $iconName, string $iconPath = null): string
+    protected static function svgIcon(string $iconName, string $iconPath = null)
     {
         if (empty($iconPath)) {
             $iconPath = resource_path('views/svg');
@@ -26,8 +23,6 @@ trait HasIconSvg
             throw new \Exception("Icon file {$iconFullName} does not exist.");
         }
 
-        $svgIcon = file_get_contents($iconFullName);
-
-        return $svgIcon;
+        return file_get_contents($iconFullName);
     }
 }
