@@ -12,6 +12,8 @@
                 content: null,
                 init: false,
                 config: {
+                    relative_urls: false,
+                    remove_script_host: false,
                     entity_encoding : "raw",
                     encoding: "UTF-8",
                     menubar: false,
