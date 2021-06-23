@@ -15,7 +15,7 @@
                            name="{{ data_get($field, 'field_name') }}"
                            id="{{ str_slug($id_form . '-' . data_get($option, "item.$currentLangKey") . '-' . $loop->index) }}"
                            value="{{ data_get($option, "item.$currentLangKey") }}"
-                           @if( data_get($field, 'required')) required @endif>
+                           @if( data_get($field, 'required') && $loop->first) required @endif>
                     <label
                             for="{{ str_slug($id_form . '-' . data_get($option, "item.$currentLangKey") . '-' . $loop->index) }}"
                             class="input-label">
@@ -25,6 +25,6 @@
             @endif
         @endforeach
     @endif
-    <div class="field-error">
+    <div class="field-error d-block">
     </div>
 </div>
