@@ -138,7 +138,7 @@ class GenerateComponent extends Command
 
     private function generateFromStub(string $stubFileName): string
     {
-        $stub = $this->files->get(app_path("Console/Commands/stubs/{$stubFileName}"));
+        $stub = $this->files->get(base_path("vendor/webid/cms/src/app/Console/Commands/stubs/{$stubFileName}"));
 
         $stub = str_replace('{{componentName}}', $this->componentName, $stub);
         $stub = str_replace('{{componentLowerName}}', $this->componentLowerName, $stub);
