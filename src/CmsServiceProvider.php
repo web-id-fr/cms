@@ -16,6 +16,7 @@ use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Spatie\Honeypot\ProtectAgainstSpam;
 use Spatie\Varnish\Middleware\CacheWithVarnish;
+use Webid\Cms\App\Console\Commands\GenerateComponent;
 use Webid\Cms\App\Http\Middleware\CheckLanguageExist;
 use Webid\Cms\App\Http\Middleware\IsAjax;
 use Webid\Cms\App\Http\Middleware\Language;
@@ -83,6 +84,12 @@ class CmsServiceProvider extends ServiceProvider
         });
 
         JsonResource::withoutWrapping();
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                GenerateComponent::class,
+            ]);
+        }
     }
 
     /**

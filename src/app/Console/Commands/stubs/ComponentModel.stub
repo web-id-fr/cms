@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Models\Components;
+
+use App\Models\Template;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Webid\Cms\App\Models\Traits\HasStatusLabels;
+
+class {{componentName}}Component extends Model
+{
+    use HasStatusLabels,
+        HasFactory;
+
+    const _STATUS_PUBLISHED = 1;
+    const _STATUS_DRAFT = 2;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = '{{componentLowerName}}_components';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'status',
+    ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function templates()
+    {
+        return $this->morphToMany(Template::class, 'component')
+            ->withPivot('order');
+    }
+}

@@ -1,0 +1,29 @@
+<?php
+
+namespace Database\Factories\Components;
+
+use App\Models\Components\{{componentName}}Component;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class {{componentName}}ComponentFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = {{componentName}}Component::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => 'Lorem ipsum',
+            'status' => {{componentName}}Component::_STATUS_PUBLISHED,
+        ];
+    }
+}
