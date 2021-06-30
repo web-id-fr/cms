@@ -1,0 +1,22 @@
+<?php
+
+namespace Database\Seeders\Components;
+
+use App\Models\Components\{{componentName}}Component;
+use Illuminate\Database\Seeder;
+
+class {{componentName}}ComponentSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        {{componentName}}Component::factory()->create([
+            'name' => '{{componentSpacedName}}',
+            'status' => {{componentName}}Component::_STATUS_PUBLISHED,
+        ]);
+    }
+}

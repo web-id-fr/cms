@@ -1,0 +1,35 @@
+<?php
+
+namespace Tests\Feature\Components;
+
+use App\Models\Components\{{componentName}}Component;
+use Database\Seeders\Components\{{componentName}}ComponentSeeder;
+use Illuminate\Database\Eloquent\Model;
+use Tests\Helpers\Traits\TestsComponentInPage;
+use Tests\Helpers\Traits\TestsNovaResource;
+use Tests\TestCase;
+
+class {{componentName}}ComponentTest extends TestCase
+{
+    use TestsNovaResource,
+        TestsComponentInPage;
+
+    protected function getResourceName(): string
+    {
+        return '{{componentKebabName}}-components';
+    }
+
+    protected function getModel(): Model
+    {
+        $this->seed({{componentName}}ComponentSeeder::class);
+
+        return {{componentName}}Component::all()->first();
+    }
+
+    protected function componentDataToSeeInPage(Model $component): array
+    {
+        return [
+            // TODO: Implement componentDataToSeeInPage() method.
+        ];
+    }
+}

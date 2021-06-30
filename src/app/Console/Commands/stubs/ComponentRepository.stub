@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Repositories\Components;
+
+use App\Models\Components\{{componentName}}Component;
+use Illuminate\Database\Eloquent\Collection;
+
+class {{componentName}}ComponentRepository
+{
+    private {{componentName}}Component $model;
+
+    public function __construct({{componentName}}Component $model)
+    {
+        $this->model = $model;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPublishedComponents(): Collection
+    {
+        return $this->model
+            ->where('status', {{componentName}}Component::_STATUS_PUBLISHED)
+            ->get();
+    }
+}
