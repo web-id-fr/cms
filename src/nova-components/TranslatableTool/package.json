@@ -15,7 +15,8 @@
         "laravel-nova": "^1.0"
     },
     "dependencies": {
-        "@tinymce/tinymce-vue": "^1.1.0",
+        "@tinymce/tinymce-vue": "^3.0.1",
+        "tinymce": "^5.0.16",
         "trix": "^0.12.0",
         "vue": "^2.5.0",
         "@fortawesome/fontawesome-svg-core": "^1.2.26",
