@@ -22,6 +22,7 @@ parameters:
 	    - '#Parameter \#1 \$text of method Laravel\\Nova\\Fields\\Field::placeholder\(\) expects string, array\|string\|null given#'
 	    - '#Parameter \#1 \$view of method Illuminate\\Mail\\Mailable::view\(\) expects view-string, string given\.#'
 	    - '#Parameter \#1 \$view of function view expects view-string\|null, string\|null given\.#'
+	    - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Collection\|Illuminate\\Database\\Eloquent\\Model::getKey\(\)\.#'
 	    -
 	        message: '#Possibly invalid array key type array\|string\|null\.#'
 	        paths:

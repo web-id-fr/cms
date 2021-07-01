@@ -6,6 +6,7 @@ use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Webid\Cms\App\Models\Traits\HasPublished;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
 /**
@@ -17,7 +18,8 @@ class NewsletterComponent extends Model
 {
     use HasTranslations,
         HasFactory,
-        HasStatusLabels;
+        HasStatusLabels,
+        HasPublished;
 
     const _STATUS_PUBLISHED = 1;
     const _STATUS_DRAFT = 2;

@@ -83,7 +83,7 @@ class NewsletterComponent extends Resource
                 ->hideFromIndex(),
 
             Boolean::make(__('Published'), function () {
-                return $this->isPublished();
+                return $this->resource->isPublished();
             })->onlyOnIndex(),
         ];
     }
@@ -101,13 +101,5 @@ class NewsletterComponent extends Resource
                 ->view('cards.component', ['model' => self::$model])
                 ->center(true),
         ];
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPublished(): bool
-    {
-        return $this->resource->status == NewsletterComponentModel::_STATUS_PUBLISHED;
     }
 }
