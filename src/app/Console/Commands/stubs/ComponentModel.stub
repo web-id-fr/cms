@@ -5,12 +5,14 @@ namespace App\Models\Components;
 use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Webid\Cms\App\Models\Traits\HasPublished;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
 class {{componentName}}Component extends Model
 {
     use HasStatusLabels,
-        HasFactory;
+        HasFactory,
+        HasPublished;
 
     const _STATUS_PUBLISHED = 1;
     const _STATUS_DRAFT = 2;

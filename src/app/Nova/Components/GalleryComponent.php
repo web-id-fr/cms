@@ -82,7 +82,7 @@ class GalleryComponent extends Resource
                 ->hideFromIndex(),
 
             Boolean::make(__('Published'), function () {
-                return $this->isPublished();
+                return $this->resource->isPublished();
             })->onlyOnIndex(),
         ];
     }
@@ -100,13 +100,5 @@ class GalleryComponent extends Resource
                 ->view('cards.component', ['model' => self::$model])
                 ->center(true),
         ];
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPublished(): bool
-    {
-        return $this->resource->status == GalleryComponentModel::_STATUS_PUBLISHED;
     }
 }

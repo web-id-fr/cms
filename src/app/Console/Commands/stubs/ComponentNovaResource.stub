@@ -80,7 +80,7 @@ class {{componentName}}Component extends Resource
                 ->hideFromIndex(),
 
             Boolean::make(__('Published'), function () {
-                return $this->isPublished();
+                return $this->resource->isPublished();
             })->onlyOnIndex(),
         ];
     }
@@ -98,13 +98,5 @@ class {{componentName}}Component extends Resource
                 ->view('cards.component', ['model' => self::$model])
                 ->center(true),
         ];
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPublished(): bool
-    {
-        return $this->resource->status == {{componentName}}ComponentModel::_STATUS_PUBLISHED;
     }
 }

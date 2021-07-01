@@ -6,6 +6,7 @@ use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Webid\Cms\App\Models\Traits\HasPublished;
 use Webid\Cms\Modules\Galleries\Models\Gallery;
 use Webid\Cms\App\Models\Traits\HasStatusLabels;
 
@@ -17,7 +18,8 @@ use Webid\Cms\App\Models\Traits\HasStatusLabels;
 class GalleryComponent extends Model
 {
     use HasFactory,
-        HasStatusLabels;
+        HasStatusLabels,
+        HasPublished;
 
     const _STATUS_PUBLISHED = 1;
     const _STATUS_DRAFT = 2;
