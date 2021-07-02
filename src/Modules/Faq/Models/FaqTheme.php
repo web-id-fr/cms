@@ -5,7 +5,7 @@ namespace Webid\Cms\Modules\Faq\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-use Webid\Cms\App\Models\Traits\HasStatusLabels;
+use Webid\Cms\App\Models\Traits\HasStatus;
 
 /**
  * Class FaqTheme
@@ -14,7 +14,7 @@ use Webid\Cms\App\Models\Traits\HasStatusLabels;
  */
 class FaqTheme extends Model
 {
-    use HasTranslations, HasStatusLabels, HasFactory;
+    use HasTranslations, HasStatus, HasFactory;
 
     const _STATUS_PUBLISHED = 1;
     const _STATUS_DRAFT = 2;

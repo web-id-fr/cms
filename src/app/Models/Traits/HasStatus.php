@@ -2,7 +2,7 @@
 
 namespace Webid\Cms\App\Models\Traits;
 
-trait HasStatusLabels
+trait HasStatus
 {
     /**
      * @return array

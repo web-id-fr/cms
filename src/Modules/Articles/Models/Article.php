@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Traits\HasFlexible;
-use Webid\Cms\App\Models\Traits\HasStatusLabels;
+use Webid\Cms\App\Models\Traits\HasStatus;
 use Webid\Cms\Modules\Slideshow\Models\Slideshow;
 
 /**
@@ -38,7 +38,7 @@ class Article extends Model
 {
     use HasTranslations,
         HasFactory,
-        HasStatusLabels,
+        HasStatus,
         HasFlexible;
 
     /**
