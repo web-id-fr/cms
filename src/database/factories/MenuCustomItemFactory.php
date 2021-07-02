@@ -41,7 +41,7 @@ class MenuCustomItemFactory extends Factory
         return $this->state(function () {
             return [
                 'type_link' => MenuCustomItem::_LINK_FORM,
-                'form_id' => Form::factory()->create()->getKey(),
+                'form_id' => Form::factory(),
             ];
         });
     }
