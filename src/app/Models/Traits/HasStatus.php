@@ -14,4 +14,9 @@ trait HasStatus
             self::_STATUS_DRAFT => __('Draft'),
         ];
     }
+
+    public function isPublished(): bool
+    {
+        return $this->status == self::_STATUS_PUBLISHED;
+    }
 }
