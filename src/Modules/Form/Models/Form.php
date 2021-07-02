@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Spatie\Translatable\HasTranslations;
-use Webid\Cms\App\Models\Traits\HasStatusLabels;
+use Webid\Cms\App\Models\Traits\HasStatus;
 
 /**
  * Class Form
@@ -21,7 +21,7 @@ class Form extends Model
 {
     use HasTranslations,
         HasFactory,
-        HasStatusLabels;
+        HasStatus;
 
     const _STATUS_PUBLISHED = 0;
     const _STATUS_DRAFT = 1;

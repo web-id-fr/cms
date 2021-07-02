@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Collection;
 use Webid\Cms\App\Models\BaseTemplate;
 use Webid\Cms\App\Models\Components\GalleryComponent;
@@ -12,20 +13,14 @@ class Template extends BaseTemplate
     /** @var Collection */
     public $component_items;
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
-     */
-    public function galleryComponents()
+    public function galleryComponents(): MorphToMany
     {
         return $this->morphedByMany(GalleryComponent::class, 'component')
             ->withPivot('order')
             ->orderBy('order');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
-     */
-    public function newsletterComponents()
+    public function newsletterComponents(): MorphToMany
     {
         return $this->morphedByMany(NewsletterComponent::class, 'component')
             ->withPivot('order')

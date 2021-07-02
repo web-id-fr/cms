@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Contracts\Menuable;
 use Webid\Cms\App\Models\Traits\HasMenus;
-use Webid\Cms\App\Models\Traits\HasStatusLabels;
+use Webid\Cms\App\Models\Traits\HasStatus;
 
 /**
  * Class BaseTemplate
@@ -26,7 +26,7 @@ abstract class BaseTemplate extends Model implements Menuable
 {
     use HasTranslations,
         HasFactory,
-        HasStatusLabels,
+        HasStatus,
         HasMenus;
 
     const _STATUS_PUBLISHED = 0;

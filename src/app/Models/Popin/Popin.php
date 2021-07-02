@@ -5,7 +5,7 @@ namespace Webid\Cms\App\Models\Popin;
 use App\Models\Template;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-use Webid\Cms\App\Models\Traits\HasStatusLabels;
+use Webid\Cms\App\Models\Traits\HasStatus;
 
 /**
  * Class Popin
@@ -15,7 +15,7 @@ use Webid\Cms\App\Models\Traits\HasStatusLabels;
 class Popin extends Model
 {
     use HasTranslations,
-        HasStatusLabels;
+        HasStatus;
 
     /**
      * Valeurs des statuts possibles
