@@ -18,11 +18,16 @@ class MenuItemChildrenResource extends JsonResource
      */
     public function toArray($request)
     {
+        /** @var MenuCustomItem $menuable */
+        $menuable = $this->resource->menuable;
+        $children = $menuable->childrenForMenu($this->resource->menu_id);
+
         return [
             // Champs communs à tous les types
             'id' => $this->resource->menuable->id,
             'title' => $this->resource->menuable->title,
             'description' => $this->resource->menuable->menu_description,
+            'children' => MenuItemChildrenResource::collection($children)->resolve(),
 
             // Champs exclusifs aux Custom items
             $this->mergeWhen(MenuCustomItem::class == $this->resource->menuable_type, [
