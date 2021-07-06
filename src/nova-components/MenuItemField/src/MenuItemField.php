@@ -66,8 +66,9 @@ class MenuItemField extends Field
 
         $menuItemTemplateIds = [];
         $menuItemCustomIds = [];
+        $children = [];
 
-        $menuItems->each(function ($menuItem, $key) use (&$menuItemTemplateIds, &$menuItemCustomIds) {
+        $menuItems->each(function ($menuItem, $key) use (&$menuItemTemplateIds, &$menuItemCustomIds, &$children) {
             if ($menuItem['menuable_type'] == Template::class) {
                 $menuItemTemplateIds[$menuItem['id']] = [
                     'order' => $key + 1,
@@ -81,29 +82,20 @@ class MenuItemField extends Field
                     'parent_type' => null,
                 ];
             }
-
-            $count = 1;
-            foreach ($menuItem['children'] as $children) {
-                if ($children['menuable_type'] == Template::class) {
-                    $menuItemTemplateIds[$children['id']] = [
-                        'parent_id' => $menuItem['id'],
-                        'parent_type' => $menuItem['menuable_type'],
-                        'order' => $count
-                    ];
-                } else {
-                    $menuItemCustomIds[$children['id']] = [
-                        'parent_id' => $menuItem['id'],
-                        'parent_type' => $menuItem['menuable_type'],
-                        'order' => $count
-                    ];
-                }
-                $count++;
+            if ($menuItem['children']) {
+                $children = $this->getChildrenFor($menuItem);
             }
         });
 
-        Menu::saved(function ($model) use ($menuItemTemplateIds, $menuItemCustomIds) {
+        Menu::saved(function ($model) use ($menuItemTemplateIds, $menuItemCustomIds, $children) {
             $model->templates()->sync($menuItemTemplateIds);
             $model->menuCustomItems()->sync($menuItemCustomIds);
+            if (array_key_exists(Template::class, $children)) {
+                $model->templates()->sync($children[Template::class]);
+            }
+            if (array_key_exists(MenuCustomItem::class, $children)) {
+                $model->menuCustomItems()->sync($children[MenuCustomItem::class]);
+            }
         });
     }
 
@@ -126,13 +118,7 @@ class MenuItemField extends Field
         }
     }
 
-    /**
-     * @param Collection $items
-     * @param string $model
-     *
-     * @return Collection
-     */
-    protected function mapItems(Collection $items, string $model): Collection
+    private function mapItems(Collection $items, string $model): Collection
     {
         return $items->map(function ($item) use ($model) {
             $item->children = [];
@@ -140,5 +126,26 @@ class MenuItemField extends Field
 
             return $item;
         });
+    }
+
+    private function getChildrenFor(array $menuItem): array
+    {
+        $AllChildren = [];
+        $count = 1;
+
+        foreach ($menuItem['children'] as $children) {
+            $AllChildren[$children['menuable_type']][$children['id']] =  [
+                'parent_id' => $menuItem['id'],
+                'parent_type' => $menuItem['menuable_type'],
+                'order' => $count
+            ];
+
+            if (count($children['children']) > 0) {
+                $AllChildren = array_replace_recursive($AllChildren, $this->getChildrenFor($children));
+            }
+            $count++;
+        }
+
+        return $AllChildren;
     }
 }

@@ -48,7 +48,7 @@
     import Multiselect from 'vue-multiselect'
     import draggable from 'vuedraggable';
     import {map} from 'lodash';
-    import {mapChildren, successToast, errorToast} from "../helpers";
+    import {mapChildren, successToast, errorToast, removeChildren} from "../helpers";
 
     export default {
         mixins: [FormField, HandlesValidationErrors],
@@ -138,21 +138,16 @@
                         }
                     });
 
+                    menuItem.isSelected = false;
                     this.selected.splice(findIndex, 1);
                     errorToast(this.__('The menu item has been removed to the list'));
                     return;
                 } else {
                     for (const [key, value] of Object.entries(this.selected)) {
-                        if (_.findIndex(value.children, {
-                            'title': menuItem.title,
-                            'menuable_type': menuItem.menuable_type
-                        }) >= 0) {
-                            value.children.splice(_.findIndex(value.children, menuItem), 1);
-                            errorToast(this.__('The menu item has been removed to the list'));
-                            return;
-                        }
+                        removeChildren(value, menuItem);
                     }
 
+                    menuItem.isSelected = true;
                     this.selected.push(menuItem);
                     successToast(this.__('The menu item has been added to the list'));
                 }
