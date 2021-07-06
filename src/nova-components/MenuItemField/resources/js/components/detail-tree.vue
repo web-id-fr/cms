@@ -1,0 +1,81 @@
+<template>
+    <div class="item-group" :key="el.id" v-for="el in realValue">
+        <div class="item">
+            <div class="item-title flex min-h-full w-full border-t border-l border-b border-60 rounded-l">
+                    <span>
+                        {{ getFirstTitle(el.title) }}
+                    </span>
+            </div>
+        </div>
+
+        <detail-tree class="item-sub" :list="mapChildren(el)"/>
+    </div>
+</template>
+
+<script>
+    import {mapChildren, selectFirstTitle} from "../helpers";
+
+    export default {
+        name: "detail-tree",
+
+        data() {
+            return {
+                currentLocale: null,
+            }
+        },
+
+        props: {
+            value: {
+                required: false,
+                type: Array,
+                default: null
+            },
+            list: {
+                required: false,
+                type: Array,
+                default: null
+            },
+        },
+
+        mounted() {
+            this.currentLocale = document.querySelector('#select-language-translatable').value;
+            Nova.$on('change-language', (lang) => {
+                this.currentLocale = lang;
+            });
+        },
+
+        methods: {
+            getFirstTitle(title) {
+                return selectFirstTitle(title, this.currentLocale);
+            },
+
+            mapChildren(el) {
+                return mapChildren(el);
+            },
+        },
+
+        computed: {
+            // this.value when input = v-model
+            // this.list  when input != v-model
+            realValue() {
+                return this.value ? this.value : this.list;
+            }
+        },
+    };
+</script>
+
+<style scoped>
+    .item-container {
+        margin: 0;
+    }
+    .item {
+        display: flex;
+        margin-bottom: 5px;
+    }
+    span {
+        padding: 1rem;
+    }
+    .item-sub {
+        margin: 0 0 0 3rem;
+    }
+</style>
