@@ -86,7 +86,7 @@ class MenuServiceTest extends TestCase
         $this->assertCount(1, $generated_menus['test']['zones'][0]['children']);
         $this->assertCount(1, $generated_menus['test']['zones'][1]['children']);
 
-        $this->assertMaxSqlQueries(29);
+        $this->assertMaxSqlQueries(31);
     }
 
     /** @test */
@@ -177,7 +177,7 @@ class MenuServiceTest extends TestCase
         $this->assertCount(1, $generated_menus['test 2']['zones'][0]['children']);
         $this->assertEquals(2, $generated_menus['test 2']['zones'][0]['children'][0]['id']);
 
-        $this->assertMaxSqlQueries(16);
+        $this->assertMaxSqlQueries(18);
     }
 
     private function assertMaxSqlQueries(int $max): void

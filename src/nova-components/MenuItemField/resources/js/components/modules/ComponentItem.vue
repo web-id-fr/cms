@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    import {selectFirstTitle} from "../../helpers";
+    import {selectFirstTitle, isSelectedChildren} from "../../helpers";
 
     export default {
         props: {
@@ -75,12 +75,8 @@
                         return true;
                     } else {
                         for (const [key, value] of Object.entries(this.selected)) {
-                            if (_.findIndex(value.children, {
-                                'title': menuItem.title,
-                                'menuable_type': menuItem.menuable_type
-                            }) >= 0) {
-                                return true;
-                            }
+                            isSelectedChildren(value, menuItem);
+                            return menuItem.isSelected;
                         }
 
                         return false;
