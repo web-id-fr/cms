@@ -27,8 +27,8 @@ class TemplateFactory extends Factory
                 'en' => $this->faker->words(3, true),
             ],
             'slug' => [
-                'fr' => $this->faker->unique()->slug,
-                'en' => $this->faker->unique()->slug,
+                'fr' => $this->faker->slug,
+                'en' => $this->faker->slug,
             ],
             'status' => Template::_STATUS_PUBLISHED,
             'indexation' => rand(0, 1),
