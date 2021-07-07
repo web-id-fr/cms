@@ -137,6 +137,10 @@ Sitemap: https://www.your-domain.com/sitemap.xml
 <a id="customization"></a>
 ## Customization
 
+<a id="disable-robots-follow"></a>
+### Disable robots follow
+To disable the tracking of robots, you must add in the .env `DISABLE_ROBOTS_FOLLOW=true`
+
 <a id="use-cookies-js"></a>
 ### Use cookies.js
 ###### To use the cookies popin, just fill the ``resources/views/warning_cookies.blade.php`` view, include it in ``resources/views/template.blade.php`` with the js ``public/cms/js/cookies.js``
