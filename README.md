@@ -1,6 +1,8 @@
 # CMS^ID
 
-![](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
+<a href="./LICENCE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT Licence Logo" />
+</a>
 
 ## Table of contents
 * [Requirements](#requirements)
