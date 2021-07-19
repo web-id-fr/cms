@@ -87,15 +87,16 @@ class MenuItemField extends Field
             }
         });
 
-        Menu::saved(function ($model) use ($menuItemTemplateIds, $menuItemCustomIds, $children) {
+        if (array_key_exists(Template::class, $children)) {
+            $menuItemTemplateIds = array_replace_recursive($children[Template::class], $menuItemTemplateIds);
+        }
+        if (array_key_exists(MenuCustomItem::class, $children)) {
+            $menuItemCustomIds = array_replace_recursive($children[MenuCustomItem::class], $menuItemCustomIds);
+        }
+
+        Menu::saved(function ($model) use ($menuItemTemplateIds, $menuItemCustomIds) {
             $model->templates()->sync($menuItemTemplateIds);
             $model->menuCustomItems()->sync($menuItemCustomIds);
-            if (array_key_exists(Template::class, $children)) {
-                $model->templates()->sync($children[Template::class]);
-            }
-            if (array_key_exists(MenuCustomItem::class, $children)) {
-                $model->menuCustomItems()->sync($children[MenuCustomItem::class]);
-            }
         });
     }
 
