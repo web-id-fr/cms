@@ -11,6 +11,13 @@ class ComponentController extends BaseController
      */
     public function index()
     {
-        return config('components');
+        $components = config('components');
+        foreach ($components as $key => $value) {
+            if (array_key_exists('display_on_component_list', $value)
+                && $value['display_on_component_list'] === false) {
+                unset($components[$key]);
+            }
+        }
+        return $components;
     }
 }

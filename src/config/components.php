@@ -17,6 +17,7 @@ use Webid\Cms\App\Http\Resources\Components\NewsletterComponentResource;
 |   'resource => CompenentResource::class,
 |   'view' => 'PATH_TO_COMPONENT_VIEW, // components/component
 |   'nova' => 'URL_TO_ACCES_RESOURCE_NOVA', // /nova/resources/component
+|   'display_on_component_list' => false // optional
 | ]
 */
 
