@@ -14,8 +14,8 @@ class ComponentController extends BaseController
         $components = config('components');
 
         $filter_components = array_filter($components, function ($component) {
-            return (!array_key_exists('display_on_component_list', $component)
-                || $component['display_on_component_list'] !== false);
+            return (!array_key_exists('display_on_components_list', $component)
+                || $component['display_on_components_list'] !== false);
         });
 
         return $filter_components;
