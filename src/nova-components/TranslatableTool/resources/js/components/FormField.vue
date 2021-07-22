@@ -104,10 +104,10 @@
              * Set the initial, internal value for the field.
              */
             setInitialValue() {
-                if (typeof this.field.value === 'object') {
-                    this.value = this.field.value || {}
+                if (this.field.value !== null || this.field.value.length > 0) {
+                    this.value = this.field.value;
                 } else {
-                    this.value = JSON.parse(this.field.value) || {}
+                    this.value = this.field.defaultValues || {};
                 }
             },
 

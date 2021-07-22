@@ -126,4 +126,14 @@ class Translatable extends Field
     {
         return $this->withMeta(['showRefresh' => true]);
     }
+
+    /**
+     * @param array $values
+     *
+     * @return Translatable
+     */
+    public function defaultValues(array $values): self
+    {
+        return $this->withMeta(['defaultValues' => $values]);
+    }
 }
