@@ -104,10 +104,10 @@
              * Set the initial, internal value for the field.
              */
             setInitialValue() {
-                if (this.field.value !== null || this.field.value.length > 0) {
-                    this.value = this.field.value;
-                } else {
+                if (_.isEmpty(this.field.value)) {
                     this.value = this.field.defaultValues || {};
+                } else {
+                    this.value = this.field.value;
                 }
             },
 
