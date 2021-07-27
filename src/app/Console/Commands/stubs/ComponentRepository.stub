@@ -14,9 +14,6 @@ class {{componentName}}ComponentRepository
         $this->model = $model;
     }
 
-    /**
-     * @return Collection
-     */
     public function getPublishedComponents(): Collection
     {
         return $this->model

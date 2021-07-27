@@ -3,13 +3,11 @@
 namespace Webid\Cms\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Component extends Model
 {
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
-     */
-    public function components()
+    public function components(): MorphTo
     {
         return $this->morphTo('component');
     }

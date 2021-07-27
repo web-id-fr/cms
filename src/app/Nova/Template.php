@@ -20,6 +20,7 @@ use Webid\PageUrlItemField\PageUrlItemField;
 use Webid\PreviewItemField\PreviewItemField;
 use Webid\TranslatableTool\Translatable;
 use App\Models\Template as TemplateModel;
+use Whitecube\NovaFlexibleContent\Flexible;
 
 class Template extends Resource
 {
@@ -60,10 +61,11 @@ class Template extends Resource
     }
 
     /**
-     * Get the fields displayed by the resource.
+     * @param Request $request
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
+     *
+     * @throws \Exception
      */
     public function fields(Request $request)
     {
@@ -81,9 +83,9 @@ class Template extends Resource
     }
 
     /**
-     * Affiche les champs pour le paramétrage de l'article
-     *
      * @return array
+     *
+     * @throws \Exception
      */
     protected function parameterFields()
     {
@@ -119,6 +121,17 @@ class Template extends Resource
                 ->showOnDetail()
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
+
+            Flexible::make(__('Breadcrumb'), 'breadcrumb')
+                ->addLayout(__('Item'), 'item', [
+                    Translatable::make(__('Item name'), 'item_name')
+                        ->singleLine()
+                        ->hideFromIndex(),
+
+                    Translatable::make(__('Item URL'), 'item_url')
+                        ->singleLine()
+                        ->hideFromIndex(),
+                ])->button(__('Add item')),
 
             Select::make(__('Status'), 'status')
                 ->options(TemplateModel::statusLabels())
@@ -207,9 +220,6 @@ class Template extends Resource
         ];
     }
 
-    /**
-     * @return string
-     */
     public static function icon(): string
     {
         return '<svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" 
@@ -221,9 +231,6 @@ class Template extends Resource
                 </svg>';
     }
 
-    /**
-     * @return bool
-     */
     public function isPublished(): bool
     {
         return $this->resource->status == TemplateModel::_STATUS_PUBLISHED

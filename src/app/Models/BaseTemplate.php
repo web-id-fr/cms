@@ -4,8 +4,10 @@ namespace Webid\Cms\App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Contracts\Menuable;
+use Webid\Cms\App\Models\Traits\HasFlexible;
 use Webid\Cms\App\Models\Traits\HasMenus;
 use Webid\Cms\App\Models\Traits\HasStatus;
 
@@ -27,7 +29,8 @@ abstract class BaseTemplate extends Model implements Menuable
     use HasTranslations,
         HasFactory,
         HasStatus,
-        HasMenus;
+        HasMenus,
+        HasFlexible;
 
     const _STATUS_PUBLISHED = 0;
     const _STATUS_DRAFT = 1;
@@ -61,6 +64,7 @@ abstract class BaseTemplate extends Model implements Menuable
         'homepage',
         'menu_description',
         'contains_articles_list',
+        'breadcrumb',
     ];
 
     /**
@@ -78,6 +82,7 @@ abstract class BaseTemplate extends Model implements Menuable
         'opengraph_picture_alt',
         'menu_description',
         'meta_keywords',
+        'breadcrumb',
     ];
 
     /**
@@ -89,10 +94,7 @@ abstract class BaseTemplate extends Model implements Menuable
         'publish_at' => 'datetime',
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function related()
+    public function related(): HasMany
     {
         return $this->hasMany(Component::class)
             ->orderBy('order');
@@ -106,5 +108,15 @@ abstract class BaseTemplate extends Model implements Menuable
     public function containsArticlesList(): bool
     {
         return boolval($this->contains_articles_list);
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return \Whitecube\NovaFlexibleContent\Layouts\Collection|string
+     */
+    public function getBreadcrumbAttribute($value)
+    {
+        return $this->toFlexible($value);
     }
 }

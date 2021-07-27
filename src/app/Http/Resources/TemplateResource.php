@@ -31,6 +31,7 @@ class TemplateResource extends JsonResource
             'meta_keywords' => $this->resource->meta_keywords,
             'items' => ComponentResource::collection($this->resource->related)->resolve(),
             'menu_description' => $this->resource->menu_description,
+            'breadcrumb' => $this->resource->breadcrumb->toArray(),
         ];
     }
 
