@@ -41,14 +41,7 @@ class Template extends BaseTemplate
         $this->component_items = $components;
     }
 
-    /**
-     * @param Collection $items
-     * @param string $model
-     * @param Collection $components
-     *
-     * @return Collection
-     */
-    protected function mapItems(Collection $items, string $model, Collection &$components)
+    protected function mapItems(Collection $items, string $model, Collection &$components): Collection
     {
         $items->each(function ($item) use (&$components, $model) {
             $item->component_type = $model;
