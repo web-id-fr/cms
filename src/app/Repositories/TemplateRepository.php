@@ -33,6 +33,16 @@ class TemplateRepository
     }
 
     /**
+     * @return mixed
+     */
+    public function getHomepageId()
+    {
+        return $this->model->select('id')
+            ->where('homepage', true)
+            ->first();
+    }
+
+    /**
      *
      * @return mixed
      *

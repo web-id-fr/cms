@@ -2,9 +2,12 @@
 
 namespace Webid\Cms\App\Models;
 
+use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Contracts\Menuable;
 use Webid\Cms\App\Models\Traits\HasFlexible;
@@ -23,6 +26,7 @@ use Webid\Cms\App\Models\Traits\HasStatus;
  * @property int $status
  * @property int|bool $contains_articles_list
  * @property \DateTime $publish_at
+ * @property int $parent_page_id
  */
 abstract class BaseTemplate extends Model implements Menuable
 {
@@ -34,6 +38,13 @@ abstract class BaseTemplate extends Model implements Menuable
 
     const _STATUS_PUBLISHED = 0;
     const _STATUS_DRAFT = 1;
+
+    private array $ancestors = [];
+
+    public function getParentKeyName(): string
+    {
+        return 'parent_page_id';
+    }
 
     /**
      * The table associated with the model.
@@ -64,6 +75,7 @@ abstract class BaseTemplate extends Model implements Menuable
         'homepage',
         'menu_description',
         'contains_articles_list',
+        'parent_id',
     ];
 
     /**
@@ -106,5 +118,29 @@ abstract class BaseTemplate extends Model implements Menuable
     public function containsArticlesList(): bool
     {
         return boolval($this->contains_articles_list);
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Template::class, $this->getParentKeyName());
+    }
+
+    public function ancestors(): Collection
+    {
+        if ($this->parent) {
+            $this->collectAncestors($this->parent);
+        }
+
+        $parent = collect($this->ancestors)->reverse();
+        return $parent->push($this);
+    }
+
+    private function collectAncestors(Template $parent): void
+    {
+        $this->ancestors[] = $parent;
+
+        if ($parent->parent) {
+            $this->collectAncestors($parent->parent);
+        }
     }
 }
