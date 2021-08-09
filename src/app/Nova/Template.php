@@ -122,17 +122,6 @@ class Template extends Resource
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
 
-            Flexible::make(__('Breadcrumb'), 'breadcrumb')
-                ->addLayout(__('Item'), 'item', [
-                    Translatable::make(__('Item name'), 'item_name')
-                        ->singleLine()
-                        ->hideFromIndex(),
-
-                    Translatable::make(__('Item URL'), 'item_url')
-                        ->singleLine()
-                        ->hideFromIndex(),
-                ])->button(__('Add item')),
-
             Select::make(__('Status'), 'status')
                 ->options(TemplateModel::statusLabels())
                 ->displayUsingLabels()

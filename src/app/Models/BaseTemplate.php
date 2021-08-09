@@ -64,7 +64,6 @@ abstract class BaseTemplate extends Model implements Menuable
         'homepage',
         'menu_description',
         'contains_articles_list',
-        'breadcrumb',
     ];
 
     /**
@@ -82,7 +81,6 @@ abstract class BaseTemplate extends Model implements Menuable
         'opengraph_picture_alt',
         'menu_description',
         'meta_keywords',
-        'breadcrumb',
     ];
 
     /**
@@ -108,15 +106,5 @@ abstract class BaseTemplate extends Model implements Menuable
     public function containsArticlesList(): bool
     {
         return boolval($this->contains_articles_list);
-    }
-
-    /**
-     * @param string $value
-     *
-     * @return \Whitecube\NovaFlexibleContent\Layouts\Collection|string
-     */
-    public function getBreadcrumbAttribute($value)
-    {
-        return $this->toFlexible($value);
     }
 }
