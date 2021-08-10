@@ -5,6 +5,7 @@ namespace Webid\Cms\Modules\JavaScript\Providers;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
+use Webid\Cms\App\Nova\Components\CodeSnippetComponent;
 use Webid\Cms\App\Services\DynamicResource;
 use Webid\Cms\Modules\JavaScript\Nova\CodeSnippet;
 
@@ -21,23 +22,21 @@ class JavaScriptServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->registerAndPublishViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
 
         $this->app->booted(function () {
             Nova::resources([
                 CodeSnippet::class,
+                CodeSnippetComponent::class
             ]);
         });
 
-        DynamicResource::pushTemplateModuleGroupResource([
-            'label' => __('Code Snippet'),
-            'expanded' => false,
-            'resources' => [
-                CodeSnippet::class,
-            ]
+        DynamicResource::pushTopLevelResource([
+            'label' => __('Code snippet'),
+            'badge' => null,
+            'linkTo' => CodeSnippet::class,
         ]);
-
-        $this->registerAndPublishViews();
     }
 
 

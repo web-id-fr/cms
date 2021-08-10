@@ -1,10 +1,10 @@
 <?php
 
-namespace Webid\Cms\Modules\Faq\Http\Resources;
+namespace Webid\Cms\Modules\JavaScript\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FaqResource extends JsonResource
+class CodeSnippetResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,7 @@ class FaqResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'code_source' => $this->resource->code_source,
+            'source_code' => $this->resource->source_code,
         ];
     }
 }

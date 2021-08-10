@@ -6,6 +6,7 @@ use App\Models\Template;
 use App\Services\ComponentsService;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Webid\Cms\App\Models\Components\CodeSnippetComponent;
 use Webid\Cms\App\Models\Components\GalleryComponent;
 use Webid\Cms\App\Models\Components\NewsletterComponent;
 
@@ -49,6 +50,7 @@ class ComponentItemField extends Field
 
         $galleryComponentIds = [];
         $newsletterComponentIds = [];
+        $codeSnippetComponentIds = [];
 
         foreach ($components as $key => $component) {
             switch ($component['component_type']) {
@@ -58,16 +60,21 @@ class ComponentItemField extends Field
                 case NewsletterComponent::class:
                     $newsletterComponentIds[$component['id']] = ['order' => $key + 1];
                     break;
+                case CodeSnippetComponent::class:
+                    $codeSnippetComponentIds[$component['id']] = ['order' => $key + 1];
+                    break;
             }
         }
 
         Template::saved(function ($model) use (
             $galleryComponentIds,
-            $newsletterComponentIds
+            $newsletterComponentIds,
+            $codeSnippetComponentIds
         ) {
             /** @var Template $model */
             $model->galleryComponents()->sync($galleryComponentIds);
             $model->newsletterComponents()->sync($newsletterComponentIds);
+            $model->codeSnippetComponents()->sync($codeSnippetComponentIds);
         });
     }
 
