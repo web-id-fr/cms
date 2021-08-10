@@ -16,7 +16,7 @@ class CodeSnippetTest extends CodeSnippetTestCase
      */
     protected function getResourceName(): string
     {
-        return 'CodeSnippets';
+        return 'code-snippets';
     }
 
     /**

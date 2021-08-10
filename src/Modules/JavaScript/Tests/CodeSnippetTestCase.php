@@ -2,7 +2,7 @@
 
 namespace Webid\Cms\Modules\JavaScript\Tests;
 
-use Webid\Cms\Modules\JavaScript\Providers\CodeSnippetServiceProvider;
+use Webid\Cms\Modules\JavaScript\Providers\JavaScriptServiceProvider;
 use Webid\Cms\Tests\TestCase;
 
 class CodeSnippetTestCase extends TestCase
@@ -15,7 +15,7 @@ class CodeSnippetTestCase extends TestCase
     protected function getPackageProviders($app)
     {
         $providers = parent::getPackageProviders($app);
-        array_push($providers, CodeSnippetServiceProvider::class);
+        array_push($providers, JavaScriptServiceProvider::class);
 
         return $providers;
     }
