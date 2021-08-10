@@ -28,6 +28,6 @@ class CodeSnippet extends Model
      */
     protected $fillable = [
         'name',
-        'code_source',
+        'source_code',
     ];
 }

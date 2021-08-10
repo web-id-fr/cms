@@ -23,7 +23,7 @@ class CodeSnippetFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence,
-            'code_source' => sprintf(
+            'source_code' => sprintf(
                 'console.log("%s")',
                 $this->faker->sentence(),
             ),
