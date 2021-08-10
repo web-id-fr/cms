@@ -1,0 +1,26 @@
+{
+    "name": "webid/javascript",
+    "description": "",
+    "authors": [
+        {
+            "name": "Elise",
+            "email": "elise@web-id.fr"
+        },
+        {
+            "name": "Gabriel",
+            "email": "gabriel@web-id.fr"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webid\\Cms\\Modules\\JavaScript\\Providers\\JavaScriptServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Webid\\Cms\\Modules\\JavaScript\\": ""
+        }
+    }
+}

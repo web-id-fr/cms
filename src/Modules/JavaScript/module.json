@@ -1,0 +1,13 @@
+{
+    "name": "JavaScript",
+    "alias": "javascript",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Webid\\Cms\\Modules\\JavaScript\\Providers\\JavaScriptServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
