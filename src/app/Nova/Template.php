@@ -225,7 +225,7 @@ class Template extends Resource
         $templateRepository = app(TemplateRepository::class);
         $homepageId = $templateRepository->getHomepageId();
 
-        if (!empty($homepageId)) {
+        if (!empty($homepageId) && !$this->resource->homepage) {
             return $homepageId->getKey();
         }
 
