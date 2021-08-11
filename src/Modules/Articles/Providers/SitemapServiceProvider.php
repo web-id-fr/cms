@@ -146,7 +146,7 @@ class SitemapServiceProvider extends ServiceProvider
                     'category' => $names[$lang],
                 ]);
             } else {
-                $path = get_full_url_for_page("$slugs[$lang]?$names[$lang]");
+                $path = "{$lang}/{$slugs[$lang]}?category={$names[$lang]}";
             }
 
             $urls[] = new SitemapUrl(

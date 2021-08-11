@@ -90,8 +90,8 @@ class TemplateService
 
         if (!$template->isHomepage()) {
             /** @var string $slug */
-            $slug = $template->slug;
-            return get_full_url_for_page($slug);
+            $slug = $template->getFullPath(request()->lang);
+            return $slug;
         }
 
         return route($routename, $routeParams);
