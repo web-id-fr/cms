@@ -171,3 +171,10 @@ if (!function_exists('form_field_id')) {
         return Str::slug($idForm . '-' . $field['field_name']);
     }
 }
+
+if (!function_exists('get_full_url_for_page')) {
+    function get_full_url_for_page(string $path): string
+    {
+        return Str::slug(request()->lang . "/" . $path);
+    }
+}

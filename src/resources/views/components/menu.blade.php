@@ -14,7 +14,7 @@
     @if(!empty($item['url']))
         @php $link_url = data_get($item, 'url', ''); @endphp
     @elseif(!empty($item['slug']))
-        @php $link_url = route('pageFromSlug', [ 'slug' => data_get($item, 'slug', '') ]); @endphp
+        @php $link_url =get_full_url_for_page(data_get($item, 'slug', '')); @endphp
     @endif
 
     {{-- Si on a un lien ET un titre, on affiche le lien --}}
@@ -29,7 +29,7 @@
                         @if(!empty($children['url']))
                             @php $link_url = data_get($children, 'url', ''); @endphp
                         @elseif(!empty($children['slug']))
-                            @php $link_url = route('pageFromSlug', [ 'slug' => data_get($children, 'slug', '') ]); @endphp
+                            @php $link_url = get_full_url_for_page(data_get($children, 'slug', '')); @endphp
                         @endif
                         <div>
                             <a @if(current_url_is($link_url)) class="active" @endif href="{{ $link_url }}">{{ data_get($children, 'title', '') }}</a>
