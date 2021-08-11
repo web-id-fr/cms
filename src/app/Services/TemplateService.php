@@ -84,13 +84,14 @@ class TemplateService
         $routeParams = [];
         $routename = 'home';
 
-        if (!$template->isHomepage()) {
-            $routename = 'pageFromSlug';
-            $routeParams['slug'] = $template->slug;
-        }
-
         if ($template->containsArticlesList() && isset($queryParams['category'])) {
             $routeParams['category'] = $queryParams['category'];
+        }
+
+        if (!$template->isHomepage()) {
+            /** @var string $slug */
+            $slug = $template->slug;
+            return get_full_url_for_page($slug);
         }
 
         return route($routename, $routeParams);

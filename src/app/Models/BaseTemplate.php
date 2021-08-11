@@ -125,7 +125,7 @@ abstract class BaseTemplate extends Model implements Menuable
         return $this->belongsTo(Template::class, $this->getParentKeyName());
     }
 
-    public function ancestors(): Collection
+    public function ancestorsAndSelf(): Collection
     {
         if ($this->parent) {
             $this->collectAncestors($this->parent);
@@ -137,10 +137,24 @@ abstract class BaseTemplate extends Model implements Menuable
 
     private function collectAncestors(Template $parent): void
     {
+        $this->ancestors = [];
         $this->ancestors[] = $parent;
 
         if ($parent->parent) {
             $this->collectAncestors($parent->parent);
         }
+    }
+
+    public function getFullPath(string $language): string
+    {
+        $fullPath = $language;
+        $ancestorsAndSelf = $this->ancestorsAndSelf();
+
+        foreach ($ancestorsAndSelf as $template) {
+            $translatedAttributes = $template->getTranslationsAttribute();
+            $fullPath = "$fullPath/{$translatedAttributes['slug'][$language]}";
+        }
+
+        return $fullPath;
     }
 }

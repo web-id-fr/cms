@@ -23,7 +23,11 @@ class RedirectToHomepage
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($this->templateService->getHomepageSlug() == $request->slug) {
+        $path = request()->path();
+        $slugs = explode('/', $path);
+        $lastSlug = end($slugs);
+
+        if ($this->templateService->getHomepageSlug() == $lastSlug) {
             return redirect(route('home'), 301);
         }
 

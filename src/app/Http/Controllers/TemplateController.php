@@ -84,15 +84,16 @@ class TemplateController extends BaseController
     }
 
     /**
-     * @param Request $request
+     * @param string $slug
+     * @param array $queryParams
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View|null
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(Request $request)
+    public function show(string $slug, array $queryParams)
     {
         try {
             $template = $this->templateRepository->getBySlugWithRelations(
-                $request->slug,
+                $slug,
                 app()->getLocale()
             );
 
@@ -106,9 +107,6 @@ class TemplateController extends BaseController
             } catch (\Exception $e) {
                 info($e);
             }
-
-            /** @var array $queryParams */
-            $queryParams = $request->query();
 
             $meta = [
                 'title' => data_get($data, 'meta_title'),
@@ -141,5 +139,33 @@ class TemplateController extends BaseController
     public function rootPage()
     {
         return redirect($this->languageService->getFromBrowser());
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+         */
+    public function pages(Request $request)
+    {
+        try {
+            /** @var array $queryParams */
+            $queryParams = $request->query();
+            $path = request()->path();
+            $slugs = explode('/', $path);
+            $lastParam = end($slugs);
+            $lang = request()->lang;
+            /** @var \App\Models\Template $template */
+            $template = $this->templateRepository->getBySlug($lastParam, $lang);
+            $fullPath = $template->getFullPath($lang);
+
+            if ($path === $fullPath) {
+                return $this->show($lastParam, $queryParams);
+            }
+
+            return redirect("/$fullPath", 301);
+        } catch (\Exception $exception) {
+            abort(404);
+        }
     }
 }
