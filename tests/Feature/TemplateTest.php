@@ -46,7 +46,7 @@ class TemplateTest extends TestCase
             'indexation' => true,
         ]);
 
-        $this->get(route(self::_ROUTE_PAGE, ['lang' => 'fr', 'slug' => 'slug-homepage']))
+        $this->get('fr/slug-homepage')
             ->assertRedirect(route(self::_ROUTE_INDEX, ['lang' => 'fr']));
     }
 
@@ -90,27 +90,73 @@ class TemplateTest extends TestCase
 
         $template->newsletterComponents()->attach($component->getKey(), ['order' => 1]);
 
-        $this->get(route(self::_ROUTE_PAGE, [
-            'slug' => 'mon-slug',
-            'lang' => 'fr',
-        ]))->assertSuccessful();
+        $this->get('fr/mon-slug')->assertSuccessful();
     }
 
     /** @test */
-    public function we_cant_access_to_the_page_with_incorrect_slug()
+    public function we_can_access_to_the_page_with_correct_slug_with_parent_page()
     {
         $this->createHomepageTemplate();
-        $this->createTemplate([
+        $component = $this->createNewsletterComponent();
+        $template_1 = $this->createTemplate([
             'homepage' => false,
-            'slug' => [
-                'fr' => 'mon-slug',
-            ],
+            'follow' => false,
+            'indexation' => false,
+            'slug' => ['fr' => 'mon-slug-1'],
+        ]);
+        $template_2 = $this->createTemplate([
+            'homepage' => false,
+            'follow' => false,
+            'indexation' => false,
+            'slug' => ['fr' => 'mon-slug-2'],
+            'parent_page_id' => $template_1->getKey()
         ]);
 
-        $this->get(route(self::_ROUTE_PAGE, [
-            'slug' => 'un-slug-au-hasard',
-            'lang' => 'fr',
-        ]))->assertNotFound();
+        $template_2->newsletterComponents()->attach($component->getKey(), ['order' => 1]);
+
+        $this->get('fr/mon-slug-1/mon-slug-2')->assertSuccessful();
+    }
+
+    /** @test */
+    public function we_cant_access_to_the_page_with_incorrect_slug_with_parent_page()
+    {
+        $this->createHomepageTemplate();
+        $component = $this->createNewsletterComponent();
+        $template_1 = $this->createTemplate([
+            'homepage' => false,
+            'follow' => false,
+            'indexation' => false,
+            'slug' => ['fr' => 'mon-slug-1'],
+        ]);
+        $template_2 = $this->createTemplate([
+            'homepage' => false,
+            'follow' => false,
+            'indexation' => false,
+            'slug' => ['fr' => 'mon-slug-2'],
+            'parent_page_id' => $template_1->getKey()
+        ]);
+
+        $template_2->newsletterComponents()->attach($component->getKey(), ['order' => 1]);
+
+        $this->get('fr/mon-slug-1/mauvais-slug-2')->assertNotFound();
+    }
+
+    /** @test */
+    public function we_cant_access_to_the_page_with_incorrect_slug_but_with_correct_last_parameter()
+    {
+        $this->createHomepageTemplate();
+        $template_1 = $this->createTemplate([
+            'homepage' => false,
+            'slug' => ['fr' => 'mon-slug-1'],
+        ]);
+        $template_2 = $this->createTemplate([
+            'homepage' => false,
+            'slug' => ['fr' => 'mon-slug-2'],
+            'parent_page_id' => $template_1->getKey()
+        ]);
+
+        $this->get('fr/mauvais-slug/mon-slug-2')
+            ->assertRedirect('fr/mon-slug-1/mon-slug-2');
     }
 
     /** @test */
@@ -124,10 +170,7 @@ class TemplateTest extends TestCase
             ],
         ]);
 
-        $this->get(route(self::_ROUTE_PAGE, [
-            'slug' => 'fr-slug',
-            'lang' => 'en',
-        ]))->assertNotFound();
+        $this->get('en/mon-slug')->assertNotFound();
     }
 }
 

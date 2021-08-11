@@ -93,7 +93,8 @@ class SitemapGenerator
                 if ($template->homepage) {
                     $path = $lang;
                 } else {
-                    $path = "{$lang}/{$slug}";
+                    $fullPath = $template->getFullPath($lang);
+                    $path = "{$fullPath}";
                 }
 
                 $alternates = [];
@@ -101,8 +102,10 @@ class SitemapGenerator
                     if ($template->homepage) {
                         $alternatePath = $alternateLang;
                     } else {
-                        $alternatePath = "{$alternateLang}/{$alternateSlug}";
+                        $alternateFullPath = $template->getFullPath($alternateLang);
+                        $alternatePath = "{$alternateFullPath}";
                     }
+
                     $alternates[] = new SitemapUrlAlternate($alternateLang, $alternatePath);
                 }
 
