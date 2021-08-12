@@ -84,14 +84,17 @@ class TemplateController extends BaseController
     }
 
     /**
-     * @param string $slug
-     * @param array $queryParams
+     * @param Request $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(string $slug, array $queryParams)
+    public function show(Request $request)
     {
         try {
+            $path = $request->path();
+            $slugs = explode('/', $path);
+            $slug = end($slugs);
+
             $template = $this->templateRepository->getBySlugWithRelations(
                 $slug,
                 app()->getLocale()
@@ -100,6 +103,8 @@ class TemplateController extends BaseController
             $data = TemplateResource::make($template)->resolve();
 
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
+
+            $queryParams =  $request->query();
 
             try {
                 $extraElementsService = app(ExtraElementsForPageService::class);
@@ -117,7 +122,7 @@ class TemplateController extends BaseController
                 'og_description' => data_get($data, 'opengraph_description'),
                 'indexation' => data_get($data, 'indexation'),
                 'keywords' => data_get($data, 'meta_keywords'),
-                'canonical' => $this->templateService->getCanonicalUrlFor($template, $queryParams),
+                'canonical' => $this->templateService->getCanonicalUrlFor($template, $queryParams, reset($slugs)),
             ];
 
             return view('template', [
@@ -139,33 +144,5 @@ class TemplateController extends BaseController
     public function rootPage()
     {
         return redirect($this->languageService->getFromBrowser());
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-         */
-    public function pages(Request $request)
-    {
-        try {
-            /** @var array $queryParams */
-            $queryParams = $request->query();
-            $path = request()->path();
-            $slugs = explode('/', $path);
-            $lastParam = end($slugs);
-            $lang = request()->lang;
-            /** @var \App\Models\Template $template */
-            $template = $this->templateRepository->getBySlug($lastParam, $lang);
-            $fullPath = $template->getFullPath($lang);
-
-            if ($path === $fullPath) {
-                return $this->show($lastParam, $queryParams);
-            }
-
-            return redirect("/$fullPath", 301);
-        } catch (\Exception $exception) {
-            abort(404);
-        }
     }
 }
