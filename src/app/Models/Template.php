@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Collection;
 use Webid\Cms\App\Models\BaseTemplate;
+use Webid\Cms\App\Models\Components\CodeSnippetComponent;
 use Webid\Cms\App\Models\Components\GalleryComponent;
 use Webid\Cms\App\Models\Components\NewsletterComponent;
 
@@ -27,12 +28,20 @@ class Template extends BaseTemplate
             ->orderBy('order');
     }
 
+    public function codeSnippetComponents(): MorphToMany
+    {
+        return $this->morphedByMany(CodeSnippetComponent::class, 'component')
+            ->withPivot('order')
+            ->orderBy('order');
+    }
+
     public function chargeComponents(): void
     {
         $components = collect();
 
         $this->mapItems($this->galleryComponents, GalleryComponent::class, $components);
         $this->mapItems($this->newsletterComponents, NewsletterComponent::class, $components);
+        $this->mapItems($this->codeSnippetComponents, CodeSnippetComponent::class, $components);
 
         $components = $components->sortBy(function ($item) {
             return $item->pivot->order;

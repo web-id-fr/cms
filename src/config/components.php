@@ -3,6 +3,8 @@ use Webid\Cms\App\Models\Components\GalleryComponent;
 use Webid\Cms\App\Http\Resources\Components\GalleryComponentResource;
 use Webid\Cms\App\Models\Components\NewsletterComponent;
 use Webid\Cms\App\Http\Resources\Components\NewsletterComponentResource;
+use Webid\Cms\App\Models\Components\CodeSnippetComponent;
+use Webid\Cms\App\Http\Resources\Components\CodeSnippetComponentResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +37,12 @@ return [
         'resource' => NewsletterComponentResource::class,
         'view' => 'components/newsletters',
         'nova' => '/nova/resources/newsletter-components'
+    ],
+    CodeSnippetComponent::class => [
+        'title' => 'Code snippet component',
+        'image' => '/cms/images/components/code_snippet_component.png',
+        'resource' => CodeSnippetComponentResource::class,
+        'view' => 'components/code_snippet',
+        'nova' => '/nova/resources/code-snippet-components'
     ],
 ];

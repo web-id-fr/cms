@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use Illuminate\Support\Collection;
+use Webid\Cms\App\Models\Components\CodeSnippetComponent;
 use Webid\Cms\App\Models\Components\GalleryComponent;
 use Webid\Cms\App\Models\Components\NewsletterComponent;
+use Webid\Cms\App\Repositories\Components\CodeSnippetComponentRepository;
 use Webid\Cms\App\Repositories\Components\GalleryComponentRepository;
 use Webid\Cms\App\Repositories\Components\NewsletterComponentRepository;
 
@@ -19,6 +21,9 @@ class ComponentsService
     /** @var NewsletterComponentRepository */
     private $newsletterComponentRepository;
 
+    /** @var CodeSnippetComponentRepository */
+    private $codeSnippetComponentRepository;
+
     public function getAllComponents(): Collection
     {
         if (!empty($this->allComponents)) {
@@ -29,10 +34,12 @@ class ComponentsService
 
         $this->galleryComponentRepository = app(GalleryComponentRepository::class);
         $this->newsletterComponentRepository = app(NewsletterComponentRepository::class);
+        $this->codeSnippetComponentRepository = app(CodeSnippetComponentRepository::class);
 
         $components = collect();
         $allGalleriesComponents = collect();
         $allNewsletterComponents = collect();
+        $codeSnippetComponents = collect();
 
         $this->loadComponents(
             $this->galleryComponentRepository->getPublishedComponents(),
@@ -44,9 +51,15 @@ class ComponentsService
             NewsletterComponent::class,
             $allNewsletterComponents
         );
+        $this->loadComponents(
+            $this->codeSnippetComponentRepository->getPublishedComponents(),
+            CodeSnippetComponent::class,
+            $codeSnippetComponents
+        );
 
         $components[config('components.' . GalleryComponent::class . '.title')] = $allGalleriesComponents;
         $components[config('components.' . NewsletterComponent::class . '.title')] = $allNewsletterComponents;
+        $components[config('components.' . CodeSnippetComponent::class . '.title')] = $codeSnippetComponents;
 
         $this->allComponents = $components;
         return $this->allComponents;
