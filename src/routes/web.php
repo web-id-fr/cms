@@ -38,6 +38,6 @@ Route::group([
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 # /!\ Cette route doit TOUJOURS être la dernière
-Route::middleware(['pages', 'redirect-parent-child'])->group(function () {
+Route::middleware(['pages', 'redirect-parent-child', 'redirect-to-homepage'])->group(function () {
     Route::fallback([TemplateController::class, 'show']);
 });
