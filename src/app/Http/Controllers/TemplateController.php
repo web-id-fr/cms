@@ -104,6 +104,7 @@ class TemplateController extends BaseController
 
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
+            /** @var array $queryParams */
             $queryParams =  $request->query();
 
             try {

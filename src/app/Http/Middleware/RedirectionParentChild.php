@@ -16,9 +16,14 @@ class RedirectionParentChild
         $this->templateRepository = $templateRepository;
     }
 
+    /**
+     * @param Request $request
+     * @param Closure $next
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
+     */
     public function handle(Request $request, Closure $next)
     {
-        /** @var array $queryParams */
         $path = $request->path();
         $slugs = explode('/', $path);
         $lastParam = end($slugs);
@@ -39,5 +44,4 @@ class RedirectionParentChild
 
         return $next($request);
     }
-
 }
