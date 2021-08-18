@@ -35,7 +35,7 @@ class TemplateRepository
     /**
      * @return mixed
      */
-    public function getHomepageId()
+    public function getIdForHomepage()
     {
         return $this->model->select('id')
             ->where('homepage', true)
