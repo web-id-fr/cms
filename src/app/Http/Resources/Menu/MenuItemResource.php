@@ -24,6 +24,8 @@ class MenuItemResource extends JsonResource
     {
         /** @var MenuCustomItem $menuable */
         $menuable = $this->resource->menuable;
+        /** @var Template $template */
+        $template = $this->resource->menuable;
         $children = $menuable->childrenForMenu($this->resource->menu_id);
 
         return [
@@ -49,7 +51,7 @@ class MenuItemResource extends JsonResource
             // Champs exclusifs aux Pages
             $this->mergeWhen(Template::class == $this->resource->menuable_type, [
                 'slug' => $menuable->slug,
-                'full_path' => $menuable->getFullPath(app()->getLocale()),
+                'full_path' => $template->getFullPath(app()->getLocale()),
             ]),
         ];
     }

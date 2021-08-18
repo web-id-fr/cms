@@ -5,6 +5,7 @@ namespace Webid\Cms\App\Http\Resources\Menu;
 use App\Models\Template;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webid\Cms\App\Models\Menu\MenuCustomItem;
+use Webid\Cms\App\Models\Menu\MenuItem;
 use Webid\Cms\Modules\Form\Http\Resources\FormResource;
 
 class MenuItemChildrenResource extends JsonResource
@@ -20,6 +21,8 @@ class MenuItemChildrenResource extends JsonResource
     {
         /** @var MenuCustomItem $menuable */
         $menuable = $this->resource->menuable;
+        /** @var Template $template */
+        $template = $this->resource->menuable;
         $children = $menuable->childrenForMenu($this->resource->menu_id);
 
         return [
@@ -46,7 +49,7 @@ class MenuItemChildrenResource extends JsonResource
             // Champs exclusifs aux Pages
             $this->mergeWhen(Template::class == $this->resource->menuable_type, [
                 'slug' => $this->resource->menuable->slug,
-                'full_path' => $this->resource->menuable->getFullPath(app()->getLocale()),
+                'full_path' => $template->getFullPath(app()->getLocale()),
             ]),
         ];
     }
