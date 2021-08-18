@@ -13,7 +13,6 @@ class TemplateTest extends TestCase
         NewsletterComponentCreator;
 
     const _ROUTE_INDEX = 'home';
-    const _ROUTE_PAGE = 'pageFromSlug';
 
     /** @test */
     public function we_can_access_to_home_page()

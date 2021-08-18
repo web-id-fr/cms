@@ -34,7 +34,6 @@ class RedirectionParentChild
         }
 
         URL::defaults(['lang' => $lang]);
-        /** @var \App\Models\Template $template */
         $template = $this->templateRepository->getBySlug($lastParam, $lang);
         $fullPath = $template->getFullPath($lang);
 

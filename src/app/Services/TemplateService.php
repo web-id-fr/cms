@@ -69,9 +69,7 @@ class TemplateService
         }
 
         if (!$template->isHomepage()) {
-            /** @var string $slug */
-            $slug = $template->getFullPath($language ?? request()->lang);
-            return $slug;
+            return $template->getFullPath($language ?? request()->lang);
         }
 
         return route($routename, $routeParams);

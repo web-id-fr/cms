@@ -39,8 +39,6 @@ abstract class BaseTemplate extends Model implements Menuable
     const _STATUS_PUBLISHED = 0;
     const _STATUS_DRAFT = 1;
 
-    private array $ancestors = [];
-
     public function getParentKeyName(): string
     {
         return 'parent_page_id';
@@ -128,21 +126,24 @@ abstract class BaseTemplate extends Model implements Menuable
     public function ancestorsAndSelf(): Collection
     {
         if ($this->parent) {
-            $this->collectAncestors($this->parent);
+            $ancestors = $this->collectAncestors($this->parent);
+        } else {
+            $ancestors = [];
         }
 
-        $parent = collect($this->ancestors)->reverse();
+        $parent = collect($ancestors)->reverse();
         return $parent->push($this);
     }
 
-    private function collectAncestors(Template $parent): void
+    private function collectAncestors(Template $parent, array $ancestors = []): array
     {
-        $this->ancestors = [];
-        $this->ancestors[] = $parent;
+        $ancestors[] = $parent;
 
         if ($parent->parent) {
-            $this->collectAncestors($parent->parent);
+            return $this->collectAncestors($parent->parent, $ancestors);
         }
+
+        return $ancestors;
     }
 
     public function getFullPath(string $language): string
@@ -151,8 +152,10 @@ abstract class BaseTemplate extends Model implements Menuable
         $ancestorsAndSelf = $this->ancestorsAndSelf();
 
         foreach ($ancestorsAndSelf as $template) {
-            $translatedAttributes = $template->getTranslationsAttribute();
-            $fullPath = "$fullPath/{$translatedAttributes['slug'][$language]}";
+            if (!$template->homepage) {
+                $translatedAttributes = $template->getTranslationsAttribute();
+                $fullPath = "$fullPath/{$translatedAttributes['slug'][$language]}";
+            }
         }
 
         return $fullPath;
