@@ -20,6 +20,7 @@ use Webid\Cms\App\Console\Commands\GenerateComponent;
 use Webid\Cms\App\Http\Middleware\CheckLanguageExist;
 use Webid\Cms\App\Http\Middleware\IsAjax;
 use Webid\Cms\App\Http\Middleware\Language;
+use Webid\Cms\App\Http\Middleware\RedirectionParentChild;
 use Webid\Cms\App\Http\Middleware\RedirectToHomepage;
 use Webid\Cms\App\Nova\Menu\Menu;
 use Webid\Cms\App\Nova\Menu\MenuCustomItem;
@@ -64,6 +65,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishCommands();
 
         $this->registerAliasMiddleware($router);
+        $router->pushMiddlewareToGroup('redirect-parent-child', RedirectionParentChild::class);
 
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->loadRoutesFrom(__DIR__ . '/routes/ajax.php');

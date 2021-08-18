@@ -86,13 +86,17 @@ class TemplateController extends BaseController
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View|null
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show(Request $request)
     {
         try {
+            $path = $request->path();
+            $slugs = explode('/', $path);
+            $slug = end($slugs);
+
             $template = $this->templateRepository->getBySlugWithRelations(
-                $request->slug,
+                $slug,
                 app()->getLocale()
             );
 
@@ -100,15 +104,15 @@ class TemplateController extends BaseController
 
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
+            /** @var array $queryParams */
+            $queryParams =  $request->query();
+
             try {
                 $extraElementsService = app(ExtraElementsForPageService::class);
                 $this->extraElementsForPage = $extraElementsService->getExtraElementForPage(data_get($data, 'id'));
             } catch (\Exception $e) {
                 info($e);
             }
-
-            /** @var array $queryParams */
-            $queryParams = $request->query();
 
             $meta = [
                 'title' => data_get($data, 'meta_title'),
@@ -119,7 +123,7 @@ class TemplateController extends BaseController
                 'og_description' => data_get($data, 'opengraph_description'),
                 'indexation' => data_get($data, 'indexation'),
                 'keywords' => data_get($data, 'meta_keywords'),
-                'canonical' => $this->templateService->getCanonicalUrlFor($template, $queryParams),
+                'canonical' => $this->templateService->getCanonicalUrlFor($template, $queryParams, reset($slugs)),
             ];
 
             return view('template', [

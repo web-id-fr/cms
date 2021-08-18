@@ -9,27 +9,15 @@ use Webid\Cms\App\Repositories\TemplateRepository;
 
 class TemplateService
 {
-    /** @var TemplateRepository */
-    protected $templateRepository;
+    protected TemplateRepository $templateRepository;
+    protected LanguageService $languageService;
 
-    /** @var LanguageService */
-    protected $languageService;
-
-    /**
-     * @param TemplateRepository $templateRepository
-     * @param LanguageService $languageService
-     */
     public function __construct(TemplateRepository $templateRepository, LanguageService $languageService)
     {
         $this->templateRepository = $templateRepository;
         $this->languageService = $languageService;
     }
 
-    /**
-     * @param string $slug
-     *
-     * @return array
-     */
     public function getUrlsForPage(string $slug): array
     {
         try {
@@ -56,9 +44,6 @@ class TemplateService
         }
     }
 
-    /**
-     * @return string
-     */
     public function getHomepageSlug(): string
     {
         try {
@@ -74,23 +59,17 @@ class TemplateService
         }
     }
 
-    /**
-     * @param BaseTemplate $template
-     * @param array $queryParams
-     * @return string
-     */
-    public function getCanonicalUrlFor(BaseTemplate $template, array $queryParams): string
+    public function getCanonicalUrlFor(BaseTemplate $template, array $queryParams, string $language = null): string
     {
         $routeParams = [];
         $routename = 'home';
 
-        if (!$template->isHomepage()) {
-            $routename = 'pageFromSlug';
-            $routeParams['slug'] = $template->slug;
-        }
-
         if ($template->containsArticlesList() && isset($queryParams['category'])) {
             $routeParams['category'] = $queryParams['category'];
+        }
+
+        if (!$template->isHomepage()) {
+            return $template->getFullPath($language ?? request()->lang);
         }
 
         return route($routename, $routeParams);

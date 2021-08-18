@@ -146,11 +146,7 @@ class SitemapServiceProvider extends ServiceProvider
                     'category' => $names[$lang],
                 ]);
             } else {
-                $path = route('pageFromSlug', [
-                    'lang' => $lang,
-                    'slug' => $slugs[$lang],
-                    'category' => $names[$lang],
-                ]);
+                $path = "{$lang}/{$slugs[$lang]}?category={$names[$lang]}";
             }
 
             $urls[] = new SitemapUrl(

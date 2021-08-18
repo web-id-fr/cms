@@ -2,9 +2,12 @@
 
 namespace Webid\Cms\App\Models;
 
+use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Spatie\Translatable\HasTranslations;
 use Webid\Cms\App\Models\Contracts\Menuable;
 use Webid\Cms\App\Models\Traits\HasFlexible;
@@ -23,6 +26,7 @@ use Webid\Cms\App\Models\Traits\HasStatus;
  * @property int $status
  * @property int|bool $contains_articles_list
  * @property \DateTime $publish_at
+ * @property int $parent_page_id
  */
 abstract class BaseTemplate extends Model implements Menuable
 {
@@ -34,6 +38,11 @@ abstract class BaseTemplate extends Model implements Menuable
 
     const _STATUS_PUBLISHED = 0;
     const _STATUS_DRAFT = 1;
+
+    public function getParentKeyName(): string
+    {
+        return 'parent_page_id';
+    }
 
     /**
      * The table associated with the model.
@@ -64,7 +73,7 @@ abstract class BaseTemplate extends Model implements Menuable
         'homepage',
         'menu_description',
         'contains_articles_list',
-        'breadcrumb',
+        'parent_id',
     ];
 
     /**
@@ -82,7 +91,6 @@ abstract class BaseTemplate extends Model implements Menuable
         'opengraph_picture_alt',
         'menu_description',
         'meta_keywords',
-        'breadcrumb',
     ];
 
     /**
@@ -110,13 +118,46 @@ abstract class BaseTemplate extends Model implements Menuable
         return boolval($this->contains_articles_list);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return \Whitecube\NovaFlexibleContent\Layouts\Collection|string
-     */
-    public function getBreadcrumbAttribute($value)
+    public function parent(): BelongsTo
     {
-        return $this->toFlexible($value);
+        return $this->belongsTo(Template::class, $this->getParentKeyName());
+    }
+
+    public function ancestorsAndSelf(): Collection
+    {
+        if ($this->parent) {
+            $ancestors = $this->collectAncestors($this->parent);
+        } else {
+            $ancestors = [];
+        }
+
+        $parent = collect($ancestors)->reverse();
+        return $parent->push($this);
+    }
+
+    private function collectAncestors(Template $parent, array $ancestors = []): array
+    {
+        $ancestors[] = $parent;
+
+        if ($parent->parent) {
+            return $this->collectAncestors($parent->parent, $ancestors);
+        }
+
+        return $ancestors;
+    }
+
+    public function getFullPath(string $language): string
+    {
+        $fullPath = $language;
+        $ancestorsAndSelf = $this->ancestorsAndSelf();
+
+        foreach ($ancestorsAndSelf as $template) {
+            if (!$template->homepage) {
+                $translatedAttributes = $template->getTranslationsAttribute();
+                $fullPath = "$fullPath/{$translatedAttributes['slug'][$language]}";
+            }
+        }
+
+        return $fullPath;
     }
 }

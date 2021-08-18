@@ -3,8 +3,10 @@
 namespace Webid\Cms\App\Nova;
 
 use Carbon\Carbon;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Resource;
+use Webid\Cms\App\Repositories\TemplateRepository;
 use Webid\Cms\App\Rules\TranslatableMax;
 use Webid\Cms\App\Rules\TranslatableSlug;
 use \Eminiarts\Tabs\Tabs;
@@ -20,7 +22,6 @@ use Webid\PageUrlItemField\PageUrlItemField;
 use Webid\PreviewItemField\PreviewItemField;
 use Webid\TranslatableTool\Translatable;
 use App\Models\Template as TemplateModel;
-use Whitecube\NovaFlexibleContent\Flexible;
 
 class Template extends Resource
 {
@@ -122,16 +123,11 @@ class Template extends Resource
                 ->hideWhenUpdating()
                 ->hideWhenCreating(),
 
-            Flexible::make(__('Breadcrumb'), 'breadcrumb')
-                ->addLayout(__('Item'), 'item', [
-                    Translatable::make(__('Item name'), 'item_name')
-                        ->singleLine()
-                        ->hideFromIndex(),
-
-                    Translatable::make(__('Item URL'), 'item_url')
-                        ->singleLine()
-                        ->hideFromIndex(),
-                ])->button(__('Add item')),
+            BelongsTo::make(__('Parent page'), 'parent', Template::class)
+                ->withMeta([
+                    'belongsToId' => $this->getParentPageId()
+                ])->nullable()
+                ->searchable(),
 
             Select::make(__('Status'), 'status')
                 ->options(TemplateModel::statusLabels())
@@ -218,6 +214,22 @@ class Template extends Resource
                     'value' => data_get($this, 'follow', true),
                 ])->hideFromIndex(),
         ];
+    }
+
+    public function getParentPageId(): int
+    {
+        if (!empty($this->resource->parent_page_id)) {
+            return $this->resource->parent_page_id;
+        }
+
+        $templateRepository = app(TemplateRepository::class);
+        $homepageId = $templateRepository->getIdForHomepage();
+
+        if (!empty($homepageId) && !$this->resource->homepage) {
+            return $homepageId->getKey();
+        }
+
+        return 0;
     }
 
     public static function icon(): string

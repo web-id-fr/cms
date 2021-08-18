@@ -26,13 +26,6 @@ Route::group(['middleware' => 'cacheable'], function () {
     ], function () {
         // Homepage
         Route::get('/', [TemplateController::class, 'index'])->name('home');
-
-        // Laisser cette règle en dernier, elle risque "d'attraper" toutes les routes !
-        Route::get('{slug}', [TemplateController::class, 'show'])
-            ->where(['slug' => '(?!' . trim(config('nova.path'), '/') . '|ajax|api)([^\/]+)'])
-            ->name('pageFromSlug')
-            ->fallback()
-            ->middleware('redirect-to-homepage');
     });
 });
 
@@ -45,8 +38,6 @@ Route::group([
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 # /!\ Cette route doit TOUJOURS être la dernière
-Route::middleware(['pages'])->group(function () {
-    Route::fallback(function () {
-        abort(404);
-    });
+Route::middleware(['pages', 'redirect-parent-child', 'redirect-to-homepage'])->group(function () {
+    Route::fallback([TemplateController::class, 'show']);
 });
