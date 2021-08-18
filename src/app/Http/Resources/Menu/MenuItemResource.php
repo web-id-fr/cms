@@ -25,6 +25,13 @@ class MenuItemResource extends JsonResource
         /** @var MenuCustomItem $menuable */
         $menuable = $this->resource->menuable;
         $children = $menuable->childrenForMenu($this->resource->menu_id);
+        $full_path = "";
+
+        if (Template::class == $this->resource->menuable_type) {
+            /** @var Template $template */
+            $template = $this->resource->menuable;
+            $full_path = $template->getFullPath(app()->getLocale());
+        }
 
         return [
             // Champs communs à tous les types
@@ -41,7 +48,7 @@ class MenuItemResource extends JsonResource
                     'is_popin' => true,
                 ]),
                 $this->mergeWhen(MenuCustomItem::_LINK_URL == $menuable->type_link, [
-                    'url' => $menuable->url,
+                    'url' => "/" . app()->getLocale() . "/$menuable->url",
                     'target' => $menuable->target,
                 ]),
             ]),
@@ -49,6 +56,7 @@ class MenuItemResource extends JsonResource
             // Champs exclusifs aux Pages
             $this->mergeWhen(Template::class == $this->resource->menuable_type, [
                 'slug' => $menuable->slug,
+                'full_path' => "/$full_path",
             ]),
         ];
     }

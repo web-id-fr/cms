@@ -9,38 +9,45 @@
  |
 --}}
 
-@foreach($menu_items as $item)
-    {{-- On définit la variable $link_url selon le type d'item --}}
-    @if(!empty($item['url']))
-        @php $link_url = data_get($item, 'url', ''); @endphp
-    @elseif(!empty($item['slug']))
-        @php $link_url =get_full_url_for_page(data_get($item, 'slug', '')); @endphp
-    @endif
+<h5 data-submenu-trigger-mobile-only aria-hidden="true">{{ $title }}</h5>
+<ul>
+    @foreach($menu_items as $item)
+        @if(!empty($item['url']))
+            @php $link_url = data_get($item, 'url', ''); @endphp
+        @elseif(!empty($item['full_path']))
+            @php $link_url = data_get($item, 'full_path', ''); @endphp
+        @endif
 
-    {{-- Si on a un lien ET un titre, on affiche le lien --}}
-    @if(!empty($link_url) && !empty(data_get($item, 'title')))
-        <div>
-            <a href="{{ $link_url }}"
-               @if(current_url_is($link_url)) class="active" @endif>{{ data_get($item, 'title', '') }}</a>
-
+        {{-- Si on a un lien ET un titre, on affiche le lien --}}
+        @if(!empty($link_url) && !empty(data_get($item, 'title')))
             @if (data_get($item, 'children'))
-                <div class="submenu">
-                    @foreach (data_get($item, 'children') as $children)
-                        @if(!empty($children['url']))
-                            @php $link_url = data_get($children, 'url', ''); @endphp
-                        @elseif(!empty($children['slug']))
-                            @php $link_url = get_full_url_for_page(data_get($children, 'slug', '')); @endphp
-                        @endif
-                        <div>
-                            <a @if(current_url_is($link_url)) class="active" @endif href="{{ $link_url }}">{{ data_get($children, 'title', '') }}</a>
-                            {{ $children['description'] }}
-                        </div>
-                    @endforeach
-                </div>
-            @endif
-        </div>
-    @endif
+                <li class="dropdown-menu-container">
+                    <span data-submenu-trigger="true">{{ data_get($item, 'title', '') }}</span>
+                    <ul class="dropdown-menu">
+                        @foreach (data_get($item, 'children') as $children)
+                            @if(!empty($children['url']))
+                                @php $link_url = data_get($children, 'url', ''); @endphp
+                            @elseif(!empty($children['full_path']))
+                                @php $link_url = data_get($children, 'full_path', ''); @endphp
+                            @endif
 
-    {{-- On reset la variable $link_url --}}
-    @php $link_url = ''; @endphp
-@endforeach
+                            @include('components.menu.child', [
+                                'children' => $children
+                            ])
+                        @endforeach
+                    </ul>
+                </li>
+            @else
+                <li>
+                    <a
+                            class=" @if(current_url_is($link_url) && $link_url !== '#') active @endif"
+                            href="{{ $link_url }}">
+                        {{ data_get($item, 'title', '') }}
+                    </a>
+                </li>
+            @endif
+        @endif
+
+        @php $link_url = ''; @endphp
+    @endforeach
+</ul>

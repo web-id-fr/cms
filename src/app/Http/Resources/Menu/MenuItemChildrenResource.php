@@ -5,6 +5,7 @@ namespace Webid\Cms\App\Http\Resources\Menu;
 use App\Models\Template;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webid\Cms\App\Models\Menu\MenuCustomItem;
+use Webid\Cms\App\Models\Menu\MenuItem;
 use Webid\Cms\Modules\Form\Http\Resources\FormResource;
 
 class MenuItemChildrenResource extends JsonResource
@@ -21,6 +22,11 @@ class MenuItemChildrenResource extends JsonResource
         /** @var MenuCustomItem $menuable */
         $menuable = $this->resource->menuable;
         $children = $menuable->childrenForMenu($this->resource->menu_id);
+        $full_path = "";
+
+        if (Template::class == $this->resource->menuable_type) {
+            $full_path = $this->resource->menuable->getFullPath(app()->getLocale());
+        }
 
         return [
             // Champs communs à tous les types
@@ -38,7 +44,7 @@ class MenuItemChildrenResource extends JsonResource
                     'is_popin' => true,
                 ]),
                 $this->mergeWhen(MenuCustomItem::_LINK_URL == $this->resource->menuable->type_link, [
-                    'url' => $this->resource->menuable->url,
+                    'url' => "/" . app()->getLocale() . "/$menuable->url",
                     'target' => $this->resource->menuable->target,
                 ]),
             ]),
@@ -46,6 +52,7 @@ class MenuItemChildrenResource extends JsonResource
             // Champs exclusifs aux Pages
             $this->mergeWhen(Template::class == $this->resource->menuable_type, [
                 'slug' => $this->resource->menuable->slug,
+                'full_path' => "/$full_path",
             ]),
         ];
     }
