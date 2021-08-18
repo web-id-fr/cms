@@ -46,6 +46,7 @@ class MenuItemChildrenResource extends JsonResource
             // Champs exclusifs aux Pages
             $this->mergeWhen(Template::class == $this->resource->menuable_type, [
                 'slug' => $this->resource->menuable->slug,
+                'full_path' => $this->resource->menuable->getFullPath(app()->getLocale()),
             ]),
         ];
     }
