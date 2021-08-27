@@ -62,16 +62,21 @@ class TemplateService
     public function getCanonicalUrlFor(BaseTemplate $template, array $queryParams, string $language = null): string
     {
         $routeParams = [];
-        $routename = 'home';
+        $routeName = 'home';
 
         if ($template->containsArticlesList() && isset($queryParams['category'])) {
             $routeParams['category'] = $queryParams['category'];
         }
 
-        if (!$template->isHomepage()) {
-            return $template->getFullPath($language ?? request()->lang);
+        if (!empty($template->reference_page_id)) {
+            $reference_page = $this->templateRepository->getById($template->reference_page_id);
+            return url($reference_page->getFullPath($language ?? request()->lang));
         }
 
-        return route($routename, $routeParams);
+        if (!$template->isHomepage()) {
+            return url($template->getFullPath($language ?? request()->lang));
+        }
+
+        return route($routeName, $routeParams);
     }
 }

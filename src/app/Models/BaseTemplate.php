@@ -74,6 +74,7 @@ abstract class BaseTemplate extends Model implements Menuable
         'menu_description',
         'contains_articles_list',
         'parent_id',
+        'reference_page_id',
     ];
 
     /**
@@ -159,5 +160,11 @@ abstract class BaseTemplate extends Model implements Menuable
         }
 
         return $fullPath;
+    }
+
+    public function referencePage(): BelongsTo
+    {
+        return $this->belongsTo(Template::class)
+            ->where('status', Template::_STATUS_PUBLISHED);
     }
 }
