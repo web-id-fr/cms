@@ -103,9 +103,9 @@ class ArticleRepository
     }
 
     /**
-     * @return Article|null
+     * @return mixed
      */
-    public function latestUpdatedPublishedArticle(): ?Article
+    public function latestUpdatedPublishedArticle()
     {
         return $this->model
             ->published()
