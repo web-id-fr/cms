@@ -19,7 +19,7 @@ class {{componentName}}ComponentResource extends JsonResource
             $this->mergeWhen($this->resource->component->status === {{componentName}}Component::_STATUS_PUBLISHED, [
                 'id' => $this->resource->component->id,
                 'name' => $this->resource->component->name,
-                'view' =>  config("components." . {{componentName}}Component::class  .".view"),
+                'view' =>  config("components." . {{componentName}}Component::class . ".view"),
             ]),
         ];
     }
