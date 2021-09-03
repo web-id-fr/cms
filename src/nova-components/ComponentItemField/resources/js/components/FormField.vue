@@ -72,8 +72,8 @@
                         </div>
                     </div>
                     <div class="min-h-full w-full border-60 border rounded-r-lg">
-                        <div v-if="element.status === 2" class="flex m-3 text-sm bg-red">
-                            <div class="border-60 w-full border rounded p-3 text-center">
+                        <div v-if="element.status === 2" class="flex m-3 text-sm">
+                            <div class="border-60 w-full border rounded p-3 text-center bg-red">
                                 <svg class="mx-1 align-middle" fill="#842029" height="24" viewBox="0 0 24 24"
                                      width="24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
