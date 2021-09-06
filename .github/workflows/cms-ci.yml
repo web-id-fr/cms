@@ -2,7 +2,17 @@ name: CMS CI
 on: [push]
 jobs:
   cms-ci:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ ubuntu-20.04 ]
+        php: [ 7.4, 8.0 ]
+        laravel: [ 8.* ]
+        stability: [ prefer-stable ]
+        include:
+          - laravel: 8.*
+            testbench: ^6.6
 
     services:
       mysql:
@@ -16,13 +26,15 @@ jobs:
           - 32574:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
+
     steps:
 
       # Setup
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: ${{ matrix.php }}
           tools: composer:v2
 
       - uses: actions/checkout@v2
@@ -42,7 +54,8 @@ jobs:
       - name: Installing PHP dependencies
         run: |
           composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
-          composer install --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer update --${{ matrix.stability }} --prefer-dist --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader
 
       # Tests migrations
       - name: Testing migrations
