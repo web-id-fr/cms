@@ -644,5 +644,6 @@
     "The menu item has been added to the list": "L'élément de menu a été ajouté à la liste",
     "Refresh": "Rafraîchir",
     "The component has been added to the list": "Le composant a été ajouté à la liste",
-    "The component has been removed from the list": "Le composant a été supprimé de la liste"
+    "The component has been removed from the list": "Le composant a été supprimé de la liste",
+    "Attention this component is in draft mode and will not appear on your page": "Attention ce composant est en mode brouillon et n'apparaitra pas sur votre page"
 }
