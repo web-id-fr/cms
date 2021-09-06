@@ -166,6 +166,9 @@ class Template extends Resource
     protected function seoFields()
     {
         return [
+            BelongsTo::make(__('Reference page'), 'referencePage', Template::class)
+                ->nullable(),
+
             Heading::make('Meta'),
 
             Translatable::make(__('Title'), 'metatitle')

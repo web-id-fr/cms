@@ -74,6 +74,13 @@ class TemplateRepository
             ->firstOrFail();
     }
 
+    public function getById(int $id): Template
+    {
+        return $this->model
+            ->where('id', $id)
+            ->firstOrFail();
+    }
+
     /**
      * @param string $slug
      * @param string $language
