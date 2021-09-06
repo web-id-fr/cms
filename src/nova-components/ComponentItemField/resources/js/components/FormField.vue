@@ -47,7 +47,7 @@
                                           stroke-width="2"/>
                                 </svg>
                             </button>
-                            <button v-if="element.component_nova" v-tooltip.click="__('Detach')"
+                            <button v-tooltip.click="__('Detach')"
                                     class="group-control btn border-t border-r border-40 w-8 h-8 block has-tooltip"
                                     @click.prevent="selectComponents(element)">
                                 <svg aria-labelledby="delete" class="fill-current" height="14" role="presentation"
