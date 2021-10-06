@@ -6,6 +6,7 @@ use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Webid\Cms\App\Models\Traits\DeleteRelationshipOnCascade;
 use Webid\Cms\App\Models\Traits\HasStatus;
 use Webid\Cms\Modules\JavaScript\Models\CodeSnippet;
 
@@ -17,7 +18,8 @@ use Webid\Cms\Modules\JavaScript\Models\CodeSnippet;
 class CodeSnippetComponent extends Model
 {
     use HasFactory,
-        HasStatus;
+        HasStatus,
+        DeleteRelationshipOnCascade;
 
     const _STATUS_PUBLISHED = 1;
     const _STATUS_DRAFT = 2;
