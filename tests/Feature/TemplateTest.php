@@ -3,6 +3,7 @@
 namespace Webid\Cms\Tests\Feature;
 
 use Illuminate\Support\Facades\App;
+use Webid\Cms\App\Models\Dummy\DummyComponent;
 use Webid\Cms\Tests\Helpers\Traits\NewsletterComponentCreator;
 use Webid\Cms\Tests\Helpers\Traits\TemplateCreator;
 use Webid\Cms\Tests\TestCase;
@@ -170,6 +171,25 @@ class TemplateTest extends TestCase
         ]);
 
         $this->get('en/mon-slug')->assertNotFound();
+    }
+
+    /** @test */
+    public function a_page_with_inexisting_components_is_still_displayed()
+    {
+        $template = $this->createTemplate([
+            'homepage' => false,
+            'slug' => [
+                'fr' => 'fr-slug',
+            ],
+        ]);
+
+        $template->related()->create([
+            'component_id' => 9999,
+            'component_type' => 'Webid\\Cms\\App\\Models\\Dummy\\DummyComponent',
+            'order' => 1,
+        ]);
+
+        $this->get("/fr/fr-slug")->assertSuccessful();
     }
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Components;
+namespace Webid\Cms\App\Models\Dummy;
 
 use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,7 +9,11 @@ use Webid\Cms\App\Models\Traits\DeleteRelationshipOnCascade;
 use Webid\Cms\App\Models\Traits\HasStatus;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
-class {{componentName}}Component extends Model
+/**
+ * @property int $status
+ * @property string $name
+ */
+class DummyComponent extends Model
 {
     use HasStatus,
         DeleteRelationshipOnCascade,
@@ -23,7 +27,7 @@ class {{componentName}}Component extends Model
      *
      * @var string
      */
-    protected $table = '{{componentLowerName}}_components';
+    protected $table = 'dummy_components';
 
     /**
      * The attributes that are mass assignable.
