@@ -8,6 +8,7 @@ use Webid\Cms\App\Http\Resources\TemplateResource;
 use Webid\Cms\App\Repositories\Popin\PopinRepository;
 use Webid\Cms\App\Repositories\TemplateRepository;
 use Illuminate\Http\Request;
+use Throwable;
 use Webid\Cms\App\Services\LanguageService;
 use Webid\Cms\App\Services\TemplateService;
 
@@ -53,8 +54,8 @@ class TemplateController extends BaseController
             try {
                 $extraElementsService = app(ExtraElementsForPageService::class);
                 $this->extraElementsForPage = $extraElementsService->getExtraElementForPage(data_get($data, 'id'));
-            } catch (\Exception $e) {
-                info($e);
+            } catch (Throwable $exception) {
+                report($exception);
             }
 
             /** @var array $queryParams */
@@ -78,7 +79,8 @@ class TemplateController extends BaseController
                 'popins' => PopinResource::collection($popins)->resolve(),
                 'extras' => $this->extraElementsForPage,
             ]);
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
+            report($exception);
             abort(404);
         }
     }
@@ -110,8 +112,8 @@ class TemplateController extends BaseController
             try {
                 $extraElementsService = app(ExtraElementsForPageService::class);
                 $this->extraElementsForPage = $extraElementsService->getExtraElementForPage(data_get($data, 'id'));
-            } catch (\Exception $e) {
-                info($e);
+            } catch (Throwable $exception) {
+                report($exception);
             }
 
             $meta = [
@@ -132,7 +134,8 @@ class TemplateController extends BaseController
                 'popins' => PopinResource::collection($popins)->resolve(),
                 'extras' => $this->extraElementsForPage,
             ]);
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
+            report($exception);
             abort(404);
         }
     }
