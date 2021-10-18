@@ -71,13 +71,13 @@ class MenuItemField extends Field
         $menuItems->each(function ($menuItem, $key) use (&$menuItemTemplateIds, &$menuItemCustomIds, &$children) {
             if ($menuItem['menuable_type'] == Template::class) {
                 $menuItemTemplateIds[$menuItem['id']] = [
-                    'order' => $key + 1,
+                    'order' => (int)$key + 1,
                     'parent_id' => null,
                     'parent_type' => null,
                 ];
             } else {
                 $menuItemCustomIds[$menuItem['id']] = [
-                    'order' => $key + 1,
+                    'order' => (int)$key + 1,
                     'parent_id' => null,
                     'parent_type' => null,
                 ];

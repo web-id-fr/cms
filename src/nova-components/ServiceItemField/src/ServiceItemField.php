@@ -53,7 +53,7 @@ class ServiceItemField extends Field
         $serviceItemIds = [];
 
         $serviceItems->each(function ($serviceItem, $key) use (&$serviceItemIds) {
-            $serviceItemIds[$serviceItem['id']] = ['order' => $key + 1];
+            $serviceItemIds[$serviceItem['id']] = ['order' => (int)$key + 1];
         });
 
         Form::saved(function ($model) use ($serviceItemIds) {

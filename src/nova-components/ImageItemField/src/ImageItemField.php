@@ -56,7 +56,7 @@ class ImageItemField extends Field
         $slideItemIds = [];
 
         $slideItems->each(function ($serviceItem, $key) use (&$slideItemIds) {
-            $slideItemIds[$serviceItem['id']] = ['order' => $key + 1];
+            $slideItemIds[$serviceItem['id']] = ['order' => (int)$key + 1];
         });
 
         Slideshow::saved(function ($model) use ($slideItemIds) {
