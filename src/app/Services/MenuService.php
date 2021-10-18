@@ -27,13 +27,6 @@ class MenuService
     /** @var array<mixed> */
     private $allMenus = [];
 
-    /**
-     * MenuService constructor.
-     *
-     * @param MenuRepository $menuRepository
-     *
-     * @param string $templatesPath
-     */
     public function __construct(MenuRepository $menuRepository, string $templatesPath = '')
     {
         $this->menuRepository = $menuRepository;
@@ -45,20 +38,12 @@ class MenuService
         $this->templatesPath = $templatesPath;
     }
 
-    /**
-     * Wrapper for the app(static::class) method
-     *
-     * @return static
-     */
-    public static function make()
+    public static function make(): self
     {
         return app(static::class);
     }
 
-    /**
-     * @return array
-     */
-    public function getMenus()
+    public function getMenus(): array
     {
         if (!empty($this->allMenus)) {
             return $this->allMenus;
@@ -87,10 +72,7 @@ class MenuService
     }
 
     /**
-     * Récupère la liste des zones de menus dans les templates, dédoublonnée
-     *
      * @return Collection
-     *
      * @throws MissingParameterException
      * @throws TemplateNotFoundException
      */
@@ -112,42 +94,7 @@ class MenuService
     }
 
     /**
-     * Récupère la liste des zones de menus dans un template
-     *
-     * @param string $filepath
-     *
-     * @return array
-     *
-     * @throws MissingParameterException
-     * @throws TemplateNotFoundException
-     */
-    protected function getMenusZonesInTemplate(string $filepath)
-    {
-        if (!File::exists($filepath)) {
-            throw new TemplateNotFoundException($filepath);
-        }
-
-        $content = File::get($filepath);
-        $menus = [];
-        $matches = [];
-
-        preg_match_all("/\@menu\(([^@<]*)\)/", $content, $matches);
-
-        if (!empty($matches[1])) {
-            foreach ($matches[1] as $expressionDeMenu) {
-                $menuZone = new Menu($expressionDeMenu);
-                array_push($menus, $menuZone);
-            }
-        }
-
-        return $menus;
-    }
-
-    /**
-     * Affiche le contenu d'une zone de menu, en injectant les liens issus du BO dans le template associé
-     *
      * @param string $expression L'expression utilisée dans la directive, contenant ID, label et options
-     *
      * @return string
      */
     public function showMenu($expression): string
@@ -175,19 +122,40 @@ class MenuService
     }
 
     /**
+     * Traite les données à afficher pour une zone de contenu donnée, et retourne le résultat à afficher en HTML
+     *
+     * @param string|null $contentType
+     * @param array $data
+     * @param array $options
+     * @return mixed|string
+     */
+    public function getHtmlForZone($contentType, array $data, array $options = [])
+    {
+        try {
+            $view = !empty($contentType) ? strtolower($contentType) : $contentType;
+            return view($view)
+                ->with($data)
+                ->with($options)
+                ->render();
+        } catch (\Throwable $exception) {
+            info($exception->getMessage());
+            return '';
+        }
+    }
+
+    /**
      * Cherche de façon récursive tous les templates *.blade.php dans un dossier donné
      *
-     * @param string     $currentFolder  Le nom du dossier actuel
+     * @param string $currentFolder Le nom du dossier actuel
      * @param Collection $foundTemplates La liste des templates trouvés (passée par référence)
-     * @param int        $depth          La profondeur actuelle, utilisée pour éviter de boucler indéfiniment
-     *
+     * @param int $depth La profondeur actuelle, utilisée pour éviter de boucler indéfiniment
      * @return Collection
      * @throws DepthExceededException
      */
     protected function findTemplatesRecursively(
-        string $currentFolder,
+        string     $currentFolder,
         Collection $foundTemplates = null,
-        int $depth = 0
+        int        $depth = 0
     ): Collection {
         // Garde-fou, pour éviter de rester bloqué dans une boucle ou une arborescence trop complexe
         if ($depth >= 10) {
@@ -231,25 +199,30 @@ class MenuService
     }
 
     /**
-     * Traite les données à afficher pour une zone de contenu donnée, et retourne le résultat à afficher en HTML
-     *
-     * @param string|null $contentType
-     * @param array  $data
-     * @param array  $options
-     *
-     * @return mixed|string
+     * @param string $filepath
+     * @return array
+     * @throws MissingParameterException
+     * @throws TemplateNotFoundException
      */
-    public function getHtmlForZone($contentType, array $data, array $options = [])
+    protected function getMenusZonesInTemplate(string $filepath)
     {
-        try {
-            $view = !empty($contentType) ? strtolower($contentType) : $contentType;
-            return view($view)
-                ->with($data)
-                ->with($options)
-                ->render();
-        } catch (\Throwable $exception) {
-            info($exception->getMessage());
-            return '';
+        if (!File::exists($filepath)) {
+            throw new TemplateNotFoundException($filepath);
         }
+
+        $content = File::get($filepath);
+        $menus = [];
+        $matches = [];
+
+        preg_match_all("/\@menu\(([^@<]*)\)/", $content, $matches);
+
+        if (!empty($matches[1])) {
+            foreach ($matches[1] as $expressionDeMenu) {
+                $menuZone = new Menu($expressionDeMenu);
+                array_push($menus, $menuZone);
+            }
+        }
+
+        return $menus;
     }
 }

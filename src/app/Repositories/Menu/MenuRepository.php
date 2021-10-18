@@ -10,9 +10,6 @@ class MenuRepository
 {
     protected Menu $model;
 
-    /**
-     * @param Menu $model
-     */
     public function __construct(Menu $model)
     {
         $this->model = $model;
@@ -62,7 +59,7 @@ class MenuRepository
      *
      * @return bool
      */
-    public function attachZone(int $menuID, string $zoneID): bool
+    public function attachMenuToZone(int $menuID, string $zoneID): bool
     {
         if (empty($menuID) || empty($zoneID)) {
             return false;
@@ -80,7 +77,7 @@ class MenuRepository
      *
      * @return bool
      */
-    public function detachZone(string $zoneID): bool
+    public function detachAllMenusFromZone(string $zoneID): bool
     {
         if (empty($zoneID)) {
             return false;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webid\Cms\Tests\Feature;
+namespace Webid\Cms\Tests\Feature\Ajax;
 
 use App\Models\Template;
 use Illuminate\Support\Facades\DB;
