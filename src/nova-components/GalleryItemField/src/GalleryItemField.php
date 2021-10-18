@@ -53,7 +53,7 @@ class GalleryItemField extends Field
         $GalleryItemIds = [];
 
         $galleryItems->each(function ($fieldItem, $key) use (&$GalleryItemIds) {
-            $GalleryItemIds[$fieldItem['id']] = ['order' => $key + 1];
+            $GalleryItemIds[$fieldItem['id']] = ['order' => (int)$key + 1];
         });
 
         GalleryComponent::saved(function ($model) use ($GalleryItemIds) {

@@ -55,13 +55,13 @@ class ComponentItemField extends Field
         foreach ($components as $key => $component) {
             switch ($component['component_type']) {
                 case GalleryComponent::class:
-                    $galleryComponentIds[$component['id']] = ['order' => $key + 1];
+                    $galleryComponentIds[$component['id']] = ['order' => (int)$key + 1];
                     break;
                 case NewsletterComponent::class:
-                    $newsletterComponentIds[$component['id']] = ['order' => $key + 1];
+                    $newsletterComponentIds[$component['id']] = ['order' => (int)$key + 1];
                     break;
                 case CodeSnippetComponent::class:
-                    $codeSnippetComponentIds[$component['id']] = ['order' => $key + 1];
+                    $codeSnippetComponentIds[$component['id']] = ['order' => (int)$key + 1];
                     break;
             }
         }

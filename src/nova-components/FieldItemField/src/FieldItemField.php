@@ -70,9 +70,9 @@ class FieldItemField extends Field
 
         $fieldItems->each(function ($fieldItem, $key) use (&$fieldItemIds, &$titleFieldItemIds) {
             if ($fieldItem['formable_type'] == FieldModel::class) {
-                $fieldItemIds[$fieldItem['id']] = ['order' => $key + 1];
+                $fieldItemIds[$fieldItem['id']] = ['order' => (int)$key + 1];
             } else {
-                $titleFieldItemIds[$fieldItem['id']] = ['order' => $key + 1];
+                $titleFieldItemIds[$fieldItem['id']] = ['order' => (int)$key + 1];
             }
         });
 
