@@ -3,6 +3,7 @@
 namespace Webid\Cms\App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Throwable;
 
 class PreviewController extends BaseController
 {
@@ -29,7 +30,7 @@ class PreviewController extends BaseController
             $data['components'] = $components;
 
             return view("preview", ['data' => $data]);
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
             abort(404);
         }
     }

@@ -5,6 +5,7 @@ namespace Webid\Cms\App\Services;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Throwable;
 use Webid\Cms\App\Exceptions\Templates\DepthExceededException;
 use Webid\Cms\App\Exceptions\Templates\MissingParameterException;
 use Webid\Cms\App\Exceptions\Templates\TemplateNotFoundException;
@@ -65,7 +66,7 @@ class MenuService
 
         try {
             $menus = MenuResource::collection($this->menuRepository->all())->resolve();
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
             $menus = [];
         }
 

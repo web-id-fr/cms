@@ -3,6 +3,7 @@
 namespace Webid\Cms\App\Observers\Traits;
 
 use Illuminate\Support\Str;
+use Throwable;
 use Webid\Cms\App\Repositories\TemplateRepository;
 use Webid\Cms\App\Services\LanguageService;
 use Webid\Cms\Modules\Articles\Repositories\ArticleRepository;
@@ -73,7 +74,7 @@ trait GenerateTranslatableSlugIfNecessary
                     } else {
                         $allSlug[$language] = $slug . '-' . $count;
                     }
-                } catch (\Exception $exception) {
+                } catch (Throwable $exception) {
                     // Ignore & continue ...
                 }
             }
