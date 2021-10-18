@@ -8,7 +8,7 @@ use Webid\Cms\App\Repositories\Menu\MenuRepository;
 
 class MenuController extends BaseController
 {
-    /** @var MenuRepository  */
+    /** @var MenuRepository */
     protected $menuRepository;
 
     /**
@@ -29,7 +29,6 @@ class MenuController extends BaseController
 
     /**
      * @param int $id
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(int $id)
