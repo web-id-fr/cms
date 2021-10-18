@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Spatie\Translatable\HasTranslations;
+use Throwable;
 use Webid\Cms\App\Models\Contracts\Menuable;
 use Webid\Cms\App\Models\Traits\HasFlexible;
 use Webid\Cms\App\Models\Traits\HasMenus;
@@ -38,11 +40,6 @@ abstract class BaseTemplate extends Model implements Menuable
 
     const _STATUS_PUBLISHED = 0;
     const _STATUS_DRAFT = 1;
-
-    public function getParentKeyName(): string
-    {
-        return 'parent_page_id';
-    }
 
     /**
      * The table associated with the model.
@@ -103,6 +100,11 @@ abstract class BaseTemplate extends Model implements Menuable
         'publish_at' => 'datetime',
     ];
 
+    public function getParentKeyName(): string
+    {
+        return 'parent_page_id';
+    }
+
     public function related(): HasMany
     {
         return $this->hasMany(Component::class)
@@ -136,17 +138,6 @@ abstract class BaseTemplate extends Model implements Menuable
         return $parent->push($this);
     }
 
-    private function collectAncestors(Template $parent, array $ancestors = []): array
-    {
-        $ancestors[] = $parent;
-
-        if ($parent->parent) {
-            return $this->collectAncestors($parent->parent, $ancestors);
-        }
-
-        return $ancestors;
-    }
-
     public function getFullPath(string $language): string
     {
         $fullPath = $language;
@@ -166,5 +157,38 @@ abstract class BaseTemplate extends Model implements Menuable
     {
         return $this->belongsTo(Template::class)
             ->where('status', Template::_STATUS_PUBLISHED);
+    }
+
+    protected static function booted()
+    {
+        static::deleted(function ($template) {
+            try {
+                DB::table('menuables')
+                    ->orWhere(function ($query) use ($template) {
+                        $query
+                            ->where('menuable_id', '=', $template->getKey())
+                            ->where('menuable_type', '=', get_class($template));
+                    })
+                    ->orWhere(function ($query) use ($template) {
+                        $query
+                            ->where('parent_id', '=', $template->getKey())
+                            ->where('parent_type', '=', get_class($template));
+                    })
+                    ->delete();
+            } catch (Throwable $exception) {
+                report($exception);
+            }
+        });
+    }
+
+    private function collectAncestors(Template $parent, array $ancestors = []): array
+    {
+        $ancestors[] = $parent;
+
+        if ($parent->parent) {
+            return $this->collectAncestors($parent->parent, $ancestors);
+        }
+
+        return $ancestors;
     }
 }
