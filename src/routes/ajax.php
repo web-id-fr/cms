@@ -32,5 +32,5 @@ Route::group([
     Route::get('menu', [MenuController::class, 'index'])->name('menus.index');
     Route::get('menu-custom-item', [MenuCustomItemController::class, 'index'])->name('menu_custom_items.index');
     Route::get('menu-configuration', [MenuConfigurationController::class, 'index'])->name('menu_configuration.index');
-    Route::post('menu-zone', [MenuConfigurationController::class, 'updateZone'])->name('menu_zones.update');
+    Route::post('menu-zone', [MenuConfigurationController::class, 'updateZone'])->name('menu_configuration.update');
 });
