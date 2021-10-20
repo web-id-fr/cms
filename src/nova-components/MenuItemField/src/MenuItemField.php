@@ -134,9 +134,6 @@ class MenuItemField extends Field
             }
         }
 
-        // todo dédoublonner avec la méthode Collection::unique() ?
-        # https://laravel.com/docs/8.x/collections#method-unique
-
         return $allChildren;
     }
 

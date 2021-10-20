@@ -31,6 +31,7 @@
                 <directory>./src/Modules/*/Routes</directory>
                 <directory>./src/nova-components/*/resources</directory>
                 <directory>./src/nova-components/*/routes</directory>
+                <directory>./src/nova-components/*/tests</directory>
                 <directory>./src/nova-components/*/vendor</directory>
             </exclude>
         </whitelist>
