@@ -121,11 +121,8 @@ class TemplateTest extends TestCase
         $template->newsletterComponents()->attach($component->getKey(), ['order' => 1]);
 
         $this->get('fr/mon-slug')->assertSuccessful();
-        dump("fr ok");
         $this->get('en/my-slug')->assertSuccessful();
-        dump("en ok");
         $this->get('es/mi-slug')->assertSuccessful();
-        dump("es ok");
     }
 
     /** @test */
