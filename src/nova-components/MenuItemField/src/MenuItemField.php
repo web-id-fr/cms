@@ -4,12 +4,12 @@ namespace Webid\MenuItemField;
 
 use App\Models\Template;
 use Illuminate\Support\Collection;
-use Webid\Cms\App\Models\Menu\Menu;
-use Webid\Cms\App\Repositories\Menu\MenuCustomItemRepository;
-use Webid\Cms\App\Repositories\TemplateRepository;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Webid\Cms\App\Models\Menu\Menu;
 use Webid\Cms\App\Models\Menu\MenuCustomItem;
+use Webid\Cms\App\Repositories\Menu\MenuCustomItemRepository;
+use Webid\Cms\App\Repositories\TemplateRepository;
 
 class MenuItemField extends Field
 {
@@ -24,7 +24,6 @@ class MenuItemField extends Field
      * @param string $name
      * @param string|null $attribute
      * @param callable|null $resolveCallback
-     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct(string $name, ?string $attribute = null, callable $resolveCallback = null)
@@ -56,63 +55,50 @@ class MenuItemField extends Field
      * @param string $requestAttribute
      * @param object $model
      * @param string $attribute
-     *
      * @return void
      */
     public function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
-        $menuItems = $request[$requestAttribute];
-        $menuItems = collect(json_decode($menuItems, true));
+        $menuItemsCollection = $request[$requestAttribute];
+        $menuItemsCollection = collect(json_decode($menuItemsCollection, true));
 
-        $menuItemTemplateIds = [];
-        $menuItemCustomIds = [];
-        $children = [];
+        /** @var array<PlainMenuItem> $plainItemsList */
+        $plainItemsList = [];
+        $order = 1;
 
-        $menuItems->each(function ($menuItem, $key) use (&$menuItemTemplateIds, &$menuItemCustomIds, &$children) {
-            if ($menuItem['menuable_type'] == Template::class) {
-                $menuItemTemplateIds[$menuItem['id']] = [
-                    'order' => (int)$key + 1,
-                    'parent_id' => null,
-                    'parent_type' => null,
-                ];
-            } else {
-                $menuItemCustomIds[$menuItem['id']] = [
-                    'order' => (int)$key + 1,
-                    'parent_id' => null,
-                    'parent_type' => null,
-                ];
-            }
-            if ($menuItem['children']) {
-                $children = $this->getChildrenFor($menuItem);
-            }
-        });
-
-        if (array_key_exists(Template::class, $children)) {
-            $menuItemTemplateIds = array_replace_recursive($children[Template::class], $menuItemTemplateIds);
-        }
-        if (array_key_exists(MenuCustomItem::class, $children)) {
-            $menuItemCustomIds = array_replace_recursive($children[MenuCustomItem::class], $menuItemCustomIds);
+        foreach ($menuItemsCollection as $menuItem) {
+            $plainItemsList[] = new PlainMenuItem(
+                $menuItem['id'],
+                $menuItem['menuable_type'],
+                $order++,
+                null,
+                null,
+                $this->getChildrenFor($menuItem)
+            );
         }
 
-        Menu::saved(function ($model) use ($menuItemTemplateIds, $menuItemCustomIds) {
-            $model->templates()->sync($menuItemTemplateIds);
-            $model->menuCustomItems()->sync($menuItemCustomIds);
+        [$templatesToSync, $customItemsToSync] = $this->getItemsToSyncFromPlainObjects($plainItemsList);
+
+        Menu::saved(function (Menu $model) use ($customItemsToSync, $templatesToSync) {
+            $model->templates()->sync($templatesToSync);
+            $model->menuCustomItems()->sync($customItemsToSync);
         });
     }
 
     /**
-     * @param mixed $resource
-     * @param null $attribute
+     * @param Menu $resource
+     * @param string|null $attribute
      */
     public function resolve($resource, $attribute = null)
     {
         parent::resolve($resource, $attribute);
+
         $resource->chargeMenuItems();
 
         $valueInArray = [];
-        $resource->menu_items->each(function ($item) use (&$valueInArray) {
+        foreach ($resource->menu_items as $item) {
             $valueInArray[] = $item;
-        });
+        }
 
         if ($valueInArray) {
             $this->value = $valueInArray;
@@ -131,22 +117,63 @@ class MenuItemField extends Field
 
     private function getChildrenFor(array $menuItem): array
     {
-        $AllChildren = [];
-        $count = 1;
+        $allChildren = [];
+        $order = 1;
 
         foreach ($menuItem['children'] as $children) {
-            $AllChildren[$children['menuable_type']][$children['id']] =  [
-                'parent_id' => $menuItem['id'],
-                'parent_type' => $menuItem['menuable_type'],
-                'order' => $count
-            ];
+            $allChildren[] = new PlainMenuItem(
+                $children['id'],
+                $children['menuable_type'],
+                $order++,
+                $menuItem['id'],
+                $menuItem['menuable_type']
+            );
 
             if (count($children['children']) > 0) {
-                $AllChildren = array_replace_recursive($AllChildren, $this->getChildrenFor($children));
+                $allChildren = array_merge($allChildren, $this->getChildrenFor($children));
             }
-            $count++;
         }
 
-        return $AllChildren;
+        // todo dédoublonner avec la méthode Collection::unique() ?
+        # https://laravel.com/docs/8.x/collections#method-unique
+
+        return $allChildren;
+    }
+
+    /**
+     * @return array<int, array>
+     */
+    private function getItemsToSyncFromPlainObjects(array $plainItemsList): array
+    {
+        $templatesToSync = [];
+        $customItemsToSync = [];
+
+        foreach ($plainItemsList as $plainItem) {
+            $dataToSync = [
+                'order' => $plainItem->order,
+                'parent_id' => $plainItem->parentId,
+                'parent_type' => $plainItem->parentType,
+            ];
+
+            if (Template::class == $plainItem->menuableType) {
+                $templatesToSync[$plainItem->menuableId] = $dataToSync;
+            } else {
+                $customItemsToSync[$plainItem->menuableId] = $dataToSync;
+            }
+
+            if (!empty($plainItem->children)) {
+                [$childrenTemplatesToSync, $childrenCustomItemsToSync] = $this->getItemsToSyncFromPlainObjects(
+                    $plainItem->children
+                );
+
+                $templatesToSync = $childrenTemplatesToSync + $templatesToSync;
+                $customItemsToSync = $childrenCustomItemsToSync + $customItemsToSync;
+            }
+        }
+
+        return [
+            $templatesToSync,
+            $customItemsToSync,
+        ];
     }
 }

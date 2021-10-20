@@ -66,9 +66,10 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "App\\": "src/app/",
             "Webid\\Cms\\Tests\\": "tests/",
             "Webid\\ComponentTool\\" : "src/nova-components/ComponentTool/src/",
-            "App\\": "src/app/",
+            "Webid\\MenuItemField\\Tests\\" : "src/nova-components/MenuItemField/tests/",
             "Webid\\PreviewItemField\\Tests\\" : "src/nova-components/PreviewItemField/tests/"
         }
     },
