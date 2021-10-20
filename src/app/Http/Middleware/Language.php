@@ -12,19 +12,19 @@ class Language
     /**
      * @param Request $request
      * @param Closure $next
-     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
      */
     public function handle(Request $request, Closure $next)
     {
-        $locale = $request->lang;
+        $explodedPath = array_filter(explode('/', $request->path()));
+        $locale = $request->lang
+            ?? array_shift($explodedPath)
+            ?? null;
 
         if ($locale === null) {
             return redirect(app(LanguageService::class)->getFromBrowser());
         } else {
-            // Change la langue de l'application
             app()->setLocale($locale);
-            // Ajoute une valeur par défaut au paramètre "lang" sur les routes du front
             URL::defaults(['lang' => $locale]);
         }
 

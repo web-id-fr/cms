@@ -3,7 +3,6 @@
 namespace Webid\Cms\Tests\Feature;
 
 use Illuminate\Support\Facades\App;
-use Webid\Cms\App\Models\Dummy\DummyComponent;
 use Webid\Cms\Tests\Helpers\Traits\NewsletterComponentCreator;
 use Webid\Cms\Tests\Helpers\Traits\TemplateCreator;
 use Webid\Cms\Tests\TestCase;
@@ -21,6 +20,9 @@ class TemplateTest extends TestCase
         $this->createHomepageTemplate();
 
         $this->get(route(self::_ROUTE_INDEX, ['lang' => 'fr']))
+            ->assertSuccessful();
+
+        $this->get(route(self::_ROUTE_INDEX, ['lang' => 'en']))
             ->assertSuccessful();
     }
 
@@ -40,14 +42,18 @@ class TemplateTest extends TestCase
     {
         $this->createHomepageTemplate([
             'slug' => [
-                'fr' => 'slug-homepage',
+                'fr' => 'homepage-fr',
+                'en' => 'homepage-en',
             ],
             'follow' => true,
             'indexation' => true,
         ]);
 
-        $this->get('fr/slug-homepage')
+        $this->get('fr/homepage-fr')
             ->assertRedirect(route(self::_ROUTE_INDEX, ['lang' => 'fr']));
+
+        $this->get('en/homepage-en')
+            ->assertRedirect(route(self::_ROUTE_INDEX, ['lang' => 'en']));
     }
 
     /** @test */
@@ -60,6 +66,26 @@ class TemplateTest extends TestCase
         $this->assertTrue(App::isLocale($default_lang));
 
         $this->get(route(self::_ROUTE_INDEX, ['lang' => $other_lang]));
+        $this->assertTrue(App::isLocale($other_lang));
+    }
+
+    /** @test */
+    public function accessing_a_page_with_a_given_lang_changes_app_locale()
+    {
+        $this->createPublicTemplate([
+            'slug' => [
+                'fr' => 'slug-fr',
+                'en' => 'slug-en',
+            ],
+        ]);
+
+        $default_lang = 'fr';
+        $other_lang = 'en';
+
+        $this->get('/fr/slug-fr');
+        $this->assertTrue(App::isLocale($default_lang));
+
+        $this->get('/en/slug-en');
         $this->assertTrue(App::isLocale($other_lang));
     }
 
@@ -81,16 +107,25 @@ class TemplateTest extends TestCase
     {
         $this->createHomepageTemplate();
         $component = $this->createNewsletterComponent();
-        $template = $this->createTemplate([
+        $template = $this->createPublicTemplate([
             'homepage' => false,
             'follow' => false,
             'indexation' => false,
-            'slug' => ['fr' => 'mon-slug'],
+            'slug' => [
+                'fr' => 'mon-slug',
+                'en' => 'my-slug',
+                'es' => 'mi-slug',
+            ],
         ]);
 
         $template->newsletterComponents()->attach($component->getKey(), ['order' => 1]);
 
         $this->get('fr/mon-slug')->assertSuccessful();
+        dump("fr ok");
+        $this->get('en/my-slug')->assertSuccessful();
+        dump("en ok");
+        $this->get('es/mi-slug')->assertSuccessful();
+        dump("es ok");
     }
 
     /** @test */
@@ -109,7 +144,7 @@ class TemplateTest extends TestCase
             'follow' => false,
             'indexation' => false,
             'slug' => ['fr' => 'mon-slug-2'],
-            'parent_page_id' => $template_1->getKey()
+            'parent_page_id' => $template_1->getKey(),
         ]);
 
         $template_2->newsletterComponents()->attach($component->getKey(), ['order' => 1]);
@@ -133,7 +168,7 @@ class TemplateTest extends TestCase
             'follow' => false,
             'indexation' => false,
             'slug' => ['fr' => 'mon-slug-2'],
-            'parent_page_id' => $template_1->getKey()
+            'parent_page_id' => $template_1->getKey(),
         ]);
 
         $template_2->newsletterComponents()->attach($component->getKey(), ['order' => 1]);
@@ -152,7 +187,7 @@ class TemplateTest extends TestCase
         $template_2 = $this->createTemplate([
             'homepage' => false,
             'slug' => ['fr' => 'mon-slug-2'],
-            'parent_page_id' => $template_1->getKey()
+            'parent_page_id' => $template_1->getKey(),
         ]);
 
         $this->get('fr/mauvais-slug/mon-slug-2')
