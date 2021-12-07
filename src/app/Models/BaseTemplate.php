@@ -22,8 +22,8 @@ use Webid\Cms\App\Models\Traits\HasStatus;
  * @package Webid\Cms\App\Models
  *
  * @property int $id
- * @property string $title
- * @property array $slug
+ * @property array|string $title
+ * @property array|string $slug
  * @property int|bool $homepage
  * @property int $status
  * @property int|bool $contains_articles_list
