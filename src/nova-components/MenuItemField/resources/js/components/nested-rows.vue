@@ -12,7 +12,7 @@
                 <div class="item-title flex min-h-full w-full border-t border-l border-b border-60 rounded-l">
                     <span>
                         <font-awesome-icon class="icons" icon="bars"/>
-                        {{ getFirstTitle(el.title) }}
+                        {{ getTitleAndSlug(el) }} ({{ __(getMenuItemType(el))}})
                     </span>
                 </div>
                 <div class="item-button z-10 bg-white border-t border-60 border rounded-r-lg h-auto pin-l pin-t self-start w-8">
@@ -36,7 +36,7 @@
 
 <script>
     import draggable from "vuedraggable";
-    import {mapChildren, selectFirstTitle} from "../helpers";
+    import {getMenuItemType, getTranslatedValue, mapChildren} from "../helpers";
     import {library} from '@fortawesome/fontawesome-svg-core';
     import {faBars} from '@fortawesome/free-solid-svg-icons';
     import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
@@ -82,8 +82,14 @@
                 this.$emit("input", value);
             },
 
-            getFirstTitle(title) {
-                return selectFirstTitle(title, this.currentLocale);
+            getTitleAndSlug(menuItem) {
+                let label = getTranslatedValue(menuItem.title, this.currentLocale);
+
+                if (menuItem.slug !== undefined) {
+                    label = label + " - " + getTranslatedValue(menuItem.slug, this.currentLocale);
+                }
+
+                return label;
             },
 
             mapChildren(el) {
@@ -92,6 +98,10 @@
 
             selectMenuItem(menuItem) {
                 this.$emit('selectMenuItems', menuItem);
+            },
+
+            getMenuItemType(menuItem) {
+                return this.__(getMenuItemType(menuItem));
             },
         },
 
@@ -135,11 +145,5 @@
     }
     .icons {
         margin-right: 20px;
-    }
-    .sortable-chosen{
-        border: 1px dashed #0088F8;
-        box-sizing: border-box;
-        background: rgba(0, 136, 249, 0.09);
-        color: #0088f9;
     }
 </style>

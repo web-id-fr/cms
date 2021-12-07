@@ -127,12 +127,12 @@
                 const findIndex = _.findIndex(this.selected, menuItem);
 
                 let selected = this.selected.findIndex(function (elem) {
-                    return (_.isEqual(elem.title, menuItem.title) && _.isEqual(elem.menuable_type, menuItem.menuable_type));
+                    return (_.isEqual(elem.id, menuItem.id) && _.isEqual(elem.menuable_type, menuItem.menuable_type));
                 });
 
                 if (selected >= 0) {
                     this.options.filter(function (currentElement) {
-                        if (_.isEqual(currentElement.title, menuItem.title) && _.isEqual(currentElement.menuable_type, menuItem.menuable_type)) {
+                        if (_.isEqual(currentElement.id, menuItem.id) && _.isEqual(currentElement.menuable_type, menuItem.menuable_type)) {
                             currentElement.children = [];
                             return currentElement;
                         }

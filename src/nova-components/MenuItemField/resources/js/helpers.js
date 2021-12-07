@@ -19,7 +19,7 @@ export function mapChildren(element) {
 
 export function removeChildren(value, menuItem) {
     if (_.findIndex(value.children, {
-        'title': menuItem.title,
+        'id': menuItem.id,
         'menuable_type': menuItem.menuable_type
     }) >= 0) {
         menuItem.isSelected = false;
@@ -29,7 +29,7 @@ export function removeChildren(value, menuItem) {
     } else {
         value.children.filter(function (elem) {
             if (_.findIndex(elem.children, {
-                'title': menuItem.title,
+                'id': menuItem.id,
                 'menuable_type': menuItem.menuable_type
             }) >= 0) {
                 removeChildren(elem, menuItem)
@@ -46,14 +46,14 @@ export function removeChildren(value, menuItem) {
 
 export function isSelectedChildren(value, menuItem) {
     if (_.findIndex(value.children, {
-        'title': menuItem.title,
+        'id': menuItem.id,
         'menuable_type': menuItem.menuable_type
     }) >= 0) {
         menuItem.isSelected = true;
     } else {
          value.children.filter(function (elem) {
             if (_.findIndex(elem.children, {
-                'title': menuItem.title,
+                'id': menuItem.id,
                 'menuable_type': menuItem.menuable_type
             }) >= 0) {
                 isSelectedChildren(elem, menuItem)
@@ -107,16 +107,27 @@ export function errorToast(message, defaultMessage = 'An unexpected error occure
     });
 }
 
-export function selectFirstTitle(title, locale) {
-    if (!title[locale]) {
-        if (title[locale + 1]) {
-            return title[locale + 1];
-        } else if (title[locale - 1]) {
-            return title[locale - 1];
+export function getTranslatedValue(value, locale) {
+    if (!value[locale]) {
+        if (value[locale + 1]) {
+            return value[locale + 1];
+        } else if (value[locale - 1]) {
+            return value[locale - 1];
         } else {
-            return title[Object.keys(title)[0]];
+            return value[Object.keys(value)[0]];
         }
     } else {
-        return title[locale];
+        return value[locale];
     }
+}
+
+export function getMenuItemType(menuItem) {
+    if (menuItem.menuable_type === "App\\Models\\Template") {
+        return "Page";
+    }
+    if (menuItem.menuable_type === "Webid\\Cms\\App\\Models\\Menu\\MenuCustomItem") {
+        return "Custom item";
+    }
+
+    return menuItem.menuable_type;
 }
