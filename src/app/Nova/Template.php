@@ -46,7 +46,12 @@ class Template extends Resource
 
     public function title()
     {
-        return "$this->title - $this->slug";
+        /** @var string $title */
+        $title = $this->resource->title;
+        /** @var string $slug */
+        $slug = $this->resource->slug;
+
+        return "$title - $slug";
     }
 
     /**
