@@ -44,6 +44,16 @@ class Template extends Resource
      */
     public static $title = 'title';
 
+    public function title()
+    {
+        /** @var string $title */
+        $title = $this->resource->title;
+        /** @var string $slug */
+        $slug = $this->resource->slug;
+
+        return "$title - $slug";
+    }
+
     /**
      * The columns that should be searched.
      *
