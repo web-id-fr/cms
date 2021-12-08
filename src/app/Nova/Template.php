@@ -177,7 +177,8 @@ class Template extends Resource
     {
         return [
             BelongsTo::make(__('Reference page'), 'referencePage', Template::class)
-                ->nullable(),
+                ->nullable()
+                ->searchable(),
 
             Heading::make('Meta'),
 
