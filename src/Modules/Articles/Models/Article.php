@@ -53,9 +53,6 @@ class Article extends Model
         "categories"
     ];
 
-    /**
-     * @var array
-     */
     protected $fillable = [
         'title',
         'slug',

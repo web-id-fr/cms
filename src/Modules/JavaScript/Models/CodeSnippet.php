@@ -21,11 +21,6 @@ class CodeSnippet extends Model
      */
     protected $table = 'code_snippets';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'source_code',

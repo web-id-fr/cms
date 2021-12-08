@@ -1,7 +1,7 @@
 #!make
 
 # TESTS
-testing:
+test:
 	./bin/local-php-security-checker-macos
 	./vendor/bin/phpcs --report=full
 	./vendor/bin/phpstan analyse -c phpstan.neon

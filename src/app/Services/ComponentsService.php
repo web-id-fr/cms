@@ -12,8 +12,8 @@ use Webid\Cms\App\Repositories\Components\NewsletterComponentRepository;
 
 class ComponentsService
 {
-    /** @var Collection */
-    private $allComponents;
+    /** @var Collection|null */
+    private $allComponents = null;
 
     /** @var GalleryComponentRepository */
     private $galleryComponentRepository;
@@ -26,7 +26,7 @@ class ComponentsService
 
     public function getAllComponents(): Collection
     {
-        if (!empty($this->allComponents)) {
+        if (!is_null($this->allComponents)) {
             return $this->allComponents;
         }
 

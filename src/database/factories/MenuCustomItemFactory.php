@@ -8,11 +8,6 @@ use Webid\Cms\Modules\Form\Models\Form;
 
 class MenuCustomItemFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = MenuCustomItem::class;
 
     /**

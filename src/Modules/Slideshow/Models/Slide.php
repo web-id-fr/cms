@@ -27,11 +27,6 @@ class Slide extends Model
         'image_alt',
     ];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'title',
         'description',

@@ -22,7 +22,7 @@ class TemplateObserver
     {
         $titles = $template->getTranslations('title');
         $originalSlug = $template->getOriginal('slug') ?? [];
-        $value = $template->getTranslations('slug') ?? [];
+        $value = $template->getTranslations('slug');
 
         $allSlug = $this->generateMissingSlugs($originalSlug, $value, $titles);
 

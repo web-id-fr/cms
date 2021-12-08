@@ -7,11 +7,6 @@ use Webid\Cms\App\Models\Components\NewsletterComponent;
 
 class NewsletterComponentFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = NewsletterComponent::class;
 
     /**

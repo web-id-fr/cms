@@ -7,11 +7,6 @@ use Webid\LanguageTool\Models\Language;
 
 class LanguageFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = Language::class;
 
     /**

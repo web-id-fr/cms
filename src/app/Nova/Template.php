@@ -61,6 +61,7 @@ class Template extends Resource
      */
     public static $search = [
         'title',
+        'slug',
     ];
 
     /**

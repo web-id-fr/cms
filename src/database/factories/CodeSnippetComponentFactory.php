@@ -8,11 +8,6 @@ use Webid\Cms\Modules\JavaScript\Models\CodeSnippet;
 
 class CodeSnippetComponentFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = CodeSnippetComponent::class;
 
     /**

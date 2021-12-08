@@ -16,11 +16,6 @@ class Recipient extends Model
      */
     protected $table = 'recipients';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'email',

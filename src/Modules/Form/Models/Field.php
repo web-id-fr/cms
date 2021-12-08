@@ -23,11 +23,6 @@ class Field extends Model
      */
     protected $table = 'fields';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'field_options',
         'field_name',

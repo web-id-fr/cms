@@ -7,11 +7,6 @@ use Webid\Cms\App\Models\Menu\Menu;
 
 class MenuFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = Menu::class;
 
     /**

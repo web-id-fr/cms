@@ -10,11 +10,6 @@ use Webid\Cms\App\Models\Menu\MenuItem;
 
 class MenuItemFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = MenuItem::class;
 
     /**

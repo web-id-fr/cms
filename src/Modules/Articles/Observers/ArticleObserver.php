@@ -22,7 +22,7 @@ class ArticleObserver
     {
         $titles = $article->getTranslations('title');
         $originalSlug = $article->getOriginal('slug') ?? [];
-        $value = $article->getTranslations('slug') ?? [];
+        $value = $article->getTranslations('slug');
 
         $allSlug = $this->generateMissingSlugs($originalSlug, $value, $titles);
 
