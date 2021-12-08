@@ -25,11 +25,6 @@ class {{componentName}}Component extends Model
      */
     protected $table = '{{componentLowerName}}_components';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'status',

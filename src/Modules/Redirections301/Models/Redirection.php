@@ -18,11 +18,6 @@ class Redirection extends Model
      */
     protected $table = 'redirections';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'source_url',
         'destination_url',

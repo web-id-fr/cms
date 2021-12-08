@@ -3,6 +3,7 @@
 namespace Webid\Cms\Modules\Form\Http\Controllers;
 
 use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Contracts\Mail\Mailable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Crypt;
@@ -22,7 +23,7 @@ class FormController extends BaseController
     /** @var FormRepository */
     protected $formRepository;
 
-    /** @var string */
+    /** @var class-string<Mailable> */
     protected $sendConfirmationContact;
 
     /**

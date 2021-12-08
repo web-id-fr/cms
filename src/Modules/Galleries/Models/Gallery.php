@@ -26,11 +26,6 @@ class Gallery extends Model
      */
     protected $table = 'galleries';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'title',
         'status',

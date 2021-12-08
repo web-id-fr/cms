@@ -29,11 +29,6 @@ class NewsletterComponent extends Model
      */
     protected $table = 'newsletters_component';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'status',

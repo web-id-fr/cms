@@ -48,11 +48,6 @@ abstract class BaseTemplate extends Model implements Menuable
      */
     protected $table = 'templates';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'title',
         'slug',

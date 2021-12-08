@@ -42,11 +42,6 @@ class Slideshow extends Model
         'title',
     ];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'title',
         'js_controls',

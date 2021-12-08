@@ -23,11 +23,6 @@ class Language extends Model
      */
     protected $table = 'languages_flags';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'flag',

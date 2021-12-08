@@ -107,15 +107,10 @@ class ArticleRepository
      */
     public function latestUpdatedPublishedArticle(): ?Article
     {
-        $template = $this->model
-            ->published();
-
-        if (!empty($template)) {
-            return $template ->orderByDesc(Article::UPDATED_AT)
-                ->first();
-        }
-
-        return null;
+        return $this->model
+            ->published()
+            ->orderByDesc(Article::UPDATED_AT)
+            ->first();
     }
 
     /**

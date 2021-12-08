@@ -26,11 +26,6 @@ class FaqTheme extends Model
      */
     protected $table = 'faq_themes';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'title',
         'status',

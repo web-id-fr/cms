@@ -7,11 +7,6 @@ use Webid\Cms\App\Models\Dummy\DummyUser;
 
 class DummyUserFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = DummyUser::class;
 
     /**

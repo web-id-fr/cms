@@ -17,11 +17,6 @@ class TitleField extends Model
      */
     protected $table = 'title_fields';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'title',
     ];

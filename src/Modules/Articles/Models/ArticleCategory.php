@@ -17,9 +17,6 @@ class ArticleCategory extends Model
 {
     use HasTranslations, HasFactory;
 
-    /**
-     * @var array
-     */
     protected $fillable = [
         'name',
     ];

@@ -29,11 +29,6 @@ class GalleryComponent extends Model
      */
     protected $table = 'galleries_component';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'status',

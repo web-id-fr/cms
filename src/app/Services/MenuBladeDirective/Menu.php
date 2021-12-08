@@ -37,7 +37,7 @@ class Menu
 
         $options = $this->extractOptions($zoneParams[2] ?? '');
 
-        if (empty($zoneParams)) {
+        if (count($zoneParams) == 0) {
             throw new MissingParameterException("The @menu directive needs at least one attribute.");
         }
         if (empty($zoneParams[0]) || !is_string($zoneParams[0])) {

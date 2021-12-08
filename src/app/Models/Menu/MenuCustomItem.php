@@ -46,11 +46,6 @@ class MenuCustomItem extends Model implements Menuable
         'menu_description',
     ];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'title',
         'url',

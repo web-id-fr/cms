@@ -31,11 +31,6 @@ class Menu extends Model
     /** @var string */
     protected $table = 'menus';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'title',
     ];

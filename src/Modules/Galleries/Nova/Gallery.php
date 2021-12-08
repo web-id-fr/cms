@@ -115,7 +115,7 @@ class Gallery extends Resource
             }
         }
 
-        return array_combine($galleries, $galleries) ?? [];
+        return array_combine($galleries, $galleries);
     }
 
     /**

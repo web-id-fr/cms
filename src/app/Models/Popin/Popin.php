@@ -25,11 +25,6 @@ class Popin extends Model
 
     protected $table = 'popins';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'title',
         'status',
