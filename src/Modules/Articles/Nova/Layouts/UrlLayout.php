@@ -2,6 +2,7 @@
 
 namespace Webid\Cms\Modules\Articles\Nova\Layouts;
 
+use Webid\AdvancedUrlField\AdvancedUrl;
 use Webid\TranslatableTool\Translatable;
 use Whitecube\NovaFlexibleContent\Layouts\Layout;
 
@@ -33,8 +34,7 @@ class UrlLayout extends Layout
             Translatable::make(__('CTA Name'), 'cta_name')
                 ->singleLine(),
 
-            Translatable::make(__('CTA link'), 'url')
-                ->singleLine(),
+            AdvancedUrl::make(__('CTA link'), 'url'),
         ];
     }
 }

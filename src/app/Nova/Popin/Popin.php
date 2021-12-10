@@ -3,6 +3,7 @@
 namespace  Webid\Cms\App\Nova\Popin;
 
 use Laravel\Nova\Resource;
+use Webid\AdvancedUrlField\AdvancedUrl;
 use Webid\Cms\App\Models\Popin\Popin as PopinModel;
 use \Eminiarts\Tabs\Tabs;
 use \Eminiarts\Tabs\TabsOnEdit;
@@ -131,8 +132,7 @@ class Popin extends Resource
                     ->singleLine()
                     ->hideFromIndex(),
 
-                Translatable::make(__('CTA link'), 'button_1_url')
-                    ->singleLine()
+                AdvancedUrl::make(__('CTA link'), 'button_1_url')
                     ->hideFromIndex(),
             ])->dependsOn('display_call_to_action', true),
 
@@ -144,8 +144,7 @@ class Popin extends Resource
                     ->singleLine()
                     ->hideFromIndex(),
 
-                Translatable::make(__('CTA link 2'), 'button_2_url')
-                    ->singleLine()
+                AdvancedUrl::make(__('CTA link 2'), 'button_2_url')
                     ->hideFromIndex(),
 
             ])->dependsOn('display_second_button', true),
