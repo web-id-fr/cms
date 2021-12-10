@@ -26,6 +26,7 @@ Route::group(['middleware' => 'cacheable'], function () {
     ], function () {
         // Homepage
         Route::get('/', [TemplateController::class, 'index'])->name('home');
+        Route::get('{slug}', [TemplateController::class, 'show'])->name('page.show');
     });
 });
 

@@ -5,6 +5,7 @@ namespace Webid\Cms\App\Nova;
 use Carbon\Carbon;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Heading;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
 use Webid\Cms\App\Repositories\TemplateRepository;
 use Webid\Cms\App\Rules\TranslatableMax;
@@ -94,6 +95,57 @@ class Template extends Resource
         ];
     }
 
+    public function serializeForIndex(NovaRequest $request, $fields = null)
+    {
+        $urls = [];
+        $translatedSlugs = $this->resource->getTranslations('slug');
+
+        foreach ($translatedSlugs as $locale => $slug) {
+            $urls[$locale] = route('page.show', ['lang' => $locale, 'slug' => $slug]);
+        }
+
+        return array_merge(
+            parent::serializeForIndex($request, $fields),
+            [
+                'urls' => $urls,
+                'titles' => $this->resource->getTranslations('title'),
+            ]
+        );
+    }
+
+    public function getParentPageId(): int
+    {
+        if (!empty($this->resource->parent_page_id)) {
+            return $this->resource->parent_page_id;
+        }
+
+        $templateRepository = app(TemplateRepository::class);
+        $homepageId = $templateRepository->getIdForHomepage();
+
+        if (!empty($homepageId) && !$this->resource->homepage) {
+            return $homepageId->getKey();
+        }
+
+        return 0;
+    }
+
+    public static function icon(): string
+    {
+        return '<svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" 
+                    width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path fill="var(--sidebar-icon)"
+                        d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9
+                        2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                </svg>';
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->resource->status == TemplateModel::_STATUS_PUBLISHED
+            && ($this->resource->publish_at <= Carbon::now() || $this->resource->publish_at == null);
+    }
+
     /**
      * @return array
      *
@@ -168,7 +220,6 @@ class Template extends Resource
         ];
     }
 
-
     /**
      * Affiche les champs pour les balises meta de la page
      *
@@ -229,38 +280,5 @@ class Template extends Resource
                     'value' => data_get($this, 'follow', true),
                 ])->hideFromIndex(),
         ];
-    }
-
-    public function getParentPageId(): int
-    {
-        if (!empty($this->resource->parent_page_id)) {
-            return $this->resource->parent_page_id;
-        }
-
-        $templateRepository = app(TemplateRepository::class);
-        $homepageId = $templateRepository->getIdForHomepage();
-
-        if (!empty($homepageId) && !$this->resource->homepage) {
-            return $homepageId->getKey();
-        }
-
-        return 0;
-    }
-
-    public static function icon(): string
-    {
-        return '<svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" 
-                    width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M0 0h24v24H0z" fill="none"/>
-                    <path fill="var(--sidebar-icon)"
-                        d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9
-                        2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
-                </svg>';
-    }
-
-    public function isPublished(): bool
-    {
-        return $this->resource->status == TemplateModel::_STATUS_PUBLISHED
-            && ($this->resource->publish_at <= Carbon::now() || $this->resource->publish_at == null);
     }
 }
