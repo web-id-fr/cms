@@ -22,7 +22,7 @@ Route::group(['middleware' => 'cacheable'], function () {
 
     Route::group([
         'prefix' => '{lang}',
-        'middleware' => ['web', 'pages', 'language', 'check-language-exist'],
+        'middleware' => ['web', 'pages', 'language', 'check-language-exist', 'redirect-to-homepage'],
     ], function () {
         // Homepage
         Route::get('/', [TemplateController::class, 'index'])->name('home');
