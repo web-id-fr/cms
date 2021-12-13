@@ -7,6 +7,7 @@ use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Select;
+use Webid\AdvancedUrlField\AdvancedUrl;
 use Webid\Cms\Modules\Form\Nova\Form;
 use Webid\TranslatableTool\Translatable;
 use Laravel\Nova\Resource;
@@ -72,8 +73,7 @@ class MenuCustomItem extends Resource
                 ->hideFromIndex(),
 
             NovaDependencyContainer::make([
-                Translatable::make(__('Url'), 'url')
-                    ->singleLine()
+                AdvancedUrl::make(__('Url'), 'url')
                     ->hideFromIndex(),
 
                 Select::make(__('Target'), 'target')

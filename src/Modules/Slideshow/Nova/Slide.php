@@ -5,6 +5,7 @@ namespace Webid\Cms\Modules\Slideshow\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Infinety\Filemanager\FilemanagerField;
+use Webid\AdvancedUrlField\AdvancedUrl;
 use Webid\TranslatableTool\Translatable;
 use Webid\Cms\Modules\Slideshow\Models\Slide as SlideModel;
 use Laravel\Nova\Resource;
@@ -68,13 +69,11 @@ class Slide extends Resource
                 ->rules('array')
                 ->hideFromIndex(),
 
-            Translatable::make(__('CTA link'), 'cta_url')
-                ->singleLine()
+            AdvancedUrl::make(__('CTA link'), 'cta_url')
                 ->rules('array')
                 ->hideFromIndex(),
 
-            Translatable::make(__('Url'), 'url')
-                ->singleLine()
+            AdvancedUrl::make(__('Url'), 'url')
                 ->rules('array')
                 ->hideFromIndex(),
 

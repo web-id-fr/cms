@@ -6,6 +6,10 @@
         {
             "name": "Elise",
             "email": "elise@web-id.fr"
+        },
+        {
+            "name": "Wilfried",
+            "email": "wilfried@web-id.fr"
         }
     ],
     "minimum-stability": "dev",
@@ -48,6 +52,7 @@
             "Webid\\ImageItemField\\" : "src/nova-components/ImageItemField/src/",
             "Webid\\LanguageTool\\" : "src/nova-components/LanguageTool/src/",
             "Webid\\TranslatableTool\\" : "src/nova-components/TranslatableTool/src/",
+            "Webid\\AdvancedUrlField\\": "src/nova-components/AdvancedUrlField/src/",
             "Webid\\MenuTool\\" : "src/nova-components/MenuTool/src/",
             "Webid\\MenuItemField\\" : "src/nova-components/MenuItemField/src/",
             "Webid\\CardActions\\" : "src/nova-components/CardActions/src/",
@@ -82,6 +87,7 @@
                 "Webid\\ImageItemField\\FieldServiceProvider",
                 "Webid\\LanguageTool\\ToolServiceProvider",
                 "Webid\\TranslatableTool\\FieldServiceProvider",
+                "Webid\\AdvancedUrlField\\FieldServiceProvider",
                 "Webid\\MenuTool\\ToolServiceProvider",
                 "Webid\\MenuItemField\\FieldServiceProvider",
                 "Webid\\CardActions\\CardServiceProvider",
