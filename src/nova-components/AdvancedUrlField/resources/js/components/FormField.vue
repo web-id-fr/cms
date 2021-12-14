@@ -1,5 +1,5 @@
 <template>
-  <default-field :field="field" :errors="errors" :show-help-text="showHelpText">
+  <default-field :field="field" :errors="errors" :show-help-text="showHelpText" :full-width-content="true" class="advanced-url-field-wrapper">
     <slot name="form-label">
       <form-label :for="field.name">
         <font-awesome-icon icon="flag"/>
@@ -203,3 +203,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.advanced-url-field-wrapper .relative > .flex {
+  height: 100%;
+  min-height: 36px;
+}
+</style>
