@@ -3,6 +3,7 @@
 namespace Webid\Cms\App\Nova;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\URL;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -101,7 +102,7 @@ class Template extends Resource
         $translatedSlugs = $this->resource->getTranslations('slug');
 
         foreach ($translatedSlugs as $locale => $slug) {
-            $urls[$locale] = route('page.show', ['lang' => $locale, 'slug' => $slug]);
+            $urls[$locale] = URL::to($this->resource->getFullPath($locale));
         }
 
         return array_merge(
