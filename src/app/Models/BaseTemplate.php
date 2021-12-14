@@ -20,7 +20,6 @@ use Webid\Cms\App\Models\Traits\HasStatus;
  * Class BaseTemplate
  *
  * @package Webid\Cms\App\Models
- *
  * @property int $id
  * @property array|string $title
  * @property array|string $slug
@@ -141,7 +140,9 @@ abstract class BaseTemplate extends Model implements Menuable
         foreach ($ancestorsAndSelf as $template) {
             if (!$template->homepage) {
                 $translatedAttributes = $template->getTranslationsAttribute();
-                $fullPath = "$fullPath/{$translatedAttributes['slug'][$language]}";
+                if (isset($translatedAttributes['slug'][$language])) {
+                    $fullPath = "$fullPath/{$translatedAttributes['slug'][$language]}";
+                }
             }
         }
 
