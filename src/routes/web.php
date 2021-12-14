@@ -22,11 +22,10 @@ Route::group(['middleware' => 'cacheable'], function () {
 
     Route::group([
         'prefix' => '{lang}',
-        'middleware' => ['web', 'pages', 'language', 'check-language-exist', 'redirect-to-homepage'],
+        'middleware' => ['web', 'pages', 'language', 'check-language-exist'],
     ], function () {
         // Homepage
         Route::get('/', [TemplateController::class, 'index'])->name('home');
-        Route::get('{slug}', [TemplateController::class, 'show'])->name('page.show');
     });
 });
 
@@ -39,6 +38,6 @@ Route::group([
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 # /!\ Cette route doit TOUJOURS être la dernière
-Route::middleware(['web', 'pages', 'language', 'redirect-parent-child', 'redirect-to-homepage'])->group(function () {
+Route::middleware(['web', 'pages', 'language', 'redirect-to-homepage', 'redirect-parent-child'])->group(function () {
     Route::fallback([TemplateController::class, 'show']);
 });

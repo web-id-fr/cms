@@ -192,6 +192,49 @@ class TemplateTest extends TestCase
     }
 
     /** @test */
+    public function we_are_redirected_if_we_access_to_child_page_with_only_its_slug()
+    {
+        $grandParentPage = $this->createPublicTemplate([
+            'slug' => ['fr' => 'grand-parent'],
+        ]);
+        $parentPage = $this->createPublicTemplate([
+            'slug' => ['fr' => 'parent'],
+            'parent_page_id' => $grandParentPage->id,
+        ]);
+        $childPage = $this->createPublicTemplate([
+            'slug' => ['fr' => 'child'],
+            'parent_page_id' => $parentPage->id,
+        ]);
+
+        $this->get('/fr/child')
+            ->assertRedirect('/fr/grand-parent/parent/child');
+
+        $this->get('/fr/parent/child')
+            ->assertRedirect('/fr/grand-parent/parent/child');
+
+        $this->get('/fr/grand-parent/parent/child')
+            ->assertOk();
+    }
+
+    /** @test */
+    public function we_are_not_redirected_when_accessing_to_page_by_its_slug_and_has_homepage_as_parent()
+    {
+        $homepage = $this->createHomepageTemplate([
+            'slug' => ['fr' => 'home'],
+        ]);
+        $page = $this->createPublicTemplate([
+            'slug' => ['fr' => 'ma-page'],
+            'parent_page_id' => $homepage->id,
+        ]);
+
+        $this->get('/fr/ma-page')
+            ->assertOk();
+
+        $this->get('/fr/home/ma-page')
+            ->assertRedirect('/fr/ma-page');
+    }
+
+    /** @test */
     public function we_cant_access_to_the_page_with_incorrect_lang_parameter()
     {
         $this->createHomepageTemplate();
@@ -222,6 +265,20 @@ class TemplateTest extends TestCase
         ]);
 
         $this->get("/fr/fr-slug")->assertSuccessful();
+    }
+
+    /** @test */
+    public function we_get_not_found_error_when_trying_to_show_page_in_inexisting_lang()
+    {
+        $this->createPublicTemplate([
+            'slug' => [
+                'klingon' => 'ngoj',
+                'fr' => 'page',
+            ],
+            'parent_page_id' => $this->createPublicTemplate()->id,
+        ]);
+
+        $this->get('/klingon/ngoj')->assertNotFound();
     }
 }
 
