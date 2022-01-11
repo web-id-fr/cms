@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import {isSelectedChildren, getTranslatedValue, getMenuItemType} from "../../helpers";
+import {getTranslatedValue, getMenuItemType} from "../../helpers";
 
 export default {
   props: {
@@ -79,25 +79,27 @@ export default {
   computed: {
     isSelected() {
       return menuItem => {
-        let selected = this.selected.findIndex(function (elem) {
-          return (_.isEqual(elem.id, menuItem.id) && _.isEqual(elem.menuable_type, menuItem.menuable_type));
-        });
-
-        if (selected >= 0) {
-          return true;
-        } else {
-          for (const [key, value] of Object.entries(this.selected)) {
-            isSelectedChildren(value, menuItem);
-            return menuItem.isSelected;
-          }
-
-          return false;
-        }
-      }
+        return this.menuItemIsInArray(menuItem, this.selected);
+      };
     }
   },
 
   methods: {
+    menuItemIsInArray(needle, haystack) {
+      for (let item of haystack) {
+        let needleWasFound = (
+            item.id == needle.id && item.menuable_type == needle.menuable_type
+            || this.menuItemIsInArray(needle, item.children || [])
+        );
+
+        if (needleWasFound === true) {
+          return true;
+        }
+      }
+
+      return false;
+    },
+
     getMenuItemTitle(menuItem) {
       return getTranslatedValue(menuItem.title, this.currentLocale);
     },
