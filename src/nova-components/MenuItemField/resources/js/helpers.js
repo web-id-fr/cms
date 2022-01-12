@@ -44,30 +44,6 @@ export function removeChildren(value, menuItem) {
     }
 }
 
-export function isSelectedChildren(value, menuItem) {
-    if (_.findIndex(value.children, {
-        'id': menuItem.id,
-        'menuable_type': menuItem.menuable_type
-    }) >= 0) {
-        menuItem.isSelected = true;
-    } else {
-         value.children.filter(function (elem) {
-            if (_.findIndex(elem.children, {
-                'id': menuItem.id,
-                'menuable_type': menuItem.menuable_type
-            }) >= 0) {
-                isSelectedChildren(elem, menuItem)
-            } else {
-                elem.children.filter(function (elem) {
-                    if (typeof elem.children === "object") {
-                        isSelectedChildren(elem, menuItem)
-                    }
-                })
-            }
-        });
-    }
-}
-
 export function showToast(message, defaultMessage = 'An unexpected error occured.') {
     Vue.toasted.show(message || defaultMessage, {
         duration: 6000,
