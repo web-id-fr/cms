@@ -186,7 +186,6 @@ class Template extends Resource
                 ->onlyOnForms(),
 
             PageUrlItemField::make('Url', 'slug')
-                ->projectUrl(config('app.url'))
                 ->urls($this->getFullUrls())
                 ->showOnIndex()
                 ->showOnDetail()

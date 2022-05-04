@@ -22,6 +22,12 @@ parameters:
         - '#Parameter \#1 \$text of method Laravel\\Nova\\Fields\\Field::placeholder\(\) expects string, array\|string\|null given#'
         - '#Parameter \#1 \$view of method Illuminate\\Mail\\Mailable::view\(\) expects view-string, string given\.#'
         - '#Parameter \#1 \$view of function view expects view-string\|null, string\|null given\.#'
+        - '#Unable to resolve the template type TKey in call to function collect#'
+        - '#Unable to resolve the template type TValue in call to function collect#'
+        - '#Cannot access property \$pivot on \(int\|string\)\.#'
+        - '#Illuminate\\Support\\Collection<TKey of \(int\|string\), TValue> does not accept Illuminate\\Support\\Collection<TKey of \(int\|string\), TValue>\.#'
+        - '#Cannot access property \$id on \(int\|string\)\.#'
+        - '#Cannot access property \$title on \(int\|string\)\.#'
         -
             message: '#Possibly invalid array key type array\|string\|null\.#'
             paths:

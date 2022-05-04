@@ -7,23 +7,12 @@ use Webid\Cms\Modules\Galleries\Models\Gallery;
 
 class GalleryRepository
 {
-    /** @var Gallery  */
-    private $model;
-
-    /**
-     * TemplateRepository constructor.
-     *
-     * @param Gallery $model
-     */
-    public function __construct(Gallery $model)
+    public function __construct(private Gallery $model)
     {
         $this->model = $model;
     }
 
-    /**
-     * @return Collection<Gallery>
-     */
-    public function getPublishedGalleries()
+    public function getPublishedGalleries(): Collection
     {
         return $this->model->all()
             ->where('status', Gallery::_STATUS_PUBLISHED);

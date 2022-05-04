@@ -7,22 +7,11 @@ use Webid\Cms\App\Models\Components\NewsletterComponent;
 
 class NewsletterComponentRepository
 {
-    /** @var NewsletterComponent */
-    protected $model;
-    /**
-     * Component1Repository constructor.
-     *
-     * @param NewsletterComponent $model
-     */
-    public function __construct(NewsletterComponent $model)
+    public function __construct(private NewsletterComponent $model)
     {
-        $this->model = $model;
     }
 
-    /**
-     * @return Collection<NewsletterComponent>
-     */
-    public function getPublishedComponents()
+    public function getPublishedComponents(): Collection
     {
         return $this->model->all()
             ->where('status', NewsletterComponent::_STATUS_PUBLISHED);

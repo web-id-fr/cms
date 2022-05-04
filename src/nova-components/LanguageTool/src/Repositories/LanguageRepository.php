@@ -2,6 +2,7 @@
 
 namespace Webid\LanguageTool\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Webid\LanguageTool\Models\Language;
 
@@ -32,10 +33,7 @@ class LanguageRepository
         return $this->model->create($data);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection|Language[]
-     */
-    public function all()
+    public function all(): Collection
     {
         return $this->model
             ->all();

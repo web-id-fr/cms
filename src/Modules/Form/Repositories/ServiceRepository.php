@@ -2,36 +2,22 @@
 
 namespace Webid\Cms\Modules\Form\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Webid\Cms\Modules\Form\Models\Service;
 
 class ServiceRepository
 {
-    /** @var Service  */
-    private $model;
-
-    /**
-     * @param Service $model
-     */
-    public function __construct(Service $model)
+    public function __construct(private Service $model)
     {
-        $this->model = $model;
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection|Service[]
-     */
-    public function all()
+    public function all(): Collection
     {
         return $this->model->all();
     }
 
-    /**
-     * @param int $id
-     *
-     * @return mixed
-     */
-    public function get(int $id)
+    public function get(int $id): Service|null
     {
-        return $this->model->find($id);
+        return $this->model->where('id', $id)->first();
     }
 }

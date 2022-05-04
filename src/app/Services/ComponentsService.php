@@ -12,17 +12,10 @@ use Webid\Cms\App\Repositories\Components\NewsletterComponentRepository;
 
 class ComponentsService
 {
-    /** @var Collection|null */
-    private $allComponents = null;
-
-    /** @var GalleryComponentRepository */
-    private $galleryComponentRepository;
-
-    /** @var NewsletterComponentRepository */
-    private $newsletterComponentRepository;
-
-    /** @var CodeSnippetComponentRepository */
-    private $codeSnippetComponentRepository;
+    private Collection|null $allComponents = null;
+    private GalleryComponentRepository $galleryComponentRepository;
+    private NewsletterComponentRepository $newsletterComponentRepository;
+    private CodeSnippetComponentRepository $codeSnippetComponentRepository;
 
     public function getAllComponents(): Collection
     {

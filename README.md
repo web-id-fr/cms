@@ -29,7 +29,7 @@
 
 ## Requirements
 
-* PHP >= 7.4 or >= 8.0
+* PHP >= 8.0
 * Composer 2
 * MariaDB / MySQL
 

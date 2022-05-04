@@ -7,34 +7,17 @@ use Webid\Cms\App\Models\Popin\Popin;
 
 class PopinRepository
 {
-    /** @var Popin */
-    protected $model;
-
-    /**
-     * PopinRepository constructor.
-     *
-     * @param Popin $model
-     */
-    public function __construct(Popin $model)
+    public function __construct(private Popin $model)
     {
-        $this->model = $model;
     }
 
-    /**
-     * @return Collection<Popin>
-     */
-    public function getPublishedPopins()
+    public function getPublishedPopins(): Collection
     {
         return $this->model->all()
             ->where('status', Popin::_STATUS_PUBLISHED);
     }
 
-    /**
-     * @param int $id
-     *
-     * @return mixed
-     */
-    public function findByPageId(int $id)
+    public function findByPageId(int $id): Collection
     {
         return $this->model
             ->whereHas('templates', function ($query) use ($id) {
