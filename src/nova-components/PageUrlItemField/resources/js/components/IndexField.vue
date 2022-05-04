@@ -28,7 +28,7 @@
             },
 
             url() {
-                return this.field.projectUrl + '/' + this.language + '/'  + this.value
+                return this.field.urls[this.language]
             }
         }
     }
