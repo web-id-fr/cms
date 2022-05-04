@@ -98,6 +98,17 @@ class Template extends Resource
 
     public function serializeForIndex(NovaRequest $request, $fields = null)
     {
+        return array_merge(
+            parent::serializeForIndex($request, $fields),
+            [
+                'urls' => $this->getFullUrls(),
+                'titles' => $this->resource->getTranslations('title'),
+            ]
+        );
+    }
+
+    public function getFullUrls(): array
+    {
         $urls = [];
         $translatedSlugs = $this->resource->getTranslations('slug');
 
@@ -105,13 +116,7 @@ class Template extends Resource
             $urls[$locale] = URL::to($this->resource->getFullPath($locale));
         }
 
-        return array_merge(
-            parent::serializeForIndex($request, $fields),
-            [
-                'urls' => $urls,
-                'titles' => $this->resource->getTranslations('title'),
-            ]
-        );
+        return $urls;
     }
 
     public function getParentPageId(): int
@@ -182,6 +187,7 @@ class Template extends Resource
 
             PageUrlItemField::make('Url', 'slug')
                 ->projectUrl(config('app.url'))
+                ->urls($this->getFullUrls())
                 ->showOnIndex()
                 ->showOnDetail()
                 ->hideWhenUpdating()
