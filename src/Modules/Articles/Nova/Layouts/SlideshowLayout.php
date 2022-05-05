@@ -1,7 +1,9 @@
 <?php
 namespace Webid\Cms\Modules\Articles\Nova\Layouts;
 
+use Illuminate\Database\Eloquent\Collection;
 use Laravel\Nova\Fields\Select;
+use Webid\Cms\Modules\Slideshow\Models\Slideshow;
 use Webid\Cms\Modules\Slideshow\Repositories\SlideshowRepository;
 use Whitecube\NovaFlexibleContent\Layouts\Layout;
 

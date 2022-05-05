@@ -12,41 +12,29 @@ use Webid\Cms\App\Http\Controllers\BaseController;
 use Webid\Cms\Modules\Form\Events\FormSent;
 use Webid\Cms\Modules\Form\Http\Requests\FormRequest;
 use Webid\Cms\Modules\Form\Mail\SendForm;
+use Webid\Cms\Modules\Form\Models\Service;
 use Webid\Cms\Modules\Form\Repositories\FormRepository;
 use Webid\Cms\Modules\Form\Repositories\ServiceRepository;
 
 class FormController extends BaseController
 {
-    /** @var ServiceRepository */
-    protected $serviceRepository;
-
-    /** @var FormRepository */
-    protected $formRepository;
-
     /** @var class-string<Mailable> */
     protected $sendConfirmationContact;
 
-    /**
-     * @param ServiceRepository $serviceRepository
-     * @param FormRepository $formRepository
-     */
     public function __construct(
-        ServiceRepository $serviceRepository,
-        FormRepository $formRepository
+        private ServiceRepository $serviceRepository,
+        private FormRepository $formRepository
     ) {
-        $this->serviceRepository = $serviceRepository;
-        $this->formRepository = $formRepository;
         $this->sendConfirmationContact = config('form.send_confirmation_contact_class');
     }
 
     /**
-     * @param FormRequest $request
-     * @return JsonResponse
      * @throws DecryptException
      */
-    protected function handle(FormRequest $request)
+    protected function handle(FormRequest $request): JsonResponse
     {
         if ($request->service) {
+            /** @var Service $service */
             $service = $this->serviceRepository->get($request->service);
             $to = $service->recipients->pluck("email");
         } else {
@@ -81,8 +69,6 @@ class FormController extends BaseController
     }
 
     /**
-     * @param string $extraParametersEncrypted
-     * @return array
      * @throws DecryptException
      */
     private function decryptExtraParameters(string $extraParametersEncrypted): array

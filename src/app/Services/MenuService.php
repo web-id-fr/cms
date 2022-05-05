@@ -166,8 +166,11 @@ class MenuService
             $foundTemplates = collect();
         }
 
+        /** @var array $files */
+        $files = scandir($currentFolder);
+
         // On récupère la liste des fichiers à scanner, en excluant certains fichiers / dossiers à éviter
-        $filesToScan = collect(scandir(($currentFolder)))
+        $filesToScan = collect($files)
             ->filter(function ($item) {
                 $foldersToAvoid = [
                     '.',

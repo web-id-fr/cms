@@ -7,12 +7,8 @@ jobs:
       fail-fast: true
       matrix:
         os: [ ubuntu-20.04 ]
-        php: [ 7.4, 8.0, 8.1 ]
-        laravel: [ 8.* ]
+        php: [8.0]
         stability: [ prefer-stable ]
-        include:
-          - laravel: 8.*
-            testbench: ^6.6
 
     services:
       mysql:
@@ -54,7 +50,6 @@ jobs:
       - name: Installing PHP dependencies
         run: |
           composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader
 
       # Tests migrations

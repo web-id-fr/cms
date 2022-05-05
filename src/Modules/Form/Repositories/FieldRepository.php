@@ -2,25 +2,16 @@
 
 namespace Webid\Cms\Modules\Form\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Webid\Cms\Modules\Form\Models\Field;
 
 class FieldRepository
 {
-    /** @var Field  */
-    private $model;
-
-    /**
-     * @param Field $model
-     */
-    public function __construct(Field $model)
+    public function __construct(private Field $model)
     {
-        $this->model = $model;
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection|Field[]
-     */
-    public function all()
+    public function all(): Collection
     {
         return $this->model->all();
     }

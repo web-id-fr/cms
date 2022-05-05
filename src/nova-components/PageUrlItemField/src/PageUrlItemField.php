@@ -76,13 +76,10 @@ class PageUrlItemField extends Field
         ]);
     }
 
-    /**
-     * @return PageUrlItemField
-     */
-    public function projectUrl(string $url)
+    public function urls(array $urls): PageUrlItemField
     {
         return $this->withMeta([
-            'projectUrl' => $url
+            'urls' => $urls
         ]);
     }
 }

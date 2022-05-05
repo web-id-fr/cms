@@ -132,6 +132,15 @@ abstract class BaseTemplate extends Model implements Menuable
         return $parent->push($this);
     }
 
+    public function getTranslationsAttribute(): array
+    {
+        return collect($this->getTranslatableAttributes())
+            ->mapWithKeys(function (string $key) {
+                return [$key => $this->getTranslations($key)];
+            })
+            ->toArray();
+    }
+
     public function getFullPath(string $language): string
     {
         $fullPath = $language;
