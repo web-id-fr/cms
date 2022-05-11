@@ -40,7 +40,7 @@
             },
 
             url() {
-                return this.field.projectUrl + '/' + this.currentLocale + '/' + this.value
+               return this.field.urls[this.currentLocale]
             }
         },
     }
