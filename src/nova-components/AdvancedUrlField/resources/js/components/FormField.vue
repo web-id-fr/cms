@@ -1,68 +1,61 @@
 <template>
   <default-field :field="field" :errors="errors" :show-help-text="showHelpText" :full-width-content="true" class="advanced-url-field-wrapper">
-    <slot name="form-label">
-      <form-label :for="field.name">
-        <font-awesome-icon icon="flag"/>
-        {{ field.name }}
-        <span v-if="field.required" class="text-danger text-sm">*</span>
-      </form-label>
-    </slot>
     <template slot="field">
-      <search-input
-          v-if="!isReadonly"
-          :data-testid="`${field.resourceName}-search-input`"
-          ref="field"
-          :error="hasError"
-          @input="performSearch"
-          @selected="selectResource"
-          @clear="clearSelection"
-          :data="availableResources"
-          :clearable="field.nullable"
-          :debounce="field.debounce"
-          :value="selectedResource[currentLocale]"
-          trackBy="value"
-          class="w-full"
-      >
-        <slot name="default" v-if="aValueIsSelectedForCurrentLocale" class="flex items-center">
-          {{ currentSelectedLabel }}
-        </slot>
-        <slot name="default" v-else>
-          <div class="text-70">{{ __('Type an URL or search for a page') }}</div>
-        </slot>
+          <search-input
+              v-if="!isReadonly"
+              :data-testid="`${field.resourceName}-search-input`"
+              ref="field"
+              :error="hasError"
+              @input="performSearch"
+              @selected="selectResource"
+              @clear="clearSelection"
+              :data="availableResources"
+              :clearable="field.nullable"
+              :debounce="field.debounce"
+              :value="selectedResource[currentLocale]"
+              trackBy="value"
+              class="w-full"
+          >
+            <slot name="default" v-if="aValueIsSelectedForCurrentLocale" class="flex items-center">
+              {{ currentSelectedLabel }}
+            </slot>
+            <slot name="default" v-else>
+              <div class="text-70">{{ __('Type an URL or search for a page') }}</div>
+            </slot>
 
-        <div
-            slot="option"
-            slot-scope="{ option, selected }"
-            class="flex items-center"
-        >
-          <div>
-            <div class="text-sm font-semibold leading-5 text-90" :class="{ 'text-white': selected }">
-              {{ option.display }}
-            </div>
             <div
-                class="mt-1 text-xs font-semibold leading-5 text-80"
-                :class="{ 'text-white': selected }"
+                slot="option"
+                slot-scope="{ option, selected }"
+                class="flex items-center"
             >
-              <span v-if="option.subtitle">{{ option.subtitle }}</span>
+              <div>
+                <div class="text-sm font-semibold leading-5 text-90" :class="{ 'text-white': selected }">
+                  {{ option.display }}
+                </div>
+                <div
+                    class="mt-1 text-xs font-semibold leading-5 text-80"
+                    :class="{ 'text-white': selected }"
+                >
+                  <span v-if="option.subtitle">{{ option.subtitle }}</span>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </search-input>
+          </search-input>
 
-      <select-control
-          v-if="isReadonly"
-          class="form-control form-select w-full"
-          :class="{ 'border-danger': hasError }"
-          :data-testid="`${field.resourceName}-select`"
-          :dusk="field.attribute"
-          :disabled="true"
-          label="display"
-          :options="[]"
-      >
-        <option value="" selected :disabled="true">
-          {{ currentSelectedLabel }}
-        </option>
-      </select-control>
+          <select-control
+              v-if="isReadonly"
+              class="form-control form-select w-full"
+              :class="{ 'border-danger': hasError }"
+              :data-testid="`${field.resourceName}-select`"
+              :dusk="field.attribute"
+              :disabled="true"
+              label="display"
+              :options="[]"
+          >
+            <option value="" selected :disabled="true">
+              {{ currentSelectedLabel }}
+            </option>
+          </select-control>
     </template>
   </default-field>
 </template>
