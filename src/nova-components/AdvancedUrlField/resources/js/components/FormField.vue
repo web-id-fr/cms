@@ -1,33 +1,20 @@
 <template>
   <default-field :field="field" :errors="errors" :show-help-text="showHelpText" :full-width-content="true" class="advanced-url-field-wrapper">
-    <slot name="form-label">
-      <form-label :for="field.name">
-        <font-awesome-icon icon="flag"/>
-        {{ field.name }}
-        <span v-if="field.required" class="text-danger text-sm">*</span>
-      </form-label>
-    </slot>
     <template slot="field">
       <search-input
           v-if="!isReadonly"
-          :data-testid="`${field.resourceName}-search-input`"
-          ref="field"
-          :error="hasError"
           @input="performSearch"
-          @selected="selectResource"
           @clear="clearSelection"
+          @selected="selectResource"
+          :error="hasError"
+          :value="selectedResource[currentLocale]"
           :data="availableResources"
           :clearable="field.nullable"
-          :debounce="field.debounce"
-          :value="selectedResource[currentLocale]"
           trackBy="value"
           class="w-full"
       >
         <slot name="default" v-if="aValueIsSelectedForCurrentLocale" class="flex items-center">
           {{ currentSelectedLabel }}
-        </slot>
-        <slot name="default" v-else>
-          <div class="text-70">{{ __('Type an URL or search for a page') }}</div>
         </slot>
 
         <div
@@ -69,22 +56,13 @@
 
 <script>
 import {FormField, HandlesValidationErrors} from 'laravel-nova';
-import {library} from '@fortawesome/fontawesome-svg-core';
-import {faFlag} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import _ from "lodash";
-
-library.add(faFlag);
 
 export default {
   mixins: [
     FormField,
     HandlesValidationErrors,
   ],
-
-  components: {
-    'font-awesome-icon': FontAwesomeIcon,
-  },
 
   data: () => ({
     availableResources: [],
@@ -200,6 +178,12 @@ export default {
       )
     },
 
+    /**
+     * Return the placeholder text for the field.
+     */
+    placeholder() {
+      return this.field.placeholder || this.__('Type an URL or search for a page')
+    },
   }
 }
 </script>
