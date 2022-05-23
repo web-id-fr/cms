@@ -42,8 +42,6 @@ parameters:
         -
             message: '#Access to an undefined property object::\$.*\.#'
             path: src/app/Models/Menu/Menu.php
-        -
-            message: '#Result of && is always false\.#'
-            path: src/app/Services/MenuBladeDirective/Menu.php
+
     checkMissingIterableValueType: false
 
