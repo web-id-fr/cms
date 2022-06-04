@@ -5,7 +5,7 @@
         @else
             @if(!empty($item['title']))
                 <li>
-                    <a href="{{ get_full_url_for_page($item['slug']) }}">
+                    <a href="{{ $item['url'] }}">
                         {{ $item['title'] }}
                     </a>
                 </li>
