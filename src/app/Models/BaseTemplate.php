@@ -158,6 +158,26 @@ abstract class BaseTemplate extends Model implements Menuable
         return $fullPath;
     }
 
+    public function getBreadcrumb(string $language): array
+    {
+        $fullPath = $language;
+        $breadcrumb = [];
+        $ancestorsAndSelf = $this->ancestorsAndSelf();
+
+        foreach ($ancestorsAndSelf as $key => $template) {
+            $translatedAttributes = $template->getTranslationsAttribute();
+            if (isset($translatedAttributes['slug'][$language])) {
+                $breadcrumb[$key]['url'] = "/$fullPath/{$translatedAttributes['slug'][$language]}";
+                $breadcrumb[$key]['title'] = $translatedAttributes['title'][$language];
+                if (!$template->homepage) {
+                    $fullPath = "$fullPath/{$translatedAttributes['slug'][$language]}";
+                }
+            }
+        }
+
+        return $breadcrumb;
+    }
+
     public function referencePage(): BelongsTo
     {
         return $this->belongsTo(Template::class)

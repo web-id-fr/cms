@@ -3,6 +3,7 @@
 namespace Webid\Cms\App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\App;
 use Webid\Cms\App\Http\Resources\Components\ComponentResource;
 
 class TemplateResource extends JsonResource
@@ -31,7 +32,7 @@ class TemplateResource extends JsonResource
             'meta_keywords' => $this->resource->meta_keywords,
             'items' => ComponentResource::collection($this->resource->related)->resolve(),
             'menu_description' => $this->resource->menu_description,
-            'breadcrumb' => ParentPageResource::collection($this->resource->ancestorsAndSelf())->resolve(),
+            'breadcrumb' => $this->resource->getBreadcrumb(App::getLocale()),
         ];
     }
 
