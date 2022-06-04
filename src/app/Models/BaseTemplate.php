@@ -168,7 +168,7 @@ abstract class BaseTemplate extends Model implements Menuable
             $translatedAttributes = $template->getTranslationsAttribute();
             if (isset($translatedAttributes['slug'][$language])) {
                 $breadcrumb[$key]['url'] = "/$fullPath/{$translatedAttributes['slug'][$language]}";
-                $breadcrumb[$key]['title'] = $translatedAttributes['title'][$language];
+                $breadcrumb[$key]['title'] = $translatedAttributes['title'][$language] ?? "";
                 if (!$template->homepage) {
                     $fullPath = "$fullPath/{$translatedAttributes['slug'][$language]}";
                 }
