@@ -48,7 +48,7 @@ class MenuItemResource extends JsonResource
                     'is_popin' => true,
                 ]),
                 $this->mergeWhen(MenuCustomItem::_LINK_URL == $menuable->type_link, [
-                    'url' => "/" . app()->getLocale() . "/$menuable->url",
+                    'url' => $menuable->url,
                     'target' => $menuable->target,
                 ]),
             ]),
