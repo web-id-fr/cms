@@ -50,6 +50,10 @@ class MenuService
         }
 
         try {
+            if (!app(LanguageService::class)->exists(app()->getLocale())) {
+                app()->setLocale(app(LanguageService::class)->getFromBrowser());
+            }
+            
             $menus = MenuResource::collection($this->menuRepository->all())->resolve();
         } catch (Throwable $exception) {
             $menus = [];
