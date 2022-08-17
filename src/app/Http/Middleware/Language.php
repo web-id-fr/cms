@@ -17,13 +17,13 @@ class Language
     public function handle(Request $request, Closure $next)
     {
         $explodedPath = array_filter(explode('/', $request->path()));
-        $browserLocal = app(LanguageService::class)->getFromBrowser();
+
         $locale = $request->lang
             ?? array_shift($explodedPath)
             ?? null;
 
-        if ($locale === null || !app(LanguageService::class)->exists($locale)) {
-            return redirect($browserLocal);
+        if ($locale === null) {
+            return redirect(app(LanguageService::class)->getFromBrowser());
         } else {
             app()->setLocale($locale);
             URL::defaults(['lang' => $locale]);
