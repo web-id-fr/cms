@@ -17,6 +17,7 @@ class Language
     public function handle(Request $request, Closure $next)
     {
         $explodedPath = array_filter(explode('/', $request->path()));
+
         $locale = $request->lang
             ?? array_shift($explodedPath)
             ?? null;
