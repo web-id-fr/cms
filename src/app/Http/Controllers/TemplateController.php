@@ -96,6 +96,7 @@ class TemplateController extends BaseController
             $path = $request->path();
             $slugs = explode('/', $path);
             $slug = end($slugs);
+            $requestPage = request()->input('page');
 
             $template = $this->templateRepository->getBySlugWithRelations(
                 $slug,
@@ -103,6 +104,26 @@ class TemplateController extends BaseController
             );
 
             $data = TemplateResource::make($template)->resolve();
+
+            $mustUsePaginationForArticlesList = config('cms.use_pagination_for_article_list');
+            $pageContainArticleListAndRequestPage = !empty($requestPage) && $data['contain_article_list'];
+
+            if ($mustUsePaginationForArticlesList && $pageContainArticleListAndRequestPage) {
+                foreach ($data['items'] as $item) {
+                    $componentViewIsSameThatArticleListView = $item['component']['view']
+                        === config('cms.article_list_view');
+                    $requestPageIsNotNumeric = !is_numeric($requestPage);
+                    $requestPageIsLessThan1 = $requestPage < 1;
+                    $requestPageIsHigherThanTheLastPage = $requestPage > $item['component']['pagination']['paginator']
+                            ->lastPage();
+
+                    if ($componentViewIsSameThatArticleListView
+                        && ($requestPageIsNotNumeric || $requestPageIsLessThan1 || $requestPageIsHigherThanTheLastPage)
+                    ) {
+                        abort(404);
+                    }
+                }
+            }
 
             $popins = $this->popinRepository->findByPageId(data_get($data, 'id'));
 
