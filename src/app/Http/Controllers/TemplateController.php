@@ -105,17 +105,22 @@ class TemplateController extends BaseController
 
             $data = TemplateResource::make($template)->resolve();
 
-            if (config('cms.use_pagination_for_article_list')) {
-                if (!empty($requestPage) && $data['contain_article_list']) {
-                    foreach ($data['items'] as $item) {
-                        if ($item['component']['view'] === config('cms.article_list_view')) {
-                            if (!is_numeric($requestPage)
-                                || $requestPage < 1
-                                || $requestPage > $item['component']['pagination']['paginator']->lastPage()
-                            ) {
-                                abort(404);
-                            }
-                        }
+            $mustUsePaginationForArticlesList = config('cms.use_pagination_for_article_list');
+            $pageContainArticleListAndRequestPage = !empty($requestPage) && $data['contain_article_list'];
+
+            if ($mustUsePaginationForArticlesList && $pageContainArticleListAndRequestPage) {
+                foreach ($data['items'] as $item) {
+                    $componentViewIsSameThatArticleListView = $item['component']['view']
+                        === config('cms.article_list_view');
+                    $requestPageIsNotNumeric = !is_numeric($requestPage);
+                    $requestPageIsLessThan1 = $requestPage < 1;
+                    $requestPageIsHigherThanTheLastPage = $requestPage > $item['component']['pagination']['paginator']
+                            ->lastPage();
+
+                    if ($componentViewIsSameThatArticleListView
+                        && ($requestPageIsNotNumeric || $requestPageIsLessThan1 || $requestPageIsHigherThanTheLastPage)
+                    ) {
+                        abort(404);
                     }
                 }
             }
