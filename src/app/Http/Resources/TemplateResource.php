@@ -33,6 +33,7 @@ class TemplateResource extends JsonResource
             'items' => ComponentResource::collection($this->resource->related)->resolve(),
             'menu_description' => $this->resource->menu_description,
             'breadcrumb' => $this->resource->getBreadcrumb(App::getLocale()),
+            'contain_article_list' => (bool) $this->resource->contains_articles_list,
         ];
     }
 
