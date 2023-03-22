@@ -48,8 +48,6 @@ jobs:
           ./vendor/bin/testbench migrate:fresh
           ./vendor/bin/testbench migrate:rollback
           ./vendor/bin/testbench migrate
-        env:
-          DB_PORT: 32574
 
       # Tests that just need composer dependencies
       - name: Running security checker
