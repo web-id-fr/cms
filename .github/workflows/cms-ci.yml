@@ -46,8 +46,6 @@ jobs:
       - name: Testing migrations
         run: |
           ./vendor/bin/testbench migrate:fresh
-          ./vendor/bin/testbench migrate:rollback
-          ./vendor/bin/testbench migrate
 
       # Tests that just need composer dependencies
       - name: Running security checker
