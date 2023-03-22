@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class AddDeleteOnCascadeInFormServiceTable extends Migration
 {
@@ -14,8 +15,10 @@ class AddDeleteOnCascadeInFormServiceTable extends Migration
     public function up()
     {
         Schema::table('form_service', function (Blueprint $table) {
-            $table->dropForeign('form_service_form_id_foreign');
-            $table->dropForeign('form_service_service_id_foreign');
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign('form_service_form_id_foreign');
+                $table->dropForeign('form_service_service_id_foreign');
+            }
             $table->foreign('form_id')->references('id')->on('forms')->cascadeOnDelete();
             $table->foreign('service_id')->references('id')->on('services')->cascadeOnDelete();
         });
@@ -29,8 +32,10 @@ class AddDeleteOnCascadeInFormServiceTable extends Migration
     public function down()
     {
         Schema::table('form_service', function (Blueprint $table) {
-            $table->dropForeign('form_service_form_id_foreign');
-            $table->dropForeign('form_service_service_id_foreign');
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign('form_service_form_id_foreign');
+                $table->dropForeign('form_service_service_id_foreign');
+            }
             $table->foreign('form_id')->references('id')->on('forms');
             $table->foreign('service_id')->references('id')->on('services');
         });
