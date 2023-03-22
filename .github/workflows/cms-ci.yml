@@ -2,17 +2,12 @@ name: CMS CI
 on: [push]
 jobs:
   cms-ci:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [ ubuntu-20.04 ]
-        php: [8.0]
-        stability: [ prefer-stable ]
+    runs-on: ubuntu-20.04
+    name: "CI CMS"
 
     services:
       mysql:
-        image: mariadb:10.5.8
+        image: mysql:5.7
         env:
           MYSQL_DATABASE: cms_test
           MYSQL_USER: cms_test
@@ -22,16 +17,15 @@ jobs:
           - 32574:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
-
     steps:
 
       # Setup
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: '8.0'
           tools: composer:v2
+          coverage: none
 
       - uses: actions/checkout@v2
 
