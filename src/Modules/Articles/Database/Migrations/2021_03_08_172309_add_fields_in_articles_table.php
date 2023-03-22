@@ -17,7 +17,6 @@ class AddFieldsInArticlesTable extends Migration
             $table->integer('order')->nullable();
             $table->boolean('not_display_in_list')->default(false);
             $table->integer('article_type')->default('');
-            $table->longText('quotation')->nullable();
             $table->longText('author')->nullable();
         });
     }
@@ -33,7 +32,6 @@ class AddFieldsInArticlesTable extends Migration
             $table->dropColumn('order');
             $table->dropColumn('not_display_in_list');
             $table->dropColumn('article_type');
-            $table->dropColumn('quotation');
             $table->dropColumn('author');
         });
     }
