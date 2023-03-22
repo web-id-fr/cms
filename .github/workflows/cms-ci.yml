@@ -41,6 +41,9 @@ jobs:
           key: ${{ runner.os }}-composer-cms
           restore-keys: ${{ runner.os }}-composer-
 
+      - name: Starting MySQL
+        run: sudo systemctl start mysql.service
+
       - name: Installing PHP dependencies
         run: |
           composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
