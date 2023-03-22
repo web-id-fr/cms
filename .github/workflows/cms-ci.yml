@@ -35,7 +35,9 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Starting MySQL
-        run: sudo systemctl start mysql.service
+        run: |
+          sudo systemctl start mysql.service
+          PRAGMA foreign_keys=1
 
       - name: Installing PHP dependencies
         run: |
