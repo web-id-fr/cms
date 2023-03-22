@@ -14,7 +14,7 @@ class CreateMigrationsTable extends Migration
     public function up()
     {
         if (!Schema::hasTable('migrations')) {
-            Schema::create('projects', function (Blueprint $table) {
+            Schema::create('migrations', function (Blueprint $table) {
                 $table->unsignedInteger('id');
                 $table->string('name');
                 $table->integer('batch');
