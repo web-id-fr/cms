@@ -50,6 +50,9 @@ class TestCase extends OrchestraTestCase
             // Charge les factories du core
             return "Webid\\Cms\\Database\\Factories\\" . class_basename($modelName) . 'Factory';
         });
+
+        $this->loadLaravelMigrations(['--database' => 'testbench']);
+        $this->artisan('migrate', ['--database' => 'testbench'])->run();
     }
 
     /**
