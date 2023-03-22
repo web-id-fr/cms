@@ -51,8 +51,8 @@ class TestCase extends OrchestraTestCase
             return "Webid\\Cms\\Database\\Factories\\" . class_basename($modelName) . 'Factory';
         });
 
-        $this->loadLaravelMigrations(['--database' => 'testbench']);
-        $this->artisan('migrate', ['--database' => 'testbench'])->run();
+        $this->loadLaravelMigrations(['--database' => 'mysql']);
+        $this->artisan('migrate', ['--database' => 'mysql'])->run();
     }
 
     /**
