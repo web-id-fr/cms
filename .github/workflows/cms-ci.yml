@@ -15,6 +15,11 @@ jobs:
           tools: composer:v2
           coverage: none
 
+      - name: Setup NODE
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - uses: actions/checkout@v2
 
       # Preparing environment
