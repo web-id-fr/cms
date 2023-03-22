@@ -21,6 +21,15 @@ class Redirection extends Resource
     public static $model = RedirectionModel::class;
 
     /**
+     * The columns that should be searched.
+     * @var array
+     */
+    public static $search = [
+        'source_url',
+        'destination_url',
+    ];
+
+    /**
      * @param Request $request
      * @return array
      */

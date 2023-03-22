@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class AddParentIdFieldInTemplatesTable extends Migration
 {
@@ -27,7 +28,9 @@ class AddParentIdFieldInTemplatesTable extends Migration
     public function down()
     {
         Schema::table('templates', function (Blueprint $table) {
-            $table->dropForeign('templates_parent_page_id_foreign');
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign('templates_parent_page_id_foreign');
+            }
             $table->dropColumn('parent_page_id');
         });
     }

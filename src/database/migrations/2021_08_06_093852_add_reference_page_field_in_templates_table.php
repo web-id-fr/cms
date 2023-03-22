@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class AddReferencePageFieldInTemplatesTable extends Migration
 {
@@ -27,7 +28,9 @@ class AddReferencePageFieldInTemplatesTable extends Migration
     public function down()
     {
         Schema::table('templates', function (Blueprint $table) {
-            $table->dropForeign('templates_reference_page_id_foreign');
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign('templates_reference_page_id_foreign');
+            }
             $table->dropColumn('reference_page_id');
         });
     }

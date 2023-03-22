@@ -2,13 +2,8 @@ name: CMS CI
 on: [push]
 jobs:
   cms-ci:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [ ubuntu-20.04 ]
-        php: [8.0]
-        stability: [ prefer-stable ]
+    runs-on: ubuntu-20.04
+    name: "CI CMS"
 
     services:
       mysql:
@@ -22,23 +17,27 @@ jobs:
           - 32574:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
-
     steps:
 
       # Setup
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: '8.0'
           tools: composer:v2
+          coverage: none
+
+      - name: Setup NODE
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
       - uses: actions/checkout@v2
 
       # Preparing environment
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
         uses: actions/cache@v2
@@ -46,17 +45,16 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-cms
           restore-keys: ${{ runner.os }}-composer-
-
+  
       - name: Installing PHP dependencies
         run: |
           composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
-          composer update --${{ matrix.stability }} --prefer-dist --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader
+          composer update --prefer-dist --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader
 
       # Tests migrations
       - name: Testing migrations
         run: |
           ./vendor/bin/testbench migrate:fresh
-          ./vendor/bin/testbench migrate:rollback
           ./vendor/bin/testbench migrate
         env:
           DB_PORT: 32574

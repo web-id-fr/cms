@@ -14,7 +14,7 @@ class AddFieldForFormsTable extends Migration
     public function up()
     {
         Schema::table('forms', function(Blueprint $table) {
-            $table->longText('cta_name');
+            $table->longText('cta_name')->default('');
             $table->longText('rgpd_mention')->nullable();
             $table->longText('description')->nullable()->change();
         });
