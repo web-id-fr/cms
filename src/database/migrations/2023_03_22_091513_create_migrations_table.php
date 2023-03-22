@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateMigrationsTable extends Migration
 {
@@ -13,7 +14,7 @@ class CreateMigrationsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('migrations')) {
+        if (DB::getDriverName() === 'sqlite') {
             Schema::create('migrations', function (Blueprint $table) {
                 $table->unsignedInteger('id');
                 $table->string('name');
@@ -29,6 +30,8 @@ class CreateMigrationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('migrations');
+        if (DB::getDriverName() === 'sqlite') {
+            Schema::dropIfExists('migrations');
+        }
     }
 }
