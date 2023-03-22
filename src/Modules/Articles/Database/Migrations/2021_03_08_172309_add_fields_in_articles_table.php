@@ -16,7 +16,7 @@ class AddFieldsInArticlesTable extends Migration
         Schema::table('articles', function (Blueprint $table) {
             $table->integer('order')->nullable();
             $table->boolean('not_display_in_list')->default(false);
-            $table->integer('article_type');
+            $table->integer('article_type')->default('');
             $table->longText('quotation')->nullable();
             $table->longText('author')->nullable();
         });
